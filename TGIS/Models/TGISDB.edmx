@@ -1,0 +1,1631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TGISDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="AdministratorID" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="AnnouncedDate" Type="date" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BeginDate" Type="date" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" Nullable="false" />
+          <Property Name="PointsRequired" Type="int" Nullable="false" />
+          <Property Name="LimitedAmount" Type="int" />
+          <Property Name="RemainedAmount" Type="int" />
+          <Property Name="ExchangedAmount" Type="int" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="DistrictName" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+          <Property Name="Plaintiff" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Defendent" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TypeTagID" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GameCategoryDetail">
+          <Key>
+            <PropertyRef Name="TableGameID" />
+            <PropertyRef Name="CategoryTagID" />
+          </Key>
+          <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="CategoryTagID" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MessageDate" Type="datetime" Nullable="false" />
+          <Property Name="Speaker" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsPrivate" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NormalOffer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="ADImage" Type="image" Nullable="false" />
+          <Property Name="Title" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="BeginDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Clicks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="image" Nullable="false" />
+          <Property Name="SourceID" Type="char" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayerImage" Type="image" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="DistrictID" Type="int" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
+          <Property Name="IsBanned" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerCouponDetail">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+            <PropertyRef Name="CouponID" />
+          </Key>
+          <Property Name="PlayerID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="CouponID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Code" Type="bigint" Nullable="false" />
+          <Property Name="ExchangedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsUsed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerPointDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="ChangedAmount" Type="int" Nullable="false" />
+          <Property Name="Cause" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ChangedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelevantLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ShopName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="OpeningHours" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DistrictID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="IsMinConsumeRequired" Type="bit" Nullable="false" />
+          <Property Name="IsFoodAcceptable" Type="bit" Nullable="false" />
+          <Property Name="AreaScale" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Tel" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="60" />
+          <Property Name="Line" Type="nvarchar" MaxLength="30" />
+          <Property Name="Website" Type="nvarchar(max)" />
+          <Property Name="IsVIP" Type="bit" Nullable="false" />
+          <Property Name="ExpireDate" Type="date" />
+          <Property Name="AccumulatedHours" Type="int" />
+          <Property Name="IsAccountEnabled" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TableGame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="ChineseName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="EnglishName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsExtended" Type="bit" Nullable="false" />
+          <Property Name="MinPlayer" Type="smallint" Nullable="false" />
+          <Property Name="MaxPlayer" Type="smallint" Nullable="false" />
+          <Property Name="AverageGamePeroid" Type="smallint" Nullable="false" />
+          <Property Name="DetailGamePeroid" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Feature" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rules" Type="nvarchar(max)" />
+          <Property Name="IsShown" Type="bit" Nullable="false" />
+          <Property Name="DifficultyTagID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="BrandTagID" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableGameComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentDate" Type="date" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="PlayerID" Type="char" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableGameInShopDetail">
+          <Key>
+            <PropertyRef Name="TableGameID" />
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="IsSale" Type="bit" Nullable="false" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="TableGameVisitedStatistic">
+          <Key>
+            <PropertyRef Name="VisitedDate" />
+          </Key>
+          <Property Name="VisitedDate" Type="date" Nullable="false" />
+          <Property Name="Clicks" Type="int" Nullable="false" />
+          <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="TagName" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="LeaderPlayerID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="Title" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ParticipateBeginDate" Type="datetime" Nullable="false" />
+          <Property Name="ParticipateEndDate" Type="datetime" Nullable="false" />
+          <Property Name="PlayBeginTime" Type="datetime" Nullable="false" />
+          <Property Name="PlayEndTime" Type="datetime" Nullable="false" />
+          <Property Name="MinPlayers" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PlayPreference" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="EstimatedCost" Type="money" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeamDetail">
+          <Key>
+            <PropertyRef Name="TeamID" />
+            <PropertyRef Name="OtherPlayerID" />
+          </Key>
+          <Property Name="TeamID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="OtherPlayerID" Type="char" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <Association Name="Relationship14">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameInShopDetail" Type="Self.TableGameInShopDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameInShopDetail">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship15">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="TableGameInShopDetail" Type="Self.TableGameInShopDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameInShopDetail">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship16">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="NormalOffer" Type="Self.NormalOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NormalOffer">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship17">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship19">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="TeamDetail" Type="Self.TeamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TeamDetail">
+              <PropertyRef Name="OtherPlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship20">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship24">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="AdministratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship25">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="TeamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship26">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGame">
+              <PropertyRef Name="DifficultyTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship27">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGame">
+              <PropertyRef Name="BrandTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship28">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameVisitedStatistic" Type="Self.TableGameVisitedStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameVisitedStatistic">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship29">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="TeamDetail" Type="Self.TeamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TeamDetail">
+              <PropertyRef Name="TeamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship30">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="LeaderPlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship31">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship32">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="GameCategoryDetail" Type="Self.GameCategoryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameCategoryDetail">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship33">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="GameCategoryDetail" Type="Self.GameCategoryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameCategoryDetail">
+              <PropertyRef Name="CategoryTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship34">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="RelevantLink" Type="Self.RelevantLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RelevantLink">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship36">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship37">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship38">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayerCouponDetail" Type="Self.PlayerCouponDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerCouponDetail">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship39">
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="1" />
+          <End Role="PlayerCouponDetail" Type="Self.PlayerCouponDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coupon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerCouponDetail">
+              <PropertyRef Name="CouponID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship40">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayerPointDetail" Type="Self.PlayerPointDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerPointDetail">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship41">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="TypeTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship42">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameComment" Type="Self.TableGameComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameComment">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship43">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="TableGameComment" Type="Self.TableGameComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameComment">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TGISDBModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Announcement" EntityType="Self.Announcement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coupon" EntityType="Self.Coupon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameCategoryDetail" EntityType="Self.GameCategoryDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NormalOffer" EntityType="Self.NormalOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerCouponDetail" EntityType="Self.PlayerCouponDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerPointDetail" EntityType="Self.PlayerPointDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelevantLink" EntityType="Self.RelevantLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableGame" EntityType="Self.TableGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableGameComment" EntityType="Self.TableGameComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableGameInShopDetail" EntityType="Self.TableGameInShopDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableGameVisitedStatistic" EntityType="Self.TableGameVisitedStatistic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamDetail" EntityType="Self.TeamDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Relationship14" Association="Self.Relationship14">
+            <End Role="TableGame" EntitySet="TableGame" />
+            <End Role="TableGameInShopDetail" EntitySet="TableGameInShopDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship15" Association="Self.Relationship15">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="TableGameInShopDetail" EntitySet="TableGameInShopDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship16" Association="Self.Relationship16">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="NormalOffer" EntitySet="NormalOffer" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship17" Association="Self.Relationship17">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Coupon" EntitySet="Coupon" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship19" Association="Self.Relationship19">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="TeamDetail" EntitySet="TeamDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship20" Association="Self.Relationship20">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship24" Association="Self.Relationship24">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="Announcement" EntitySet="Announcement" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship25" Association="Self.Relationship25">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship26" Association="Self.Relationship26">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TableGame" EntitySet="TableGame" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship27" Association="Self.Relationship27">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TableGame" EntitySet="TableGame" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship28" Association="Self.Relationship28">
+            <End Role="TableGame" EntitySet="TableGame" />
+            <End Role="TableGameVisitedStatistic" EntitySet="TableGameVisitedStatistic" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship29" Association="Self.Relationship29">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="TeamDetail" EntitySet="TeamDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship30" Association="Self.Relationship30">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship31" Association="Self.Relationship31">
+            <End Role="City" EntitySet="City" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship32" Association="Self.Relationship32">
+            <End Role="TableGame" EntitySet="TableGame" />
+            <End Role="GameCategoryDetail" EntitySet="GameCategoryDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship33" Association="Self.Relationship33">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="GameCategoryDetail" EntitySet="GameCategoryDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship34" Association="Self.Relationship34">
+            <End Role="TableGame" EntitySet="TableGame" />
+            <End Role="RelevantLink" EntitySet="RelevantLink" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship36" Association="Self.Relationship36">
+            <End Role="District" EntitySet="District" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship37" Association="Self.Relationship37">
+            <End Role="District" EntitySet="District" />
+            <End Role="Shop" EntitySet="Shop" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship38" Association="Self.Relationship38">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayerCouponDetail" EntitySet="PlayerCouponDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship39" Association="Self.Relationship39">
+            <End Role="Coupon" EntitySet="Coupon" />
+            <End Role="PlayerCouponDetail" EntitySet="PlayerCouponDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship40" Association="Self.Relationship40">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="PlayerPointDetail" EntitySet="PlayerPointDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship41" Association="Self.Relationship41">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship42" Association="Self.Relationship42">
+            <End Role="TableGame" EntitySet="TableGame" />
+            <End Role="TableGameComment" EntitySet="TableGameComment" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship43" Association="Self.Relationship43">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="TableGameComment" EntitySet="TableGameComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TGISDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Announcements" Relationship="Self.Relationship24" FromRole="Administrator" ToRole="Announcement" />
+        </EntityType>
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="AdministratorID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="AnnouncedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Title" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Administrator" Relationship="Self.Relationship24" FromRole="Announcement" ToRole="Administrator" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Districts" Relationship="Self.Relationship31" FromRole="City" ToRole="District" />
+        </EntityType>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PointsRequired" Type="Int32" Nullable="false" />
+          <Property Name="LimitedAmount" Type="Int32" />
+          <Property Name="RemainedAmount" Type="Int32" />
+          <Property Name="ExchangedAmount" Type="Int32" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Shop" Relationship="Self.Relationship17" FromRole="Coupon" ToRole="Shop" />
+          <NavigationProperty Name="PlayerCouponDetails" Relationship="Self.Relationship39" FromRole="Coupon" ToRole="PlayerCouponDetail" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="DistrictName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.Relationship31" FromRole="District" ToRole="City" />
+          <NavigationProperty Name="Players" Relationship="Self.Relationship36" FromRole="District" ToRole="Player" />
+          <NavigationProperty Name="Shops" Relationship="Self.Relationship37" FromRole="District" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Plaintiff" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Defendent" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeTagID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TypeTag" Relationship="Self.Relationship41" FromRole="Feedback" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MessageDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Speaker" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsPrivate" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Team" Relationship="Self.Relationship25" FromRole="Message" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="NormalOffer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ADImage" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Clicks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shop" Relationship="Self.Relationship16" FromRole="NormalOffer" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NickName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlayerImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="DistrictID" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="IsBanned" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="District" Relationship="Self.Relationship36" FromRole="Player" ToRole="District" />
+          <NavigationProperty Name="TeamsForLeader" Relationship="Self.Relationship30" FromRole="Player" ToRole="Team" />
+          <NavigationProperty Name="PlayerCouponDetails" Relationship="Self.Relationship38" FromRole="Player" ToRole="PlayerCouponDetail" />
+          <NavigationProperty Name="PlayerPointDetails" Relationship="Self.Relationship40" FromRole="Player" ToRole="PlayerPointDetail" />
+          <NavigationProperty Name="TableGameComments" Relationship="Self.Relationship43" FromRole="Player" ToRole="TableGameComment" />
+          <NavigationProperty Name="TeamsForOtherPlayer" Relationship="Self.TeamDetail" FromRole="Player" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="PlayerCouponDetail">
+          <Key>
+            <PropertyRef Name="PlayerID" />
+            <PropertyRef Name="CouponID" />
+          </Key>
+          <Property Name="PlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CouponID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="Int64" Nullable="false" />
+          <Property Name="ExchangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Coupon" Relationship="Self.Relationship39" FromRole="PlayerCouponDetail" ToRole="Coupon" />
+          <NavigationProperty Name="Player" Relationship="Self.Relationship38" FromRole="PlayerCouponDetail" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="PlayerPointDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ChangedAmount" Type="Int32" Nullable="false" />
+          <Property Name="Cause" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Player" Relationship="Self.Relationship40" FromRole="PlayerPointDetail" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="RelevantLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TableGame" Relationship="Self.Relationship34" FromRole="RelevantLink" ToRole="TableGame" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShopName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OpeningHours" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DistrictID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsMinConsumeRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsFoodAcceptable" Type="Boolean" Nullable="false" />
+          <Property Name="AreaScale" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Line" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVIP" Type="Boolean" Nullable="false" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="0" />
+          <Property Name="AccumulatedHours" Type="Int32" />
+          <Property Name="IsAccountEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Coupons" Relationship="Self.Relationship17" FromRole="Shop" ToRole="Coupon" />
+          <NavigationProperty Name="District" Relationship="Self.Relationship37" FromRole="Shop" ToRole="District" />
+          <NavigationProperty Name="NormalOffers" Relationship="Self.Relationship16" FromRole="Shop" ToRole="NormalOffer" />
+          <NavigationProperty Name="TableGameInShopDetails" Relationship="Self.Relationship15" FromRole="Shop" ToRole="TableGameInShopDetail" />
+          <NavigationProperty Name="Teams" Relationship="Self.Relationship20" FromRole="Shop" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="TableGame">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ChineseName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsExtended" Type="Boolean" Nullable="false" />
+          <Property Name="MinPlayer" Type="Int16" Nullable="false" />
+          <Property Name="MaxPlayer" Type="Int16" Nullable="false" />
+          <Property Name="AverageGamePeroid" Type="Int16" Nullable="false" />
+          <Property Name="DetailGamePeroid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Feature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsShown" Type="Boolean" Nullable="false" />
+          <Property Name="DifficultyTagID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BrandTagID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RelevantLinks" Relationship="Self.Relationship34" FromRole="TableGame" ToRole="RelevantLink" />
+          <NavigationProperty Name="TableGameInShopDetails" Relationship="Self.Relationship14" FromRole="TableGame" ToRole="TableGameInShopDetail" />
+          <NavigationProperty Name="DifficultyTag" Relationship="Self.Relationship26" FromRole="TableGame" ToRole="Tag" />
+          <NavigationProperty Name="BrandTag" Relationship="Self.Relationship27" FromRole="TableGame" ToRole="Tag" />
+          <NavigationProperty Name="TableGameVisitedStatistics" Relationship="Self.Relationship28" FromRole="TableGame" ToRole="TableGameVisitedStatistic" />
+          <NavigationProperty Name="TableGameComments" Relationship="Self.Relationship42" FromRole="TableGame" ToRole="TableGameComment" />
+          <NavigationProperty Name="GameCategoryTags" Relationship="Self.GameCategoryDetail" FromRole="TableGame" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="TableGameComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Content" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Self.Relationship43" FromRole="TableGameComment" ToRole="Player" />
+          <NavigationProperty Name="TableGame" Relationship="Self.Relationship42" FromRole="TableGameComment" ToRole="TableGame" />
+        </EntityType>
+        <EntityType Name="TableGameInShopDetail">
+          <Key>
+            <PropertyRef Name="TableGameID" />
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IsSale" Type="Boolean" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Shop" Relationship="Self.Relationship15" FromRole="TableGameInShopDetail" ToRole="Shop" />
+          <NavigationProperty Name="TableGame" Relationship="Self.Relationship14" FromRole="TableGameInShopDetail" ToRole="TableGame" />
+        </EntityType>
+        <EntityType Name="TableGameVisitedStatistic">
+          <Key>
+            <PropertyRef Name="VisitedDate" />
+          </Key>
+          <Property Name="VisitedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Clicks" Type="Int32" Nullable="false" />
+          <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TableGame" Relationship="Self.Relationship28" FromRole="TableGameVisitedStatistic" ToRole="TableGame" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TagName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Feedbacks" Relationship="Self.Relationship41" FromRole="Tag" ToRole="Feedback" />
+          <NavigationProperty Name="TableGamesForDifficulty" Relationship="Self.Relationship26" FromRole="Tag" ToRole="TableGame" />
+          <NavigationProperty Name="TableGamesForBrand" Relationship="Self.Relationship27" FromRole="Tag" ToRole="TableGame" />
+          <NavigationProperty Name="TableGamesForGameCategory" Relationship="Self.GameCategoryDetail" FromRole="Tag" ToRole="TableGame" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LeaderPlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ParticipateBeginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ParticipateEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PlayBeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PlayEndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MinPlayers" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlayPreference" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EstimatedCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Messages" Relationship="Self.Relationship25" FromRole="Team" ToRole="Message" />
+          <NavigationProperty Name="LeaderPlayer" Relationship="Self.Relationship30" FromRole="Team" ToRole="Player" />
+          <NavigationProperty Name="Shop" Relationship="Self.Relationship20" FromRole="Team" ToRole="Shop" />
+          <NavigationProperty Name="OtherPlayers" Relationship="Self.TeamDetail" FromRole="Team" ToRole="Player" />
+        </EntityType>
+        <Association Name="Relationship24">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="AdministratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship31">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship17">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship39">
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="1" />
+          <End Role="PlayerCouponDetail" Type="Self.PlayerCouponDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coupon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerCouponDetail">
+              <PropertyRef Name="CouponID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship36">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship37">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shop">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship41">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="TypeTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship25">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="TeamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship16">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="NormalOffer" Type="Self.NormalOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NormalOffer">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship30">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="LeaderPlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship38">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayerCouponDetail" Type="Self.PlayerCouponDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerCouponDetail">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship40">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="PlayerPointDetail" Type="Self.PlayerPointDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlayerPointDetail">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship43">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="TableGameComment" Type="Self.TableGameComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameComment">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship34">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="RelevantLink" Type="Self.RelevantLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RelevantLink">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship15">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="TableGameInShopDetail" Type="Self.TableGameInShopDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameInShopDetail">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship20">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship14">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameInShopDetail" Type="Self.TableGameInShopDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameInShopDetail">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship26">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGame">
+              <PropertyRef Name="DifficultyTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship27">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGame">
+              <PropertyRef Name="BrandTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship28">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameVisitedStatistic" Type="Self.TableGameVisitedStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameVisitedStatistic">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship42">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
+          <End Role="TableGameComment" Type="Self.TableGameComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameComment">
+              <PropertyRef Name="TableGameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GameCategoryDetail">
+          <End Role="TableGame" Type="Self.TableGame" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <Association Name="TeamDetail">
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TGISDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+          <EntitySet Name="Announcements" EntityType="Self.Announcement" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Coupons" EntityType="Self.Coupon" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="NormalOffers" EntityType="Self.NormalOffer" />
+          <EntitySet Name="Photos" EntityType="Self.Photo" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="PlayerCouponDetails" EntityType="Self.PlayerCouponDetail" />
+          <EntitySet Name="PlayerPointDetails" EntityType="Self.PlayerPointDetail" />
+          <EntitySet Name="RelevantLinks" EntityType="Self.RelevantLink" />
+          <EntitySet Name="Shops" EntityType="Self.Shop" />
+          <EntitySet Name="TableGames" EntityType="Self.TableGame" />
+          <EntitySet Name="TableGameComments" EntityType="Self.TableGameComment" />
+          <EntitySet Name="TableGameInShopDetails" EntityType="Self.TableGameInShopDetail" />
+          <EntitySet Name="TableGameVisitedStatistics" EntityType="Self.TableGameVisitedStatistic" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="Relationship24" Association="Self.Relationship24">
+            <End Role="Administrator" EntitySet="Administrators" />
+            <End Role="Announcement" EntitySet="Announcements" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship31" Association="Self.Relationship31">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship17" Association="Self.Relationship17">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Coupon" EntitySet="Coupons" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship39" Association="Self.Relationship39">
+            <End Role="Coupon" EntitySet="Coupons" />
+            <End Role="PlayerCouponDetail" EntitySet="PlayerCouponDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship36" Association="Self.Relationship36">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship37" Association="Self.Relationship37">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Shop" EntitySet="Shops" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship41" Association="Self.Relationship41">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship25" Association="Self.Relationship25">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship16" Association="Self.Relationship16">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="NormalOffer" EntitySet="NormalOffers" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship30" Association="Self.Relationship30">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship38" Association="Self.Relationship38">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayerCouponDetail" EntitySet="PlayerCouponDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship40" Association="Self.Relationship40">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="PlayerPointDetail" EntitySet="PlayerPointDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship43" Association="Self.Relationship43">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="TableGameComment" EntitySet="TableGameComments" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship34" Association="Self.Relationship34">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="RelevantLink" EntitySet="RelevantLinks" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship15" Association="Self.Relationship15">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="TableGameInShopDetail" EntitySet="TableGameInShopDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship20" Association="Self.Relationship20">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship14" Association="Self.Relationship14">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="TableGameInShopDetail" EntitySet="TableGameInShopDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship26" Association="Self.Relationship26">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="TableGame" EntitySet="TableGames" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship27" Association="Self.Relationship27">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="TableGame" EntitySet="TableGames" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship28" Association="Self.Relationship28">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="TableGameVisitedStatistic" EntitySet="TableGameVisitedStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship42" Association="Self.Relationship42">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="TableGameComment" EntitySet="TableGameComments" />
+          </AssociationSet>
+          <AssociationSet Name="GameCategoryDetail" Association="Self.GameCategoryDetail">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="TeamDetail" Association="Self.TeamDetail">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TGISDBModelStoreContainer" CdmEntityContainer="TGISDBEntities">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="TGISDBModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Announcements">
+            <EntityTypeMapping TypeName="TGISDBModel.Announcement">
+              <MappingFragment StoreEntitySet="Announcement">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
+                <ScalarProperty Name="AnnouncedDate" ColumnName="AnnouncedDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TGISDBModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="TGISDBModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupon">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="PointsRequired" ColumnName="PointsRequired" />
+                <ScalarProperty Name="LimitedAmount" ColumnName="LimitedAmount" />
+                <ScalarProperty Name="RemainedAmount" ColumnName="RemainedAmount" />
+                <ScalarProperty Name="ExchangedAmount" ColumnName="ExchangedAmount" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="TGISDBModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="TGISDBModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="Plaintiff" ColumnName="Plaintiff" />
+                <ScalarProperty Name="Defendent" ColumnName="Defendent" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="TypeTagID" ColumnName="TypeTagID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="TGISDBModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="Speaker" ColumnName="Speaker" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormalOffers">
+            <EntityTypeMapping TypeName="TGISDBModel.NormalOffer">
+              <MappingFragment StoreEntitySet="NormalOffer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ADImage" ColumnName="ADImage" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="TGISDBModel.Photo">
+              <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="TGISDBModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="PlayerImage" ColumnName="PlayerImage" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerCouponDetails">
+            <EntityTypeMapping TypeName="TGISDBModel.PlayerCouponDetail">
+              <MappingFragment StoreEntitySet="PlayerCouponDetail">
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ExchangedDate" ColumnName="ExchangedDate" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerPointDetails">
+            <EntityTypeMapping TypeName="TGISDBModel.PlayerPointDetail">
+              <MappingFragment StoreEntitySet="PlayerPointDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="ChangedAmount" ColumnName="ChangedAmount" />
+                <ScalarProperty Name="Cause" ColumnName="Cause" />
+                <ScalarProperty Name="ChangedDate" ColumnName="ChangedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelevantLinks">
+            <EntityTypeMapping TypeName="TGISDBModel.RelevantLink">
+              <MappingFragment StoreEntitySet="RelevantLink">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="TGISDBModel.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="OpeningHours" ColumnName="OpeningHours" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsMinConsumeRequired" ColumnName="IsMinConsumeRequired" />
+                <ScalarProperty Name="IsFoodAcceptable" ColumnName="IsFoodAcceptable" />
+                <ScalarProperty Name="AreaScale" ColumnName="AreaScale" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="IsVIP" ColumnName="IsVIP" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="AccumulatedHours" ColumnName="AccumulatedHours" />
+                <ScalarProperty Name="IsAccountEnabled" ColumnName="IsAccountEnabled" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGames">
+            <EntityTypeMapping TypeName="TGISDBModel.TableGame">
+              <MappingFragment StoreEntitySet="TableGame">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ChineseName" ColumnName="ChineseName" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+                <ScalarProperty Name="IsExtended" ColumnName="IsExtended" />
+                <ScalarProperty Name="MinPlayer" ColumnName="MinPlayer" />
+                <ScalarProperty Name="MaxPlayer" ColumnName="MaxPlayer" />
+                <ScalarProperty Name="AverageGamePeroid" ColumnName="AverageGamePeroid" />
+                <ScalarProperty Name="DetailGamePeroid" ColumnName="DetailGamePeroid" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+                <ScalarProperty Name="Rules" ColumnName="Rules" />
+                <ScalarProperty Name="IsShown" ColumnName="IsShown" />
+                <ScalarProperty Name="DifficultyTagID" ColumnName="DifficultyTagID" />
+                <ScalarProperty Name="BrandTagID" ColumnName="BrandTagID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGameComments">
+            <EntityTypeMapping TypeName="TGISDBModel.TableGameComment">
+              <MappingFragment StoreEntitySet="TableGameComment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGameInShopDetails">
+            <EntityTypeMapping TypeName="TGISDBModel.TableGameInShopDetail">
+              <MappingFragment StoreEntitySet="TableGameInShopDetail">
+                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGameVisitedStatistics">
+            <EntityTypeMapping TypeName="TGISDBModel.TableGameVisitedStatistic">
+              <MappingFragment StoreEntitySet="TableGameVisitedStatistic">
+                <ScalarProperty Name="VisitedDate" ColumnName="VisitedDate" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="TGISDBModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="TGISDBModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="LeaderPlayerID" ColumnName="LeaderPlayerID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ParticipateBeginDate" ColumnName="ParticipateBeginDate" />
+                <ScalarProperty Name="ParticipateEndDate" ColumnName="ParticipateEndDate" />
+                <ScalarProperty Name="PlayBeginTime" ColumnName="PlayBeginTime" />
+                <ScalarProperty Name="PlayEndTime" ColumnName="PlayEndTime" />
+                <ScalarProperty Name="MinPlayers" ColumnName="MinPlayers" />
+                <ScalarProperty Name="PlayPreference" ColumnName="PlayPreference" />
+                <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="GameCategoryDetail" TypeName="TGISDBModel.GameCategoryDetail" StoreEntitySet="GameCategoryDetail">
+            <EndProperty Name="TableGame">
+              <ScalarProperty Name="ID" ColumnName="TableGameID" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="ID" ColumnName="CategoryTagID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TeamDetail" TypeName="TGISDBModel.TeamDetail" StoreEntitySet="TeamDetail">
+            <EndProperty Name="Player">
+              <ScalarProperty Name="ID" ColumnName="OtherPlayerID" />
+            </EndProperty>
+            <EndProperty Name="Team">
+              <ScalarProperty Name="ID" ColumnName="TeamID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

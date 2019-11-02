@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 有桌方遊</title>
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link href="~/Content/layoutstyle.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+    
+</head>
+<body class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
+            @*皆連回管理中心首頁*@
+            
+                <span class="h1">
+                    @Html.ActionLink("有桌方遊", "Index", "Home", new { area = "" })
+                </span>               
+                    <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
+                        <i class="fas fa-align-justify"></i> 
+                    </button>           
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#indexSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    <span>&nbsp;首頁管理</span>
+                </a>
+                <ul class="collapse list-unstyled" id="indexSubmenu">
+                    <li>
+                        @Html.ActionLink("公告管理", "RazorTest", "Home", new { area = "" })
+                    </li>
+                    <li>
+                        <a href="#">廣告管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-user "></i>
+                    <span>&nbsp;&nbsp;帳密管理</span>
+</a>
+                <ul class="collapse list-unstyled" id="accountSubmenu">
+                    <li>
+                        <a href="#">玩家</a>
+                    </li>
+                    <li>
+                        <a href="#">店家</a>
+                    </li>
+                    <li>
+                        <a href="#">管理員</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#gameSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-dice"></i>
+                    <span>桌遊管理</span>
+</a>
+                <ul class="collapse list-unstyled" id="gameSubmenu">
+                    <li>
+                        @Html.ActionLink("桌遊資訊", "ShowTableGameListForAdmin", "TableGame")
+                    </li>
+                    <li>
+                        <a href="#">標籤列表</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-users"></i>
+                    <span>揪桌管理</span>
+</a>
+                <ul class="collapse list-unstyled" id="groupSubmenu">
+                    <li>
+                        <a href="#">揪桌資訊</a>
+                    </li>
+                    <li>
+                        <a href="#">訊息管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-envelope"></i>
+                    <span>&nbsp;回報管理</span>
+                        @*因為有圖標所以跟上面不同,要改用Url.Actin設定連結*@
+</a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>&nbsp;評論管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-gift"></i>
+                    <span>&nbsp;優惠券管理</span>
+                </a>
+            </li>            
+        </ul>
+    </nav>
+    <div id="content">
+        <nav class="navbar navbar-light bg-light container-fluid">
+            <strong class="navbar-brand">後台管理中心</strong>
+        </nav>
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');               
+                $('#sidebar>ul>li>.toggle').toggleClass('dropdown-toggle');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>首頁</title>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        footer, header {
+            height: 60px;
+            background-color: blue;
+        }
+
+        #tb_img, #store_img {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+
+        #ad {
+            height: 150px;
+            background-image: url(images/banner.jpg)
+        }
+
+        #ad_img {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="row">
+            <div class="col-12 bg-dark"></div>
+        </div>
+    </header>
+    <div class="container">
+
+        <div id="ad" class="col-md-12"> </div>
+
+        <div class="row">
+            <div class="col-md-3 col-xl-4">
+                <nav class="text-center">
+                    <a href="tbIndex.html"><img id="tb_img" src="images/01.jpg" class="rounded"></a>
+                    <input type="form" class="form-control" value="搜尋">
+                    <img id="store_img" src="images/01.jpg" class="rounded">
+                    <input type="form" class="form-control" value="搜尋">
+                    <img id="ad_img" src="images/pizza.jpg" class="rounded">
+                </nav>
+            </div>
+            <div class="col-md-9 col-xl-8">
+                <section>
+                    <h2>公告事項</h2>
+                    <img src="images/info.PNG">
+                    <h2>揪桌列表</h2>
+                    <img src="images/group.PNG">
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <footer class="col-12"></footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+﻿@model TGIS.Models.TableGame
+
+@{
+    ViewBag.Title = "ShowTableGameDetail";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<style>
+    footer, header {
+        height: 60px;
+        background-color: blue;
+    }
+
+    card {
+        width: 18rem;
+    }
+
+    #sel {
+        padding-top: 5px;
+    }
+</style>
+<div class="row">
+
+    <!--右欄-->
+
+    <div class="col-12">
+
+        <!--上方選擇欄>-->
+
+        <nav class="nav">
+            @Html.ActionLink("首頁", "Index", "Home", null, new { @class="nav-link"})
+            @Html.ActionLink("桌遊百科", "ShowTableGameListForPlayer", "TableGame", null, new { @class="nav-link"})
+            <a class="nav-link" >@Model.ChineseName</a>
+        </nav>
+        <div class="row">
+            <!--圖片-->
+            <div class="col-md-5">
+                <img src="../images/boardGame.jpg" class="img-fluid" />
+            </div>
+            <!--中文名稱-->
+            <div class="col-md-7">
+                <div>
+                    <p>@Model.ChineseName</p>
+                </div>
+                <!--英文名稱-->
+                <div>
+                    <p>@Model.EnglishName</p>
+                </div>
+                <!--特色-->
+                <div>
+                    <p>@Model.Feature</p>
+                </div>
+            </div>
+        </div>
+
+        <!--詳細說明-->
+        <div class="col-md-12">
+            <h3>規則</h3>
+            <p>
+                @Model.Rules
+            </p>
+        </div>
+
+        <!--教學連結-->
+        <h3>教學連結</h3>
+        <div class="card-deck">
+            @foreach (var item in Model.RelevantLinks)
+            {
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <!--猜你喜歡-->
+        <h3>猜你喜歡</h3>
+        <div class="card-deck">
+            <div class="card mt-4">
+                <a href="TG_Detail/dwarves.html">
+                    <div class="card-body">
+                        <img src="../images/boardGame.jpg" class="img-fluid" />
+                    </div>
+                    <div class="card-footer">
+                        矮人10兄弟<br />
+                        Dwarvers
+                    </div>
+                </a>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <img src="../images/boardGame.jpg" class="img-fluid" />
+                </div>
+                <div class="card-footer">
+                    13道線索<br />
+                    13Clues
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <img src="../images/boardGame.jpg" class="img-fluid" />
+                </div>
+                <div class="card-footer">
+                    妙廚上菜<br />
+                    A La Carte
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <img src="../images/boardGame.jpg" class="img-fluid" />
+                </div>
+                <div class="card-footer">
+                    冰酷企鵝<br />
+                    Ice Cool
+                </div>
+            </div>
+        </div>
+
+        <!--評論區-->
+        <h3>評論</h3>
+        @foreach (var comment in Model.TableGameComments)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="../images/user.png" class="img-fluid rounded" />
+                </div>
+
+                <div class="col-md-10 card">
+                    <div class="card-body">
+                        <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                        <p>
+                            @comment.Content
+                        </p>
+                        <p>@comment.CommentDate</p>
+                    </div>
+                </div>
+            </div>
+        <br />
+        }
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@using TGIS.Models
+@model IEnumerable<TableGame>
+
+@{
+    ViewBag.Title = "ShowTableGameList";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<style>
+    footer, header {
+        height: 60px;
+        background-color: blue;
+    }
+
+    card {
+        width: 18rem;
+    }
+
+    #sel {
+        padding-top: 5px;
+    }
+</style>
+
+
+
+<div class="row">
+    <div class="col-md-3 bg-info">
+        <nav class="text-center">
+            <div id="sel" class="text-white">篩選列表</div>
+            <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
+            <input type="button" class="btn btn-warning" value="送出">
+            <img src="images/wifi.PNG" class="img-fluid" />
+        </nav>
+    </div>
+
+    <!--右欄-->
+
+    <div class="col-md-9">
+
+        <!--上方選擇欄>-->
+
+        <nav class="nav">
+            @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
+            <a class="nav-link">桌遊百科</a>
+        </nav>
+
+        <!--桌遊-->
+
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
+            <div class="col-md-3">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <img src="~/images/boardGame.jpg" class="img-fluid" />
+                    </div>
+                    <div class="card-footer">
+                        @item.ChineseName<br />
+                        @item.EnglishName<br />
+                        @Html.ActionLink("查看", "ShowTableGameDetail", new { tableGameID = item.ID })
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

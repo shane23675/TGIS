@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGIS", "TGIS\TGIS.csproj", "{EB277F0B-9C2E-46AA-A9F1-C976B2A9AA15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB277F0B-9C2E-46AA-A9F1-C976B2A9AA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB277F0B-9C2E-46AA-A9F1-C976B2A9AA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB277F0B-9C2E-46AA-A9F1-C976B2A9AA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB277F0B-9C2E-46AA-A9F1-C976B2A9AA15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {927CB034-81A3-460C-B5AB-4898F60CC5BE}
+	EndGlobalSection
+EndGlobal
