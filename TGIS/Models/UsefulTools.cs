@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-//修改測試2
+
 namespace TGIS.Models
 {
     //這個類別是用來放一些在各個Controller都可能用到的函數
@@ -37,12 +37,13 @@ namespace TGIS.Models
             {
                 zeroFill += "0";
             }
-            //拼接成新ID  前綴文字 + 補零 + 編號
+            //拼接成新ID：前綴文字 + 補零 + 編號
             return prefix + zeroFill + num;
         }
         
         //更新資料物件的方法(可在Edit Action使用)
         //參數：objOld 更新前的物件  objNew 更新後的物件
+        //使用範例：UsefulTools.Update(oldTableGame, newTableGame)
         public static void Update<T>(T objOld, T objNew)
         {
             Type t = typeof(T);

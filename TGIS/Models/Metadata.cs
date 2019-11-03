@@ -219,7 +219,7 @@ namespace TGIS.Models
         public int DistrictID { get; set; }
         [DisplayName("地址")]
         public string Address { get; set; }
-        [DisplayName("有無抵銷")]
+        [DisplayName("有無低消")]
         public bool IsMinConsumeRequired { get; set; }
         [DisplayName("飲食規則")]
         public bool IsFoodAcceptable { get; set; }
