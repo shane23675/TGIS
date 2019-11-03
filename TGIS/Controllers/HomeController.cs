@@ -15,5 +15,7 @@ namespace TGIS.Controllers
         {
             return UsefulTools.GetNextID(db.Shops, 1);
         }
+        //衝突測試：
+        //寫一些無意義的東西來看看
     }
 }
