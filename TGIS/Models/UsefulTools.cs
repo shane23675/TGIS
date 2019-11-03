@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-//修改測試
+//修改測試2
 namespace TGIS.Models
 {
     //這個類別是用來放一些在各個Controller都可能用到的函數
