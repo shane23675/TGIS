@@ -15,8 +15,5 @@ namespace TGIS.Controllers
         {
             return UsefulTools.GetNextID(db.Shops, 1);
         }
-        //做了一些修改
-        //改改改
-        //同一個地方做其他修改
     }
 }
