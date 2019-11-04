@@ -15,12 +15,8 @@ namespace TGIS.Controllers
         {
             return UsefulTools.GetNextID(db.Shops, 1);
         }
-        //衝突測試：
-        //寫一些無意義的東西來看看
-        //變更變更
-
-
-
-        //123132
+        //做了一些修改
+        //改改改
+        //同一個地方做其他修改
     }
 }
