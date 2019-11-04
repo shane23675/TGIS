@@ -1,5 +1,6 @@
 ﻿@model TGIS.Models.Shop
 
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -41,7 +42,13 @@
                 @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.District.City.ID, "City", htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.District.City.ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -171,5 +178,20 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ShopIndex")
 </div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    init();
+    $("#CityID").change(init);
+    function init() {
+        CId = $("#CityID").val();
+        $.post("/ajax/generateStateList", { CId }, callback)
+    }
+    function callback(val) {
+        $("#DistrictID").html(val)
+    }
+
+</script>

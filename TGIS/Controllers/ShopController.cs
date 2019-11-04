@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
@@ -23,6 +24,7 @@ namespace TGIS.Controllers
         //管理員創建店家會員
         public ActionResult MgShopCreate()
         {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             return View();
         }
@@ -50,18 +52,18 @@ namespace TGIS.Controllers
         }
 
         //店家詳細資料
-        public ActionResult MgShopDetail (string id)
+        public ActionResult MgShopDetail(string id)
         {
-            Shop s = db.Shops.Find(id);
-            return View(s);
+
+            return View(db.Shops.Find(id));
         }
 
         //管理員編輯店家
         public ActionResult MgShopEdit(string id)
         {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            Shop s = db.Shops.Find(id);
-            return View(s);
+            return View(db.Shops.Find(id));
         }
         [HttpPost]
         public ActionResult MgShopEdit(Shop shop)
@@ -75,6 +77,5 @@ namespace TGIS.Controllers
             }
             return View(shop);
         }
-
     }
 }
