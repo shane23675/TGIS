@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,22 +6,49 @@
     <title>有桌方遊 - @ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+
+    <style>
+        * {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        header, footer, header a, footer a {
+            color: #f9ebe0;
+            background-color: #0d2149;
+        }
+    </style>
+
+
 </head>
 <body>
     <header>
-        <div class="row">
-            <div class="col-12 bg-dark"></div>
-        </div>
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="#">有桌方遊</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav mr-auto"> </div>
+                <form class="form-inline my-2 my-md-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">搜尋</button>
+                </form>
+                <a class="nav-link" href="#">會員中心</a>
+                <a class="nav-link" href="#">登出</a>
+            </div>
+        </nav>
     </header>
 
     <div class="container">
         @RenderBody()
-        <hr />
     </div>
-    <div class="row">
-        <footer class="col-12"></footer>
-    </div>
+
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-expand-md justify-content-end">
+            <a class="nav-link" href="#">關於我們</a>
+            <a class="nav-link" href="#">聯絡我們</a>
+        </nav>
+    </footer>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

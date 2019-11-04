@@ -1,30 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>桌遊列表</title>
-    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <style>
-        footer, header {
-            height: 60px;
-            background-color: blue;
-        }
-
-        card {
-            width: 18rem;
-        }
-
-        #sel {
-            padding-top: 5px;
+        .card-deck .card {
+            margin-right: 2px;
+            margin-left: 2px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="row">
-            <div class="col-12 bg-dark"></div>
-        </div>
-    </header>
 
     <!--左欄-->
 
@@ -33,7 +20,66 @@
             <div class="col-md-3 bg-info">
                 <nav class="text-center">
                     <div id="sel" class="text-white">篩選列表</div>
-                    <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">分類標籤</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    骰子遊戲<input type="checkbox" id="C01" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    紙牌遊戲<input type="checkbox" id="C02" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    言語遊戲<input type="checkbox" id="C03" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    猜心遊戲<input type="checkbox" id="C04" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    陣營遊戲<input type="checkbox" id="C05" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    巧手動作<input type="checkbox" id="C06" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    競速反應<input type="checkbox" id="C07" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    策略思考<input type="checkbox" id="C08" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    運氣歡樂<input type="checkbox" id="C09" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    互助合作<input type="checkbox" id="C10" />
+                                </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-nowrap">
+                                    獲獎經典<input type="checkbox" id="C11" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <input type="button" class="btn btn-warning" value="送出">
                     <img src="images/wifi.PNG" class="img-fluid" />
                 </nav>
@@ -54,47 +100,107 @@
                 <!--桌遊-->
 
                 <div class="card-deck">
-                    <div class="card mt-4">
-                        <a href="TG_Detail/dwarves.html">
+
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <a href="TG_Detail/dwarves.html">
+                                <div class="card-body">
+                                    <img src="images/10_dwarves.jpg" class="img-fluid" />
+                                </div>
+                                <div class="card-footer">
+                                    矮人10兄弟<br />
+                                    Dwarvers
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card mt-4">
                             <div class="card-body">
-                                <img src="images/10_dwarves.jpg" class="img-fluid" />
+                                <img src="images/13_clues.jpg" class="img-fluid" />
                             </div>
                             <div class="card-footer">
-                                矮人10兄弟<br />
-                                Dwarvers
+                                13道線索<br />
+                                13Clues
                             </div>
-                        </a>
-                    </div>
-
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img src="images/13_clues.jpg" class="img-fluid" />
-                        </div>
-                        <div class="card-footer">
-                            13道線索<br />
-                            13Clues
                         </div>
                     </div>
 
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img src="images/a_la_carte.jpg" class="img-fluid" />
-                        </div>
-                        <div class="card-footer">
-                            妙廚上菜<br />
-                            A La Carte
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/a_la_carte.jpg" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                妙廚上菜<br />
+                                A La Carte
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img src="images/ice_cool.jpg" class="img-fluid" />
-                        </div>
-                        <div class="card-footer">
-                            冰酷企鵝<br />
-                            Ice Cool
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/ice_cool.jpg" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                冰酷企鵝<br />
+                                Ice Cool
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-3">
+                        <div class="card mt-4 ">
+                            <a href="TG_Detail/dwarves.html">
+                                <div class="card-body">
+                                    <img src="images/10_dwarves.jpg" class="img-fluid" />
+                                </div>
+                                <div class="card-footer">
+                                    矮人10兄弟<br />
+                                    Dwarvers
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/13_clues.jpg" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                13道線索<br />
+                                13Clues
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/a_la_carte.jpg" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                妙廚上菜<br />
+                                A La Carte
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/ice_cool.jpg" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                冰酷企鵝<br />
+                                Ice Cool
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
@@ -102,8 +208,5 @@
     </div>
 
 
-    <div class="row">
-        <footer class="col-12"></footer>
-    </div>
 </body>
 </html>
