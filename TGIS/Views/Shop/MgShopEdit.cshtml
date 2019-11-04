@@ -43,17 +43,26 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.District.City.ID, "City", htmlAttributes: new { @class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.District.City.ID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.District.City.ID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("DistrictID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DistrictID">District</label>
+            <div class="col-md-10">
+                <select class="form-control" id="DistrictID" name="DistrictID">
+                    <option value="@Model.DistrictID">@Model.District.DistrictName</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-for="DistrictID" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -188,7 +197,8 @@
     $("#CityID").change(init);
     function init() {
         CId = $("#CityID").val();
-        $.post("/ajax/generateStateList", { CId }, callback)
+        Did = $("DistrictID").val();
+        $.post("/ajax/generateStateList", { CId: CId, Did: Did }, callback)
     }
     function callback(val) {
         $("#DistrictID").html(val)
