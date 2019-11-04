@@ -20,7 +20,8 @@ namespace TGIS.Controllers
             var c = db.Districts.Where(m => m.CityID == CId).ToList();
             foreach (var item in c)
             {
-                if (Did==item.ID)
+                //sb.Append($"<option value='{item.ID}'>{item.DistrictName}</option>");
+                if (Did == item.ID)
                 {
                     sb.Append($"<option value='{item.ID}' Selected>{item.DistrictName}</option>");
                 }
@@ -28,7 +29,7 @@ namespace TGIS.Controllers
                 {
                     sb.Append($"<option value='{item.ID}'>{item.DistrictName}</option>");
                 }
-                    
+
             }
             return Content(sb.ToString());
         }

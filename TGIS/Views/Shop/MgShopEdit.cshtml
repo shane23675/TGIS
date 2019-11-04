@@ -57,7 +57,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="districtID" name="DistrictID" class="form-control"></select>
+                <select id="districtID" name="DistrictID" class="form-control">
+                    <option value="@Model.DistrictID">@Model.District.DistrictName</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -195,12 +197,11 @@
     $("#cityID").change(init);
     function init() {
         CId = $("#cityID").val();
-        $.post("/ajax/generateStateList", { CId: CId }, callback)
+        Did = $("#districtID").val();
+        $.post("/ajax/generateStateList", { CId: CId, Did: Did }, callback)
     }
     function callback(val) {
         $("#districtID").html(val);
-        //讓districtID一開始預設選擇Model對應的行政區
-        $("#districtID").val(@Model.DistrictID);
     }
 
 </script>
