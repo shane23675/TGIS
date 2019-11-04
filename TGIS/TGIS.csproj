@@ -318,10 +318,6 @@
     <Content Include="Views\TableGame\EditTableGame.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutManager.cshtml" />
-    <Content Include="Views\Shop\MgShopCreate.cshtml" />
-    <Content Include="Views\Shop\MgShopDetail.cshtml" />
-    <Content Include="Views\Shop\MgShopEdit.cshtml" />
-    <Content Include="Views\Shop\ShopIndex.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -331,6 +327,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shop\MgShopCreate.cshtml" />
+    <Content Include="Views\Shop\MgShopDetail.cshtml" />
+    <Content Include="Views\Shop\MgShopEdit.cshtml" />
+    <Content Include="Views\Shop\ShopIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
