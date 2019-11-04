@@ -43,26 +43,22 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.District.City.ID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.District.CityID, "City", htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
+                <select id="cityID" class="form-control">
+                    @foreach(SelectListItem option in (SelectList)(ViewBag.CityID))
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.District.City.ID, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DistrictID", null, htmlAttributes: new { @class = "form-control" })
+                <select id="districtID" name="DistrictID" class="form-control"></select>
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-        <div class="form-group">
-            <label class="control-label col-md-2" for="DistrictID">District</label>
-            <div class="col-md-10">
-                <select class="form-control" id="DistrictID" name="DistrictID">
-                    <option value="@Model.DistrictID">@Model.District.DistrictName</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-for="DistrictID" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -193,15 +189,18 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 <script>
+    //讓cityID一開始預設選擇Model對應的城市
+    $("#cityID").val(@Model.District.CityID);
     init();
-    $("#CityID").change(init);
+    $("#cityID").change(init);
     function init() {
-        CId = $("#CityID").val();
-        Did = $("DistrictID").val();
-        $.post("/ajax/generateStateList", { CId: CId, Did: Did }, callback)
+        CId = $("#cityID").val();
+        $.post("/ajax/generateStateList", { CId: CId }, callback)
     }
     function callback(val) {
-        $("#DistrictID").html(val)
+        $("#districtID").html(val);
+        //讓districtID一開始預設選擇Model對應的行政區
+        $("#districtID").val(@Model.DistrictID);
     }
 
 </script>

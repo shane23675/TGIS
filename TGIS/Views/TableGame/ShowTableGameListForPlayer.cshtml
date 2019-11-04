@@ -17,25 +17,25 @@
 <div class="row">
     <div class="col-md-3 bg-info">
         <nav class="text-center">
-            <div id="sel" class="text-white">篩選列表</div>
+            <div id="sel" class="text-white">篩選?�表</div>
             <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
-            <input type="button" class="btn btn-warning" value="送出">
+            <input type="button" class="btn btn-warning" value="?�出">
             <img src="images/wifi.PNG" class="img-fluid" />
         </nav>
     </div>
 
-    <!--右欄-->
+    <!--?��?-->
 
     <div class="col-md-9">
 
-        <!--上方選擇欄>-->
+        <!--上方?��?�?-->
 
         <nav class="nav">
-            @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
-            <a class="nav-link">桌遊百科</a>
+            @Html.ActionLink("首�?", "Index", "Home", null, new { @class = "nav-link" })
+            <a class="nav-link">桌�??��?</a>
         </nav>
 
-        <!--桌遊-->
+        <!--桌�?-->
 
         <div class="card-deck">
             @foreach (var item in Model)
@@ -48,7 +48,7 @@
                     <div class="card-footer">
                         @item.ChineseName<br />
                         @item.EnglishName<br />
-                        @Html.ActionLink("查看", "ShowTableGameDetail", new { tableGameID = item.ID })
+                        @Html.ActionLink("?��?", "ShowTableGameDetail", new { tableGameID = item.ID })
                     </div>
                 </div>
             </div>
