@@ -7,7 +7,7 @@
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-    <link href="~/Content/layoutstyle.css" rel="stylesheet" />
+    <link href="~/Content/layoutstyle-M.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
@@ -17,15 +17,14 @@
 <body class="wrapper">
     <nav id="sidebar">
         <div class="sidebar-header">
-            <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
             @*皆連回管理中心首頁*@
-            
-                <span class="h1">
-                    @Html.ActionLink("有桌方遊", "Index", "Home", new { area = "" })
-                </span>               
-                    <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
-                        <i class="fas fa-align-justify"></i> 
-                    </button>           
+            <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
+            <span class="h1">
+                @Html.ActionLink("有桌方遊", "Index", "Home", new { area = "" })
+            </span>
+            <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
+                <i class="fas fa-align-justify"></i>
+            </button>
         </div>
 
         <ul class="list-unstyled components">
@@ -69,7 +68,7 @@
 </a>
                 <ul class="collapse list-unstyled" id="gameSubmenu">
                     <li>
-                        @Html.ActionLink("桌遊資訊", "ShowTableGameListForAdmin", "TableGame")
+                        <a href="#">桌遊資訊</a>
                     </li>
                     <li>
                         <a href="#">標籤列表</a>

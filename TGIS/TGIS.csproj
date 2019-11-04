@@ -144,7 +144,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\layoutstyle.css" />
+    <Content Include="Content\layoutstyle-M.css" />
+    <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Html\dwarves.html" />
@@ -345,6 +346,7 @@
     <Content Include="Views\Shop\MgShopDetail.cshtml" />
     <Content Include="Views\Shop\MgShopEdit.cshtml" />
     <Content Include="Views\Shop\ShopIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutPlayerCenter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

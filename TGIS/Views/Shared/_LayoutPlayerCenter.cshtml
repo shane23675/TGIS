@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 有桌方遊</title>
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link href="~/Content/layoutstyle-P.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+    
+</head>
+<body class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            @*皆連回會員中心首頁*@
+            <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
+            <span class="h1">
+                @Html.ActionLink("有桌方遊", "Index", "Home", new { area = "" })
+            </span>
+            <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
+                <i class="fas fa-align-justify"></i>
+            </button>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                @*因為圖標放在a標籤裡面,跟上面不同,要改用Url.Action設定連結*@
+                <a href="#">
+                    <i class="fas fa-envelope"></i>
+                    <span>&nbsp;個人資料管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>&nbsp;點數與優惠券管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-users"></i>
+                    <span>我的揪桌管理</span>
+                </a>
+                <ul class="collapse list-unstyled" id="groupSubmenu">
+                    <li>
+                        <a href="#">我參與的桌</a>
+                    </li>
+                    <li>
+                        <a href="#">我開的桌</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="#" class="opengroup">進行開桌</a>
+            </li>           
+        </ul>
+    </nav>
+    <div id="content">
+        <nav class="navbar navbar-light bg-light container-fluid">
+            <strong class="navbar-brand">玩家會員中心</strong>
+        </nav>
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');               
+                $('#sidebar>ul>li>.toggle').toggleClass('dropdown-toggle');
+            });
+        });
+    </script>
+</body>
+</html>
