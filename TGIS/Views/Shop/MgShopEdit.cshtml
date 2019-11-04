@@ -198,7 +198,7 @@
     function init() {
         CId = $("#cityID").val();
         Did = $("#districtID").val();
-        $.post("/ajax/generateStateListEdit", { CId, Did }, callback)
+        $.post("/ajax/generateStateList", { CId, Did }, callback)
     }
     function callback(val) {
         $("#districtID").html(val);

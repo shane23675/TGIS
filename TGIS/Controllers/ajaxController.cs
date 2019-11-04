@@ -8,13 +8,13 @@ using TGIS.Models;
 
 namespace TGIS.Controllers
 {
-    
+
     public class ajaxController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: District
         //連動式列表(行政區)
-        public ActionResult generateStateListEdit(int CId,int Did)
+        public ActionResult generateStateList(int CId, int Did)
         {
             StringBuilder sb = new StringBuilder();
             var c = db.Districts.Where(m => m.CityID == CId).ToList();
@@ -28,16 +28,6 @@ namespace TGIS.Controllers
                 {
                     sb.Append($"<option value='{item.ID}'>{item.DistrictName}</option>");
                 }
-            }
-            return Content(sb.ToString());
-        }
-        public ActionResult generateStateList(int CId)
-        {
-            StringBuilder sb = new StringBuilder();
-            var c = db.Districts.Where(m => m.CityID == CId).ToList();
-            foreach(var item in c)
-            {
-                sb.Append($"<option value='{item.ID}'>{item.DistrictName}</option>");
             }
             return Content(sb.ToString());
         }
