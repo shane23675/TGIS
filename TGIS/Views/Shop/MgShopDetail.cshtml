@@ -139,19 +139,18 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
+        <dd>
+            @Html.DisplayNameFor(m => m.District.City.CityName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(m => m.District.City.CityName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.District.DistrictName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.District.DistrictName)
-        </dd>
-        <dd>
-            @Html.DisplayNameFor(m => m.District.City.CityName)
-        </dd>
-        <dd>
-            @Html.DisplayFor(m => m.District.City.CityName)
         </dd>
     </dl>
 </div>
