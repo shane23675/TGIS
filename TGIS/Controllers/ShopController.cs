@@ -26,6 +26,8 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            //傳入自動生成的ID
+            ViewBag.shopID = UsefulTools.GetNextID(db.Shops, 1);
             return View();
         }
         [HttpPost]

@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Account)
         </th>
         <th>
@@ -19,33 +22,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShopName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpeningHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsMinConsumeRequired)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsFoodAcceptable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AreaScale)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Line)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Website)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsVIP)
@@ -62,17 +38,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(m=>m.District.City.CityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District.DistrictName)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Account)
         </td>
@@ -81,33 +54,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ShopName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpeningHours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsMinConsumeRequired)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsFoodAcceptable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AreaScale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Line)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Website)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsVIP)
@@ -123,12 +69,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(m=>item.District.City.CityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.District.DistrictName)
         </td>
         <td>
             @Html.ActionLink("Edit", "MgShopEdit", new { id=item.ID }) |
