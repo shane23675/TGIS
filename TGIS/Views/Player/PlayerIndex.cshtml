@@ -77,9 +77,10 @@
             @Html.DisplayFor(modelItem => item.District.DistrictName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @*Html.ActionLink("要顯示的名稱", "Action名稱", 傳入路徑參數)*@
+            @Html.ActionLink("Edit", "PlayerEdit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,11 +17,28 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(string SourceID, HttpPostedFileBase Content)
+        public string Index(string SourceID, HttpPostedFileBase Content)
         {
             if (Content.ContentLength > 0)
+            {
+                byte[] photoBytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    Content.InputStream.CopyTo(ms);
+                    photoBytes = ms.GetBuffer();
+                }
+                db.Photos.Add(new Photo { SourceID = SourceID, Content = photoBytes });
+                db.SaveChanges();
+                return "Success";
+            }
+            return "Failed";
         }
 
-        //上傳圖片測試
+        //顯示圖片
+        public ActionResult ShowPhotos()
+        {
+            return View(db.Photos);
+        }
+
     }
 }
