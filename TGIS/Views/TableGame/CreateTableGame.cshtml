@@ -8,10 +8,9 @@
 
 <h2>CreateTableGame</h2>
 
-@using (Html.BeginForm()) 
-{
+<form method="post" action="@Url.Action("CreateTableGame", "TableGame")" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TableGame</h4>
         <hr />
@@ -118,20 +117,27 @@
             </div>
         </div>
         <div class="form-group">
-            <label class = "control-label col-md-2">分類標籤</label>
+            <label class="control-label col-md-2">分類標籤</label>
             <div class="col-md-10">
                 <div class="row">
                     @foreach (Tag t in categoryTagsList)
                     {
-                    <div class="col-md-3 col-lg-2">
-                        <span class="text-nowrap">
-                            @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" />
-                        </span>
-                    </div>
+                        <div class="col-md-3 col-lg-2">
+                            <span class="text-nowrap">
+                                @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" />
+                            </span>
+                        </div>
                     }
                 </div>
-                </div>
+            </div>
         </div>
+        <div class="form-group">
+            <label class = "control-label col-md-2">上傳圖片(可一次選取多張)</label>
+            <div class="col-md-10">
+                <input type="file" class="form-control" name="photos" multiple />
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -139,8 +145,7 @@
             </div>
         </div>
     </div>
-}
-
+</form>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

@@ -60,8 +60,9 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories)
+        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos)
         {
+            //儲存newTableGame
             db.TableGames.Add(newTableGame);
             db.SaveChanges();
             foreach(string sc in selectedCategories)
@@ -69,6 +70,9 @@ namespace TGIS.Controllers
                 newTableGame.GameCategoryTags.Add(db.Tags.Find(sc));
                 db.SaveChanges();
             }
+            //調用PhotoManager中的方法來儲存傳入的圖片
+            UsefulTools.CreatePhoto(newTableGame.ID, photos);
+
             return RedirectToAction("ShowTableGameListForAdmin");
         }
 

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Web;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace TGIS.Models
 {
@@ -13,6 +14,8 @@ namespace TGIS.Models
     //方法請都設定為static
     public static class UsefulTools
     {
+        static TGISDBEntities db = new TGISDBEntities();
+
         //取得字串類型流水號的方法(參數：dataTable為資料表, n為ID前面文字的數量)
         //使用範例：UsefulTools.GetNextID(db.TableGames, 1)  取得桌遊主檔的下一個ID
         public static string GetNextID<T>(IEnumerable<T> dataTable, int n)
@@ -56,6 +59,28 @@ namespace TGIS.Models
                 if (info.GetMethod.IsVirtual)
                     continue;
                 info.SetValue(objOld, info.GetValue(objNew));
+            }
+        }
+
+
+        //新增圖片的方法
+        public static void CreatePhoto(string SourceID, HttpPostedFileBase[] photos)
+        {
+            foreach (HttpPostedFileBase p in photos)
+            {
+                if (p.ContentLength > 0)
+                {
+                    byte[] photoBytes;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        //將檔案資訊複製至ms
+                        p.InputStream.CopyTo(ms);
+                        //將ms轉為二進位資料
+                        photoBytes = ms.GetBuffer();
+                    }
+                    db.Photos.Add(new Photo { SourceID = SourceID, Content = photoBytes, MIMEType = p.ContentType });
+                    db.SaveChanges();
+                }
             }
         }
 
