@@ -38,11 +38,12 @@
                         <div class="card-body">
                             <img src="~/images/boardGame.jpg" class="img-fluid" />
                         </div>
-                        <div class="card-footer">
-                            @item.ChineseName<br />
-                            @item.EnglishName<br />
-                            @Html.ActionLink("¬d¬Ý", "ShowTableGameDetail", new { tableGameID = item.ID })
-                        </div>
+                        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
+                            <div class="card-footer">
+                                @item.ChineseName<br />
+                                @item.EnglishName<br />
+                            </div>
+                        </a>
                     </div>
                 </div>
             }
