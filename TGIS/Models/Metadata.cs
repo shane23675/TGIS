@@ -138,7 +138,7 @@ namespace TGIS.Models
         public byte[] Content { get; set; }
     }
     //玩家主檔
-    public class MetadataPlyer
+    public class MetadataPlayer
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }

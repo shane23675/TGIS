@@ -45,5 +45,7 @@ namespace TGIS.Models
         public virtual DbSet<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+
+        public System.Data.Entity.DbSet<TGIS.Models.MetadataPhoto> MetadataPhotoes { get; set; }
     }
 }
