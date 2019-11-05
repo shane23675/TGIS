@@ -35,9 +35,10 @@ namespace TGIS.Controllers
         }
 
         //顯示圖片
-        public ActionResult ShowPhotos()
+        public ActionResult GetPhoto()
         {
-            return View(db.Photos);
+            //還要再修改
+            return View();
         }
 
     }
