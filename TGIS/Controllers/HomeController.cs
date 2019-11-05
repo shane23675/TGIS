@@ -17,7 +17,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public string Index(string SourceID, HttpPostedFileBase Content)
+        public ActionResult Index(string SourceID, HttpPostedFileBase Content)
         {
             if (Content.ContentLength > 0)
             {
@@ -29,16 +29,17 @@ namespace TGIS.Controllers
                 }
                 db.Photos.Add(new Photo { SourceID = SourceID, Content = photoBytes });
                 db.SaveChanges();
-                return "Success";
+                return RedirectToAction("GetPhoto", new { sourceID = SourceID });
             }
-            return "Failed";
+            return new EmptyResult();
         }
 
-        //顯示圖片
-        public ActionResult GetPhoto()
+        //取得圖片的方法
+        public ActionResult GetPhoto(string sourceID)
         {
-            //還要再修改
-            return View();
+            byte[] photo = db.Photos.Where(m => m.SourceID == sourceID).FirstOrDefault().Content;
+            MemoryStream ms = new MemoryStream(photo);
+            return File(ms.ToArray(), "jpeg");
         }
 
     }

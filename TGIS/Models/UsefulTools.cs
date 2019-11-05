@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace TGIS.Models
 {
@@ -56,5 +58,7 @@ namespace TGIS.Models
                 info.SetValue(objOld, info.GetValue(objNew));
             }
         }
+
+
     }
 }
