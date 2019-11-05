@@ -87,7 +87,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="ADImage" Type="image" Nullable="false" />
           <Property Name="Title" Type="char" MaxLength="20" Nullable="false" />
@@ -103,6 +103,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="image" Nullable="false" />
           <Property Name="SourceID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="MIMEType" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Player">
           <Key>
@@ -782,6 +783,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SourceID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="MIMEType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Player">
           <Key>
@@ -1433,6 +1435,7 @@
           <EntitySetMapping Name="Photos">
             <EntityTypeMapping TypeName="TGISDBModel.Photo">
               <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="MIMEType" ColumnName="MIMEType" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SourceID" ColumnName="SourceID" />
