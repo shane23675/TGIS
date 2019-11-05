@@ -11,9 +11,12 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //首頁
-        public string Index()
+        public ActionResult Index()
         {
-            return UsefulTools.GetNextID(db.Shops, 1);
+            return View();
         }
+
+
+        //上傳圖片測試
     }
 }

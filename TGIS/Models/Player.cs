@@ -13,7 +13,7 @@ namespace TGIS.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    [MetadataType(typeof(MetadataPlayerPointDetail))]
+    [MetadataType(typeof(MetadataPlayer))]
     public partial class Player
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
