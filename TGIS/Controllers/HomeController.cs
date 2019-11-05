@@ -15,7 +15,11 @@ namespace TGIS.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult Index(string SourceID, HttpPostedFileBase Content)
+        {
+            if (Content.ContentLength > 0)
+        }
 
         //上傳圖片測試
     }
