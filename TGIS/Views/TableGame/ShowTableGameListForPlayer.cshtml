@@ -6,52 +6,46 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<style>
-    #sel {
-        padding-top: 5px;
-    }
-</style>
-
-
 
 <div class="row">
     <div class="col-md-3 bg-info">
         <nav class="text-center">
-            <div id="sel" class="text-white">ÁØ©ÈÅ∏ÂàóË°®</div>
+            <div id="sel" class="text-white">øzøÔ¶C™Ì</div>
             <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
-            <input type="button" class="btn btn-warning" value="ÈÄÅÂá∫">
+            <input type="button" class="btn btn-warning" value="∑j¥M">
             <img src="images/wifi.PNG" class="img-fluid" />
         </nav>
     </div>
 
-    <!--Âè≥Ê¨Ñ-->
+    <!--•kƒÊ-->
 
     <div class="col-md-9">
 
-        <!--‰∏äÊñπÈÅ∏ÊìáÊ¨Ñ>-->
+        <!--§W§ËøÔæ‹ƒÊ>-->
 
         <nav class="nav">
-            @Html.ActionLink("È¶ñÈ†Å", "Index", "Home", null, new { @class = "nav-link" })
-            <a class="nav-link">Ê°åÈÅäÁôæÁßë</a>
+            @Html.ActionLink("≠∫≠∂", "Index", "Home", null, new { @class = "nav-link" })
+            <a class="nav-link">Æ‡πC¶ ¨Ï</a>
         </nav>
 
-        <!--Ê°åÈÅä-->
+        <!--Æ‡πC-->
 
         <div class="card-deck">
             @foreach (var item in Model)
             {
-            <div class="col-md-3">
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <img src="~/images/boardGame.jpg" class="img-fluid" />
-                    </div>
-                    <div class="card-footer">
-                        @item.ChineseName<br />
-                        @item.EnglishName<br />
-                        @Html.ActionLink("Êü•Áúã", "ShowTableGameDetail", new { tableGameID = item.ID })
+                <div class="col-md-3 pl-md-0 pr-md-0">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <img src="~/images/boardGame.jpg" class="img-fluid" />
+                        </div>
+                        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
+                            <div class="card-footer">
+                                @item.ChineseName<br />
+                                @item.EnglishName<br />
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
