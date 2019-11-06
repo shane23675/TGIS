@@ -35,6 +35,8 @@ namespace TGIS.Controllers
         {
             //將此桌遊的相關連結傳入ViewBag
             ViewBag.relevantLinks = db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList();
+            //將此桌遊的圖片數量傳入ViewBag
+            ViewBag.photoAmount = db.Photos.Where(m => m.SourceID == tableGameID).Count();
             return View(db.TableGames.Find(tableGameID));
         }
 
@@ -71,7 +73,7 @@ namespace TGIS.Controllers
                 db.SaveChanges();
             }
             //調用PhotoManager中的方法來儲存傳入的圖片
-            UsefulTools.CreatePhoto(newTableGame.ID, photos);
+            PhotoManager.CreatePhoto(newTableGame.ID, photos);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
@@ -84,10 +86,12 @@ namespace TGIS.Controllers
             ViewBag.brandSelectList = GetSelectList('B');
             //將遊戲類別標籤製為List傳入ViewBag
             ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
+            //將圖片的ID的List傳入ViewBag
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
             return View(db.TableGames.Find(tableGameID));
         }
         [HttpPost]
-        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories)
+        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             //通過ID找到舊的tableGame資料
             TableGame oldTableGame = db.TableGames.Find(tableGame.ID);
@@ -128,6 +132,18 @@ namespace TGIS.Controllers
                     }
                 }
             }
+
+            //刪除被勾選的圖片
+            if (deletedPhotoID != null)
+            {
+                foreach (int id in deletedPhotoID)
+                {
+                    PhotoManager.DeletePhoto(id);
+                }
+            }
+            //加入新圖片
+            PhotoManager.CreatePhoto(tableGame.ID, newPhoto);
+
             return RedirectToAction("ShowTableGameListForAdmin");
         }
 
@@ -137,6 +153,9 @@ namespace TGIS.Controllers
             TableGame tg = db.TableGames.Find(tableGameID);
             //刪除對應的GameCategoryTags
             tg.GameCategoryTags.Clear();
+            //刪除對應的圖片
+            PhotoManager.DeletePhoto(tableGameID);
+            //最後再刪除桌遊本身
             db.TableGames.Remove(tg);
             db.SaveChanges();
             return RedirectToAction("ShowTableGameListForAdmin");

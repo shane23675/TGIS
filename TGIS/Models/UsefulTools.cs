@@ -61,29 +61,5 @@ namespace TGIS.Models
                 info.SetValue(objOld, info.GetValue(objNew));
             }
         }
-
-
-        //新增圖片的方法
-        public static void CreatePhoto(string SourceID, HttpPostedFileBase[] photos)
-        {
-            foreach (HttpPostedFileBase p in photos)
-            {
-                if (p.ContentLength > 0)
-                {
-                    byte[] photoBytes;
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        //將檔案資訊複製至ms
-                        p.InputStream.CopyTo(ms);
-                        //將ms轉為二進位資料
-                        photoBytes = ms.GetBuffer();
-                    }
-                    db.Photos.Add(new Photo { SourceID = SourceID, Content = photoBytes, MIMEType = p.ContentType });
-                    db.SaveChanges();
-                }
-            }
-        }
-
-
     }
 }
