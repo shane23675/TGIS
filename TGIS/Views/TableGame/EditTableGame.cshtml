@@ -8,8 +8,7 @@
 
 <h2>EditTableGame</h2>
 
-@using (Html.BeginForm())
-{
+<form method="post" action="@Url.Action("EditTableGame", "TableGame")" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -134,6 +133,33 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="control-label col-md-2">圖片資料</label>
+            <div class="col-md-10 row">
+                @if (ViewBag.photoIDList.Count == 0)
+                {
+                    <p class="text-info">目前尚無任何圖片</p>
+                }
+                else
+                {
+                    foreach (int id in ViewBag.photoIDList)
+                    {
+                        <div class="col-md-4">
+                            <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
+                            刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
+            <div class="col-md-10 row">
+                <input type="file" name="newPhoto" multiple />
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -142,5 +168,4 @@
             </div>
         </div>
     </div>
-}
-
+</form>

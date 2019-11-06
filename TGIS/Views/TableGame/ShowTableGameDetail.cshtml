@@ -24,7 +24,10 @@
         <div class="row">
             <!--圖片-->
             <div class="col-md-5">
-                <img src="../images/boardGame.jpg" class="img-fluid" />
+                @for (int i = 0; i < ViewBag.photoAmount; i++)
+                {
+                    <img src="@Url.Action("GetPhoto", "Photo", new { sourceID=Model.ID, index=i })" class="img-fluid" />
+                }
             </div>
             <!--中文名稱-->
             <div class="col-md-7">
