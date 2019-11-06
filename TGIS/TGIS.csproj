@@ -363,8 +363,8 @@
     <Content Include="Views\Player\PlayerIndex.cshtml" />
     <Content Include="Views\Shop\ShopIndexForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopDetailForPlayer.cshtml" />
-    <Content Include="Views\Shop\ShopEditForShoper.cshtml" />
-    <Content Include="Views\Shop\ShopDetailForShoper.cshtml" />
+    <Content Include="Views\Shop\ShopEditForStore.cshtml" />
+    <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

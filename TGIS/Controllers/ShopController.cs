@@ -91,26 +91,26 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         //店家編輯店家資料
-        public ActionResult ShopEditForShoper(string id)
+        public ActionResult ShopEditForStore(string id)
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             return View(db.Shops.Find(id));
         }
         [HttpPost]
-        public ActionResult ShopEditForShoper(Shop shop)
+        public ActionResult ShopEditForStore(Shop shop)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("ShopDetailForShoper",new {id=shop.ID});
+                return RedirectToAction("ShopDetailForStore",new {id=shop.ID});
             }
             return View(shop);
         }
         //店家看到店家詳細資料
-        public ActionResult ShopDetailForShoper(string id)
+        public ActionResult ShopDetailForStore(string id)
         {
             return View(db.Shops.Find(id));
         }
