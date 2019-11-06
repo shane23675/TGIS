@@ -147,6 +147,7 @@
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\mineCSS.css" />
+    <Content Include="Content\Sidebar_test.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Html\dwarves.html" />
@@ -165,6 +166,7 @@
     <Content Include="Html\images\profile.jpg" />
     <Content Include="Html\images\wifi.PNG" />
     <Content Include="Html\Index.html" />
+    <Content Include="Html\Sidebar_test.html" />
     <Content Include="Html\tbIndex.html" />
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\user.png" />
