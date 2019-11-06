@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -147,7 +153,7 @@
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\mineCSS.css" />
-    <Content Include="Content\Sidebar_test.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Html\dwarves.html" />
@@ -166,7 +172,6 @@
     <Content Include="Html\images\profile.jpg" />
     <Content Include="Html\images\wifi.PNG" />
     <Content Include="Html\Index.html" />
-    <Content Include="Html\Sidebar_test.html" />
     <Content Include="Html\tbIndex.html" />
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\user.png" />
@@ -231,6 +236,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -355,6 +361,10 @@
     <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\Player\PlayerEdit.cshtml" />
     <Content Include="Views\Player\PlayerIndex.cshtml" />
+    <Content Include="Views\Shop\ShopIndexForPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopDetailForPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopEditForStore.cshtml" />
+    <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -362,7 +372,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Login\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
