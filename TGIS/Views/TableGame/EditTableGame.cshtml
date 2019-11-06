@@ -146,7 +146,9 @@
                     {
                         <div class="col-md-4">
                             <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
-                            刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                            <div>
+                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                            </div>
                         </div>
                     }
                 }
