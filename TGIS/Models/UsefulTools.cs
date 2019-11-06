@@ -7,6 +7,7 @@ using System.Web;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web.Mvc;
 
 namespace TGIS.Models
 {
@@ -61,5 +62,19 @@ namespace TGIS.Models
                 info.SetValue(objOld, info.GetValue(objNew));
             }
         }
+
+
+        //從db.Tags取得selectList的方法(參數keyword為要尋找的Tag的ID字首)
+        public static List<SelectListItem> GetSelectListFromTags(char keyword)
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            foreach (Tag t in db.Tags)
+            {
+                if (t.ID[0] == keyword)
+                    selectList.Add(new SelectListItem { Text = t.TagName, Value = t.ID });
+            }
+            return selectList;
+        }
+
     }
 }

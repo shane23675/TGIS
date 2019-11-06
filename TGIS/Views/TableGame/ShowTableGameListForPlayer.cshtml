@@ -11,9 +11,9 @@
     <div class="col-md-2">
         <nav class="text-center">
             <div id="sel" class="text-white">篩選列表</div>
-            <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
+            <img id="tb_img" src="Html/images/select_bar02.png" class="rounded img-fluid">
             <input type="button" class="btn btn-warning" value="送出">
-            <img src="images/wifi.PNG" class="img-fluid" />
+            <img src="~/Html/images/wifi.PNG" class="img-fluid" />
         </nav>
     </div>
 
@@ -36,7 +36,7 @@
                 <div class="col-md-3 pl-md-0 pr-md-0">
                     <div class="card mt-4">
                         <div class="card-body">
-                            <img src="@Url.Action("GetPhoto", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
+                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
                         </div>
                         <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
                             <div class="card-footer">

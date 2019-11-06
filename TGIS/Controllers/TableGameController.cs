@@ -11,16 +11,10 @@ namespace TGIS.Controllers
     public class TableGameController : Controller
     {
          TGISDBEntities db = new TGISDBEntities();
-        //取得selectList的方法(keyword為要尋找的Tag的ID字首)
-        List<SelectListItem> GetSelectList(char keyword)
+
+        public void Test()
         {
-            List<SelectListItem> selectList = new List<SelectListItem>();
-            foreach (Tag t in db.Tags)
-            {
-                if (t.ID[0] == keyword)
-                    selectList.Add(new SelectListItem { Text = t.TagName, Value = t.ID });
-            }
-            return selectList;
+            Dictionary<int, string> d = new Dictionary<int, string>();
         }
 
         //玩家看到的桌遊百科(列表形式)
@@ -36,13 +30,22 @@ namespace TGIS.Controllers
             //將此桌遊的相關連結傳入ViewBag
             ViewBag.relevantLinks = db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList();
             //將此桌遊的圖片數量傳入ViewBag
-            ViewBag.photoAmount = db.Photos.Where(m => m.SourceID == tableGameID).Count();
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
             return View(db.TableGames.Find(tableGameID));
         }
 
         ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
         ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
         ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
+        //更新前的準備
+        private void UpdateTableGamePreparaion()
+        {
+            //傳入標籤資訊到ViewBag
+            ViewBag.difficultySelectList = UsefulTools.GetSelectListFromTags('D');
+            ViewBag.brandSelectList = UsefulTools.GetSelectListFromTags('B');
+            //將遊戲類別標籤製為List傳入ViewBag
+            ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
+        }
 
         //管理員看到的桌遊列表
         public ActionResult ShowTableGameListForAdmin()
@@ -52,11 +55,7 @@ namespace TGIS.Controllers
         //新增桌遊
         public ActionResult CreateTableGame()
         {
-            //傳入標籤資訊到ViewBag
-            ViewBag.difficultySelectList = GetSelectList('D');
-            ViewBag.brandSelectList = GetSelectList('B');
-            //將遊戲類別標籤製為List傳入ViewBag
-            ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
+            UpdateTableGamePreparaion();
             //傳入自動生成的ID
             ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
             return View();
@@ -64,6 +63,15 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos)
         {
+            //無法通過驗證則顯示錯誤訊息
+            if (!ModelState.IsValid)
+            {
+                UpdateTableGamePreparaion();
+                //傳入自動生成的ID
+                ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
+                return View();
+            }
+                
             //儲存newTableGame
             db.TableGames.Add(newTableGame);
             db.SaveChanges();
@@ -81,11 +89,12 @@ namespace TGIS.Controllers
         //編輯桌遊
         public ActionResult EditTableGame(string tableGameID)
         {
-            //傳入標籤資訊到ViewBag
-            ViewBag.difficultySelectList = GetSelectList('D');
-            ViewBag.brandSelectList = GetSelectList('B');
-            //將遊戲類別標籤製為List傳入ViewBag
-            ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
+            ////傳入標籤資訊到ViewBag
+            //ViewBag.difficultySelectList = UsefulTools.GetSelectListFromTags('D');
+            //ViewBag.brandSelectList = UsefulTools.GetSelectListFromTags('B');
+            ////將遊戲類別標籤製為List傳入ViewBag
+            //ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
+            UpdateTableGamePreparaion();
             //將圖片的ID的List傳入ViewBag
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
             return View(db.TableGames.Find(tableGameID));
@@ -93,6 +102,13 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
+            if (!ModelState.IsValid)
+            {
+                UpdateTableGamePreparaion();
+                //將圖片的ID的List傳入ViewBag
+                ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGame.ID);
+                return View(db.TableGames.Find(tableGame.ID));
+            }
             //通過ID找到舊的tableGame資料
             TableGame oldTableGame = db.TableGames.Find(tableGame.ID);
             //使用自訂方法更新
