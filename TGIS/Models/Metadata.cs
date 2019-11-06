@@ -138,7 +138,7 @@ namespace TGIS.Models
         public byte[] Content { get; set; }
     }
     //玩家主檔
-    public class MetadataPlyer
+    public class MetadataPlayer
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
@@ -221,7 +221,7 @@ namespace TGIS.Models
         public string Address { get; set; }
         [DisplayName("有無低消")]
         public bool IsMinConsumeRequired { get; set; }
-        [DisplayName("飲食規則")]
+        [DisplayName("可否外食")]
         public bool IsFoodAcceptable { get; set; }
         [DisplayName("場地規模")]
         public string AreaScale { get; set; }
@@ -239,7 +239,7 @@ namespace TGIS.Models
         public Nullable<System.DateTime> ExpireDate { get; set; }
         [DisplayName("累積加值時數")]
         public Nullable<int> AccumulatedHours { get; set; }
-        [DisplayName("帳號狀態")]
+        [DisplayName("帳號是否啟用")]
         public bool IsAccountEnabled { get; set; }
         [DisplayName("內容描述")]
         public string Description { get; set; }

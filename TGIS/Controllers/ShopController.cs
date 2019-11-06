@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
 
 namespace TGIS.Controllers
 {
@@ -26,6 +27,8 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            //傳入自動生成的ID
+            ViewBag.shopID = UsefulTools.GetNextID(db.Shops, 1);
             return View();
         }
         [HttpPost]
@@ -76,6 +79,40 @@ namespace TGIS.Controllers
                 return RedirectToAction("ShopIndex");
             }
             return View(shop);
+        }
+        //玩家看到的店家列表
+        public ActionResult ShopIndexForPlayer()
+        {
+            return View(db.Shops.ToList());
+        }
+        //玩家看到店家詳細資料
+        public ActionResult ShopDetailForPlayer(string id)
+        {
+            return View(db.Shops.Find(id));
+        }
+        //店家編輯店家資料
+        public ActionResult ShopEditForStore(string id)
+        {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            return View(db.Shops.Find(id));
+        }
+        [HttpPost]
+        public ActionResult ShopEditForStore(Shop shop)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(shop).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("ShopDetailForStore",new {id=shop.ID});
+            }
+            return View(shop);
+        }
+        //店家看到店家詳細資料
+        public ActionResult ShopDetailForStore(string id)
+        {
+            return View(db.Shops.Find(id));
         }
     }
 }

@@ -8,13 +8,13 @@ using TGIS.Models;
 
 namespace TGIS.Controllers
 {
-    
+
     public class ajaxController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: District
         //連動式列表(行政區)
-        public ActionResult generateStateList(int CId,int Did)
+        public ActionResult generateStateList(int CId, int Did)
         {
             StringBuilder sb = new StringBuilder();
             var c = db.Districts.Where(m => m.CityID == CId).ToList();
