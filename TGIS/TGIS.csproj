@@ -237,6 +237,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Hash.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -365,6 +367,8 @@
     <Content Include="Views\Shop\ShopDetailForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopEditForStore.cshtml" />
     <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
+    <Content Include="Views\LoginForAdmin\LoginForAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutEntry.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
