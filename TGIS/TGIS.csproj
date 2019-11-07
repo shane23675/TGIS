@@ -368,6 +368,7 @@
     <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
     <Content Include="Views\LoginForAdmin\LoginForAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutEntry.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameListForPlayer2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
