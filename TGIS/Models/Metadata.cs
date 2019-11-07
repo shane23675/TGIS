@@ -248,8 +248,6 @@ namespace TGIS.Models
     public class MetadataTableGame
     {
         [DisplayName("桌遊編號")]
-        [Required(ErrorMessage = "請輸入桌遊編號")]
-        [StringLength(100)]
         public string ID { get; set; }
         [DisplayName("中文名稱")]
         [Required(ErrorMessage = "請輸入中文名稱")]
