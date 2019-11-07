@@ -7,7 +7,7 @@
 <h2>ShopIndex</h2>
 
 <p>
-    @Html.ActionLink("Create New", "MgShopCreate")
+    @Html.ActionLink("新增一筆資料", "MgShopCreate", null, new { @class="btn btn-primary"})
 </p>
 <table class="table">
     <tr>
@@ -71,9 +71,8 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "MgShopEdit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "MgShopDetail", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "ShopDelete", new { id=item.ID })
+            @Html.ActionLink("編輯", "MgShopEdit", new { id=item.ID }, new { @class="btn btn-secondary"}) 
+            @Html.ActionLink("刪除", "ShopDelete", new { id=item.ID }, new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎？')"})
         </td>
     </tr>
 }

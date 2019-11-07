@@ -31,12 +31,15 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult MgShopCreate(Shop shop)
+        public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
             if (ModelState.IsValid)
             {
                 db.Shops.Add(shop);
                 db.SaveChanges();
+
+                //添加圖片
+                PhotoManager.CreatePhoto(shop.ID, photos);
 
                 return RedirectToAction("ShopIndex");
             }
@@ -46,18 +49,15 @@ namespace TGIS.Controllers
         //刪除店家資料
         public ActionResult ShopDelete(string id)
         {
-            var str = db.Shops.Find(id);
-            db.Shops.Remove(str);
+            //刪除該店家的圖片
+            PhotoManager.DeletePhoto(id);
+
+            //最後再刪除店家本身
+            Shop s = db.Shops.Find(id);
+            db.Shops.Remove(s);
             db.SaveChanges();
 
             return RedirectToAction("ShopIndex");
-        }
-
-        //店家詳細資料
-        public ActionResult MgShopDetail(string id)
-        {
-
-            return View(db.Shops.Find(id));
         }
 
         //管理員編輯店家
@@ -65,15 +65,27 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             return View(db.Shops.Find(id));
         }
         [HttpPost]
-        public ActionResult MgShopEdit(Shop shop)
+        public ActionResult MgShopEdit(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //刪除被勾選的圖片
+                if (deletedPhotoID != null)
+                {
+                    foreach (int id in deletedPhotoID)
+                    {
+                        PhotoManager.DeletePhoto(id);
+                    }
+                }
+                //加入新圖片
+                PhotoManager.CreatePhoto(shop.ID, newPhoto);
 
                 return RedirectToAction("ShopIndex");
             }
