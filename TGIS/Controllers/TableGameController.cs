@@ -89,11 +89,6 @@ namespace TGIS.Controllers
         //編輯桌遊
         public ActionResult EditTableGame(string tableGameID)
         {
-            ////傳入標籤資訊到ViewBag
-            //ViewBag.difficultySelectList = UsefulTools.GetSelectListFromTags('D');
-            //ViewBag.brandSelectList = UsefulTools.GetSelectListFromTags('B');
-            ////將遊戲類別標籤製為List傳入ViewBag
-            //ViewBag.categoryTagsList = db.Tags.Where(t => t.ID.Substring(0, 1) == "C").ToList();
             UpdateTableGamePreparaion();
             //將圖片的ID的List傳入ViewBag
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
@@ -102,6 +97,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
+            //無法通過驗證則顯示錯誤訊息
             if (!ModelState.IsValid)
             {
                 UpdateTableGamePreparaion();

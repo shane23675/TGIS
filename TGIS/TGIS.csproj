@@ -354,7 +354,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shop\MgShopCreate.cshtml" />
-    <Content Include="Views\Shop\MgShopDetail.cshtml" />
     <Content Include="Views\Shop\MgShopEdit.cshtml" />
     <Content Include="Views\Shop\ShopIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayerCenter.cshtml" />
