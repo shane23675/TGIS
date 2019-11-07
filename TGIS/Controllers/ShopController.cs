@@ -6,7 +6,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
-using PagedList;
 
 namespace TGIS.Controllers
 {
