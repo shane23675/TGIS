@@ -15,7 +15,7 @@ namespace TGIS.Controllers
         //取得圖片的方法
         
         //方法一(參數：sourceID 來源ID, index 索引值，也就是第幾張圖片)
-        public ActionResult GetPhoto(string sourceID, int index)
+        public ActionResult GetPhotoBySourceID(string sourceID, int index)
         {
             Photo photo = db.Photos.Where(m => m.SourceID == sourceID).ToList()[index];
             MemoryStream ms = new MemoryStream(photo.Content);

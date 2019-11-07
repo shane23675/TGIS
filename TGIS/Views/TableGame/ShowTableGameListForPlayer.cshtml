@@ -8,27 +8,27 @@
 
 
 <div class="row">
-    <div class="col-md-3 bg-info">
+    <div class="col-md-2">
         <nav class="text-center">
-            <div id="sel" class="text-white">øzøÔ¶C™Ì</div>
-            <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
-            <input type="button" class="btn btn-warning" value="∑j¥M">
-            <img src="images/wifi.PNG" class="img-fluid" />
+            <div id="sel" class="text-white">ÁØ©ÈÅ∏ÂàóË°®</div>
+            <img id="tb_img" src="Html/images/select_bar02.png" class="rounded img-fluid">
+            <input type="button" class="btn btn-warning" value="ÈÄÅÂá∫">
+            <img src="~/Html/images/wifi.PNG" class="img-fluid" />
         </nav>
     </div>
 
-    <!--•kƒÊ-->
+    <!--Âè≥Ê¨Ñ-->
 
-    <div class="col-md-9">
+    <div class="col-md-10">
 
-        <!--§W§ËøÔæ‹ƒÊ>-->
+        <!--‰∏äÊñπÈÅ∏ÊìáÊ¨Ñ-->
 
         <nav class="nav">
-            @Html.ActionLink("≠∫≠∂", "Index", "Home", null, new { @class = "nav-link" })
-            <a class="nav-link">Æ‡πC¶ ¨Ï</a>
+            @Html.ActionLink("È¶ñÈ†Å", "Index", "Home", null, new { @class = "nav-link" })
+            <a class="nav-link">Ê°åÈÅäÁôæÁßë</a>
         </nav>
 
-        <!--Æ‡πC-->
+        <!--Ê°åÈÅä-->
 
         <div class="card-deck">
             @foreach (var item in Model)
@@ -36,7 +36,7 @@
                 <div class="col-md-3 pl-md-0 pr-md-0">
                     <div class="card mt-4">
                         <div class="card-body">
-                            <img src="@Url.Action("GetPhoto", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
+                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
                         </div>
                         <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
                             <div class="card-footer">

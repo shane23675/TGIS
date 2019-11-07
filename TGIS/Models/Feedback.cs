@@ -11,7 +11,10 @@ namespace TGIS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(MetadataFeedback))]
+
     public partial class Feedback
     {
         public string ID { get; set; }
