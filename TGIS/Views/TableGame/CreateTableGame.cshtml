@@ -8,7 +8,8 @@
 
 <h2>CreateTableGame</h2>
 
-<form method="post" action="@Url.Action("CreateTableGame", "TableGame")" enctype="multipart/form-data">
+@using (Html.BeginForm("CreateTableGame", "TableGame", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -132,9 +133,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class = "control-label col-md-2">上傳圖片(可一次選取多張)</label>
+            <label class="control-label col-md-2">上傳圖片(可一次選取多張)</label>
             <div class="col-md-10">
-                <input type="file" class="form-control" name="photos" multiple />
+                <input type="file" name="photos" multiple />
             </div>
         </div>
 
@@ -142,11 +143,9 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="新增" class="btn btn-primary" id="createTableGameSubmitBtn" />
+                @Html.ActionLink("返回", "ShowTableGameListForAdmin", "TableGame", null, new { @class="btn btn-light ml-4"})
             </div>
         </div>
     </div>
-</form>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}
 

@@ -1,7 +1,7 @@
 ﻿@model TGIS.Models.Shop
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("MgShopEdit", "Shop", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -43,10 +43,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.District.CityID, "City", htmlAttributes: new { @class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.District.CityID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select id="cityID" class="form-control">
-                    @foreach(SelectListItem option in (SelectList)(ViewBag.CityID))
+                    @foreach (SelectListItem option in (SelectList)(ViewBag.CityID))
                     {
                         <option value="@option.Value">@option.Text</option>
                     }
@@ -177,16 +177,44 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2">圖片資料</label>
+            <div class="col-md-10 row">
+                @if (ViewBag.photoIDList.Count == 0)
+                {
+                    <p class="text-info">目前尚無任何圖片</p>
+                }
+                else
+                {
+                    foreach (int id in ViewBag.photoIDList)
+                    {
+                        <div class="col-md-4">
+                            <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
+                            <div>
+                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
+            <div class="col-md-10 row">
+                <input type="file" name="newPhoto" multiple />
+            </div>
+        </div>
+
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="儲存" class="btn btn-primary" />
+                @Html.ActionLink("返回", "ShopIndex", null, new { @class="btn btn-light ml-4"})
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "ShopIndex")
-</div>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "ShowTableGameDetail";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    int count = 0;
 }
 
 <style>
@@ -26,12 +27,13 @@
             <div class="col-md-5">
                 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        @for (int i = 0; i < ViewBag.photoAmount; i++)
+                        @foreach (int id in ViewBag.photoIDList)
                         {
-                            string active = i == 0 ? "active" : "";
+                            string active = count == 0 ? "active" : "";
                             <div class="carousel-item @active">
-                                <img src="@Url.Action("GetPhoto", "Photo", new { sourceID=Model.ID, index=i })" class="d-block w-100" />
+                                <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="d-block w-100" />
                             </div>
+                            count = 1;
                         }
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
