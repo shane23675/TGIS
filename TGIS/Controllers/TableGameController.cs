@@ -18,9 +18,10 @@ namespace TGIS.Controllers
         }
 
         //玩家看到的桌遊百科(列表形式)
-        public ActionResult ShowTableGameListForPlayer()
+        public ActionResult ShowTableGameListForPlayer2()
         {
-            db.TableGameComments.Add(new TableGameComment { ID = 1, PlayerID = "TP0001", TableGameID = "T00005", CommentDate = new DateTime(2018, 6, 15), Content = "Nice", IsHidden = false });
+            ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
+            ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             return View(db.TableGames.ToList());
         }
 
