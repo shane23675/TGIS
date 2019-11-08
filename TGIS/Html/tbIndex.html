@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>桌遊列表</title>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/mineCSS.css" rel="stylesheet" />
     <style>
         .card-deck .card {
             margin-right: 2px;
@@ -11,17 +12,35 @@
         }
 
         .custom-control {
-      position: relative;
-      min-height: 1.5rem;
-      padding-left: 0rem;
-    }
+            position: relative;
+            min-height: 1.5rem;
+            padding-left: 0rem;
+        }
 
         .custom-control-inline {
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin-right: 0rem;
-}
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            margin-right: 0rem;
+        }
 
+        /*input[type=radio] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance:none;
+        }*/
+
+        .btn {
+            padding: 0;
+            width: 85%;
+            ;
+            height: auto;
+        }
+
+        .rg {
+            padding: 0;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -35,34 +54,80 @@
                     <div id="sel" class="text-white">篩選列表</div>
                     <div class="form-group">
                         <h3><label class="control-label"><strong>分類標籤</strong></label></h3>
-                        <!--<div class="row">-->
+                        <div class="row">
                             <p class="col-12 mt-3">遊戲難度(單選)</p>
-                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
-                                <input type="radio" class="custom-control-input" id="defaultInline1" value="D02">
-                                <label class="custom-control-label" for="defaultInline1">派對遊戲</label>
+
+                            <div class="col-md-6 col-12 rg">
+                                <!--<div class="btn btn-danger" id="radio_01">-->
+                                <input type="radio" class="btn btn-danger" id="d1" value="D02">
+                                <label class="" for="d1">派對遊戲</label>
+                                <!--</div>-->
                             </div>
 
-                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
-                                <input type="radio" class="custom-control-input" id="defaultInline1">
-                                <label class="custom-control-label" for="defaultInline1">兒童遊戲</label>
+                            <div class="col-md-6 col-12 rg">
+                                <!--<div class="btn btn-danger" id="radio_01">-->
+                                <input type="radio" class="" id="d1" value="D02">
+                                <label class="btn btn-danger" for="d1">派對遊戲</label>
+                                <!--</div>-->
                             </div>
 
-                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
-                                <input type="radio" class="custom-control-input" id="defaultInline1">
-                                <label class="custom-control-label" for="defaultInline1">輕策略</label>
+                            <div class="col-md-6 col-12 rg">
+                                <!--<div class="btn btn-danger" id="radio_01">-->
+                                <input type="radio" class="" id="d1" value="D02">
+                                <label class="btn btn-danger" for="d1">派對遊戲</label>
+                                <!--</div>-->
                             </div>
 
-                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-                                <input type="radio" class="custom-control-input" id="defaultInline1">
-                                <label class="custom-control-label" for="defaultInline1">中策略</label>
+                            <div class="col-md-6 col-12 rg">
+                                <div class="btn btn-danger" id="radio_02">
+                                    <input type="radio" class="" id="d1" value="D02">
+                                    <label class="" for="d1">兒童遊戲</label>
+                                </div>
                             </div>
 
-                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-                                <input type="radio" class="custom-control-input" id="defaultInline1">
-                                <label class="custom-control-label" for="defaultInline1">重策略</label>
+                            <div class="col-md-6 col-12 rg">
+                                <div class="btn btn-danger" id="radio_03">
+                                    <input type="radio" class="" id="d1" value="D02">
+                                    <label class="" for="d1">輕策略</label>
+                                </div>
                             </div>
+
+                            <div class="col-md-6 col-12 rg">
+                                <div class="btn btn-danger" id="radio_03">
+                                    <input type="radio" class="" id="d1" value="D02">
+                                    <label class="" for="d1">中策略</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12 rg">
+                                <div class="btn btn-danger" id="radio_03">
+                                    <input type="radio" class="" id="d1" value="D02">
+                                    <label class="" for="d1">重策略</label>
+                                </div>
+                            </div>
+
+
+                            <!--<div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
+        <input type="radio" class="custom-control-input" id="defaultInline1">
+        <label class="custom-control-label" for="defaultInline1">兒童遊戲</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
+        <input type="radio" class="custom-control-input" id="defaultInline1">
+        <label class="custom-control-label" for="defaultInline1">輕策略</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+        <input type="radio" class="custom-control-input" id="defaultInline1">
+        <label class="custom-control-label" for="defaultInline1">中策略</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+        <input type="radio" class="custom-control-input" id="defaultInline1">
+        <label class="custom-control-label" for="defaultInline1">重策略</label>
+    </div>-->
                             <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                            <p  class="col-12 mt-3">遊戲種類(可複選)</p>
+                            <p class="col-12 mt-3">遊戲種類(可複選)</p>
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6">
                                 <input type="checkbox" class="custom-control-input" id="defaultInline6">
                                 <label class="custom-control-label" for="defaultInline6">骰子遊戲</label>
@@ -118,10 +183,10 @@
                                 <label class="custom-control-label" for="defaultInline16">獲獎經典</label>
                             </div>
 
-                        <!--</div>-->
-                    </div>
-                    <input type="button" class="btn btn-warning" value="送出">
-                    <img src="images/wifi.PNG" class="img-fluid" />
+                            <!--</div>-->
+                        </div>
+                        <input type="button" class="btn btn-warning" value="送出">
+                        <img src="images/wifi.PNG" class="img-fluid" />
                 </nav>
             </div>
 
@@ -247,6 +312,9 @@
             </div>
         </div>
     </div>
+
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/mineJS.js"></script>
 
 </body>
 </html>
