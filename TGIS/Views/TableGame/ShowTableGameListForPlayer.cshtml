@@ -6,47 +6,97 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
+<style>
+    .card-deck .card {
+        margin-right: 2px;
+        margin-left: 2px;
+    }
 
-<div class="row">
-    <div class="col-md-2">
-        <nav class="text-center">
-            <div id="sel" class="text-white">篩選列表</div>
-            <img id="tb_img" src="Html/images/select_bar02.png" class="rounded img-fluid">
-            <input type="button" class="btn btn-warning" value="送出">
-            <img src="~/Html/images/wifi.PNG" class="img-fluid" />
-        </nav>
-    </div>
+    .custom-control {
+        position: relative;
+        min-height: 1.5rem;
+        padding-left: 0rem;
+    }
 
-    <!--右欄-->
+    .custom-control-inline {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        margin-right: 0rem;
+    }
+</style>
 
-    <div class="col-md-10">
 
-        <!--上方選擇欄-->
 
-        <nav class="nav">
-            @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
-            <a class="nav-link">桌遊百科</a>
-        </nav>
+    <!--左欄-->
 
-        <!--桌遊-->
-
-        <div class="card-deck">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-3 pl-md-0 pr-md-0">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
-                        </div>
-                        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
-                            <div class="card-footer">
-                                @item.ChineseName<br />
-                                @item.EnglishName<br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <nav class="text-center">
+                    <div id="sel" class="text-white">篩選列表</div>
+                    <div class="form-group">
+                        <h3><label class="control-label"><strong>分類標籤</strong></label></h3>
+                        <!--<div class="row">-->
+                        <p class="col-12 mt-3">遊戲難度(單選)</p>
+                        @foreach (Tag t in ViewBag.DifficultyTagList)
+                        {
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 text-nowrap">
+                                <input type="radio" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagID" value="@t.ID">
+                                <label class="custom-control-label" for="defaultInline-@t.ID">@t.TagName</label>
                             </div>
-                        </a>
+                        }
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <p class="col-12 mt-3">遊戲種類(可複選)</p>
+                        @foreach (Tag t in ViewBag.CategoryTagList)
+                        {
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                                <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID">
+                                <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
+                            </div>
+                        }
+
+                        <!--</div>-->
                     </div>
+                    <input type="button" class="btn btn-warning" value="送出">
+                    <img src="images/wifi.PNG" class="img-fluid" />
+                </nav>
+            </div>
+
+
+            <!--右欄-->
+
+            <div class="col-md-10">
+
+                <!--上方選擇欄>-->
+
+                <nav class="nav">
+                    <a class="nav-link" href="Index.html">Home</a>
+                    <a class="nav-link" href="#">Library</a>
+                    <a class="nav-link" href="#">Data</a>
+                </nav>
+
+                <!--桌遊-->
+
+                <div class="card-deck">
+
+                    @foreach (TableGame tg in Model)
+                    {
+                        <div class="col-md-3">
+                            <div class="card mt-4">
+                                <a href="TG_Detail/dwarves.html">
+                                    <div class="card-body">
+                                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid" />
+                                    </div>
+                                    <div class="card-footer">
+                                        @tg.ChineseName<br />
+                                        @tg.EnglishName
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
                 </div>
-            }
+            </div>
         </div>
     </div>
-</div>

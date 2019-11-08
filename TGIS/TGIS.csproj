@@ -339,7 +339,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
@@ -369,7 +368,7 @@
     <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
     <Content Include="Views\LoginForAdmin\LoginForAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutEntry.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameListForPlayer2.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
