@@ -18,11 +18,41 @@ namespace TGIS.Controllers
         }
 
         //玩家看到的桌遊百科(列表形式)
-        public ActionResult ShowTableGameListForPlayer2()
+        public ActionResult ShowTableGameListForPlayer()
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             return View(db.TableGames.ToList());
+        }
+        [HttpPost]
+        public ActionResult ShowTableGameListForPlayer(string difficultTagID, string[] categoryTagIDs)
+        {
+            //選出符合此難度標籤的桌遊
+            TableGame[] tableGames = db.Tags.Find(difficultTagID).TableGamesForDifficulty.ToArray();
+            //選出對應的所有分類標籤
+            List<Tag> categoryTags = new List<Tag>();
+            foreach (string id in categoryTagIDs)
+            {
+                categoryTags.Add(db.Tags.Find(id));
+            }
+            //目標桌遊的容器
+            List<TableGame> targetTableGames = new List<TableGame>();
+            //將含有categoryTags中任何一個標籤的桌遊加入targetTableGames
+            foreach (TableGame item in tableGames)
+            {
+                foreach (Tag tag in categoryTags)
+                {
+                    if (item.GameCategoryTags.Contains(tag))
+                    {
+                        targetTableGames.Add(item);
+                        break;
+                    }
+                }
+            }
+            //一樣的操作
+            ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
+            ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            return View(targetTableGames);
         }
 
         //顯示單個桌遊詳細內容
