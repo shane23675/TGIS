@@ -198,6 +198,9 @@ namespace TGIS.Controllers
             tg.GameCategoryTags.Clear();
             //刪除對應的圖片
             PhotoManager.DeletePhoto(tableGameID);
+            //刪除店內桌遊明細
+            List<TableGameInShopDetail> details = db.TableGameInShopDetails.Where(m => m.TableGameID == tableGameID).ToList();
+            details.ForEach(m => db.TableGameInShopDetails.Remove(m));
             //最後再刪除桌遊本身
             db.TableGames.Remove(tg);
             db.SaveChanges();
