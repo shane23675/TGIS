@@ -1,4 +1,4 @@
-@model TGIS.Models.TableGame
+﻿@model TGIS.Models.TableGame
 
 @{
     ViewBag.Title = "ShowTableGameDetail";
@@ -7,23 +7,22 @@
 }
 
 <style>
-
 </style>
 <div class="row">
 
-    <!--右欄-->
+    <!--Right Column-->
 
     <div class="col-12">
 
-        <!--上方選擇欄>-->
+        <!--Top Select Column>-->
 
         <nav class="nav">
-            @Html.ActionLink("首頁", "Index", "Home", null, new { @class="nav-link"})
-            @Html.ActionLink("桌遊百科", "ShowTableGameListForPlayer", "TableGame", null, new { @class="nav-link"})
-            <a class="nav-link" >@Model.ChineseName</a>
+            @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
+            @Html.ActionLink("桌遊百科", "ShowTableGameListForPlayer", "TableGame", null, new { @class = "nav-link" })
+            <a class="nav-link">@Model.ChineseName</a>
         </nav>
         <div class="row">
-            <!--圖片-->
+            <!--Pictures-->
             <div class="col-md-5">
                 <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -47,31 +46,31 @@
                 </div>
 
             </div>
-            <!--中文名稱-->
+            <!--Chinese Name-->
             <div class="col-md-7">
                 <div>
                     <p>@Model.ChineseName</p>
                 </div>
-                <!--英文名稱-->
+                <!--English Name-->
                 <div>
                     <p>@Model.EnglishName</p>
                 </div>
-                <!--特色-->
+                <!--Feature-->
                 <div>
                     <p>@Model.Feature</p>
                 </div>
             </div>
         </div>
 
-        <!--詳細說明-->
+        <!--Rules-->
         <div class="col-md-12">
-            <h3>規則</h3>
+            <h3>規則說明</h3>
             <p>
                 @Model.Rules
             </p>
         </div>
 
-        <!--教學連結-->
+        <!--Relavent Links-->
         <h3>教學連結</h3>
         <div class="card-deck">
             @foreach (var item in Model.RelevantLinks)
@@ -87,8 +86,8 @@
 
         </div>
 
-        <!--猜你喜歡-->
-        <h3>猜你喜歡</h3>
+        <!--Suggestions-->
+        <h3>猜你也喜歡...</h3>
         <div class="card-deck">
             <div class="card mt-4">
                 <a href="TG_Detail/dwarves.html">
@@ -133,7 +132,7 @@
             </div>
         </div>
 
-        <!--評論區-->
+        <!--Comments-->
         <h3>評論</h3>
         @foreach (var comment in Model.TableGameComments)
         {
@@ -152,7 +151,7 @@
                     </div>
                 </div>
             </div>
-        <br />
+            <br />
         }
     </div>
 </div>
