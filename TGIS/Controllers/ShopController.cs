@@ -33,6 +33,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            shop.Password = Hash.PwdHash(shop.Password);
             if (ModelState.IsValid)
             {
                 db.Shops.Add(shop);
