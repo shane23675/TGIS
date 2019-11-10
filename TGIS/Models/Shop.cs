@@ -11,12 +11,10 @@ namespace TGIS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(MetadataShop))]
+    
     public partial class Shop
     {
-         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shop()
         {
             this.Coupons = new HashSet<Coupon>();
