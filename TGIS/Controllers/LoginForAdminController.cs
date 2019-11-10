@@ -20,7 +20,8 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForAdmin(string ac, string pwd)
         {
-            var user = db.Administrators.Where(m => m.Account == ac).Where(m=>m.Password==pwd).FirstOrDefault();
+            var password = Hash.PwdHash(pwd);
+            var user = db.Administrators.Where(m => m.Account == ac).Where(m=>m.Password==password).FirstOrDefault();
             if (user !=null)
             {
                 ViewBag.user = user;

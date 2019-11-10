@@ -18,9 +18,9 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult Create(Administrator administrator)
         {
+            administrator.Password = Hash.PwdHash(administrator.Password);
             if (ModelState.IsValid)
             {
-                administrator.Password = Hash.PwdHash(administrator.Password);
                 db.Administrators.Add(administrator);
                 db.SaveChanges();
                 return RedirectToAction("ShopIndex","Shop");
