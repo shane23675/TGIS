@@ -165,7 +165,11 @@
         <div class="form-group">
             <label class="control-label col-md-2">相關教學連結</label>
             <div class="col-md-10" id="linkInputBox">
-                <input type="text" name="links" class="form-control" />
+                @foreach (RelevantLink link in Model.RelevantLinks)
+                {
+                    <label>@link.Url</label> <span class="ml-4">刪除</span><input type="checkbox" name="deletedLinkIDs" value="@link.ID" /><br />
+                }
+                <input type="text" name="links" class="form-control" placeholder="新增一項連結..."/>
             </div>
             <button id="moreLinkBtn" class="btn btn-link">再加一筆</button>
         </div>

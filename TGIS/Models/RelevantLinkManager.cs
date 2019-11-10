@@ -23,10 +23,10 @@ namespace TGIS.Models
         }
 
         //刪除連結的方法
-        public static void Delete(int[] linkIDs)
+        public static void Delete(int[] deletedLinkIDs)
         {
             RelevantLink rl;
-            foreach (int id in linkIDs)
+            foreach (int id in deletedLinkIDs)
             {
                 rl = db.RelevantLinks.Find(id);
                 db.RelevantLinks.Remove(rl);

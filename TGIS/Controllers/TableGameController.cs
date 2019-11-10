@@ -122,7 +122,8 @@ namespace TGIS.Controllers
             return View(db.TableGames.Find(tableGameID));
         }
         [HttpPost]
-        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
+        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, 
+            int[] deletedPhotoID, HttpPostedFileBase[] newPhoto, int[] deletedLinkIDs, string[] links)
         {
             //無法通過驗證則顯示錯誤訊息
             if (!ModelState.IsValid)
@@ -182,6 +183,11 @@ namespace TGIS.Controllers
             }
             //加入新圖片
             PhotoManager.Create(tableGame.ID, newPhoto);
+            //刪除連結
+            if (deletedLinkIDs != null)
+                RelevantLinkManager.Delete(deletedLinkIDs);
+            //加入新連結
+            RelevantLinkManager.Create(tableGame.ID, links);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
