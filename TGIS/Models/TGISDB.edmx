@@ -11,7 +11,7 @@
           </Key>
           <Property Name="ID" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Announcement">
           <Key>
@@ -111,7 +111,7 @@
           </Key>
           <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="PlayerImage" Type="image" />
           <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -156,7 +156,7 @@
           </Key>
           <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ShopName" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="OpeningHours" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DistrictID" Type="int" Nullable="false" />
@@ -688,7 +688,7 @@
           </Key>
           <Property Name="ID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Announcements" Relationship="Self.Relationship24" FromRole="Administrator" ToRole="Announcement" />
         </EntityType>
         <EntityType Name="Announcement">
@@ -791,7 +791,7 @@
           </Key>
           <Property Name="ID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NickName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PlayerImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
@@ -846,7 +846,7 @@
           </Key>
           <Property Name="ID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ShopName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OpeningHours" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DistrictID" Type="Int32" Nullable="false" />
