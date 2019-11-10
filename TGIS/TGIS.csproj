@@ -231,6 +231,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\_LayoutManager.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +288,7 @@
     <Compile Include="Models\RelevantLink.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RelevantLinkManager.cs" />
     <Compile Include="Models\Shop.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>

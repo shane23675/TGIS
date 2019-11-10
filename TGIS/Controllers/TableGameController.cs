@@ -12,11 +12,6 @@ namespace TGIS.Controllers
     {
          TGISDBEntities db = new TGISDBEntities();
 
-        public void Test()
-        {
-            Dictionary<int, string> d = new Dictionary<int, string>();
-        }
-
         //玩家看到的桌遊百科(列表形式)
         public ActionResult ShowTableGameListForPlayer()
         {
@@ -92,7 +87,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos)
+        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos, string[] links)
         {
             //無法通過驗證則顯示錯誤訊息
             if (!ModelState.IsValid)
@@ -102,7 +97,6 @@ namespace TGIS.Controllers
                 ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
                 return View();
             }
-                
             //儲存newTableGame
             db.TableGames.Add(newTableGame);
             db.SaveChanges();
@@ -112,7 +106,9 @@ namespace TGIS.Controllers
                 db.SaveChanges();
             }
             //調用PhotoManager中的方法來儲存傳入的圖片
-            PhotoManager.CreatePhoto(newTableGame.ID, photos);
+            PhotoManager.Create(newTableGame.ID, photos);
+            //儲存相關教學連結
+            RelevantLinkManager.Create(newTableGame.ID, links);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
@@ -181,11 +177,11 @@ namespace TGIS.Controllers
             {
                 foreach (int id in deletedPhotoID)
                 {
-                    PhotoManager.DeletePhoto(id);
+                    PhotoManager.Delete(id);
                 }
             }
             //加入新圖片
-            PhotoManager.CreatePhoto(tableGame.ID, newPhoto);
+            PhotoManager.Create(tableGame.ID, newPhoto);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
@@ -197,7 +193,9 @@ namespace TGIS.Controllers
             //刪除對應的GameCategoryTags
             tg.GameCategoryTags.Clear();
             //刪除對應的圖片
-            PhotoManager.DeletePhoto(tableGameID);
+            PhotoManager.Delete(tableGameID);
+            //刪除相關教學連結
+            db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList().ForEach(m => db.RelevantLinks.Remove(m));
             //刪除店內桌遊明細
             List<TableGameInShopDetail> details = db.TableGameInShopDetails.Where(m => m.TableGameID == tableGameID).ToList();
             details.ForEach(m => db.TableGameInShopDetails.Remove(m));
