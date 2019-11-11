@@ -31,5 +31,15 @@ namespace TGIS.Controllers
             }
             return Content(sb.ToString());
         }
+        public  ActionResult AccountRepeat(string account)
+        {
+            var ac = db.Shops.Where(m => m.Account == account).FirstOrDefault();
+            if (ac == null)
+            {
+                return Content("帳號可使用".ToString());
+            }
+            return Content("帳號重複".ToString());
+        }
+
     }
 }
