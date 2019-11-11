@@ -38,9 +38,9 @@ namespace TGIS.Models
         public System.DateTime ExpireDate { get; set; }
         [DisplayName("需求點數")]
         public int PointsRequired { get; set; }
-        [DisplayName("可換張數")]
+        [DisplayName("可換張數"), Range(0, int.MaxValue)]
         public Nullable<int> LimitedAmount { get; set; }
-        [DisplayName("剩餘張數")]
+        [DisplayName("剩餘張數"), Range(0, int.MaxValue)]
         public Nullable<int> RemainedAmount { get; set; }
         [DisplayName("總兌換人數")]
         public Nullable<int> ExchangedAmount { get; set; }
