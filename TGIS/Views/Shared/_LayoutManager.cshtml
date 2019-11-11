@@ -53,7 +53,7 @@
                         <a href="#">玩家</a>
                     </li>
                     <li>
-                        <a href="#">店家</a>
+                        <a href="@Url.Action("ShopIndex","Shop")">店家</a>
                     </li>
                     <li>
                         <a href="#">管理員</a>
@@ -68,7 +68,7 @@
 </a>
                 <ul class="collapse list-unstyled" id="gameSubmenu">
                     <li>
-                        <a href="#">桌遊資訊</a>
+                        <a href="@Url.Action("ShowTableGameListForAdmin","TableGame")">桌遊資訊</a>
                     </li>
                     <li>
                         <a href="#">標籤列表</a>
@@ -95,8 +95,7 @@
                 <a href="#">
                     <i class="fas fa-envelope"></i>
                     <span>&nbsp;回報管理</span>
-                        @*因為有圖標所以跟上面不同,要改用Url.Actin設定連結*@
-</a>
+                </a>
             </li>
             <li>
                 <a href="#">
