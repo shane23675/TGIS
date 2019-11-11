@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 有桌方遊</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/layoutstyle-S.css" rel="stylesheet" />
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+
+</head>
+<body class="wrapper">
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-player">
+        <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <a class="navbar-brand " href="#">
+            <h3>有桌方遊</h3>
+        </a>
+        @* 之後調整縮小後標題位跟按鈕位 *@
+        <div class="collapse navbar-collapse" id="P-navbar">
+            <div class="navbar-nav mr-auto"> </div>
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
+                <button class="btn btn-outline-search my-2 my-sm-0" type="submit">搜尋</button>
+            </form>
+            <a class="nav-link" href="#">會員中心</a>
+            <a class="nav-link" href="#">登出</a>
+        </div>
+    </nav>
+
+    <aside id="sidebar">  
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#">
+                    &nbsp;<i class="fas fa-calendar-check"></i>
+                    <span>&nbsp;預約管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#indexSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    <i class="fas fa-store"></i>
+                    <span>店家管理</span>
+                </a>
+                <ul class="collapse list-unstyled" id="indexSubmenu">
+                    <li>
+                        @Html.ActionLink("店家資訊管理", "RazorTest", "Home", new { area = "" })
+                    </li>
+                    <li>
+                        <a href="#">店內桌遊管理</a>
+                    </li>
+                </ul>
+            </li>         
+            <li>
+                <a href="#">
+                    <i class="fas fa-store-alt"></i>
+                    <span>活動廣告管理</span>
+                    @*因為有圖標所以跟上面不同,要改用Url.Actin設定連結*@
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>優惠券管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-money-check-alt"></i>
+                    <span>加值服務管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#gameSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                    &nbsp;<i class="fas fa-chart-bar"></i>
+                    <span>統計資料查看</span>
+                </a>
+                <ul class="collapse list-unstyled" id="gameSubmenu">
+                    <li>
+                        <a href="#">分析表1</a>
+                    </li>
+                    <li>
+                        <a href="#">分析表2</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <div id="content"> 
+        @RenderBody()
+    </div>
+
+
+
+
+    <footer class="fixed-bottom bg-player">
+        <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
+            <a class="nav-link" href="#">關於我們</a>
+            <a class="nav-link" href="#">聯絡我們</a>
+        </nav>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#sidebar>ul>li>.toggle').toggleClass('dropdown-toggle');
+            });
+        });
+    </script>
+</body>
+</html>

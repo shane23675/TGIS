@@ -29,27 +29,27 @@
             <a class="nav-link" href="#">登出</a>
         </div>
     </nav>
-
+    @* 後續補效果:hover時有框,邊框圓角,加半透明底,標籤顏色調整成底色 離navbar再遠一些  *@
     <div class="container mt-2">
         <div id="sidebar">@* view完成後再調整分頁連結 *@
             <ul class="nav nav-tabs">
                 <li class="nav-item ">
                     @*因為圖標放在a標籤裡面,跟上面不同,要改用Url.Action設定連結*@
                     <a href="#" class="nav-link nav-p active">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-user-edit"></i>
                         <span>&nbsp;個人資料管理</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-comment-alt"></i>
+                        <i class="fas fa-money-bill-wave"></i>
                         <span>&nbsp;點數與優惠券管理</span>
                     </a>
                 </li>       
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-users"></i>
-                        <span>我的揪桌管理</span>
+                        <i class="fas fa-door-open"></i>
+                        <span>我的揪桌</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">我參與的桌</a>
