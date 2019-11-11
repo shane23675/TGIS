@@ -2,50 +2,53 @@
 
 @{
     ViewBag.Title = "ShowTableGameListForAdmin";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";//測試用
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>桌遊列表</h2>
+<h2><strong>桌遊列表</strong></h2>
 
 <p>
     @Html.ActionLink("新增一筆資料", "CreateTableGame", null, new { @class="btn btn-primary"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChineseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnglishName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsShown)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChineseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnglishName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsShown)
-        </td>
-        <td>
-            @Html.ActionLink("編輯", "EditTableGame", new { tableGameID=item.ID }, new { @class="btn btn-info"}) 
-            @Html.ActionLink("刪除", "DeleteTableGame", new { tableGameID=item.ID}, new { onclick="return confirm('確定要刪除嗎？')", @class="btn btn-danger"})
-        </td>
-    </tr>
-}
-
+<table class="table table-hover table-sm">
+    <thead class="thead-light text-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChineseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnglishName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsShown)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-info text-center">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChineseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnglishName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsShown)
+                </td>
+                <td >
+                    @Html.ActionLink("編輯", "EditTableGame", new { tableGameID = item.ID }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("刪除", "DeleteTableGame", new { tableGameID = item.ID }, new { onclick = "return confirm('確定要刪除嗎？')", @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

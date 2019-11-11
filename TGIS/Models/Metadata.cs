@@ -8,6 +8,8 @@ using System.Web;
 namespace TGIS.Models
 {
     //管理員
+    [MetadataType(typeof(MetadataAdministrator))]
+    public partial class Administrator { }
     public class MetadataAdministrator
     {
         [DisplayName("管理員編號")]
@@ -20,6 +22,8 @@ namespace TGIS.Models
         public string Password { get; set; }
     }
     //優惠卷主檔
+    [MetadataType(typeof(MetadataCoupon))]
+    public partial class Coupon { }
     public class MetadataCoupon
     {
         [DisplayName("活動編號")]
@@ -44,6 +48,8 @@ namespace TGIS.Models
         public bool IsAvailable { get; set; }
     }
     //縣市列表
+    [MetadataType(typeof(MetadataCity))]
+    public partial class City { }
     public class MetadataCity
     {
         [DisplayName("縣市編號")]
@@ -52,6 +58,8 @@ namespace TGIS.Models
         public string CityName { get; set; }
     }
     //公告列表
+    [MetadataType(typeof(MetadataAnnouncement))]
+    public partial class Announcement { }
     public class MetadataAnnouncement
     {
         [DisplayName("公告編號")]
@@ -66,6 +74,8 @@ namespace TGIS.Models
         public string Content { get; set; }
     }
     //回報列表
+    [MetadataType(typeof(MetadataFeedback))]
+    public partial class Feedback { }
     public class MetadataFeedback
     {
         [DisplayName("回報編號")]
@@ -82,6 +92,8 @@ namespace TGIS.Models
         public string TypeTagID { get; set; }
     }
     //行政區列表
+    [MetadataType(typeof(MetadataDistrict))]
+    public partial class District { }
     public class MetadataDistrict
     {
         [DisplayName("行政區編號")]
@@ -92,6 +104,8 @@ namespace TGIS.Models
         public string DistrictName { get; set; }
     }
     //訊息列表
+    [MetadataType(typeof(MetadataMessage))]
+    public partial class Message { }
     public class MetadataMessage
     {
         [DisplayName("訊息編號")]
@@ -108,6 +122,8 @@ namespace TGIS.Models
         public bool IsPrivate { get; set; }
     }
     //一般優惠列表
+    [MetadataType(typeof(MetadataNormalOffer))]
+    public partial class NormalOffer { }
     public class MetadataNormalOffer
     {
         [DisplayName("優惠編號")]
@@ -128,6 +144,8 @@ namespace TGIS.Models
         public int Clicks { get; set; }
     }
     //圖片
+    [MetadataType(typeof(MetadataPhoto))]
+    public partial class Photo { }
     public class MetadataPhoto
     {
         [DisplayName("流水號")]
@@ -138,6 +156,8 @@ namespace TGIS.Models
         public byte[] Content { get; set; }
     }
     //玩家主檔
+    [MetadataType(typeof(MetadataPlayer))]
+    public partial class Player { }
     public class MetadataPlayer
     {
         [DisplayName("會員編號")]
@@ -165,6 +185,8 @@ namespace TGIS.Models
 
     }
     //玩家優惠明細
+    [MetadataType(typeof(MetadataPlyerCouponDetail))]
+    public partial class PlyerCouponDetail { }
     public class MetadataPlyerCouponDetail
     {
         [DisplayName("會員編號")]
@@ -179,6 +201,8 @@ namespace TGIS.Models
         public bool IsUsed { get; set; }
     }
     //玩家點數明細
+    [MetadataType(typeof(MetadataPlayerPointDetail))]
+    public partial class PlayerPointDetail { }
     public class MetadataPlayerPointDetail
     {
         [DisplayName("流水號")]
@@ -193,6 +217,8 @@ namespace TGIS.Models
         public System.DateTime ChangedDate { get; set; }
     }
     //相關教學連結
+    [MetadataType(typeof(MetadataRelevantLink))]
+    public partial class RelevantLink { }
     public class MetadataRelevantLink
     {
         [DisplayName("流水號")]
@@ -203,6 +229,8 @@ namespace TGIS.Models
         public string TableGameID { get; set; }
     }
     //店家主檔
+    [MetadataType(typeof(MetadataShop))]
+    public partial class Shop { }
     public class MetadataShop
     {
         [DisplayName("會員編號")]
@@ -245,6 +273,8 @@ namespace TGIS.Models
         public string Description { get; set; }
     }
     //桌遊主檔
+    [MetadataType(typeof(MetadataTableGame))]
+    public partial class TableGame { }
     public class MetadataTableGame
     {
         [DisplayName("桌遊編號")]
@@ -283,6 +313,8 @@ namespace TGIS.Models
         public string BrandTagID { get; set; }
     }
     //桌遊評論列表
+    [MetadataType(typeof(MetadataTableGameComment))]
+    public partial class TableGameComment { }
     public class MetadataTableGameComment
     {
         [DisplayName("流水號")]
@@ -301,6 +333,8 @@ namespace TGIS.Models
         public string PlayerID { get; set; }
     }
     //店內桌遊明細
+    [MetadataType(typeof(MetadataTableGameInShopDetail))]
+    public partial class TableGameInShopDetail { }
     public class MetadataTableGameInShopDetail
     {
         [DisplayName("桌遊編號")]
@@ -314,6 +348,8 @@ namespace TGIS.Models
 
     }
     //桌遊被點閱紀錄
+    [MetadataType(typeof(MetadataTableGameVisitedStatistic))]
+    public partial class TableGameVisitedStatistic { }
     public class MetadataTableGameVisitedStatistic
     {
         [DisplayName("被閱覽時間")]
@@ -326,6 +362,8 @@ namespace TGIS.Models
 
     }
     //標籤列表
+    [MetadataType(typeof(MetadataTag))]
+    public partial class Tag { }
     public class MetadataTag
     {
         [DisplayName("標籤編號")]
@@ -334,6 +372,8 @@ namespace TGIS.Models
         public string TagName { get; set; }
     }
     //揪桌主檔
+    [MetadataType(typeof(MetadataTeam))]
+    public partial class Team { }
     public class MetadataTeam
     {
         [DisplayName("揪桌編號")]
