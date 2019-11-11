@@ -4,6 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Web.Mvc;
 
 namespace TGIS.Models
 {
@@ -11,6 +15,8 @@ namespace TGIS.Models
     //方法請都設定為static
     public static class UsefulTools
     {
+        static TGISDBEntities db = new TGISDBEntities();
+
         //取得字串類型流水號的方法(參數：dataTable為資料表, n為ID前面文字的數量)
         //使用範例：UsefulTools.GetNextID(db.TableGames, 1)  取得桌遊主檔的下一個ID
         public static string GetNextID<T>(IEnumerable<T> dataTable, int n)
@@ -56,5 +62,19 @@ namespace TGIS.Models
                 info.SetValue(objOld, info.GetValue(objNew));
             }
         }
+
+
+        //從db.Tags取得selectList的方法(參數keyword為要尋找的Tag的ID字首)
+        public static List<SelectListItem> GetSelectListFromTags(char keyword)
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            foreach (Tag t in db.Tags)
+            {
+                if (t.ID[0] == keyword)
+                    selectList.Add(new SelectListItem { Text = t.TagName, Value = t.ID });
+            }
+            return selectList;
+        }
+
     }
 }

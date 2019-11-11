@@ -8,10 +8,10 @@
 
 <h2>CreateTableGame</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateTableGame", "TableGame", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TableGame</h4>
         <hr />
@@ -118,30 +118,43 @@
             </div>
         </div>
         <div class="form-group">
-            <label class = "control-label col-md-2">分類標籤</label>
+            <label class="control-label col-md-2">分類標籤</label>
             <div class="col-md-10">
                 <div class="row">
                     @foreach (Tag t in categoryTagsList)
                     {
-                    <div class="col-md-3 col-lg-2">
-                        <span class="text-nowrap">
-                            @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" />
-                        </span>
-                    </div>
+                        <div class="col-md-3 col-lg-2">
+                            <span class="text-nowrap">
+                                @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" />
+                            </span>
+                        </div>
                     }
                 </div>
-                </div>
+            </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 text-nowrap">上傳圖片(可一次選取多張)</label>
+            <div class="col-md-10">
+                <input type="file" name="photos" multiple />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">相關教學連結</label>
+            <div class="col-md-10" id="linkInputBox" >
+                <input type="text" name="links" class="form-control" />
+            </div>
+            <button id="moreLinkBtn" class="btn btn-link">再加一筆</button>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="新增" class="btn btn-primary" id="createTableGameSubmitBtn" />
+                @Html.ActionLink("返回", "ShowTableGameListForAdmin", "TableGame", null, new { @class = "btn btn-light ml-4" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 

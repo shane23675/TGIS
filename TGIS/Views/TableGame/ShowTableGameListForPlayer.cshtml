@@ -1,4 +1,4 @@
-@using TGIS.Models
+Ôªø@using TGIS.Models
 @model IEnumerable<TableGame>
 
 @{
@@ -6,47 +6,95 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
+<style>
+    .card-deck .card {
+        margin-right: 2px;
+        margin-left: 2px;
+    }
 
-<div class="row">
-    <div class="col-md-3 bg-info">
-        <nav class="text-center">
-            <div id="sel" class="text-white">øzøÔ¶C™Ì</div>
-            <img id="tb_img" src="images/select_bar02.png" class="rounded img-fluid">
-            <input type="button" class="btn btn-warning" value="∑j¥M">
-            <img src="images/wifi.PNG" class="img-fluid" />
-        </nav>
-    </div>
+    .custom-control {
+        position: relative;
+        min-height: 1.5rem;
+        padding-left: 0rem;
+    }
 
-    <!--•kƒÊ-->
+    .custom-control-inline {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        margin-right: 0rem;
+    }
+</style>
 
-    <div class="col-md-9">
 
-        <!--§W§ËøÔæ‹ƒÊ>-->
 
-        <nav class="nav">
-            @Html.ActionLink("≠∫≠∂", "Index", "Home", null, new { @class = "nav-link" })
-            <a class="nav-link">Æ‡πC¶ ¨Ï</a>
-        </nav>
 
-        <!--Æ‡πC-->
-
-        <div class="card-deck">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-3 pl-md-0 pr-md-0">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img src="~/images/boardGame.jpg" class="img-fluid" />
-                        </div>
-                        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = item.ID})">
-                            <div class="card-footer">
-                                @item.ChineseName<br />
-                                @item.EnglishName<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <nav class="text-center">
+                <div id="sel" class="text-white">ÁØ©ÈÅ∏ÂàóË°®</div>
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <h3><label class="control-label"><strong>ÂàÜÈ°ûÊ®ôÁ±§</strong></label></h3>
+                        <!--<div class="row">-->
+                        <p class="col-12 mt-3">ÈÅäÊà≤Èõ£Â∫¶</p>
+                        @foreach (Tag t in ViewBag.DifficultyTagList)
+                        {
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 text-nowrap">
+                                <input type="radio" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagID" value="@t.ID">
+                                <label class="custom-control-label" for="defaultInline-@t.ID">@t.TagName</label>
                             </div>
-                        </a>
+                        }
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <p class="col-12 mt-3">ÈÅäÊà≤ÂàÜÈ°û</p>
+                        @foreach (Tag t in ViewBag.CategoryTagList)
+                        {
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                                <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID">
+                                <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
+                            </div>
+                        }
+
+                        <!--</div>-->
                     </div>
-                </div>
-            }
+                    <input type="submit" class="btn btn-warning" value="Submit">
+                    <img src="images/wifi.PNG" class="img-fluid" />
+                }
+            </nav>
+        </div>
+
+
+
+        <div class="col-md-10">
+
+
+            <nav class="nav">
+                <a class="nav-link" href="Index.html">È¶ñÈ†Å</a>
+                <a class="nav-link" href="#">Ê°åÈÅäÁôæÁßë</a>
+            </nav>
+
+
+            <div class="card-deck">
+
+                @foreach (TableGame tg in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
+                                <div class="card-body">
+                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid" />
+                                </div>
+                                <div class="card-footer">
+                                    @tg.ChineseName<br />
+                                    @tg.EnglishName
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
         </div>
     </div>
 </div>

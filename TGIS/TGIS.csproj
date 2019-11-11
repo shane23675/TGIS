@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -146,8 +152,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
-    <Content Include="Content\layoutstyle-S.css" />
     <Content Include="Content\mineCSS.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Html\dwarves.html" />
@@ -216,6 +222,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -225,12 +236,16 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\_LayoutManager.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginForAdminController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
@@ -255,6 +270,7 @@
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Hash.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -265,6 +281,7 @@
     <Compile Include="Models\Photo.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhotoManager.cs" />
     <Compile Include="Models\Player.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -277,6 +294,7 @@
     <Compile Include="Models\RelevantLink.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RelevantLinkManager.cs" />
     <Compile Include="Models\Shop.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -328,10 +346,8 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
     <Content Include="Views\TableGame\CreateTableGame.cshtml" />
     <Content Include="Views\TableGame\EditTableGame.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForAdmin.cshtml" />
@@ -346,15 +362,21 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shop\MgShopCreate.cshtml" />
-    <Content Include="Views\Shop\MgShopDetail.cshtml" />
     <Content Include="Views\Shop\MgShopEdit.cshtml" />
     <Content Include="Views\Shop\ShopIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayerCenter.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\Player\PlayerEdit.cshtml" />
     <Content Include="Views\Player\PlayerIndex.cshtml" />
-    <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
+    <Content Include="Views\Shop\ShopIndexForPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopDetailForPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopEditForStore.cshtml" />
+    <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
+    <Content Include="Views\LoginForAdmin\LoginForAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutEntry.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -362,7 +384,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Login\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

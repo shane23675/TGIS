@@ -1,5 +1,11 @@
 ﻿@model TGIS.Models.Shop
 
+@{
+    ViewBag.Title = "ShopDetailForShop";
+}
+
+<h2>ShopDetailForShop</h2>
+
 <div>
     <h4>Shop</h4>
     <hr />
@@ -12,15 +18,7 @@
             @Html.DisplayFor(model => model.Account)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
+         <dt>
             @Html.DisplayNameFor(model => model.ShopName)
         </dt>
 
@@ -125,26 +123,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IsAccountEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsAccountEnabled)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m=>m.District.City.CityName)
+        </dt>
+
         <dd>
-            @Html.DisplayNameFor(m => m.District.City.CityName)
+            @Html.DisplayFor(m=>m.District.City.CityName)
         </dd>
-        <dd>
-            @Html.DisplayFor(m => m.District.City.CityName)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.District.DistrictName)
         </dt>
@@ -152,9 +145,10 @@
         <dd>
             @Html.DisplayFor(model => model.District.DistrictName)
         </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "MgShopEdit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "ShopIndex")
+    @Html.ActionLink("Edit", "ShopEditForStore", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

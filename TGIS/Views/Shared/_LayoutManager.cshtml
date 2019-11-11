@@ -18,9 +18,9 @@
     <aside id="sidebar">
         <div class="sidebar-header">
             @*皆連回管理中心首頁*@
-            <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
+            <strong>@Html.ActionLink("TGIS", "ShowTableGameListForPlayer", "TableGame")</strong>
             <span class="h1">
-                @Html.ActionLink("有桌方遊", "Index", "Home", new { area = "" })
+                @Html.ActionLink("有桌方遊", "ShowTableGameListForPlayer", "TableGame")
             </span>
             <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
                 <i class="fas fa-align-justify"></i>
@@ -122,7 +122,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
+    <script src="~/Scripts/_LayoutManager.js"></script>
     <script>
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {

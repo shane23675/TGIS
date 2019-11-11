@@ -31,12 +31,16 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult MgShopCreate(Shop shop)
+        public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            shop.Password = Hash.PwdHash(shop.Password);
             if (ModelState.IsValid)
             {
                 db.Shops.Add(shop);
                 db.SaveChanges();
+
+                //添加圖片
+                PhotoManager.Create(shop.ID, photos);
 
                 return RedirectToAction("ShopIndex");
             }
@@ -46,18 +50,15 @@ namespace TGIS.Controllers
         //刪除店家資料
         public ActionResult ShopDelete(string id)
         {
-            var str = db.Shops.Find(id);
-            db.Shops.Remove(str);
+            //刪除該店家的圖片
+            PhotoManager.Delete(id);
+
+            //最後再刪除店家本身
+            Shop s = db.Shops.Find(id);
+            db.Shops.Remove(s);
             db.SaveChanges();
 
             return RedirectToAction("ShopIndex");
-        }
-
-        //店家詳細資料
-        public ActionResult MgShopDetail(string id)
-        {
-
-            return View(db.Shops.Find(id));
         }
 
         //管理員編輯店家
@@ -65,19 +66,65 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             return View(db.Shops.Find(id));
         }
         [HttpPost]
-        public ActionResult MgShopEdit(Shop shop)
+        public ActionResult MgShopEdit(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;
                 db.SaveChanges();
 
+                //刪除被勾選的圖片
+                if (deletedPhotoID != null)
+                {
+                    foreach (int id in deletedPhotoID)
+                    {
+                        PhotoManager.Delete(id);
+                    }
+                }
+                //加入新圖片
+                PhotoManager.Create(shop.ID, newPhoto);
+
                 return RedirectToAction("ShopIndex");
             }
             return View(shop);
+        }
+        //玩家看到的店家列表
+        public ActionResult ShopIndexForPlayer()
+        {
+            return View(db.Shops.ToList());
+        }
+        //玩家看到店家詳細資料
+        public ActionResult ShopDetailForPlayer(string id)
+        {
+            return View(db.Shops.Find(id));
+        }
+        //店家編輯店家資料
+        public ActionResult ShopEditForStore(string id)
+        {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            return View(db.Shops.Find(id));
+        }
+        [HttpPost]
+        public ActionResult ShopEditForStore(Shop shop)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(shop).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("ShopDetailForStore",new {id=shop.ID});
+            }
+            return View(shop);
+        }
+        //店家看到店家詳細資料
+        public ActionResult ShopDetailForStore(string id)
+        {
+            return View(db.Shops.Find(id));
         }
     }
 }
