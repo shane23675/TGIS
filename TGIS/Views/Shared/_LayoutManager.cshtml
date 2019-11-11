@@ -15,7 +15,7 @@
     
 </head>
 <body class="wrapper">
-    <nav id="sidebar">
+    <aside id="sidebar">
         <div class="sidebar-header">
             @*皆連回管理中心首頁*@
             <strong>@Html.ActionLink("TG", "Index", "Home", new { area = "" })</strong>
@@ -53,7 +53,7 @@
                         <a href="#">玩家</a>
                     </li>
                     <li>
-                        @Html.ActionLink("店家", "ShopIndex", "Shop")
+                        <a href="#">店家</a>
                     </li>
                     <li>
                         <a href="#">管理員</a>
@@ -68,7 +68,7 @@
 </a>
                 <ul class="collapse list-unstyled" id="gameSubmenu">
                     <li>
-                        @Html.ActionLink("桌遊資訊", "ShowTableGameListForAdmin", "TableGame")
+                        <a href="#">桌遊資訊</a>
                     </li>
                     <li>
                         <a href="#">標籤列表</a>
@@ -111,7 +111,7 @@
                 </a>
             </li>            
         </ul>
-    </nav>
+    </aside>
     <div id="content">
         <nav class="navbar navbar-light bg-light container-fluid">
             <strong class="navbar-brand">後台管理中心</strong>

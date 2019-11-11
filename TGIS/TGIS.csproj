@@ -146,6 +146,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
+    <Content Include="Content\layoutstyle-S.css" />
     <Content Include="Content\mineCSS.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -353,6 +354,7 @@
     <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\Player\PlayerEdit.cshtml" />
     <Content Include="Views\Player\PlayerIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
