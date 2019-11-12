@@ -20,33 +20,30 @@ namespace TGIS.Controllers
             return View(db.TableGames.ToList());
         }
         [HttpPost]
-        public ActionResult ShowTableGameListForPlayer(string difficultTagID, string[] categoryTagIDs)
+        public ActionResult ShowTableGameListForPlayer(string[] difficultTagIDs, string[] categoryTagIDs)
         {
-            //選出符合此難度標籤的桌遊
-            TableGame[] tableGames = db.Tags.Find(difficultTagID).TableGamesForDifficulty.ToArray();
-            //選出對應的所有分類標籤
-            List<Tag> categoryTags = new List<Tag>();
-            foreach (string id in categoryTagIDs)
-            {
-                categoryTags.Add(db.Tags.Find(id));
-            }
             //目標桌遊的容器
             List<TableGame> targetTableGames = new List<TableGame>();
             //將含有categoryTags中任何一個標籤的桌遊加入targetTableGames
-            foreach (TableGame item in tableGames)
+            foreach (TableGame item in db.TableGames.ToList())
             {
-                foreach (Tag tag in categoryTags)
+                if (difficultTagIDs.Contains(item.DifficultyTagID))
                 {
-                    if (item.GameCategoryTags.Contains(tag))
+                    foreach(string id in categoryTagIDs)
                     {
-                        targetTableGames.Add(item);
-                        break;
+                        if (item.GameCategoryTags.Contains(db.Tags.Find(id)))
+                        {
+                            targetTableGames.Add(item);
+                            break;
+                        }
                     }
                 }
             }
             //一樣的操作
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            ViewBag.difficultTagIDs = difficultTagIDs;
+            ViewBag.categoryTagIDs = categoryTagIDs;
             return View(targetTableGames);
         }
 
