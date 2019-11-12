@@ -10,7 +10,7 @@ namespace TGIS.Models
     {
         static TGISDBEntities db = new TGISDBEntities();
         //新增圖片的方法
-        public static void CreatePhoto(string SourceID, HttpPostedFileBase[] photos)
+        public static void Create(string SourceID, HttpPostedFileBase[] photos)
         {
             //若傳入空陣列則返回
             if (photos[0] == null)
@@ -36,7 +36,7 @@ namespace TGIS.Models
         //刪除圖片的方法
 
         //多載一：以Photo.ID刪除
-        public static void DeletePhoto(int photoID)
+        public static void Delete(int photoID)
         {
             Photo p = db.Photos.Find(photoID);
             if (p != null)
@@ -44,7 +44,7 @@ namespace TGIS.Models
             db.SaveChanges();
         }
         //多載二：以Photo.SourceID刪除
-        public static void DeletePhoto(string sourceID)
+        public static void Delete(string sourceID)
         {
             List<Photo> photos = db.Photos.Where(m => m.SourceID == sourceID).ToList();
             foreach (Photo p in photos)

@@ -12,17 +12,42 @@ namespace TGIS.Controllers
     {
          TGISDBEntities db = new TGISDBEntities();
 
-        public void Test()
-        {
-            Dictionary<int, string> d = new Dictionary<int, string>();
-        }
-
         //玩家看到的桌遊百科(列表形式)
         public ActionResult ShowTableGameListForPlayer()
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             return View(db.TableGames.ToList());
+        }
+        [HttpPost]
+        public ActionResult ShowTableGameListForPlayer(string difficultTagID, string[] categoryTagIDs)
+        {
+            //選出符合此難度標籤的桌遊
+            TableGame[] tableGames = db.Tags.Find(difficultTagID).TableGamesForDifficulty.ToArray();
+            //選出對應的所有分類標籤
+            List<Tag> categoryTags = new List<Tag>();
+            foreach (string id in categoryTagIDs)
+            {
+                categoryTags.Add(db.Tags.Find(id));
+            }
+            //目標桌遊的容器
+            List<TableGame> targetTableGames = new List<TableGame>();
+            //將含有categoryTags中任何一個標籤的桌遊加入targetTableGames
+            foreach (TableGame item in tableGames)
+            {
+                foreach (Tag tag in categoryTags)
+                {
+                    if (item.GameCategoryTags.Contains(tag))
+                    {
+                        targetTableGames.Add(item);
+                        break;
+                    }
+                }
+            }
+            //一樣的操作
+            ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
+            ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            return View(targetTableGames);
         }
 
         //顯示單個桌遊詳細內容
@@ -62,7 +87,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos)
+        public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos, string[] links)
         {
             //無法通過驗證則顯示錯誤訊息
             if (!ModelState.IsValid)
@@ -72,7 +97,6 @@ namespace TGIS.Controllers
                 ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
                 return View();
             }
-                
             //儲存newTableGame
             db.TableGames.Add(newTableGame);
             db.SaveChanges();
@@ -82,7 +106,9 @@ namespace TGIS.Controllers
                 db.SaveChanges();
             }
             //調用PhotoManager中的方法來儲存傳入的圖片
-            PhotoManager.CreatePhoto(newTableGame.ID, photos);
+            PhotoManager.Create(newTableGame.ID, photos);
+            //儲存相關教學連結
+            RelevantLinkManager.Create(newTableGame.ID, links);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
@@ -96,7 +122,8 @@ namespace TGIS.Controllers
             return View(db.TableGames.Find(tableGameID));
         }
         [HttpPost]
-        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
+        public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, 
+            int[] deletedPhotoID, HttpPostedFileBase[] newPhoto, int[] deletedLinkIDs, string[] links)
         {
             //無法通過驗證則顯示錯誤訊息
             if (!ModelState.IsValid)
@@ -151,11 +178,16 @@ namespace TGIS.Controllers
             {
                 foreach (int id in deletedPhotoID)
                 {
-                    PhotoManager.DeletePhoto(id);
+                    PhotoManager.Delete(id);
                 }
             }
             //加入新圖片
-            PhotoManager.CreatePhoto(tableGame.ID, newPhoto);
+            PhotoManager.Create(tableGame.ID, newPhoto);
+            //刪除連結
+            if (deletedLinkIDs != null)
+                RelevantLinkManager.Delete(deletedLinkIDs);
+            //加入新連結
+            RelevantLinkManager.Create(tableGame.ID, links);
 
             return RedirectToAction("ShowTableGameListForAdmin");
         }
@@ -167,7 +199,12 @@ namespace TGIS.Controllers
             //刪除對應的GameCategoryTags
             tg.GameCategoryTags.Clear();
             //刪除對應的圖片
-            PhotoManager.DeletePhoto(tableGameID);
+            PhotoManager.Delete(tableGameID);
+            //刪除相關教學連結
+            db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList().ForEach(m => db.RelevantLinks.Remove(m));
+            //刪除店內桌遊明細
+            List<TableGameInShopDetail> details = db.TableGameInShopDetails.Where(m => m.TableGameID == tableGameID).ToList();
+            details.ForEach(m => db.TableGameInShopDetails.Remove(m));
             //最後再刪除桌遊本身
             db.TableGames.Remove(tg);
             db.SaveChanges();

@@ -33,13 +33,14 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            shop.Password = Hash.PwdHash(shop.Password);
             if (ModelState.IsValid)
             {
                 db.Shops.Add(shop);
                 db.SaveChanges();
 
                 //添加圖片
-                PhotoManager.CreatePhoto(shop.ID, photos);
+                PhotoManager.Create(shop.ID, photos);
 
                 return RedirectToAction("ShopIndex");
             }
@@ -50,7 +51,7 @@ namespace TGIS.Controllers
         public ActionResult ShopDelete(string id)
         {
             //刪除該店家的圖片
-            PhotoManager.DeletePhoto(id);
+            PhotoManager.Delete(id);
 
             //最後再刪除店家本身
             Shop s = db.Shops.Find(id);
@@ -81,11 +82,11 @@ namespace TGIS.Controllers
                 {
                     foreach (int id in deletedPhotoID)
                     {
-                        PhotoManager.DeletePhoto(id);
+                        PhotoManager.Delete(id);
                     }
                 }
                 //加入新圖片
-                PhotoManager.CreatePhoto(shop.ID, newPhoto);
+                PhotoManager.Create(shop.ID, newPhoto);
 
                 return RedirectToAction("ShopIndex");
             }
