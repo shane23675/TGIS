@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace TGIS.Controllers
         }
 
         //玩家看到的桌遊百科(列表形式)
-        public ActionResult ShowTableGameListForPlayer2()
+        public ActionResult ShowTableGameListForPlayer()
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
