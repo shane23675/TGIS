@@ -26,7 +26,7 @@
         input[type=radio] {
             appearance: none;
             -webkit-appearance: none;
-            -moz-appearance:none;
+            -moz-appearance: none;
         }
 
         .btn {
@@ -56,20 +56,6 @@
                         <h3><label class="control-label"><strong>分類標籤</strong></label></h3>
                         <div class="row">
                             <p class="col-12 mt-3">遊戲難度(單選)</p>
-
- 
-                                <div class="btn btn-danger rg col-md-6 col-12" id="radio_01">
-                                <input type="radio" class="" id="d1" value="D02">
-                                <label class="" for="d1">派對遊戲</label>
-                                </div>
-
-
-                            <div class="col-md-6 col-12 rg">
-                                <!--<div class="btn btn-danger" id="radio_01">-->
-                                <input type="radio" class="" id="d1" value="D02">
-                                <label class="btn btn-danger" for="d1">派對遊戲</label>
-                                <!--</div>-->
-                            </div>
 
                             <div class="col-md-6 col-12 rg">
                                 <!--<div class="btn btn-danger" id="radio_01">-->
@@ -106,26 +92,43 @@
                                 </div>
                             </div>
 
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-danger">
+                                    <input type="checkbox" autocomplete="off"> 派對遊戲
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="checkbox" autocomplete="off"> 兒童遊戲
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="checkbox" autocomplete="off"> 輕策略
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="checkbox" autocomplete="off"> 中策略
+                                </label>
+                                <label class="btn btn-danger">
+                                    <input type="checkbox" autocomplete="off"> 重策略
+                                </label>
+                            </div>
 
                             <!--<div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
-        <input type="radio" class="custom-control-input" id="defaultInline1">
-        <label class="custom-control-label" for="defaultInline1">兒童遊戲</label>
-    </div>
+                                <input type="radio" class="custom-control-input" id="defaultInline1">
+                                <label class="custom-control-label" for="defaultInline1">兒童遊戲</label>
+                            </div>
 
-    <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
-        <input type="radio" class="custom-control-input" id="defaultInline1">
-        <label class="custom-control-label" for="defaultInline1">輕策略</label>
-    </div>
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6 col-12">
+                                <input type="radio" class="custom-control-input" id="defaultInline1">
+                                <label class="custom-control-label" for="defaultInline1">輕策略</label>
+                            </div>
 
-    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-        <input type="radio" class="custom-control-input" id="defaultInline1">
-        <label class="custom-control-label" for="defaultInline1">中策略</label>
-    </div>
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                                <input type="radio" class="custom-control-input" id="defaultInline1">
+                                <label class="custom-control-label" for="defaultInline1">中策略</label>
+                            </div>
 
-    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-        <input type="radio" class="custom-control-input" id="defaultInline1">
-        <label class="custom-control-label" for="defaultInline1">重策略</label>
-    </div>-->
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                                <input type="radio" class="custom-control-input" id="defaultInline1">
+                                <label class="custom-control-label" for="defaultInline1">重策略</label>
+                            </div>-->
                             <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                             <p class="col-12 mt-3">遊戲種類(可複選)</p>
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6">
@@ -310,6 +313,55 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container">
+        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/13_clues.jpg" class="d-block w-100" />
+                            </div>
+                            <div class="card-footer">
+                                13道線索
+                            </div>
+                        </div>
+                </div>
+                <div class="carousel-item">
+                        <div class="card mt-4 ">
+                            <div class="card-body">
+                                <img src="images/10_dwarves.jpg" class="d-block w-100" />
+                            </div>
+                            <div class="card-footer">
+                                矮人10兄弟
+                            </div>
+                            </a>
+                        </div>
+                </div>
+                <div class="carousel-item">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <img src="images/a_la_carte.jpg" class="d-block w-100" />
+                            </div>
+                            <div class="card-footer">
+                                妙廚上菜
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     </div>
 
