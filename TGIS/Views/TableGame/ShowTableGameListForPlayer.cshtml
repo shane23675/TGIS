@@ -41,8 +41,9 @@
                         <p class="col-12 mt-3">遊戲難度</p>
                         @foreach (Tag t in ViewBag.DifficultyTagList)
                         {
+                            string isChecked = ((string[])(ViewBag.difficultTagIDs)).Contains(t.ID) ? "checked" : "";
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6 text-nowrap">
-                                <input type="radio" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagID" value="@t.ID">
+                                <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagIDs" value="@t.ID" @isChecked>
                                 <label class="custom-control-label" for="defaultInline-@t.ID">@t.TagName</label>
                             </div>
                         }
@@ -50,8 +51,9 @@
                         <p class="col-12 mt-3">遊戲分類</p>
                         @foreach (Tag t in ViewBag.CategoryTagList)
                         {
+                             string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-                                <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID">
+                                <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID" @isChecked>
                                 <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
                             </div>
                         }
