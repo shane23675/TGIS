@@ -17,6 +17,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Account)
+            @Html.ActionLink("變更密碼","ShopPasswordChange",new { id=Model.ID})
         </dd>
 
          <dt>
@@ -147,9 +148,9 @@
             @Html.DisplayFor(model => model.District.DistrictName)
         </dd>
 
-    </dl>
-</div>
 <p>
     @Html.ActionLink("Edit", "ShopEditForStore", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+    </dl>
+</div>

@@ -233,17 +233,17 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("帳號"),StringLength(20)]
+        [DisplayName("帳號")]
         public string Account { get; set; }
-        [DisplayName("密碼"),StringLength(20)]
+        [DisplayName("密碼")]
         public string Password { get; set; }
-        [DisplayName("店家名稱"),StringLength(40)]
+        [DisplayName("店家名稱")]
         public string ShopName { get; set; }
-        [DisplayName("營業時間"),StringLength(100)]
+        [DisplayName("營業時間")]
         public string OpeningHours { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
-        [DisplayName("地址"),StringLength(60)]
+        [DisplayName("地址")]
         public string Address { get; set; }
         [DisplayName("有無低消")]
         public bool IsMinConsumeRequired { get; set; }
@@ -251,11 +251,11 @@ namespace TGIS.Models
         public bool IsFoodAcceptable { get; set; }
         [DisplayName("場地規模")]
         public string AreaScale { get; set; }
-        [DisplayName("電話"),StringLength(25)]
+        [DisplayName("電話")]
         public string Tel { get; set; }
         [DisplayName("信箱")]
         public string Email { get; set; }
-        [DisplayName("Line"),StringLength(30)]
+        [DisplayName("Line")]
         public string Line { get; set; }
         [DisplayName("官網")]
         public string Website { get; set; }
@@ -267,7 +267,7 @@ namespace TGIS.Models
         public Nullable<int> AccumulatedHours { get; set; }
         [DisplayName("帳號是否啟用")]
         public bool IsAccountEnabled { get; set; }
-        [DisplayName("內容描述"),StringLength(1000)]
+        [DisplayName("內容描述")]
         public string Description { get; set; }
     }
     //桌遊主檔

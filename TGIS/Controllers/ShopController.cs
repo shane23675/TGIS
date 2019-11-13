@@ -33,9 +33,9 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
-            shop.Password = Hash.PwdHash(shop.Password);
             if (ModelState.IsValid)
             {
+                shop.Password = Hash.PwdHash(shop.Password);
                 db.Shops.Add(shop);
                 db.SaveChanges();
 
@@ -125,6 +125,35 @@ namespace TGIS.Controllers
         public ActionResult ShopDetailForStore(string id)
         {
             return View(db.Shops.Find(id));
+        }
+        public ActionResult ShopPasswordChange(string id)
+        {
+            ViewBag.ID = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ShopPasswordChange(string id,string pwd,string newpwd,string pwdrepeat)
+        {
+            Shop shop = db.Shops.Find(id);
+            if (ModelState.IsValid)
+            {
+                if (shop.Password == Hash.PwdHash(pwd))
+                {
+                    if (newpwd == pwdrepeat)
+                    {
+                        shop.Password = Hash.PwdHash(newpwd);
+                        db.SaveChanges();
+
+                        return RedirectToAction("ShopDetailForStore",new {id});
+                    }
+                    ViewBag.Error = "新密碼不符";
+                    return View();
+                }
+                ViewBag.Error = "舊密碼不符";
+                return View();
+            }
+            return View();
         }
     }
 }
