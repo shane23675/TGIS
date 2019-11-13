@@ -17,6 +17,8 @@ namespace TGIS.Controllers
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            ViewBag.difficultTagIDs = new string[0];
+            ViewBag.categoryTagIDs = new string[0];
             return View(db.TableGames.ToList());
         }
         [HttpPost]
@@ -27,9 +29,20 @@ namespace TGIS.Controllers
             //將含有categoryTags中任何一個標籤的桌遊加入targetTableGames
             foreach (TableGame item in db.TableGames.ToList())
             {
-                if (difficultTagIDs.Contains(item.DifficultyTagID))
+                //先判斷difficultTagIDs和categoryTagIDs是否為空，如果是則視同全選
+                bool isDifficultTagIDsEmpty = difficultTagIDs == null;
+                bool isCategoryTagIDsEmpty = categoryTagIDs == null;
+                //若兩者都沒選則回原頁面(全部顯示)
+                if (isDifficultTagIDsEmpty && isCategoryTagIDsEmpty)
+                    return RedirectToAction("ShowTableGameListForPlayer");
+                if (isDifficultTagIDsEmpty || difficultTagIDs.Contains(item.DifficultyTagID))
                 {
-                    foreach(string id in categoryTagIDs)
+                    if (isCategoryTagIDsEmpty)
+                    {
+                        targetTableGames.Add(item);
+                        continue;
+                    }
+                    foreach (string id in categoryTagIDs)
                     {
                         if (item.GameCategoryTags.Contains(db.Tags.Find(id)))
                         {
@@ -42,8 +55,8 @@ namespace TGIS.Controllers
             //一樣的操作
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
-            ViewBag.difficultTagIDs = difficultTagIDs;
-            ViewBag.categoryTagIDs = categoryTagIDs;
+            ViewBag.difficultTagIDs = difficultTagIDs == null ? new string[0] : difficultTagIDs;
+            ViewBag.categoryTagIDs = categoryTagIDs == null ? new string[0] : categoryTagIDs;
             return View(targetTableGames);
         }
 
@@ -206,6 +219,40 @@ namespace TGIS.Controllers
             db.TableGames.Remove(tg);
             db.SaveChanges();
             return RedirectToAction("ShowTableGameListForAdmin");
+        }
+
+        //以桌遊分類隨機取得桌遊項目的PartialView(卡片方式呈現)
+        public ActionResult _GetTableGameCards(TableGame tableGame)
+        {
+            Tag[] tags = tableGame.GameCategoryTags.ToArray();
+            //將對應分類標籤下的TableGame全部裝入games
+            List<TableGame> games = new List<TableGame>();
+            foreach (Tag t in tags)
+            {
+                foreach (TableGame tg in t.TableGamesForGameCategory)
+                {
+                    if (!games.Contains(tg))
+                        games.Add(tg);
+                }
+            }
+            //若games包含傳入的桌遊本身則移除
+            if (games.Contains(tableGame))
+                games.Remove(tableGame);
+            //若games不大於於四項則全丟入Model
+            if (games.Count <= 4)
+                return PartialView(games);
+            //games大於四項則隨機選出四項裝入selectedGames
+            List<TableGame> selectedGames = new List<TableGame>();
+            Random r = new Random();
+            TableGame selectedGame;
+            for (int i = 0; i < 4; i++)
+            {
+                int index = r.Next(games.Count);
+                selectedGame = games[index];
+                games.Remove(selectedGame);
+                selectedGames.Add(selectedGame);
+            }
+            return PartialView(selectedGames);
         }
     }
 }

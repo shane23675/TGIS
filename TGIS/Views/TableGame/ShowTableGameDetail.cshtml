@@ -91,47 +91,7 @@
         <!--Suggestions-->
         <h3>猜你也喜歡...</h3>
         <div class="card-deck">
-            <div class="card mt-4">
-                <a href="TG_Detail/dwarves.html">
-                    <div class="card-body">
-                        <img src="../images/boardGame.jpg" class="img-fluid" />
-                    </div>
-                    <div class="card-footer">
-                        矮人10兄弟<br />
-                        Dwarvers
-                    </div>
-                </a>
-            </div>
-
-            <div class="card mt-4">
-                <div class="card-body">
-                    <img src="../images/boardGame.jpg" class="img-fluid" />
-                </div>
-                <div class="card-footer">
-                    13道線索<br />
-                    13Clues
-                </div>
-            </div>
-
-            <div class="card mt-4">
-                <div class="card-body">
-                    <img src="../images/boardGame.jpg" class="img-fluid" />
-                </div>
-                <div class="card-footer">
-                    妙廚上菜<br />
-                    A La Carte
-                </div>
-            </div>
-
-            <div class="card mt-4">
-                <div class="card-body">
-                    <img src="../images/boardGame.jpg" class="img-fluid" />
-                </div>
-                <div class="card-footer">
-                    冰酷企鵝<br />
-                    Ice Cool
-                </div>
-            </div>
+            @Html.Action("_GetTableGameCards", new { tableGame = Model})
         </div>
 
         <!--Comments-->

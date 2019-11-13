@@ -382,6 +382,7 @@
     <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
+    <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
