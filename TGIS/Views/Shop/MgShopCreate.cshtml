@@ -208,7 +208,7 @@
     }
     $('#Account').blur(function () {
         account = $('#Account').val();
-        $.post("/ajax/AccountRepeat", { account }, confirm)
+        $.post("/ajax/AccountRepeat", { account: account, tableName: "Shops" }, confirm)
     });
     function confirm(e) {
         $('#confirm1').text(e)
