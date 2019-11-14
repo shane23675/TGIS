@@ -162,7 +162,7 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("會員帳號"),StringLength(20)]
         public string Account { get; set; }
-        [DisplayName("會員密碼"),StringLength(20)]
+        [DisplayName("會員密碼"),StringLength(50)]
         public string Password { get; set; }
         [DisplayName("暱稱"),StringLength(10)]
         public string NickName { get; set; }
@@ -175,7 +175,7 @@ namespace TGIS.Models
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
         [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
-        public System.DateTime Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         [DisplayName("持有點數量"),Range(0,int.MaxValue)]
         public int Points { get; set; }
         [DisplayName("是否停權")]
@@ -262,7 +262,7 @@ namespace TGIS.Models
         [DisplayName("是否啟用VIP")]
         public bool IsVIP { get; set; }
         [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> ExpireDate { get; set; }
+        public Nullable<DateTime> ExpireDate { get; set; }
         [DisplayName("累積加值時數")]
         public Nullable<int> AccumulatedHours { get; set; }
         [DisplayName("帳號是否啟用")]
