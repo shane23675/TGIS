@@ -147,11 +147,11 @@ namespace TGIS.Controllers
 
                         return RedirectToAction("ShopDetailForStore",new {id});
                     }
-                    Response.Write("<script>alert('北七嗎? 新密碼不符')</script>");
+                    ViewBag.Error = "新密碼不符";
                     ViewBag.ID = id;
                     return View();
                 }
-                Response.Write("<script>alert('北七嗎? 舊密碼不符')</script>");
+                ViewBag.Error = "舊密碼不符";
                 ViewBag.ID = id;
                 return View();
             }
