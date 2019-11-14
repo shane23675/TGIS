@@ -23,6 +23,31 @@
         display: inline-flex;
         margin-right: 0rem;
     }
+
+    @@media (min-width:576px){
+             .card-body{
+                           height:474px;
+             }
+         }
+
+    @@media (min-width:768px){
+              .card-body{
+                           height:107.75px;
+             }
+         }
+
+    @@media (min-width:992px){
+              .card-body{
+                           height:157.75px;
+             }
+         }
+
+    @@media (min-width: 1200px) {
+        .card-body{
+            height:192.25px;
+        }
+    }
+
 </style>
 
 
@@ -51,7 +76,7 @@
                         <p class="col-12 mt-3">遊戲分類</p>
                         @foreach (Tag t in ViewBag.CategoryTagList)
                         {
-                             string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
+                            string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6">
                                 <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID" @isChecked>
                                 <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
@@ -61,7 +86,6 @@
                         <!--</div>-->
                     </div>
                     <input type="submit" class="btn btn-warning" value="Submit">
-                    <img src="images/wifi.PNG" class="img-fluid" />
                 }
             </nav>
         </div>
@@ -85,7 +109,7 @@
                         <div class="card mt-4">
                             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
                                 <div class="card-body">
-                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid" />
+                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid h-100" />
                                 </div>
                                 <div class="card-footer">
                                     @tg.ChineseName<br />
