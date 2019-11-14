@@ -1,34 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.SqlClient;
-using System.Configuration;
+using TGIS.Models;
 
 namespace TGIS.Controllers
 {
     public class LoginController : Controller
     {
-        SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TGISDBEntities"].ConnectionString);
+        TGISDBEntities db = new TGISDBEntities();
         // GET: Login
-        public ActionResult LoginForPlayer(string acc,string pwd)
+        public ActionResult LoginForPlayer(string account,string pwd)
         {
-            string sql = "select ID from Player where Account=@acc and Password=@pwd";
-            SqlCommand cmd = new SqlCommand(sql,Conn);
-            cmd.Parameters.AddWithValue("Account", acc);
-            cmd.Parameters.AddWithValue("Password", pwd);
-            SqlDataReader rd;
-
-            Conn.Open();
-            rd = cmd.ExecuteReader();
-            if (rd.Read())
+            var user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).FirstOrDefault();
+            if (user != null)
             {
-                Conn.Close();
-                return RedirectToAction("PlayerIndex","Player");
+                return RedirectToAction("", "");
             }
-            Conn.Close();
             ViewBag.Error = "帳號密碼錯誤";
-            return View(acc);
+            return View();
+        }
+        public ActionResult LoginForShop()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult LoginForShop (string account,string pwd)
+        {
+            var password = Hash.PwdHash(pwd);
+            Shop user = db.Shops.Where(m => m.Account == account).Where(m => m.Password == password).SingleOrDefault();
+            if (user != null)
+            {
+                var id = user.ID;
+                return RedirectToAction("ShopDetailForStore", "Shop",new { id });
+            }
+            ViewBag.Error = "帳號密碼錯誤";
+            return View();
         }
     }
 }

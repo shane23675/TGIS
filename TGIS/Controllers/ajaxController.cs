@@ -13,6 +13,17 @@ namespace TGIS.Controllers
 
     public class ajaxController : Controller
     {
+        bool RepeatCheck<T>(IEnumerable<T> table, string account,string property)
+        {
+            PropertyInfo info = typeof(T).GetProperty(property);
+            foreach (T item in table)
+            {
+                string acc = info.GetValue(item).ToString();
+                if (acc == account)
+                    return true;
+            }
+            return false;
+        }
         TGISDBEntities db = new TGISDBEntities();
         // GET: District
         //連動式列表(行政區)
@@ -33,16 +44,16 @@ namespace TGIS.Controllers
             }
             return Content(sb.ToString());
         }
-        public  ActionResult AccountRepeat(string account, string tableName)
+        public  ActionResult AccountRepeat(string account, string tableName,string property)
         {
             bool isRepeated = false;
             switch (tableName)
             {
                 case "Shops":
-                    isRepeated = RepeatCheck(db.Shops, account);
+                    isRepeated = RepeatCheck(db.Shops, account, property);
                     break;
                 case "Players":
-                    isRepeated = RepeatCheck(db.Players, account);
+                    isRepeated = RepeatCheck(db.Players, account, property);
                     break;
             }
             if (!isRepeated)
@@ -51,16 +62,23 @@ namespace TGIS.Controllers
             }
             return Content("帳號重複".ToString());
         }
-        bool RepeatCheck<T>(IEnumerable<T> table, string account)
+        public ActionResult EmailRepeat(string email,string tableName,string property)
         {
-            PropertyInfo info = typeof(T).GetProperty("Account");
-            foreach (T item in table)
+            bool isRepeat = false;
+            switch (tableName)
             {
-                string acc = info.GetValue(item).ToString();
-                if (acc == account)
-                    return true;
+                case "Shop":
+                    isRepeat = RepeatCheck(db.Shops, email, property);
+                    break;
+                case "Player":
+                    isRepeat = RepeatCheck(db.Players, email, property);
+                    break;
             }
-            return false;
+            if (!isRepeat)
+            {
+                return Content("Email可使用");
+            }
+            return Content("Email重複");
         }
     }
 }
