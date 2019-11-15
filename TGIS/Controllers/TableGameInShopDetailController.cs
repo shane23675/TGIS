@@ -10,10 +10,51 @@ namespace TGIS.Controllers
     public class TableGameInShopDetailController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
+        //更新TableGameInShopDetail
         public ActionResult UpdateTableGameInShopDetail(string shopID)
         {
             ViewBag.shopID = shopID;
             return View(db.TableGames.ToList());
+        }
+        [HttpPost]
+        public ActionResult UpdateTableGameInShopDetail(string shopID, string[] tableGameIDs, bool[] isContainedFlags, bool[] isSaleFlags, int[] Price)
+        {
+            TableGame tg;
+            TableGameInShopDetail detail;
+            //依據索引值逐個檢查每個桌遊
+            for (int i = 0; i < tableGameIDs.Length; i++)
+            {
+                //查找此店家是否有此桌遊
+                tg = db.TableGames.Find(tableGameIDs[i]);
+                detail = tg.TableGameInShopDetails.Where(m => m.ShopID == shopID).FirstOrDefault();
+                //有此桌遊，進一步判斷此桌遊是否有被刪除
+                if (detail != null)
+                {
+                    if (isContainedFlags[i])
+                    {
+                        detail.IsSale = isSaleFlags[i];
+                        detail.Price = Price[i];
+                    }
+                    else
+                    {
+                        db.TableGameInShopDetails.Remove(detail);
+                    }
+                }
+                //無此桌遊，若後來有被新增則新增至TableGameInShopDetails
+                else if (isContainedFlags[i])
+                {
+                    TableGameInShopDetail d = new TableGameInShopDetail
+                    {
+                        ShopID = shopID,
+                        TableGameID = tableGameIDs[i],
+                        IsSale = isSaleFlags[i],
+                        Price = Price[i]
+                    };
+                    db.TableGameInShopDetails.Add(d);
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("UpdateTableGameInShopDetail", new { shopID = shopID });
         }
 
         //取得TableGameInShopDetail的partialView

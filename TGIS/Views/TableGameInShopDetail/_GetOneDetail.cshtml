@@ -9,15 +9,24 @@
     {
         notContained = "selected";
     }
-    
+
+    string isSale = "", notSale = "";
+    if (Model.IsSale)
+    {
+        isSale = "selected";
+    }
+    else
+    {
+        notSale = "selected";
+    }
 }
 
 <tr>
     <td>
-        @Html.HiddenFor(m => m.TableGameID)
-        <select name="isContainedFlags">
-            <option value="true" @isContained>Yes</option>
-            <option value="false" @notContained>No</option>
+        <input type="hidden" name="tableGameIDs" value="@Model.TableGameID"  />
+        <select name="isContainedFlags" class="form-control">
+            <option value="true" @isContained>是</option>
+            <option value="false" @notContained>否</option>
         </select>
     </td>
     <td>
@@ -25,9 +34,12 @@
         @Model.TableGame.EnglishName
     </td>
     <td>
-        @Html.EditorFor(m=>m.IsSale)
+        <select name="isSaleFlags" class="form-control">
+            <option value="true" @isSale>是</option>
+            <option value="false" @notSale>否</option>
+        </select>
     </td>
     <td>
-        @Html.EditorFor(m=>m.Price)
+        @Html.TextBoxFor(m=>m.Price, new { @class="form-control"})
     </td>
 </tr>
