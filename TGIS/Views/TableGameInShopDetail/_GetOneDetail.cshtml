@@ -1,0 +1,33 @@
+﻿@model TGIS.Models.TableGameInShopDetail
+@{ 
+    string isContained = "", notContained = "";
+    if ((bool)(ViewBag.isContained))
+    {
+        isContained = "selected";
+    }
+    else
+    {
+        notContained = "selected";
+    }
+    
+}
+
+<tr>
+    <td>
+        @Html.HiddenFor(m => m.TableGameID)
+        <select name="isContainedFlags">
+            <option value="true" @isContained>Yes</option>
+            <option value="false" @notContained>No</option>
+        </select>
+    </td>
+    <td>
+        @Model.TableGame.ChineseName<br />
+        @Model.TableGame.EnglishName
+    </td>
+    <td>
+        @Html.EditorFor(m=>m.IsSale)
+    </td>
+    <td>
+        @Html.EditorFor(m=>m.Price)
+    </td>
+</tr>

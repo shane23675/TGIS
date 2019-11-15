@@ -1,0 +1,23 @@
+﻿@using TGIS.Models
+@model IEnumerable<TableGame>
+@{
+    ViewBag.Title = "UpdateTableGameInShopDetail";
+}
+
+<h2>店內桌遊明細表</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>持有</th>
+            <th>桌遊名稱</th>
+            <th>是否販售</th>
+            <th>價格</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TableGame item in Model)
+        {
+            @Html.Action("_GetOneDetail", new { tableGameID=item.ID, shopID=ViewBag.shopID})
+        }
+    </tbody>
+</table>

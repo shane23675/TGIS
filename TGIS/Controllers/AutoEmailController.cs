@@ -11,12 +11,12 @@ namespace TGIS.Controllers
         // GET: AutoEmail
         public void Index()
         {
-            System.Net.Mail.SmtpClient smtp = new
-                System.Net.Mail.SmtpClient("stmp.gmail.com", 123);
+            System.Net.Mail.SmtpClient smtp = 
+                new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
 
-            smtp.Credentials = new System.Net.NetworkCredential();
+            smtp.Credentials = new System.Net.NetworkCredential("kevin0930024496@gmail.com", "bavvjfsnecmjnhhy");
             smtp.EnableSsl = true;
-            smtp.Send("","","","");
+            smtp.Send("kevin0930024496@gmail.com", "kevin0976184751@gmail.com","C#測試","hello you motherfucker");
             smtp.Dispose();
         }
     }
