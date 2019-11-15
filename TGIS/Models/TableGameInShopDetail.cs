@@ -17,7 +17,7 @@ namespace TGIS.Models
         public string TableGameID { get; set; }
         public string ShopID { get; set; }
         public bool IsSale { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public Nullable<int> Price { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual TableGame TableGame { get; set; }
