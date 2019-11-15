@@ -245,6 +245,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\AutoEmailController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -380,9 +381,9 @@
     <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
-    <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
     <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
+    <Content Include="Views\Login\LoginForShop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
