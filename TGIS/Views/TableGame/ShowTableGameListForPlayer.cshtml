@@ -24,6 +24,24 @@
         margin-right: 0rem;
     }
 
+    .gameName{
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        padding:10px;
+        background-color:rgba(0,0,0,.6);
+        color:#ffffff;
+        font-size:1rem;
+        opacity:0;
+        transition:opacity .3s;
+    }
+
+    .card-body:hover .gameName{
+        opacity:1;
+    }
+
     @@media (min-width:576px){
              .card-body{
                            height:474px;
@@ -108,12 +126,12 @@
                     <div class="col-md-3">
                         <div class="card mt-4">
                             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
-                                <div class="card-body">
+                                <div class="card-body" style="position:relative">
                                     <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid h-100" />
-                                </div>
-                                <div class="card-footer">
-                                    @tg.ChineseName<br />
-                                    @tg.EnglishName
+                                    <div class="gameName">
+                                        @tg.ChineseName<br />
+                                        @tg.EnglishName
+                                    </div>
                                 </div>
                             </a>
                         </div>
