@@ -7,6 +7,34 @@
 }
 
 <style>
+
+    @@media (min-width:576px) {
+        .card-body {
+            height: 389px;
+        }
+    }
+
+    @@media (min-width:768px) {
+        .card-body {
+            height: 118px;
+        }
+    }
+
+    @@media (min-width:992px) {
+        .card-body {
+            height: 178px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .card-body {
+            height: 223px;
+        }
+    }
+    #tgStore{
+        align-items:end;
+    }
+
 </style>
 <div class="row">
 
@@ -20,6 +48,16 @@
             @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
             @Html.ActionLink("桌遊百科", "ShowTableGameListForPlayer", "TableGame", null, new { @class = "nav-link" })
             <a class="nav-link">@Model.ChineseName</a>
+            @*<input type="button" id="tgStore" class="" value="我可以去哪玩它?" />
+            <div class="btn-group align-items-end" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    我可以去哪玩它?
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                </div>
+            </div>*@
         </nav>
         <div class="row">
             <!--Pictures-->
@@ -75,15 +113,15 @@
         <div class="card-deck">
             @foreach (var item in Model.RelevantLinks)
             {
-            <div class="col-md-3">
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                <div class="col-md-3">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            @*<div class="embed-responsive embed-responsive-16by9">*@
+                                <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                            @*</div>*@
                         </div>
                     </div>
                 </div>
-            </div>
             }
 
         </div>
@@ -91,7 +129,7 @@
         <!--Suggestions-->
         <h3>猜你也喜歡...</h3>
         <div class="card-deck">
-            @Html.Action("_GetTableGameCards", new { tableGame = Model})
+            @Html.Action("_GetTableGameCards", new { tableGame = Model })
         </div>
 
         <!--Comments-->
