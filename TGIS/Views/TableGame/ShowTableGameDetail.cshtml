@@ -139,7 +139,7 @@
             <textarea id="TextArea1" rows="4" cols="30" name="comment"></textarea>
             <input id="Submit1" type="submit" value="submit" />
         }
-
+        
         <!--Comments-->
         <h3>評論</h3>
         @foreach (var comment in Model.TableGameComments)
@@ -152,9 +152,9 @@
                 <div class="col-md-10 card">
                     <div class="card-body">
                         <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                        <p>
+                        <span>
                             @comment.Content
-                        </p>
+                        </span>
                         <p>@comment.CommentDate</p>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: Login
+        //玩家登入
         public ActionResult LoginForPlayer()
         {
             return View();
@@ -18,7 +19,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForPlayer(string account,string pwd)
         {
-            Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).FirstOrDefault();
+            Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
             if (user != null)
             {
                 Session["PlayerID"] = $"{user.ID}";
@@ -27,6 +28,7 @@ namespace TGIS.Controllers
             ViewBag.Error = "帳號密碼錯誤";
             return View();
         }
+        //店家登入
         public ActionResult LoginForShop()
         {
             return View();
@@ -58,7 +60,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult ForgetPwd(string account,string Email)
         {
-            Player user =  db.Players.Where(m => m.Account == account).FirstOrDefault();
+            Player user =  db.Players.Where(m => m.Account == account).SingleOrDefault();
             if (user != null)
             {
                 if (Email == user.Email)
@@ -81,7 +83,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult ForgetPwdChange(string fdew,string aswe,string newPwd,string pwdRepeat)
         {
-            Player user = db.Players.Where(w => w.Account == fdew).FirstOrDefault();
+            Player user = db.Players.Where(w => w.Account == fdew).SingleOrDefault();
                 if (Hash.PwdHash(user.ID) == aswe)
                 {
                     if (newPwd == pwdRepeat)
