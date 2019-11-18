@@ -245,6 +245,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -399,6 +400,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Default\" />
     <Folder Include="Views\TableGameInShop\" />
     <Folder Include="Views\TGComment\" />
   </ItemGroup>

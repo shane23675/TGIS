@@ -14,11 +14,11 @@ namespace TGIS.Controllers
         // GET: TGComment
         public ActionResult CreateTGComment(string tId,string comment)
         {
-            if (Session["PlayerID"] != null)
+            if (Session["Player"] != null)
             {
                 if (ModelState.IsValid)
-                    {
-                    var pId = Session["PlayerID"].ToString();
+                {
+                    var pId = ((Player)Session["Player"]).ID.ToString();
                     TableGameComment tgc = new TableGameComment();
                     tgc.PlayerID = pId;
                     tgc.TableGameID = tId;
@@ -26,10 +26,10 @@ namespace TGIS.Controllers
                     tgc.Content = comment;
                     tgc.IsHidden = false;
                     db.TableGameComments.Add(tgc);
-                    Player player = db.Players.Where(m => m.ID == pId).SingleOrDefault();
+                    Player player = db.Players.Find(pId);
                     player.Points += 1;
                     db.SaveChanges();
-                    }
+                }
                 return RedirectToAction("ShowTableGameDetail", "TableGame", new { tableGameID = tId });
             }
             return RedirectToAction("LoginForPlayer","Login");

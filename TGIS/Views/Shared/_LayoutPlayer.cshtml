@@ -29,7 +29,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="#">有桌方遊</a>
+            <a class="navbar-brand" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">有桌方遊</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav mr-auto"> </div>
                 <form class="form-inline my-2 my-md-0">
@@ -37,7 +37,7 @@
                     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">搜尋</button>
                 </form>
                 <a class="nav-link" href="#">會員中心</a>
-                <a class="nav-link" href="#">登出</a>
+                <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
             </div>
         </nav>
     </header>
