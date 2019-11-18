@@ -251,6 +251,7 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -383,6 +384,9 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
     <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
+    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
+    <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
+    <Content Include="Views\Team\TeamCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
