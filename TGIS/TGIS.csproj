@@ -371,7 +371,6 @@
     <Content Include="Views\Shop\MgShopEdit.cshtml" />
     <Content Include="Views\Shop\ShopIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayerCenter.cshtml" />
-    <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\Player\PlayerEdit.cshtml" />
     <Content Include="Views\Player\PlayerIndex.cshtml" />
     <Content Include="Views\Shop\ShopIndexForPlayer.cshtml" />
@@ -392,6 +391,9 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
+    <Content Include="Views\Player\PlayerCreate.cshtml" />
+    <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
+    <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
