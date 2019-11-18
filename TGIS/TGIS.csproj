@@ -373,7 +373,6 @@
     <Content Include="Views\Shop\MgShopEdit.cshtml" />
     <Content Include="Views\Shop\ShopIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayerCenter.cshtml" />
-    <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\Player\PlayerEdit.cshtml" />
     <Content Include="Views\Player\PlayerIndex.cshtml" />
     <Content Include="Views\Shop\ShopIndexForPlayer.cshtml" />
@@ -388,6 +387,12 @@
     <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
     <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
+    <Content Include="Views\Login\LoginForShop.cshtml" />
+    <Content Include="Views\TableGameInShopDetail\UpdateTableGameInShopDetail.cshtml" />
+    <Content Include="Views\TableGameInShopDetail\_GetOneDetail.cshtml" />
+    <Content Include="Views\Login\LoginForPlayer.cshtml" />
+    <Content Include="Views\Login\ForgetPwd.cshtml" />
+    <Content Include="Views\Login\ForgetPwdChange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

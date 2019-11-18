@@ -6,10 +6,10 @@
 
 <h2>PlayerCreate</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Player</h4>
         <hr />
@@ -73,10 +73,22 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.District.City.CityName, "城市", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DistrictID", null, htmlAttributes: new { @class = "form-control" })
+                <select id="CityID" class="form-control">
+                    @foreach (SelectListItem c in (SelectList)(ViewBag.CityID))
+                    {
+                        <option value="@c.Value">@c.Text</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DistrictID">District</label>
+            <div class="col-md-10">
+                <select class="form-control" id="DistrictID" name="DistrictID"></select>
+                <span class="field-validation-valid text-danger" data-valmsg-for="DistrictID" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -107,6 +119,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.IsEmailValid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsEmailValid)
+                    @Html.ValidationMessageFor(model => model.IsEmailValid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -117,3 +139,27 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    init()
+    $("#CityID").change(init);
+    function init() {
+        CId = $("#CityID").val()
+        Did = $("#DistrictID").val()
+        $.post("/ajax/generateStateList", { CId: CId, Did: Did }, callback);
+    }
+    function callback(htmlVal) {
+        $("#DistrictID").html(htmlVal);
+    }
+    $('#Account').blur(function () {
+        account = $('#Account').val();
+        $.post("/ajax/AccountRepeat", { val: account, tableName: "Shops", property: "Account" }, confirm)
+    });
+    function confirm(e) {
+        $('#confirm1').text(e)
+    };
+
+
+</script>

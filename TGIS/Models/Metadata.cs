@@ -160,11 +160,11 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("會員帳號"),StringLength(20)]
+        [DisplayName("會員帳號")]
         public string Account { get; set; }
-        [DisplayName("會員密碼"),StringLength(50)]
+        [DisplayName("會員密碼")]
         public string Password { get; set; }
-        [DisplayName("暱稱"),StringLength(10)]
+        [DisplayName("暱稱")]
         public string NickName { get; set; }
         [DisplayName("照片")]
         public byte[] PlayerImage { get; set; }
