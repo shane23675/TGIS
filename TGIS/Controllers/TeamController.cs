@@ -25,7 +25,24 @@ namespace TGIS.Controllers
         //新開一桌(玩家用)
         public ActionResult TeamCreate()
         {
+            //若尚未登入則重新導向至登入頁
+            if (Session["Player"] == null)
+                return RedirectToAction("LoginForPlayer", "Login");
+
+            ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
             //這裡不傳PlayerID，直接在View中通過Session取得
+            return View();
+        }
+        [HttpPost]
+        public ActionResult TeamCreate(Team team)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Teams.Add(team);
+                db.SaveChanges();
+                return RedirectToAction("TeamIndex");
+            }
+            ViewBag.teamID = team.ID;
             return View();
         }
     }

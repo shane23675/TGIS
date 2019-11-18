@@ -15,16 +15,9 @@
     
     <div class="form-horizontal">
         <hr />
-        <input type="hidden" name="ID" value="@UsefulTools.GetNextID(new TGISDBEntities().Teams, 1)" />
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.ShopID, "ShopID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ShopID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-        @(((Player)Session["Player"]).ID)
+        <input type="hidden" name="ID" value="@ViewBag.teamID" />
+        <input type="hidden" name="LeaderPlayerID" value="@(((Player)Session["Player"]).ID)" />
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -108,16 +101,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="確定送出" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "TeamIndexForPlayer")
 </div>
-
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

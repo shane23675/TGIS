@@ -252,10 +252,10 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
-	    <Compile Include="Controllers\TableGameInShopDetailController.cs" />
+    <Compile Include="Controllers\TableGameInShopDetailController.cs" />
     <Compile Include="Controllers\TGCommentController.cs" />
-	    <Compile Include="Controllers\TeamController.cs" />
-
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -399,6 +399,7 @@
     <Folder Include="Views\Default\" />
     <Folder Include="Views\TableGameInShop\" />
     <Folder Include="Views\TGComment\" />
+    <Folder Include="Views\Tool\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
