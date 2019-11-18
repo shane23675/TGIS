@@ -1,0 +1,45 @@
+﻿@model TGIS.Models.TableGameInShopDetail
+@{ 
+    string isContained = "", notContained = "";
+    if ((bool)(ViewBag.isContained))
+    {
+        isContained = "selected";
+    }
+    else
+    {
+        notContained = "selected";
+    }
+
+    string isSale = "", notSale = "";
+    if (Model.IsSale)
+    {
+        isSale = "selected";
+    }
+    else
+    {
+        notSale = "selected";
+    }
+}
+
+<tr>
+    <td>
+        <input type="hidden" name="tableGameIDs" value="@Model.TableGameID"  />
+        <select name="isContainedFlags" class="form-control">
+            <option value="true" @isContained>是</option>
+            <option value="false" @notContained>否</option>
+        </select>
+    </td>
+    <td>
+        @Model.TableGame.ChineseName<br />
+        @Model.TableGame.EnglishName
+    </td>
+    <td>
+        <select name="isSaleFlags" class="form-control">
+            <option value="true" @isSale>是</option>
+            <option value="false" @notSale>否</option>
+        </select>
+    </td>
+    <td>
+        @Html.TextBoxFor(m=>m.Price, new { @class="form-control"})
+    </td>
+</tr>

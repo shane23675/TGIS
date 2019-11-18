@@ -13,6 +13,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: Login
+        //管理員登入
         public ActionResult LoginForAdmin()
         {
             return View();
@@ -20,11 +21,9 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForAdmin(string ac, string pwd)
         {
-            var password = Hash.PwdHash(pwd);
-            var user = db.Administrators.Where(m => m.Account == ac).Where(m=>m.Password==password).FirstOrDefault();
+            var user = db.Administrators.Where(m => m.Account == ac).Where(m=>m.Password==pwd).FirstOrDefault();
             if (user !=null)
             {
-                ViewBag.user = user;
                 return RedirectToAction("ShopIndex", "Shop");
             }
             ViewBag.Error = "帳號密碼錯誤";

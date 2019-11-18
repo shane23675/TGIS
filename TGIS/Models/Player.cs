@@ -35,6 +35,7 @@ namespace TGIS.Models
         public System.DateTime Birthday { get; set; }
         public int Points { get; set; }
         public bool IsBanned { get; set; }
+        public bool IsEmailValid { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

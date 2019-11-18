@@ -1,25 +1,25 @@
 ﻿
 @{
     ViewBag.Title = "LoginForPlayer";
-    Layout = "~/Views/Shared/_LayoutEntry.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
 <h2>LoginForPlayer</h2>
-<form method="post" action="~/LoginForAdmin/LoginForAdmin" class="container">
-    <h2>管理員登入</h2>
+<form method="post" action="~/Login/LoginForPlayer" class="container">
+    <h2>玩家登入</h2>
     <div class="form-group">
         <span>ID:</span>
     </div>
     <div>
-        <input id="ac" type="text" name="ac" class="form-control" />
+        <input id="ac" type="text" name="account" class="form-control w-25" />
     </div>
     <div class="form-group">
         <span>PW:</span>
     </div>
     <div>
-        <input id="pwd" type="password" name="pwd" class="form-control" />
+        <input id="pwd" type="password" name="pwd" class="form-control w-25" />
     </div>
     <input id="Submit1" type="submit" value="submit" />
-    <div class="alert-danger">@ViewBag.Error</div>
+    <div class="alert-danger w-25">@ViewBag.Error</div>
 </form>
-
+@Html.ActionLink("忘記密碼","ForgetPwd")

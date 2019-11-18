@@ -245,13 +245,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
-    <Compile Include="Controllers\TeamController.cs" />
+	    <Compile Include="Controllers\TableGameInShopDetailController.cs" />
+    <Compile Include="Controllers\TGCommentController.cs" />
+	    <Compile Include="Controllers\TeamController.cs" />
+
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,6 +265,7 @@
     <Compile Include="Models\Announcement.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AutoEmail.cs" />
     <Compile Include="Models\City.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -381,12 +386,8 @@
     <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
-    <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
     <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
-    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
-    <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
-    <Content Include="Views\Team\TeamCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -394,7 +395,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Default\" />
+    <Folder Include="Views\TableGameInShop\" />
+    <Folder Include="Views\TGComment\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

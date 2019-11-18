@@ -13,6 +13,17 @@ namespace TGIS.Controllers
 
     public class ajaxController : Controller
     {
+        bool RepeatCheck<T>(IEnumerable<T> table, string val,string property)
+        {
+            PropertyInfo info = typeof(T).GetProperty(property);
+            foreach (T item in table)
+            {
+                string value = info.GetValue(item).ToString();
+                if (value == val)
+                    return true;
+            }
+            return false;
+        }
         TGISDBEntities db = new TGISDBEntities();
         // GET: District
         //連動式列表(行政區)
@@ -33,34 +44,23 @@ namespace TGIS.Controllers
             }
             return Content(sb.ToString());
         }
-        public  ActionResult AccountRepeat(string account, string tableName)
+        public  ActionResult AccountRepeat(string val, string tableName,string property)
         {
             bool isRepeated = false;
             switch (tableName)
             {
                 case "Shops":
-                    isRepeated = RepeatCheck(db.Shops, account);
+                    isRepeated = RepeatCheck(db.Shops, val, property);
                     break;
                 case "Players":
-                    isRepeated = RepeatCheck(db.Players, account);
+                    isRepeated = RepeatCheck(db.Players, val, property);
                     break;
             }
             if (!isRepeated)
             {
-                return Content("帳號可使用".ToString());
+                return Content("可使用".ToString());
             }
-            return Content("帳號重複".ToString());
-        }
-        bool RepeatCheck<T>(IEnumerable<T> table, string account)
-        {
-            PropertyInfo info = typeof(T).GetProperty("Account");
-            foreach (T item in table)
-            {
-                string acc = info.GetValue(item).ToString();
-                if (acc == account)
-                    return true;
-            }
-            return false;
+            return Content("以使用過".ToString());
         }
     }
 }

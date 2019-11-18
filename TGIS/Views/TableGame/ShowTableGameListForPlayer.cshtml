@@ -23,6 +23,49 @@
         display: inline-flex;
         margin-right: 0rem;
     }
+
+    .gameName{
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        padding:10px;
+        background-color:rgba(0,0,0,.6);
+        color:#ffffff;
+        font-size:1rem;
+        opacity:0;
+        transition:opacity .3s;
+    }
+
+    .card-body:hover .gameName{
+        opacity:1;
+    }
+
+    @@media (min-width:576px){
+             .card-body{
+                           height:474px;
+             }
+         }
+
+    @@media (min-width:768px){
+              .card-body{
+                           height:107.75px;
+             }
+         }
+
+    @@media (min-width:992px){
+              .card-body{
+                           height:157.75px;
+             }
+         }
+
+    @@media (min-width: 1200px) {
+        .card-body{
+            height:192.25px;
+        }
+    }
+
 </style>
 
 
@@ -51,7 +94,7 @@
                         <p class="col-12 mt-3">遊戲分類</p>
                         @foreach (Tag t in ViewBag.CategoryTagList)
                         {
-                             string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
+                            string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
                             <div class="custom-control custom-checkbox custom-control-inline col-md-6">
                                 <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID" @isChecked>
                                 <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
@@ -61,7 +104,6 @@
                         <!--</div>-->
                     </div>
                     <input type="submit" class="btn btn-warning" value="Submit">
-                    <img src="images/wifi.PNG" class="img-fluid" />
                 }
             </nav>
         </div>
@@ -84,12 +126,12 @@
                     <div class="col-md-3">
                         <div class="card mt-4">
                             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
-                                <div class="card-body">
-                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid" />
-                                </div>
-                                <div class="card-footer">
-                                    @tg.ChineseName<br />
-                                    @tg.EnglishName
+                                <div class="card-body" style="position:relative">
+                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid h-100" />
+                                    <div class="gameName">
+                                        @tg.ChineseName<br />
+                                        @tg.EnglishName
+                                    </div>
                                 </div>
                             </a>
                         </div>
