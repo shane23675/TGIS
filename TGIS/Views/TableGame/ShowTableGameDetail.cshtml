@@ -153,7 +153,7 @@
                     <div class="card-body">
                         <h3 class="font-weight-bold">@comment.Player.NickName</h3>
                         <span>
-                            @comment.Content
+                            @Html.Raw(comment.Content.Replace("\n", "<br />"))
                         </span>
                         <p>@comment.CommentDate</p>
                     </div>

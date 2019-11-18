@@ -22,8 +22,8 @@ namespace TGIS.Controllers
                     TableGameComment tgc = new TableGameComment();
                     tgc.PlayerID = pId;
                     tgc.TableGameID = tId;
-                    tgc.CommentDate = DateTime.Now;
-                    tgc.Content = comment.Replace("\n", "<br />");
+                    tgc.CommentDate = DateTime.Today;
+                    tgc.Content = comment;
                     tgc.IsHidden = false;
                     db.TableGameComments.Add(tgc);
                     Player player = db.Players.Where(m => m.ID == pId).SingleOrDefault();

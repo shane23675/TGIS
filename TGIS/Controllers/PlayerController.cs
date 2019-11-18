@@ -18,7 +18,7 @@ namespace TGIS.Controllers
             return View(db.Players.ToList());
         }
 
-        //管理創建玩家會員
+        //創建玩家會員(註冊)
         public ActionResult PlayerCreate()
         {
             return View();
