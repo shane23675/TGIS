@@ -120,6 +120,7 @@
           <Property Name="Birthday" Type="date" Nullable="false" />
           <Property Name="Points" Type="int" Nullable="false" />
           <Property Name="IsBanned" Type="bit" Nullable="false" />
+          <Property Name="IsEmailValid" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PlayerCouponDetail">
           <Key>
@@ -211,7 +212,7 @@
           <Property Name="TableGameID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="IsSale" Type="bit" Nullable="false" />
-          <Property Name="Price" Type="money" />
+          <Property Name="Price" Type="int" />
         </EntityType>
         <EntityType Name="TableGameVisitedStatistic">
           <Key>
@@ -806,6 +807,7 @@
           <NavigationProperty Name="PlayerPointDetails" Relationship="Self.Relationship40" FromRole="Player" ToRole="PlayerPointDetail" />
           <NavigationProperty Name="TableGameComments" Relationship="Self.Relationship43" FromRole="Player" ToRole="TableGameComment" />
           <NavigationProperty Name="TeamsForOtherPlayer" Relationship="Self.TeamDetail" FromRole="Player" ToRole="Team" />
+          <Property Name="IsEmailValid" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="PlayerCouponDetail">
           <Key>
@@ -915,9 +917,9 @@
           <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="IsSale" Type="Boolean" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Shop" Relationship="Self.Relationship15" FromRole="TableGameInShopDetail" ToRole="Shop" />
           <NavigationProperty Name="TableGame" Relationship="Self.Relationship14" FromRole="TableGameInShopDetail" ToRole="TableGame" />
+          <Property Name="Price" Type="Int32" />
         </EntityType>
         <EntityType Name="TableGameVisitedStatistic">
           <Key>
@@ -1445,6 +1447,7 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="TGISDBModel.Player">
               <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="IsEmailValid" ColumnName="IsEmailValid" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1549,10 +1552,10 @@
           <EntitySetMapping Name="TableGameInShopDetails">
             <EntityTypeMapping TypeName="TGISDBModel.TableGameInShopDetail">
               <MappingFragment StoreEntitySet="TableGameInShopDetail">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="IsSale" ColumnName="IsSale" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

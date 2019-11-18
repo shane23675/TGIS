@@ -122,19 +122,20 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //店家看到店家詳細資料
-        public ActionResult ShopDetailForStore(string id)
+        public ActionResult ShopDetailForStore()
         {
+            var id = Session["ShopID"].ToString();
             return View(db.Shops.Find(id));
         }
-        public ActionResult ShopPasswordChange(string id)
+        public ActionResult ShopPasswordChange()
         {
-            ViewBag.ID = id;
             return View();
         }
 
         [HttpPost]
-        public ActionResult ShopPasswordChange(string id,string pwd,string newpwd,string pwdrepeat)
+        public ActionResult ShopPasswordChange(string pwd,string newpwd,string pwdrepeat)
         {
+            var id = Session["ShopID"].ToString();
             Shop shop = db.Shops.Find(id);
             if (ModelState.IsValid)
             {
@@ -148,11 +149,9 @@ namespace TGIS.Controllers
                         return RedirectToAction("ShopDetailForStore",new {id});
                     }
                     ViewBag.Error = "新密碼不符";
-                    ViewBag.ID = id;
                     return View();
                 }
                 ViewBag.Error = "舊密碼不符";
-                ViewBag.ID = id;
                 return View();
             }
             return View();

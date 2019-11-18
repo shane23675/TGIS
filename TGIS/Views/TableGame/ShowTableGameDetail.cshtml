@@ -117,7 +117,7 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             @*<div class="embed-responsive embed-responsive-16by9">*@
-                                <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                            <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
                             @*</div>*@
                         </div>
                     </div>
@@ -132,6 +132,14 @@
             @Html.Action("_GetTableGameCards", new { tableGame = Model })
         </div>
 
+        @using (Html.BeginForm("CreateTGComment","TGComment",FormMethod.Post))
+        {
+            <p>評論</p>
+            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+            <textarea id="TextArea1" rows="4" cols="30" name="comment"></textarea>
+            <input id="Submit1" type="submit" value="submit" />
+        }
+        
         <!--Comments-->
         <h3>評論</h3>
         @foreach (var comment in Model.TableGameComments)
@@ -144,9 +152,9 @@
                 <div class="col-md-10 card">
                     <div class="card-body">
                         <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                        <p>
+                        <span>
                             @comment.Content
-                        </p>
+                        </span>
                         <p>@comment.CommentDate</p>
                     </div>
                 </div>
@@ -154,4 +162,5 @@
             <br />
         }
     </div>
+
 </div>

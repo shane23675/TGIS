@@ -13,6 +13,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: Login
+        //管理員登入
         public ActionResult LoginForAdmin()
         {
             return View();

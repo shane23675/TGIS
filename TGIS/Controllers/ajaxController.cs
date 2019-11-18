@@ -13,13 +13,13 @@ namespace TGIS.Controllers
 
     public class ajaxController : Controller
     {
-        bool RepeatCheck<T>(IEnumerable<T> table, string account,string property)
+        bool RepeatCheck<T>(IEnumerable<T> table, string val,string property)
         {
             PropertyInfo info = typeof(T).GetProperty(property);
             foreach (T item in table)
             {
-                string acc = info.GetValue(item).ToString();
-                if (acc == account)
+                string value = info.GetValue(item).ToString();
+                if (value == val)
                     return true;
             }
             return false;
@@ -44,41 +44,23 @@ namespace TGIS.Controllers
             }
             return Content(sb.ToString());
         }
-        public  ActionResult AccountRepeat(string account, string tableName,string property)
+        public  ActionResult AccountRepeat(string val, string tableName,string property)
         {
             bool isRepeated = false;
             switch (tableName)
             {
                 case "Shops":
-                    isRepeated = RepeatCheck(db.Shops, account, property);
+                    isRepeated = RepeatCheck(db.Shops, val, property);
                     break;
                 case "Players":
-                    isRepeated = RepeatCheck(db.Players, account, property);
+                    isRepeated = RepeatCheck(db.Players, val, property);
                     break;
             }
             if (!isRepeated)
             {
-                return Content("帳號可使用".ToString());
+                return Content("可使用".ToString());
             }
-            return Content("帳號重複".ToString());
-        }
-        public ActionResult EmailRepeat(string email,string tableName,string property)
-        {
-            bool isRepeat = false;
-            switch (tableName)
-            {
-                case "Shop":
-                    isRepeat = RepeatCheck(db.Shops, email, property);
-                    break;
-                case "Player":
-                    isRepeat = RepeatCheck(db.Players, email, property);
-                    break;
-            }
-            if (!isRepeat)
-            {
-                return Content("Email可使用");
-            }
-            return Content("Email重複");
+            return Content("以使用過".ToString());
         }
     }
 }
