@@ -18,9 +18,11 @@ namespace TGIS.Controllers
             return View(db.Players.ToList());
         }
 
-        //管理創建玩家會員
+        //創建玩家會員(註冊)
         public ActionResult PlayerCreate()
         {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             return View();
         }
         [HttpPost]
@@ -31,7 +33,7 @@ namespace TGIS.Controllers
                 db.Players.Add(player);
                 db.SaveChanges();
 
-                return RedirectToAction("PlayerIndex");
+                return RedirectToAction("EmailValidate", "EmailValidate",new {Email=player.Email,id=player.ID});
             }
             return View(player);
         }

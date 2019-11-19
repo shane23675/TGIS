@@ -160,11 +160,11 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("會員帳號"),StringLength(20)]
+        [DisplayName("會員帳號")]
         public string Account { get; set; }
-        [DisplayName("會員密碼"),StringLength(50)]
+        [DisplayName("會員密碼")]
         public string Password { get; set; }
-        [DisplayName("暱稱"),StringLength(10)]
+        [DisplayName("暱稱")]
         public string NickName { get; set; }
         [DisplayName("照片")]
         public byte[] PlayerImage { get; set; }
@@ -371,13 +371,13 @@ namespace TGIS.Models
         public string LeaderPlayerID { get; set; }
         [DisplayName("揪桌標題"),StringLength(10)]
         public string Title { get; set; }
-        [DisplayName("報名開始時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("報名開始時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ParticipateBeginDate { get; set; }
-        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ParticipateEndDate { get; set; }
-        [DisplayName("遊玩開始時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("遊玩開始時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH : mm}", ApplyFormatInEditMode = true)]
         public System.DateTime PlayBeginTime { get; set; }
-        [DisplayName("遊玩結束時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("遊玩結束時間"), DisplayFormat(DataFormatString = "{0:HH : mm }", ApplyFormatInEditMode = true)]
         public System.DateTime PlayEndTime { get; set; }
         [DisplayName("成團人數"),StringLength(20)]
         public string MinPlayers { get; set; }

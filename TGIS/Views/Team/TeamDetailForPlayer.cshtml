@@ -1,0 +1,102 @@
+﻿@model TGIS.Models.Team
+
+@{
+    ViewBag.Title = "TeamDetailForPlayer";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<h2>揪桌趣</h2>
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ParticipateBeginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParticipateBeginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParticipateEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParticipateEndDate)
+        </dd>
+
+        <dt>
+            遊玩時間
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayBeginTime)
+            至
+            @Html.DisplayFor(model => model.PlayEndTime)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinPlayers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinPlayers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayPreference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayPreference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            發起人暱稱
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaderPlayer.NickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shop.ShopName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shop.ShopName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("回到列表", "TeamIndexForPlayer")
+</p>

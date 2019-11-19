@@ -22,7 +22,7 @@ namespace TGIS.Controllers
             Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
             if (user != null)
             {
-                Session["PlayerID"] = $"{user.ID}";
+                Session["Player"] = user;
                 return RedirectToAction("ShowTableGameListForPlayer", "TableGame");
             }
             ViewBag.Error = "帳號密碼錯誤";
@@ -40,7 +40,7 @@ namespace TGIS.Controllers
             Shop user = db.Shops.Where(m => m.Account == account).Where(m => m.Password == password).SingleOrDefault();
             if (user != null)
             {
-                Session["ShopID"] = $"{user.ID}";
+                Session["ShopID"] =$"{user.ID}";
                 return RedirectToAction("ShopDetailForStore", "Shop");
             }
             ViewBag.Error = "帳號密碼錯誤";
@@ -70,7 +70,10 @@ namespace TGIS.Controllers
                     AutoEmail.AutoEmailSend(Email, "有桌方遊:忘記密碼", content);
                     return RedirectToAction("LoginForPlayer");
                 }
+                ViewBag.Error = "信箱錯誤";
+                return View();
             }
+            ViewBag.Error = "查無此帳號";
             return View();
         }
         //忘記密碼(變更)
