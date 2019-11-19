@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TGIS.Models.TableGame>
+@model IEnumerable<TGIS.Models.TableGame>
 
 @foreach (var item in Model)
 {
@@ -6,9 +6,9 @@
         <div class="card mt-4">
             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.ID})">
                 <div class="card-body">
-                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid" />
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid h-100" />
                 </div>
-                <div class="card-footer">
+                <div class="gameName">
                     @item.ChineseName<br />
                     @item.EnglishName
                 </div>
