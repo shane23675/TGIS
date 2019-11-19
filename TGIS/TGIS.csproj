@@ -254,6 +254,8 @@
     <Compile Include="Controllers\TableGameController.cs" />
     <Compile Include="Controllers\TableGameInShopDetailController.cs" />
     <Compile Include="Controllers\TGCommentController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -391,9 +393,6 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
-    <Content Include="Views\Player\PlayerCreate.cshtml" />
-    <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
-    <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -405,6 +404,7 @@
     <Folder Include="Views\Default\" />
     <Folder Include="Views\TableGameInShop\" />
     <Folder Include="Views\TGComment\" />
+    <Folder Include="Views\Tool\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

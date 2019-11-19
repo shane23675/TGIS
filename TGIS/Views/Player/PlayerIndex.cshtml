@@ -7,7 +7,7 @@
 <h2>PlayerIndex</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "PlayerCreate")
 </p>
 <table class="table">
     <tr>
@@ -77,10 +77,8 @@
             @Html.DisplayFor(modelItem => item.District.DistrictName)
         </td>
         <td>
-            @*Html.ActionLink("要顯示的名稱", "Action名稱", 傳入路徑參數)*@
-            @Html.ActionLink("Edit", "PlayerEdit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            @Html.ActionLink("修改", "PlayerEdit", new { id = item.ID }) |
+            @Html.ActionLink("刪除", "PlayerDelete", new { id = item.ID })
         </td>
     </tr>
 }
