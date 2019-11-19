@@ -35,17 +35,14 @@ namespace TGIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.Shops.Where(m=>m.Account==shop.Account)==null)
-                {
-                    shop.Password = Hash.PwdHash(shop.Password);
-                    db.Shops.Add(shop);
-                    db.SaveChanges();
+                shop.Password = Hash.PwdHash(shop.Password);
+                db.Shops.Add(shop);
+                db.SaveChanges();
 
-                    //添加圖片
-                    PhotoManager.Create(shop.ID, photos);
+                //添加圖片
+                PhotoManager.Create(shop.ID, photos);
 
-                    return RedirectToAction("ShopIndex");
-                }
+                return RedirectToAction("ShopIndex");
             }
             return View(shop);
         }

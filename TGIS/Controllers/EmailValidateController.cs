@@ -19,7 +19,7 @@ namespace TGIS.Controllers
         }
         public ActionResult EmailRepeat(string id)
         {
-            Player player = db.Players.Where(m => m.ID == id).FirstOrDefault();
+            Player player = db.Players.Find(id);
             player.IsEmailValid = true;
             db.SaveChanges();
             return View();
