@@ -29,10 +29,6 @@ namespace TGIS.Controllers
         //連動式列表(行政區)
         public ActionResult generateStateList(int CId, int? Did)
         {
-            if (Did == null)
-            {
-                Did = 0;
-            }
             StringBuilder sb = new StringBuilder();
             var c = db.Districts.Where(m => m.CityID == CId).ToList();
             foreach (var item in c)

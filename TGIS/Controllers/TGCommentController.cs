@@ -18,6 +18,7 @@ namespace TGIS.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    TableGame tg = new TableGame();
                     var pId = ((Player)Session["Player"]).ID.ToString();
                     TableGameComment tgc = new TableGameComment();
                     tgc.PlayerID = pId;

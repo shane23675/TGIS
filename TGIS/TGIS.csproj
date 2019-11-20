@@ -393,6 +393,7 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
+    <Content Include="Views\Player\PlayerCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

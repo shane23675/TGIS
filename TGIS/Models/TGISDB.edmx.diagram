@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="TGISDBModel.Administrator" Width="1.5" PointX="8.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Announcement" Width="1.5" PointX="11" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.City" Width="1.5" PointX="1.5" PointY="3.625" IsExpanded="true" />
@@ -19,7 +19,7 @@
         <EntityTypeShape EntityType="TGISDBModel.PlayerPointDetail" Width="2.25" PointX="5.25" PointY="21.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.RelevantLink" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Shop" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TGISDBModel.TableGame" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TGISDBModel.TableGame" Width="1.5" PointX="3.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.TableGameComment" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.TableGameInShopDetail" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.TableGameVisitedStatistic" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
