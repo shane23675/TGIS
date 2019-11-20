@@ -47,9 +47,9 @@ namespace TGIS.Controllers
             return View();
         }
         //登出
-        public ActionResult ShopLogout()
+        public ActionResult ShopLogout(string id)
         {
-            Session.Remove("ShopID");
+            Session.Remove(id);
             return View();
         }
         //忘記密碼（寄信）
