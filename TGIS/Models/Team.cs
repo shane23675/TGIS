@@ -25,15 +25,16 @@ namespace TGIS.Models
         public string ShopID { get; set; }
         public string LeaderPlayerID { get; set; }
         public string Title { get; set; }
-        public System.DateTime ParticipateBeginDate { get; set; }
         public System.DateTime ParticipateEndDate { get; set; }
-        public System.DateTime PlayBeginTime { get; set; }
-        public System.DateTime PlayEndTime { get; set; }
-        public string MinPlayers { get; set; }
-        public string PlayPreference { get; set; }
-        public Nullable<decimal> EstimatedCost { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
+        public System.DateTime PlayDate { get; set; }
+        public System.TimeSpan PlayBeginTime { get; set; }
+        public System.TimeSpan PlayEndTime { get; set; }
+        public Nullable<int> EstimatedCost { get; set; }
+        public string Preference { get; set; }
+        public int MinPlayer { get; set; }
+        public int MaxPlayer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }

@@ -237,15 +237,16 @@
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="Title" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="ParticipateBeginDate" Type="datetime" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="datetime" Nullable="false" />
-          <Property Name="PlayBeginTime" Type="datetime" Nullable="false" />
-          <Property Name="PlayEndTime" Type="datetime" Nullable="false" />
-          <Property Name="MinPlayers" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="PlayPreference" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="EstimatedCost" Type="money" />
           <Property Name="Notes" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PlayDate" Type="date" Nullable="false" />
+          <Property Name="PlayBeginTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="PlayEndTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="EstimatedCost" Type="int" />
+          <Property Name="Preference" Type="char" MaxLength="6" />
+          <Property Name="MinPlayer" Type="int" Nullable="false" />
+          <Property Name="MaxPlayer" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TeamDetail">
           <Key>
@@ -949,19 +950,20 @@
           <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ParticipateBeginDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ParticipateEndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PlayBeginTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PlayEndTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MinPlayers" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PlayPreference" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EstimatedCost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Messages" Relationship="Self.Relationship25" FromRole="Team" ToRole="Message" />
           <NavigationProperty Name="LeaderPlayer" Relationship="Self.Relationship30" FromRole="Team" ToRole="Player" />
           <NavigationProperty Name="Shop" Relationship="Self.Relationship20" FromRole="Team" ToRole="Shop" />
           <NavigationProperty Name="OtherPlayers" Relationship="Self.TeamDetail" FromRole="Team" ToRole="Player" />
+          <Property Name="PlayDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PlayBeginTime" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="PlayEndTime" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="EstimatedCost" Type="Int32" />
+          <Property Name="Preference" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="MinPlayer" Type="Int32" Nullable="false" />
+          <Property Name="MaxPlayer" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="Relationship24">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -1579,17 +1581,18 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="TGISDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="MaxPlayer" ColumnName="MaxPlayer" />
+                <ScalarProperty Name="MinPlayer" ColumnName="MinPlayer" />
+                <ScalarProperty Name="Preference" ColumnName="Preference" />
+                <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
+                <ScalarProperty Name="PlayEndTime" ColumnName="PlayEndTime" />
+                <ScalarProperty Name="PlayBeginTime" ColumnName="PlayBeginTime" />
+                <ScalarProperty Name="PlayDate" ColumnName="PlayDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="LeaderPlayerID" ColumnName="LeaderPlayerID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ParticipateBeginDate" ColumnName="ParticipateBeginDate" />
                 <ScalarProperty Name="ParticipateEndDate" ColumnName="ParticipateEndDate" />
-                <ScalarProperty Name="PlayBeginTime" ColumnName="PlayBeginTime" />
-                <ScalarProperty Name="PlayEndTime" ColumnName="PlayEndTime" />
-                <ScalarProperty Name="MinPlayers" ColumnName="MinPlayers" />
-                <ScalarProperty Name="PlayPreference" ColumnName="PlayPreference" />
-                <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>

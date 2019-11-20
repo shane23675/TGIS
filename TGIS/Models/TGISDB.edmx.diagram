@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="109">
         <EntityTypeShape EntityType="TGISDBModel.Administrator" Width="1.5" PointX="8.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Announcement" Width="1.5" PointX="11" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.City" Width="1.5" PointX="1.5" PointY="3.625" IsExpanded="true" />

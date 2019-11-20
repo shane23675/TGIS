@@ -371,23 +371,26 @@ namespace TGIS.Models
         public string LeaderPlayerID { get; set; }
         [DisplayName("揪桌標題"),StringLength(10)]
         public string Title { get; set; }
-        [DisplayName("報名開始時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime ParticipateBeginDate { get; set; }
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ParticipateEndDate { get; set; }
-        [DisplayName("遊玩開始時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH : mm}", ApplyFormatInEditMode = true)]
-        public System.DateTime PlayBeginTime { get; set; }
-        [DisplayName("遊玩結束時間"), DisplayFormat(DataFormatString = "{0:HH : mm }", ApplyFormatInEditMode = true)]
-        public System.DateTime PlayEndTime { get; set; }
-        [DisplayName("成團人數"),StringLength(20)]
-        public string MinPlayers { get; set; }
-        [DisplayName("遊玩形式"),StringLength(20)]
-        public string PlayPreference { get; set; }
-        [DisplayName("預估花費")]
-        public Nullable<decimal> EstimatedCost { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
         [DisplayName("團務狀態")]
         public string Status { get; set; }
+        [DisplayName("遊戲日期")]
+        public DateTime PlayDate { get; set; }
+        [DisplayName("開始時間")]
+        public TimeSpan PlayBeginTime { get; set; }
+        [DisplayName("結束時間")]
+        public TimeSpan PlayEndTime { get; set; }
+        [DisplayName("預估花費")]
+        public int? EstimatedCost { get; set; }
+        [DisplayName("遊玩形式")]
+        public string Preference { get; set; }
+        [DisplayName("最低人數")]
+        public int MinPlayer { get; set; }
+        [DisplayName("最高人數")]
+        public int MaxPlayer { get; set; }
+
     }
 }
