@@ -273,6 +273,7 @@
     <Compile Include="Models\Coupon.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomValidationAttributes.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>

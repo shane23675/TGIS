@@ -13,6 +13,7 @@ namespace TGIS.Controllers
 
     public class ajaxController : Controller
     {
+        TGISDBEntities db = new TGISDBEntities();
         bool RepeatCheck<T>(IEnumerable<T> table, string val,string property)
         {
             PropertyInfo info = typeof(T).GetProperty(property);
@@ -24,7 +25,6 @@ namespace TGIS.Controllers
             }
             return false;
         }
-        TGISDBEntities db = new TGISDBEntities();
         // GET: District
         //連動式列表(行政區)
         public ActionResult generateStateList(int CId, int? Did)
@@ -60,7 +60,22 @@ namespace TGIS.Controllers
             {
                 return Content("可使用".ToString());
             }
-            return Content("以使用過".ToString());
+            return Content("已使用過".ToString());
+        }
+
+        //取得店家列表
+        public ActionResult GetShopSelectList(int districtID)
+        {
+            Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
+            //找不到任何店家則返回錯誤選項
+            if (shops.Length == 0)
+                return Content("<option value=\"ErrorMessage\">此地區無任何店家</option>");
+            string result = "";
+            foreach (Shop s in shops)
+            {
+                result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
+            }
+            return Content(result);
         }
     }
 }

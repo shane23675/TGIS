@@ -30,7 +30,8 @@ namespace TGIS.Controllers
                 return RedirectToAction("LoginForPlayer", "Login");
 
             ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
-            ViewBag.citySelectList = 123; 
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             //這裡不傳PlayerID，直接在View中通過Session取得
             return View("TeamCreate");
         }
@@ -44,7 +45,9 @@ namespace TGIS.Controllers
                 return RedirectToAction("TeamIndexForPlayer");
             }
             ViewBag.teamID = team.ID;
-            return View();
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            return View(team);
         }
     }
 }
