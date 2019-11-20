@@ -64,7 +64,8 @@ namespace TGIS.Controllers
         //管理員編輯店家
         public ActionResult MgShopEdit(string id)
         {
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            var shop = db.Shops.Find(id);
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             return View(db.Shops.Find(id));
