@@ -30,6 +30,7 @@ namespace TGIS.Controllers
                 return RedirectToAction("LoginForPlayer", "Login");
 
             ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
+            ViewBag.citySelectList = 123; 
             //這裡不傳PlayerID，直接在View中通過Session取得
             return View("TeamCreate");
         }
