@@ -65,10 +65,10 @@ namespace TGIS.Controllers
         public ActionResult MgShopEdit(string id)
         {
             var shop = db.Shops.Find(id);
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", shop.District.CityID);
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
-            return View(shop);
+            return View(db.Shops.Find(id));
         }
         [HttpPost]
         public ActionResult MgShopEdit(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
