@@ -371,13 +371,13 @@ namespace TGIS.Models
         public string LeaderPlayerID { get; set; }
         [DisplayName("揪桌標題"),StringLength(10)]
         public string Title { get; set; }
-        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
         [DisplayName("團務狀態")]
         public string Status { get; set; }
-        [DisplayName("遊戲日期")]
+        [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime PlayDate { get; set; }
         [DisplayName("開始時間")]
         public TimeSpan PlayBeginTime { get; set; }

@@ -5,18 +5,11 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>揪桌趣</h2>
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
+
 <div>
-    <h4>@Html.DisplayFor(model => model.Title)</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ParticipateBeginDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ParticipateBeginDate)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ParticipateEndDate)
@@ -24,42 +17,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.ParticipateEndDate)
-        </dd>
-
-        <dt>
-            遊玩時間
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PlayBeginTime)
-            至
-            @Html.DisplayFor(model => model.PlayEndTime)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MinPlayers)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MinPlayers)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayPreference)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PlayPreference)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EstimatedCost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EstimatedCost)
         </dd>
 
         <dt>
@@ -77,6 +34,41 @@
         <dd>
             @Html.DisplayFor(model => model.Status)
         </dd>
+
+        <dt>
+            遊戲時間
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayDate)<br />
+            @Model.PlayBeginTime.ToString(@"hh\:mm") 至 @Model.PlayEndTime.ToString(@"hh\:mm")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preference)
+        </dd>
+
+        <dt>
+           人數
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinPlayer) 至 @Html.DisplayFor(model => model.MaxPlayer) 人
+        </dd>
+
+
 
         <dt>
             發起人暱稱
@@ -97,6 +89,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("回到列表", "TeamIndexForPlayer")
 </p>

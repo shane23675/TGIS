@@ -22,7 +22,7 @@
             時間
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MinPlayers)
+            人數
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
@@ -42,12 +42,13 @@
             @Html.DisplayFor(modelItem => item.ParticipateEndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PlayBeginTime) 
+            @Html.DisplayFor(modelItem=>item.PlayDate)
+            @item.PlayBeginTime.ToString(@"hh\:mm")
             至
-            @Html.DisplayFor(modelItem => item.PlayEndTime)
+            @item.PlayEndTime.ToString(@"hh\:mm")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MinPlayers)
+            @item.MinPlayer ~ @item.MaxPlayer
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)

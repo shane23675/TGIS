@@ -26,10 +26,11 @@ namespace TGIS.Controllers
         public ActionResult TeamCreate()
         {
             //若尚未登入則重新導向至登入頁
-            if (Session["Player"] == null)
+            if (Session["PlayerID"] == null)
                 return RedirectToAction("LoginForPlayer", "Login");
 
             ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
+            ViewBag.citySelectList = 123; 
             //這裡不傳PlayerID，直接在View中通過Session取得
             return View("TeamCreate");
         }

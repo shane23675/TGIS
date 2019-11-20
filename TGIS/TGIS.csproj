@@ -187,6 +187,7 @@
       <DependentUpon>TGISDB.edmx</DependentUpon>
       <LastGenOutput>TGISDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\address.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -394,9 +395,9 @@
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
     <Content Include="Views\Tool\_GetTimeInput.cshtml" />
+    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
-    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

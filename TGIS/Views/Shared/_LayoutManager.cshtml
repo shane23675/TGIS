@@ -47,7 +47,7 @@
                 <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
                     <i class="fas fa-user "></i>
                     <span>&nbsp;&nbsp;帳密管理</span>
-</a>
+                </a>
                 <ul class="collapse list-unstyled" id="accountSubmenu">
                     <li>
                         <a href="@Url.Action("PlayerIndex","player")">玩家</a>
@@ -65,7 +65,7 @@
                 <a href="#gameSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
                     <i class="fas fa-dice"></i>
                     <span>桌遊管理</span>
-</a>
+                </a>
                 <ul class="collapse list-unstyled" id="gameSubmenu">
                     <li>
                         <a href="@Url.Action("ShowTableGameListForAdmin","TableGame")">桌遊資訊</a>
@@ -80,7 +80,7 @@
                 <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
                     <i class="fas fa-users"></i>
                     <span>揪桌管理</span>
-</a>
+                </a>
                 <ul class="collapse list-unstyled" id="groupSubmenu">
                     <li>
                         <a href="#">揪桌資訊</a>
@@ -108,7 +108,7 @@
                     <i class="fas fa-gift"></i>
                     <span>&nbsp;優惠券管理</span>
                 </a>
-            </li>            
+            </li>
         </ul>
     </aside>
     <div id="content">
@@ -122,13 +122,5 @@
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/_LayoutManager.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');               
-                $('#sidebar>ul>li>.toggle').toggleClass('dropdown-toggle');
-            });
-        });
-    </script>
 </body>
 </html>
