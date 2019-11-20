@@ -1,25 +1,49 @@
-﻿
+
 @{
     ViewBag.Title = "LoginForPlayer";
-    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    Layout = "~/Views/Shared/_LayoutGuestPlayer.cshtml";
 }
 
-<h2>LoginForPlayer</h2>
-<form method="post" action="~/Login/LoginForPlayer" class="container">
-    <h2>玩家登入</h2>
-    <div class="form-group">
-        <span>ID:</span>
+    <div class="row">
+        <div class="offset-4 mt-5">
+
+            <form method="post" action="~/Login/LoginForPlayer" class="">
+
+
+                <div class="card border-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header bg-transparent border-info">
+                        <h2 class="text-center text-info">玩家登入</h2>
+                    </div>
+                    <div class="card-body text-info">
+                        <span>帳號：</span>
+                        <input id="ac" type="text" name="account" class="form-control" /><br />
+                        <span>密碼：</span>
+                        <input id="pwd" type="password" name="pwd" class="form-control" />
+                    </div>
+                    <div class="card-footer bg-transparent border-info text-right">
+                        <p class="text-danger">@ViewBag.Error</p>
+                        <button type="button" class="btn btn-secondary">@Html.ActionLink("忘記密碼", "ForgetPwd", new { }, new { @class = "text-white" })</button>
+                        <input id="Submit1" type="submit" value="確認" class="btn btn-info" />
+                    </div>
+                </div>
+
+
+                @*<h2 >玩家登入</h2>
+        <div class="form-group">
+            <span>ID:</span>
+        </div>
+        <div>
+            <input id="ac" type="text" name="account" class="form-control w-25" />
+        </div>
+        <div class="form-group">
+            <span>PW:</span>
+        </div>
+        <div>
+            <input id="pwd" type="password" name="pwd" class="form-control w-25" />
+        </div>
+        <input id="Submit1" type="submit" value="submit" />
+        <div class="alert-danger w-25">@ViewBag.Error</div>*@
+
+            </form>
+        </div>
     </div>
-    <div>
-        <input id="ac" type="text" name="account" class="form-control w-25" />
-    </div>
-    <div class="form-group">
-        <span>PW:</span>
-    </div>
-    <div>
-        <input id="pwd" type="password" name="pwd" class="form-control w-25" />
-    </div>
-    <input id="Submit1" type="submit" value="submit" />
-    <div class="alert-danger w-25">@ViewBag.Error</div>
-</form>
-@Html.ActionLink("忘記密碼","ForgetPwd")

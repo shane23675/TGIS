@@ -398,6 +398,7 @@
     <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
+    <Content Include="Views\Shared\_LayoutGuestPlayer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
