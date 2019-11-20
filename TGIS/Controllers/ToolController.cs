@@ -10,14 +10,10 @@ namespace TGIS.Controllers
     //此控制器為測試中的工具包，請先不要使用其中的任何功能
     public class ToolController : Controller
     {
-        // GET: Tool
-        public ActionResult GetNextID<T>(IEnumerable<T> dataTable, int n)
+        //取得填入時間的PartialView的方法
+        public ActionResult _GetTimeInput()
         {
-            return Content(UsefulTools.GetNextID(dataTable, n));
-        }
-        public ActionResult TestMethod()
-        {
-            return Content("ABCDEF");
+            return PartialView();
         }
     }
 }

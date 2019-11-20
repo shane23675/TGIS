@@ -393,7 +393,10 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
-    <Content Include="Views\Player\PlayerCreate.cshtml" />
+    <Content Include="Views\Tool\_GetTimeInput.cshtml" />
+    <Content Include="Views\Team\TeamCreate.cshtml" />
+    <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
+    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -405,7 +408,6 @@
     <Folder Include="Views\Default\" />
     <Folder Include="Views\TableGameInShop\" />
     <Folder Include="Views\TGComment\" />
-    <Folder Include="Views\Tool\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

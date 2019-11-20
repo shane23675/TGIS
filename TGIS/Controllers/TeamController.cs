@@ -31,7 +31,7 @@ namespace TGIS.Controllers
 
             ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
             //這裡不傳PlayerID，直接在View中通過Session取得
-            return View();
+            return View("TeamCreate");
         }
         [HttpPost]
         public ActionResult TeamCreate(Team team)
@@ -40,7 +40,7 @@ namespace TGIS.Controllers
             {
                 db.Teams.Add(team);
                 db.SaveChanges();
-                return RedirectToAction("TeamIndex");
+                return RedirectToAction("TeamIndexForPlayer");
             }
             ViewBag.teamID = team.ID;
             return View();

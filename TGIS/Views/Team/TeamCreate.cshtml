@@ -27,35 +27,35 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParticipateBeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ParticipateBeginDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ParticipateBeginDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input type="hidden" name="ParticipateBeginDate" value="@DateTime.Now" />
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.ParticipateEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ParticipateEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ParticipateEndDate, "", new { @class = "text-danger" })
+                <input type="datetime-local" name="ParticipateEndDate" id="ParticipateEndDate" class="form-control" />
+            </div>
+        </div>
+
+        @* 資料表應該必須大改，變成有一欄遊玩日期、開始及結束也各一欄 *@
+        <div class="form-group">
+            <label class="control-label col-md-2">遊玩日期</label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="playDate"/>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PlayBeginTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">開始時間</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayBeginTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayBeginTime, "", new { @class = "text-danger" })
+                <input type="time" class="form-control" id="startTime" />
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PlayEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">結束時間</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayEndTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayEndTime, "", new { @class = "text-danger" })
+                <input type="time" class="form-control" id="endTime" />
             </div>
         </div>
 
@@ -91,13 +91,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input type="hidden" name="Status" value="convene" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -109,6 +103,7 @@
 
 <div>
     @Html.ActionLink("返回", "TeamIndexForPlayer")
+    <button id="testBtn" class="btn btn-warning" >測試</button>
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
