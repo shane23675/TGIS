@@ -40,9 +40,10 @@ namespace TGIS.Controllers
             }
             return RedirectToAction("LoginForPlayer","Login");
         }
-        public ActionResult CommentDelete(int commentID,string tld)
+        public ActionResult CommentDelete(int commentID)
         {
             var cmt = db.TableGameComments.Find(commentID);
+            var tld = cmt.TableGameID;
             if (cmt != null)
             {
                 db.TableGameComments.Remove(cmt);

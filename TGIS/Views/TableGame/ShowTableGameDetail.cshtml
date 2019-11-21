@@ -213,7 +213,7 @@
                                 @Html.Raw(comment.Content.Replace("\n", "<br />"))
                             </span>
                             <p>@comment.CommentDate</p>
-                            @Html.ActionLink("刪除", "CommentDelete", "TGComment", new { commentID = comment.ID, tld = comment.TableGameID }, new { })
+                            @Html.ActionLink("刪除", "CommentDelete", "TGComment", new { commentID = comment.ID}, new { })
                         </div>
                     </div>
 
