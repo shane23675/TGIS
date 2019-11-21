@@ -1,16 +1,74 @@
 @model TGIS.Models.Shop
 
+
 @{
     ViewBag.Title = "ShopIndexForDetail";
+    Layout="~/Views/Shared/_LayoutGuestPlayer.cshtml";
 }
 
-<h2>ShopIndexForDetail</h2>
+
+<div class="row">
+    <!--For bar-->
+    <nav></nav>
+
+    <!--shop detail-->
+    <div class="col-md-5 mt-2">
+        <img src="~/images/B01.jpg" class="img-fluid"/>
+    </div>
+
+    <div class="col-md-7">
+        
+        @*<h2>@Model.ShopName</h2>
+        <p>地址：@Model.Address</p>
+        <h3>營業時間：</h3>
+        <p>@Model.NormalOffers</p>*@
+    
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>ShopIndexForDetail</h2>
 
 <div>
     <h4>Shop</h4>
     <hr />
     <dl class="dl-horizontal">
-           <dt>
+        <dt>
             @Html.DisplayNameFor(model => model.ShopName)
         </dt>
 
@@ -97,10 +155,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(m=>m.District.City.CityName)
+            @Html.DisplayNameFor(m => m.District.City.CityName)
         </dt>
         <dd>
-            @Html.DisplayFor(m=>m.District.City.CityName)
+            @Html.DisplayFor(m => m.District.City.CityName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.District.DistrictName)
@@ -115,4 +173,4 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
