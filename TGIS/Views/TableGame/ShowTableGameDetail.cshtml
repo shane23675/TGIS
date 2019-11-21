@@ -200,22 +200,43 @@
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
-
-                <div class="col-md-2">
-                    <img src="../images/user.png" class="img-fluid rounded" />
-                </div>
-
-                <div class="col-md-10 card">
-                    <div class="card-body tgCard">
-                        <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                        <span>
-                            @Html.Raw(comment.Content.Replace("\n", "<br />"))
-                        </span>
-                        <p>@comment.CommentDate</p>
+                if (Session["PlayerID"]?.ToString() == comment.PlayerID)
+                {
+                    <div class="col-md-2">
+                        <img src="../images/user.png" class="img-fluid rounded" />
                     </div>
-                </div>
 
-                <br />
+                    <div class="col-md-10 card">
+                        <div class="card-body tgCard">
+                            <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                            <span>
+                                @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                            </span>
+                            <p>@comment.CommentDate</p>
+                            @Html.ActionLink("刪除", "CommentDelete", "TGComment", new { commentID = comment.ID, tld = comment.TableGameID }, new { })
+                        </div>
+                    </div>
+
+                    <br />
+                }
+                else
+                {
+                    <div class="col-md-2">
+                        <img src="../images/user.png" class="img-fluid rounded" />
+                    </div>
+
+                    <div class="col-md-10 card">
+                        <div class="card-body tgCard">
+                            <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                            <span>
+                                @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                            </span>
+                            <p>@comment.CommentDate</p>
+                        </div>
+                    </div>
+
+                    <br />
+                }
             }
         </div>
         </div>

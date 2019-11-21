@@ -382,7 +382,7 @@ namespace TGIS.Models
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
-        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填"), AfterNow]
+        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填")]
         public TimeSpan PlayBeginTime { get; set; }
         [DisplayName("結束時間"), Required(ErrorMessage = "結束時間為必填")]
         public TimeSpan PlayEndTime { get; set; }
