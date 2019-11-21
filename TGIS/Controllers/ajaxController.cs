@@ -77,5 +77,30 @@ namespace TGIS.Controllers
             }
             return Content(result);
         }
+
+        //以名稱搜尋桌遊
+        public ActionResult SearchTableGameByName(string name)
+        {
+            bool isEnglishSearch = false;
+            //先找中文名稱
+            TableGame[] tgs = db.TableGames.Where(m => m.ChineseName.Contains(name)).ToArray();
+            if (tgs.Length == 0)
+            {
+                //中文找不到再找英文名稱
+                tgs = db.TableGames.Where(m => m.EnglishName.Contains(name)).ToArray();
+                isEnglishSearch = true;
+            }
+            if (tgs.Length == 0)
+                return Content("<option>找不到可能相符的項目</option>");
+            string result = "";
+            string tgName;
+            foreach (var tg in tgs)
+            {
+                //判斷要填入英文或中文名稱
+                tgName = isEnglishSearch ? tg.EnglishName : tg.ChineseName;
+                result += $"<option value=\"{tg.ID}\">{tgName}</option>";
+            }
+            return Content(result);
+        }
     }
 }
