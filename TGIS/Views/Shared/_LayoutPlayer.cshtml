@@ -11,17 +11,22 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
 
 
     <style>
-        html,body{
-            height:100%;
+        html, body {
+            height: 100%;
         }
-        .wrap{
-            position:relative;
-            min-height:100%;
-             box-sizing:border-box;
+
+        .wrap {
+            position: relative;
+            min-height: 100%;
+            box-sizing: border-box;
         }
+
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -30,11 +35,12 @@
             color: #f9ebe0;
             background-color: #0d2149;
         }
-        footer{
-            width:100%;
-            position:absolute;
-            bottom:0;
-            padding-bottom:0;
+
+        footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            padding-bottom: 0;
         }
     </style>
 
@@ -50,7 +56,7 @@
                     <div class="navbar-nav mr-auto"> </div>
                     @*<form class="form-inline my-2 my-md-0"></form>*@
                     <a class="nav-link" href="#">會員中心</a>
-                    <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登出</a>
+                    <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
                 </div>
             </nav>
         </header>

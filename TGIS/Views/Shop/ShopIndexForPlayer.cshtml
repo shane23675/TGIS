@@ -1,4 +1,172 @@
-﻿@model IEnumerable<TGIS.Models.Shop>
+@using TGIS.Models
+@model IEnumerable<Shop>
+
+@{ 
+    ViewBag.Title = "ShopIndexForPlayer";
+    Layout="~/Views/Shared/_LayoutGuestPlayer.cshtml";
+}
+
+    <div class="row">
+
+        <!-- 篩選 -->
+        <div class="col-md-2">
+            <nav class="text-center">
+                <h3>篩選列表</h3>
+
+                <!--City-->
+                <div class="btn-group mb-2">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        縣市
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Shop shop in Model)
+                        {
+                            <a class="dropdown-item" href="#">city name</a>
+                        }
+                    </div>
+                </div>
+
+                <!--District-->
+                <div class="btn-group mb-2">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        行政區
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Shop shop in Model)
+                        {
+                            <a class="dropdown-item" href="#">district name</a>
+                        }
+                    </div>
+                </div>
+
+                <form class="form-inline">
+                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">送出</button>
+                </form>
+
+            </nav>
+        </div>
+
+
+        <!-- 店家列表 -->
+        <div class="col-md-10">
+            <nav class="nav">
+                <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
+                <a class="nav-link" href="#">店家列表</a>
+            </nav>
+
+
+            @foreach (Shop shop in Model)
+            {
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <img src="..." class="card-img"><!--Store image-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">@shop.ShopName</h3>
+                                <p class="card-text"><!--add shop.District-->@shop.Address</p>
+                                <p class="card-text">@shop.Tel</p>
+                                <div class="w-100">
+                                    <span class="card-text">@shop.Description</span>
+                                    <input type="button" class="btn btn-info text-right" value="看更多..."/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <!--iframe tag add google maps link-->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.2704339782863!2d120.30080261541873!3d22.606374337426107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0379f38a702f%3A0x8ec0094e5f7e4d1b!2z6ZuG55uS4oCiS1VCSUPosqjmq4PlnJLljYA!5e0!3m2!1szh-TW!2stw!4v1574324711183!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen="" class="w-100 h-100"></iframe>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model IEnumerable<TGIS.Models.Shop>
 
 @{
     ViewBag.Title = "ShopIndexForPlayer";
@@ -84,4 +252,4 @@
     </tr>
 }
 
-</table>
+</table>*@

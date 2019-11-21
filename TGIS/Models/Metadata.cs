@@ -367,31 +367,34 @@ namespace TGIS.Models
     {
         [DisplayName("揪桌編號")]
         public string ID { get; set; }
-        [DisplayName("店家會員編號"),StringLength(6)]
+        [DisplayName("店家會員編號"),StringLength(6, ErrorMessage = "請選擇一個店家")]
         public string ShopID { get; set; }
         [DisplayName("主揪玩家編號"),StringLength(6)]
         public string LeaderPlayerID { get; set; }
-        [DisplayName("揪桌標題"),StringLength(10)]
+        [DisplayName("揪桌標題"),StringLength(10, ErrorMessage ="標題長度不得大於10個字"), Required(ErrorMessage = "標題為必填")]
         public string Title { get; set; }
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
+        [AfterNow(ErrorMessage = "報名結束時間必須是在現在時間之後")]
+        [Required(ErrorMessage = "報名結束時間為必填")]
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
         [DisplayName("團務狀態")]
         public string Status { get; set; }
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
-        [DisplayName("開始時間")]
+        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填")]
         public TimeSpan PlayBeginTime { get; set; }
-        [DisplayName("結束時間")]
+        [DisplayName("結束時間"), Required(ErrorMessage = "結束時間為必填")]
         public TimeSpan PlayEndTime { get; set; }
         [DisplayName("預估花費")]
         public int? EstimatedCost { get; set; }
         [DisplayName("遊玩形式")]
         public string Preference { get; set; }
-        [DisplayName("最低人數")]
+        [DisplayName("最低人數"), Range(2, 50, ErrorMessage = "必須在2~50之間"), Required(ErrorMessage = "最低人數為必填")]
         public int MinPlayer { get; set; }
-        [DisplayName("最高人數")]
+        [DisplayName("最高人數"), Range(2, int.MaxValue, ErrorMessage = "必須至少為2"), Required(ErrorMessage = "最高人數為必填")]
         public int MaxPlayer { get; set; }
 
     }

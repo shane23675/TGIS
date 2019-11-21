@@ -174,7 +174,11 @@
     <Content Include="Html\images\profile.jpg" />
     <Content Include="Html\images\wifi.PNG" />
     <Content Include="Html\Index.html" />
+    <Content Include="Html\shalalala.html" />
     <Content Include="Html\tbIndex.html" />
+    <Content Include="images\B01.jpg" />
+    <Content Include="images\B02.jpg" />
+    <Content Include="images\B03.jpg" />
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
@@ -247,6 +251,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
     <Compile Include="Controllers\EmailValidateController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -274,6 +279,7 @@
     <Compile Include="Models\Coupon.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomValidationAttributes.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
@@ -400,6 +406,10 @@
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
     <Content Include="Views\Shared\_LayoutGuestPlayer.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Player\PlayerCreate.cshtml" />
+    <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
+    <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
