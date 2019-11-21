@@ -406,6 +406,8 @@
     <Content Include="Views\Shared\_LayoutGuestPlayer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Player\PlayerCreate.cshtml" />
+    <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
+    <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
