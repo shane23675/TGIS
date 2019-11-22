@@ -40,5 +40,17 @@ namespace TGIS.Controllers
             }
             return RedirectToAction("LoginForPlayer","Login");
         }
+        public ActionResult CommentDelete(int commentID)
+        {
+            var cmt = db.TableGameComments.Find(commentID);
+            var tld = cmt.TableGameID;
+            if (cmt != null)
+            {
+                db.TableGameComments.Remove(cmt);
+                db.SaveChanges();
+                return RedirectToAction("ShowTableGameDetail", "TableGame", new { tableGameID = tld });
+            }
+            return Content("查無此評論");
+        }
     }
 }

@@ -233,6 +233,7 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
+        [AccountRepeat]
         [DisplayName("帳號")]
         public string Account { get; set; }
         [DisplayName("密碼")]
@@ -253,6 +254,7 @@ namespace TGIS.Models
         public string AreaScale { get; set; }
         [DisplayName("電話")]
         public string Tel { get; set; }
+        [AccountRepeat]
         [DisplayName("信箱")]
         public string Email { get; set; }
         [DisplayName("Line")]
@@ -382,7 +384,7 @@ namespace TGIS.Models
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
-        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填"), AfterNow]
+        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填")]
         public TimeSpan PlayBeginTime { get; set; }
         [DisplayName("結束時間"), Required(ErrorMessage = "結束時間為必填")]
         public TimeSpan PlayEndTime { get; set; }

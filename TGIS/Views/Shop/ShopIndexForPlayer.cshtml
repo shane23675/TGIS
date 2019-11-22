@@ -1,4 +1,262 @@
-﻿@model IEnumerable<TGIS.Models.Shop>
+@using TGIS.Models
+@model IEnumerable<Shop>
+
+@{ 
+    ViewBag.Title = "ShopIndexForPlayer";
+    Layout="~/Views/Shared/_LayoutGuestPlayer.cshtml";
+}
+
+    <div class="row">
+        @*
+        <!-- 篩選 -->
+        <div class="col-md-2">
+            <nav class="text-center">
+                <h3>篩選列表</h3>
+
+                <!-- City -->
+                <div class="btn-group mb-2">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        縣市
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Shop shop in Model)
+                        {
+                            <a class="dropdown-item" href="#">city name</a>
+                        }
+                    </div>
+                </div>
+
+                <!-- District -->
+                <div class="btn-group mb-2">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        行政區
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Shop shop in Model)
+                        {
+                            <a class="dropdown-item" href="#">district name</a>
+                        }
+                    </div>
+                </div>
+
+                <form class="form-inline">
+                    <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">送出</button>
+                </form>
+
+            </nav>
+        </div>
+        *@
+        <div class="col-md-12">
+            @*
+
+            <nav class="navbar navbar navbar-light">
+                <a class="navbar-link" href="@Url.Action("Index", "Home")">首頁</a>
+                <a class="nav-link" href="#">店家列表</a>
+
+                <form class="form-inline">
+                    <div class="btn-group mr-1">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            縣市
+                        </button>
+                        <div class="dropdown-menu">
+                            @foreach (Shop shop in Model)
+                            {
+                                <a class="dropdown-item" href="#">city name</a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="btn-group mr-1">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            行政區
+                        </button>
+                        <div class="dropdown-menu">
+                            @foreach (Shop shop in Model)
+                            {
+                                <a class="dropdown-item" href="#">district name</a>
+                            }
+                        </div>
+                    </div>
+
+
+                    <input class="form-control mr-sm-2 w-25" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+      
+
+            </nav>
+      *@
+            <ul class="nav nav-pills nav-fill mt-2">
+                <li class="nav-item">
+                    <a class="navbar-link" href="@Url.Action("Index", "Home")">首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">店家列表</a>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            縣市
+                        </button>
+                        <div class="dropdown-menu">
+
+                            <!-- City -->
+
+                            @foreach (Shop shop in Model)
+                            {
+                                <a class="dropdown-item" href="#">city name</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            行政區
+                        </button>
+                        <div class="dropdown-menu">
+
+                            <!-- District -->
+
+                            @foreach (Shop shop in Model)
+                            {
+                                <a class="dropdown-item" href="#">district name</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <input class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search">
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </li>
+            </ul>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- 店家列表 -->
+
+            @foreach (Shop shop in Model)
+            {
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="..." class="card-img"><!--Store image-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">@shop.ShopName</h3>
+                                <p class="card-text"><!--add shop.District-->@shop.Address</p>
+                                <p class="card-text">@shop.Tel</p>
+                                <div class="w-100" style="position:relative">
+                                    <span class="card-text">@shop.Description</span>
+                                    <a href="#">  <!--link shop detail--><input type="button" class="btn btn-info" value="詳細內容" style="position:absolute;right:0;bottom:0" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <!--iframe tag add google maps link-->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.2704339782863!2d120.30080261541873!3d22.606374337426107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0379f38a702f%3A0x8ec0094e5f7e4d1b!2z6ZuG55uS4oCiS1VCSUPosqjmq4PlnJLljYA!5e0!3m2!1szh-TW!2stw!4v1574324711183!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen="" class="w-100 h-100"></iframe>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model IEnumerable<TGIS.Models.Shop>
 
 @{
     ViewBag.Title = "ShopIndexForPlayer";
@@ -84,4 +342,4 @@
     </tr>
 }
 
-</table>
+</table>*@

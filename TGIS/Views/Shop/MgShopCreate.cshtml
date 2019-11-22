@@ -53,12 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.District.City.CityName, "城市", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="CityID" class="form-control">
-                    @foreach (SelectListItem c in (SelectList)(ViewBag.CityID))
-                    {
-                        <option value="@c.Value">@c.Text</option>
-                    }
-                </select>
+                @Html.DropDownList("CityID", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
             </div>
         </div>
