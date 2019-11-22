@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -101,6 +101,7 @@ namespace TGIS.Controllers
         //玩家看到店家詳細資料
         public ActionResult ShopDetailForPlayer(string id)
         {
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             return View(db.Shops.Find(id));
         }
         //店家編輯店家資料
