@@ -271,7 +271,6 @@
     <Compile Include="Models\Announcement.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Attribute.cs" />
     <Compile Include="Models\AutoEmail.cs" />
     <Compile Include="Models\City.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
