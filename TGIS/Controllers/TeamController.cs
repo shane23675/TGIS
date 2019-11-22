@@ -21,6 +21,31 @@ namespace TGIS.Controllers
         {
             return View(db.Teams.Find(teamID));
         }
+        [HttpPost]
+        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action)
+        {
+            //先找到對應的team、player
+            Team t = db.Teams.Find(teamID);
+            Player p = db.Players.Find(playerID);
+            //通過action判斷要參加或是退出
+            switch (action)
+            {
+                case "exit":
+                    t.OtherPlayers.Remove(p);
+                    break;
+                case "join":
+                    t.OtherPlayers.Add(p);
+                    break;
+                case "cancel":
+                    t.IsCanceled = true;
+                    break;
+                case "close":
+                    t.IsClosed = true;
+                    break;
+            }
+            db.SaveChanges();
+            return View(t);
+        }
 
         //新開一桌(玩家用)
         public ActionResult TeamCreate()
@@ -63,7 +88,7 @@ namespace TGIS.Controllers
                 return flag;
             }
             //驗證主體
-            if (ModelState.IsValid && isInputValid())
+            if (isInputValid() && ModelState.IsValid)
             {
                 db.Teams.Add(team);
                 db.SaveChanges();

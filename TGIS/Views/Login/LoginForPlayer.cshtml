@@ -13,18 +13,18 @@
 
                     <div class="card border-info" style="max-width: 18rem;">
                         <div class="card-header bg-transparent border-info">
-                            <h2 class="text-center text-info">玩家登入</h2>
+                            <h2 class="text-center text-info">Player Log In</h2>
                         </div>
                         <div class="card-body text-info">
-                            <span>帳號：</span>
+                            <span>Account</span>
                             <input id="ac" type="text" name="account" class="form-control" /><br />
-                            <span>密碼：</span>
+                            <span>Password</span>
                             <input id="pwd" type="password" name="pwd" class="form-control" />
                         </div>
                         <div class="card-footer bg-transparent border-info text-right">
                             <p class="text-danger">@ViewBag.Error</p>
-                            <button type="button" class="btn btn-secondary">@Html.ActionLink("忘記密碼", "ForgetPwd", new { }, new { @class = "text-white" })</button>
-                            <input id="Submit1" type="submit" value="確認" class="btn btn-info" />
+                            <button type="button" class="btn btn-secondary">@Html.ActionLink("Forget Password", "ForgetPwd", new { }, new { @class = "text-white" })</button>
+                            <input id="Submit1" type="submit" value="Log In" class="btn btn-info" />
                         </div>
                     </div>
 

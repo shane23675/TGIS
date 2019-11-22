@@ -23,7 +23,7 @@ namespace TGIS.Controllers
             if (user != null)
             {
                 Session["PlayerID"] = $"{user.ID}";
-                return RedirectToAction("ShowTableGameListForPlayer", "TableGame");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.Error = "帳號密碼錯誤";
             return View();

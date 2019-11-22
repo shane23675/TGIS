@@ -1,11 +1,12 @@
-﻿@model TGIS.Models.Team
+﻿@using TGIS.Models
+@model Team
 
 @{
     ViewBag.Title = "TeamDetailForPlayer";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-    <h2>@Html.DisplayFor(model => model.Title)</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
 
 <div>
     <hr />
@@ -54,7 +55,7 @@
         </dd>
 
         <dt>
-           人數
+            人數
         </dt>
 
         <dd>
@@ -79,17 +80,88 @@
             @Html.DisplayFor(model => model.Shop.ShopName)
         </dd>
 
+        <dt>
+            狀態
+        </dt>
+
+        <dd>
+            @{
+                string status = "";
+                bool isOpen = false;
+                int nowPlayers = Model.OtherPlayers.Count + 1;
+                if (Model.IsCanceled) { status = "已取消出團"; }
+                else if (Model.IsClosed) { status = "已提前截止報名"; }
+                else if (DateTime.Now > Model.PlayDate) { status = "已過期"; }
+                else if (DateTime.Now > Model.ParticipateEndDate) { status = "報名時間已過"; }
+                else if (nowPlayers >= Model.MaxPlayer) { status = "已額滿，僅開放報名候補"; }
+                else if (nowPlayers < Model.MinPlayer) { status = $"可報名，未達成團人數(目前：{nowPlayers} / 最低：{Model.MinPlayer})"; isOpen = true; }
+                else { status = $"可報名，已達成團人數(目前：{nowPlayers})"; isOpen = true; }
+            }
+            @status
+        </dd>
     </dl>
 </div>
+
+@{
+    //判斷進入此頁面的玩家是否為隊長或其他玩家
+    bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
+    bool isInTeam = false;
+    foreach (Player item in Model.OtherPlayers)
+    {
+        if (item.ID == Session["PlayerID"].ToString())
+        {
+            isInTeam = true;
+            break;
+        }
+    }
+    string btnInfo = "";
+    string action = "";
+    //尚未登入
+    if (Session["PlayerID"] == null)
+    {
+        @Html.ActionLink("登入", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
+    }
+    else
+    {
+        if (isLeader)
+        {
+            btnInfo = "解散";
+            action = "cancel";
+        }
+        else if (isInTeam)
+        {
+            btnInfo = "退出";
+            action = "exit";
+        }
+        else
+        {
+            btnInfo = "參加";
+            action = "join";
+        }
+        using (Html.BeginForm())
+        {
+            <input type="hidden" name="teamID" value="@Model.ID" />
+            <input type="hidden" name="action" id="action" value="@action" />
+            <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
+            <button class="btn btn-primary" type="submit">@btnInfo</button>
+            if (isLeader)
+            {
+                <button class="btn btn-secondary" type="submit" onclick="$('#action').val('close')">提前截止</button>
+            }
+        }
+    }
+
+}
 <p>
     @Html.ActionLink("回到列表", "TeamIndexForPlayer")
 </p>
 
 
-@* 
+@*
     參團功能：
     -- 使用者來到桌遊詳細頁面，從session取得其ID
     -- 若此桌並非由此使用者發起且狀態正常(無過期、取消、提早截止)則可以參加或退出
     -- 點擊「參加」，將此使用者加入此團的揪桌人員明細
     -- 點擊「退出」，將此使用者從此團的揪桌人員明細移除
+    -- 不論點擊哪個鈕都會重新整理頁面(也就是會發送表單)
 *@
