@@ -239,7 +239,6 @@
           <Property Name="Title" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="datetime" Nullable="false" />
           <Property Name="Notes" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="PlayDate" Type="date" Nullable="false" />
           <Property Name="PlayBeginTime" Type="time" Precision="0" Nullable="false" />
           <Property Name="PlayEndTime" Type="time" Precision="0" Nullable="false" />
@@ -247,6 +246,8 @@
           <Property Name="Preference" Type="char" MaxLength="6" />
           <Property Name="MinPlayer" Type="int" Nullable="false" />
           <Property Name="MaxPlayer" Type="int" Nullable="false" />
+          <Property Name="IsCanceled" Type="bit" Nullable="false" />
+          <Property Name="IsClosed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TeamDetail">
           <Key>
@@ -952,7 +953,6 @@
           <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Messages" Relationship="Self.Relationship25" FromRole="Team" ToRole="Message" />
           <NavigationProperty Name="LeaderPlayer" Relationship="Self.Relationship30" FromRole="Team" ToRole="Player" />
           <NavigationProperty Name="Shop" Relationship="Self.Relationship20" FromRole="Team" ToRole="Shop" />
@@ -964,6 +964,8 @@
           <Property Name="Preference" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
           <Property Name="MinPlayer" Type="Int32" Nullable="false" />
           <Property Name="MaxPlayer" Type="Int32" Nullable="false" />
+          <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
+          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="Relationship24">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -1581,6 +1583,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="TGISDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
                 <ScalarProperty Name="MaxPlayer" ColumnName="MaxPlayer" />
                 <ScalarProperty Name="MinPlayer" ColumnName="MinPlayer" />
                 <ScalarProperty Name="Preference" ColumnName="Preference" />
@@ -1594,7 +1598,6 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ParticipateEndDate" ColumnName="ParticipateEndDate" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

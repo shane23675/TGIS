@@ -38,7 +38,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult TeamCreate(Team team)
         {
-            //檢查輸入的時間訊息是否有效的函數，否則加入錯誤訊息並返回
+            //檢查輸入的資訊是否有效的函數，否則加入錯誤訊息並返回
             bool isInputValid()
             {
                 bool flag = true;

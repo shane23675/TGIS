@@ -27,13 +27,6 @@
             @Html.DisplayFor(model => model.Notes)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
 
         <dt>
             遊戲時間
@@ -91,3 +84,12 @@
 <p>
     @Html.ActionLink("回到列表", "TeamIndexForPlayer")
 </p>
+
+
+@* 
+    參團功能：
+    -- 使用者來到桌遊詳細頁面，從session取得其ID
+    -- 若此桌並非由此使用者發起且狀態正常(無過期、取消、提早截止)則可以參加或退出
+    -- 點擊「參加」，將此使用者加入此團的揪桌人員明細
+    -- 點擊「退出」，將此使用者從此團的揪桌人員明細移除
+*@

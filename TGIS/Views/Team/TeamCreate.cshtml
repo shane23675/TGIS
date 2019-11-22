@@ -109,15 +109,6 @@
                 </select>
             </div>
         </div>
-        @* 
-            遊玩形式做法：
-            -- 讓玩家輸入遊戲名稱
-            -- 透過Ajax在傳送此名稱至Controller
-            -- 在資料庫中找到可能對應的遊戲
-            -- 將找到的遊戲製成列表傳回前端輸出讓玩家選擇
-            -- 在玩家選擇了指定的遊戲後取得TableGameID
-            -- 將此ID儲存進Preference欄位中
-        *@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MinPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -144,7 +135,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("回到列表", "TeamIndexForPlayer")
 </div>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>

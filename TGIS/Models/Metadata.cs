@@ -379,8 +379,6 @@ namespace TGIS.Models
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
-        [DisplayName("團務狀態")]
-        public string Status { get; set; }
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
@@ -396,6 +394,10 @@ namespace TGIS.Models
         public int MinPlayer { get; set; }
         [DisplayName("最高人數"), Range(2, int.MaxValue, ErrorMessage = "必須至少為2"), Required(ErrorMessage = "最高人數為必填")]
         public int MaxPlayer { get; set; }
+        [DisplayName("是否已取消")]
+        public bool IsCanceled { get; set; }
+        [DisplayName("是否已提前截止")]
+        public bool IsClosed { get; set; }
 
     }
 }
