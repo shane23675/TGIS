@@ -1,0 +1,39 @@
+﻿body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.Mynav {
+    color: #f9ebe0;
+    background-color:rgba(32,138,174,0.7);
+}
+header a, footer a {
+    color: #f9ebe0;
+}
+
+.desk {
+    background-image: url('../images/bg_desk2.jpg');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:100% 100%;
+}
+.OuterBox {
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin:90px 100px 250px 100px;
+    padding:1px;
+    box-shadow: #000000 5px 5px 5px 10px;
+    border-radius: 3px;
+}
+.gap {
+    background-color: #515050;
+    margin: 10px;
+    padding:2px;
+    border-radius: 5px;
+}
+.innerBox {
+    background-color: #D6F8D6;
+    margin: 5px;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: #000000 3px 3px 2px;
+}
