@@ -61,7 +61,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult TeamCreate(Team team)
+        public ActionResult TeamCreate(Team team, int CityID, int DistrictID)
         {
             //檢查輸入的資訊是否有效的函數，否則加入錯誤訊息並返回
             bool isInputValid()
@@ -102,8 +102,8 @@ namespace TGIS.Controllers
             }
             //驗證失敗
             ViewBag.teamID = team.ID;
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", DistrictID);
             return View(team);
         }
     }
