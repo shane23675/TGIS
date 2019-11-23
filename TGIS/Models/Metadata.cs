@@ -233,7 +233,6 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [AccountRepeat(ErrorMessage ="帳號重複")]
         [DisplayName("帳號")]
         public string Account { get; set; }
         [DisplayName("密碼")]
@@ -373,13 +372,10 @@ namespace TGIS.Models
         [DisplayName("揪桌標題"),StringLength(10, ErrorMessage ="標題長度不得大於10個字"), Required(ErrorMessage = "標題為必填")]
         public string Title { get; set; }
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
-        [AfterNow(ErrorMessage = "報名結束時間必須是在現在時間之後")]
         [Required(ErrorMessage = "報名結束時間為必填")]
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
-        [DisplayName("團務狀態")]
-        public string Status { get; set; }
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
@@ -395,6 +391,10 @@ namespace TGIS.Models
         public int MinPlayer { get; set; }
         [DisplayName("最高人數"), Range(2, int.MaxValue, ErrorMessage = "必須至少為2"), Required(ErrorMessage = "最高人數為必填")]
         public int MaxPlayer { get; set; }
+        [DisplayName("是否已取消")]
+        public bool IsCanceled { get; set; }
+        [DisplayName("是否已提前截止")]
+        public bool IsClosed { get; set; }
 
     }
 }

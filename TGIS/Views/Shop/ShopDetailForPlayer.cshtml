@@ -1,16 +1,110 @@
 @model TGIS.Models.Shop
 
+
 @{
-    ViewBag.Title = "ShopIndexForDetail";
+    ViewBag.Title = "ShopDetailForPlayer";
+    Layout="~/Views/Shared/_LayoutGuestPlayer.cshtml";
+    int count = 0;
 }
 
-<h2>ShopIndexForDetail</h2>
+
+<div class="row mt-4">
+    <!--For bar-->
+    <nav></nav>
+
+    <!--shop detail-->
+    <div class="col-md-5">
+        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach (int id in ViewBag.photoIDList)
+                {
+                    string active = count == 0 ? "active" : "";
+                    <div class="carousel-item @active">
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="d-block w-100" />
+                    </div>
+                    count = 1;
+                }
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        
+        <span>@Model.ShopName</span>
+        <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
+        <h3>營業時間：</h3>
+        <p>@Model.OpeningHours</p>
+    
+    </div>
+    <div class="col-12 mt-3">
+        @Model.Description
+    </div>
+
+    <!--BAR-->
+    <ul class="nav nav-tabs mt-3">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Google評論</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">優惠列表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">店內桌遊列表</a>
+        </li>
+    </ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>ShopIndexForDetail</h2>
 
 <div>
     <h4>Shop</h4>
     <hr />
     <dl class="dl-horizontal">
-           <dt>
+        <dt>
             @Html.DisplayNameFor(model => model.ShopName)
         </dt>
 
@@ -97,10 +191,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(m=>m.District.City.CityName)
+            @Html.DisplayNameFor(m => m.District.City.CityName)
         </dt>
         <dd>
-            @Html.DisplayFor(m=>m.District.City.CityName)
+            @Html.DisplayFor(m => m.District.City.CityName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.District.DistrictName)
@@ -115,4 +209,4 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
