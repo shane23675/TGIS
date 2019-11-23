@@ -20,4 +20,16 @@ namespace TGIS.Models
             return false;
         }
     }
+    public class AccountRepeatAttribute : ValidationAttribute
+    {
+        TGISDBEntities db = new TGISDBEntities();
+        public override bool IsValid(object value)
+        {
+            if (value!=null)
+            {
+                return db.Shops.Where(m => m.Account == value.ToString()).FirstOrDefault() == null;
+            }
+            return false;
+        }
+    }
 }

@@ -233,7 +233,7 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [AccountRepeat]
+        [AccountRepeat(ErrorMessage ="帳號重複")]
         [DisplayName("帳號")]
         public string Account { get; set; }
         [DisplayName("密碼")]
@@ -254,7 +254,6 @@ namespace TGIS.Models
         public string AreaScale { get; set; }
         [DisplayName("電話")]
         public string Tel { get; set; }
-        [AccountRepeat]
         [DisplayName("信箱")]
         public string Email { get; set; }
         [DisplayName("Line")]

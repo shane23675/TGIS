@@ -44,6 +44,8 @@ namespace TGIS.Controllers
 
                 return RedirectToAction("ShopIndex");
             }
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
             return View(shop);
         }
 
