@@ -372,7 +372,6 @@ namespace TGIS.Models
         [DisplayName("揪桌標題"),StringLength(10, ErrorMessage ="標題長度不得大於10個字"), Required(ErrorMessage = "標題為必填")]
         public string Title { get; set; }
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
-        [AfterNow(ErrorMessage = "報名結束時間必須是在現在時間之後")]
         [Required(ErrorMessage = "報名結束時間為必填")]
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]

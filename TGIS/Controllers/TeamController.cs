@@ -27,7 +27,7 @@ namespace TGIS.Controllers
             //先找到對應的team、player
             Team t = db.Teams.Find(teamID);
             Player p = db.Players.Find(playerID);
-            //通過action判斷要參加或是退出
+            //通過action判斷要參加、退出、取消出團或提前截止
             switch (action)
             {
                 case "exit":
@@ -67,6 +67,12 @@ namespace TGIS.Controllers
             bool isInputValid()
             {
                 bool flag = true;
+                //檢查報名截止日期是否在現在時間之後
+                if (team.ParticipateEndDate <= DateTime.Now)
+                {
+                    ModelState["ParticipateEndDate"].Errors.Add("報名截止日期必須在現在時間之後");
+                    flag = false;
+                }
                 //檢查遊戲日期是否在報名截止日期之後
                 if (team.PlayDate <= team.ParticipateEndDate)
                 {
