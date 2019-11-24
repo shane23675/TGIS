@@ -2,30 +2,23 @@
 
 @{
     ViewBag.Title = "PlayerCreate";
+    Layout = "~/Views/Shared/_LayoutGuestPlayer.cshtml";
 }
 
-<h2>PlayerCreate</h2>
+<h2>Register</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("PlayerCreate", "Player", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Player</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
+        <input type="hidden" name="ID" value="@ViewBag.PlayerID" />
 
         <div class="form-group">
             @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Account" } })
                 @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,10 +40,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PlayerImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Your Photo</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PlayerImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlayerImage, "", new { @class = "text-danger" })
+                <input type="file" name="photo" />
             </div>
         </div>
 
@@ -66,67 +58,39 @@
             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Gender)
+                    <input type="radio" name="Gender" value="true"/> 男
+                    <input type="radio" name="Gender" value="false"/> 女
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.District.City.CityName, "城市", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.District.City.CityName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="CityID" class="form-control">
-                    @foreach (SelectListItem c in (SelectList)(ViewBag.CityID))
-                    {
-                        <option value="@c.Value">@c.Text</option>
-                    }
-                </select>
-                @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
+                @Html.DropDownList("CityID", null, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2" for="DistrictID">District</label>
+            @Html.LabelFor(m=>m.District.DistrictName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="DistrictID" name="DistrictID"></select>
-                <span class="field-validation-valid text-danger" data-valmsg-for="DistrictID" data-valmsg-replace="true"></span>
-            </div>
+                @Html.DropDownList("DistrictID", null, new { @class = "form-control" })
+             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" id="Birthday" name="Birthday" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Points, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Points, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Points, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input type="hidden" name="Points" value="0" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsBanned, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsBanned)
-                    @Html.ValidationMessageFor(model => model.IsBanned, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+        <input type="hidden" name="IsBanned" value="false" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsEmailValid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsEmailValid)
-                    @Html.ValidationMessageFor(model => model.IsEmailValid, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+        <input type="hidden" name="IsEmailValid" value="false" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -137,22 +101,13 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Home")
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/address.js"></script>
 <script>
-    init()
-    $("#CityID").change(init);
-    function init() {
-        CId = $("#CityID").val()
-        Did = $("#DistrictID").val()
-        $.post("/ajax/generateStateList", { CId: CId, Did: Did }, callback);
-    }
-    function callback(htmlVal) {
-        $("#DistrictID").html(htmlVal);
-    }
     $('#Account').blur(function () {
         account = $('#Account').val();
         $.post("/ajax/AccountRepeat", { val: account, tableName: "Shops", property: "Account" }, confirm)

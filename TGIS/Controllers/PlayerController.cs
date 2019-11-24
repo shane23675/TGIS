@@ -23,6 +23,7 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.PlayerID = UsefulTools.GetNextID(db.Players, 2);
             return View();
         }
         [HttpPost]

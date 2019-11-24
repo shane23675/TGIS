@@ -14,13 +14,14 @@ namespace TGIS.Models
     
     public partial class Feedback
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public System.DateTime ReceivedDate { get; set; }
         public string Plaintiff { get; set; }
         public string Defendent { get; set; }
         public string Content { get; set; }
         public string TypeTagID { get; set; }
+        public bool IsRead { get; set; }
     
-        public virtual Tag TypeTag { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

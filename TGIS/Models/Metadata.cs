@@ -78,7 +78,7 @@ namespace TGIS.Models
     {
         [DisplayName("回報編號")]
         public string ID { get; set; }
-        [DisplayName("來信時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("來信時間")]
         public System.DateTime ReceivedDate { get; set; }
         [DisplayName("檢舉人"),StringLength(6)]
         public string Plaintiff { get; set; }
@@ -128,8 +128,6 @@ namespace TGIS.Models
         public long ID { get; set; }
         [DisplayName("店家會員編號")]
         public string ShopID { get; set; }
-        [DisplayName("宣傳圖")]
-        public byte[] ADImage { get; set; }
         [DisplayName("標題"),StringLength(20)]
         public string Title { get; set; }
         [DisplayName("內文"),StringLength(300)]
@@ -166,11 +164,9 @@ namespace TGIS.Models
         public string Password { get; set; }
         [DisplayName("暱稱")]
         public string NickName { get; set; }
-        [DisplayName("照片")]
-        public byte[] PlayerImage { get; set; }
-        [DisplayName("信箱"),]
+        [DisplayName("信箱"), EmailAddress]
         public string Email { get; set; }
-        [DisplayName("性別")]
+        [DisplayName("性別"), Required]
         public bool Gender { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }

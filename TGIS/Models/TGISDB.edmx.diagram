@@ -4,15 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="109">
+      <Diagram DiagramId="4ef23a1a2ddb4a27a4fac2586d283c9a" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="TGISDBModel.Administrator" Width="1.5" PointX="8.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Announcement" Width="1.5" PointX="11" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.City" Width="1.5" PointX="1.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Coupon" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.District" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TGISDBModel.Feedback" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Message" Width="1.5" PointX="13.5" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TGISDBModel.NormalOffer" Width="1.5" PointX="8.25" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Photo" Width="1.5" PointX="12.75" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Player" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.PlayerCouponDetail" Width="1.5" PointX="10.5" PointY="12.875" IsExpanded="true" />
@@ -31,9 +29,7 @@
         <AssociationConnector Association="TGISDBModel.Relationship39" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship36" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship37" ManuallyRouted="false" />
-        <AssociationConnector Association="TGISDBModel.Relationship41" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship25" ManuallyRouted="false" />
-        <AssociationConnector Association="TGISDBModel.Relationship16" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship30" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship38" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship40" ManuallyRouted="false" />
@@ -48,6 +44,10 @@
         <AssociationConnector Association="TGISDBModel.Relationship42" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.GameCategoryDetail" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.TeamDetail" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TGISDBModel.Feedback" Width="1.5" PointX="2.5" PointY="6.75" />
+        <AssociationConnector Association="TGISDBModel.Relationship41" />
+        <EntityTypeShape EntityType="TGISDBModel.NormalOffer" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="TGISDBModel.Relationship16" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
