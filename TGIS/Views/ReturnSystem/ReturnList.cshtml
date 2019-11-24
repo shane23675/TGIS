@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Defendent)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TypeTag.TagName)
+            @Html.DisplayNameFor(model => model.Tag.TagName)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Defendent)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TypeTag.TagName)
+            @Html.DisplayFor(modelItem => item.Tag.TagName)
         </td>
         <td>
             @Html.ActionLink("Details", "ReturnDetail", new { id=item.ID }) |

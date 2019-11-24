@@ -33,14 +33,14 @@ namespace TGIS.Controllers
         {
             return View(db.Feedbacks.ToList());
         }
-        public ActionResult ReturnDel(string id)
+        public ActionResult ReturnDel(int id)
         {
             var fd = db.Feedbacks.Find(id);
             db.Feedbacks.Remove(fd);
             db.SaveChanges();
             return RedirectToAction("ReturnList");
         }
-        public ActionResult ReturnDetail(string id)
+        public ActionResult ReturnDetail(int id)
         {
             return View(db.Feedbacks.Find(id));
         }
