@@ -2,10 +2,10 @@
 
 @{
     var citys = (IEnumerable<TGIS.Models.City>)ViewBag.citys;
-    ViewBag.Title = "MgShopCreate";
+    ViewBag.Title = "新增店家資訊";
 }
 
-<h2>MgShopCreate</h2>
+    <h2>新增店家資訊</h2>
 
 
 @using (Html.BeginForm("MgShopCreate", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Shop</h4>
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

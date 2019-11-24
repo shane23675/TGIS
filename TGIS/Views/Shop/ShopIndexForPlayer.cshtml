@@ -7,6 +7,16 @@
     int count = 0;
 }
 
+<style>
+    .text-box{
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:1;
+    }
+</style>
+
     <div class="row">
         @*
         <!-- 篩選 -->
@@ -99,7 +109,7 @@
                 <li class="nav-item">
                     <div class="btn-group">
                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            縣市
+                            City
                         </button>
                         <div class="dropdown-menu">
 
@@ -115,7 +125,7 @@
                 <li class="nav-item">
                     <div class="btn-group">
                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            行政區
+                            District
                         </button>
                         <div class="dropdown-menu">
 
@@ -149,7 +159,7 @@
                 <div class="card mb-3" style="width: 100%;">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img src="~/Html/images/profile.jpg" class="card-img"><!--Store image-->
+                            <img src="~/Html/images/profile.jpg" class="card-img h-100"><!--Store image-->
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">
@@ -160,7 +170,7 @@
                                 <p class="card-text"><!--add shop.District-->@shop.Address</p>
                                 <p class="card-text">@shop.Tel</p>
 
-                                <p class="card-text">@shop.Description</p>
+                                <p class="card-text text-box">@shop.Description</p>
 
 
                             </div>
