@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "TeamCreate";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    //取得嘗試輸入的資料的函數
+    string GetMSData(string name)
+    {
+        var state = ViewData.ModelState[name];
+        return state == null ? "" : state.Value.AttemptedValue;
+    }
 }
 
 <h2>揪桌趣</h2>
@@ -52,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ParticipateEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="datetime-local" name="ParticipateEndDate" class="form-control" />
+                <input type="datetime-local" name="ParticipateEndDate" class="form-control" value="@GetMSData("ParticipateEndDate")"/>
                 @Html.ValidationMessageFor(model => model.ParticipateEndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,12 +71,10 @@
             </div>
         </div>
 
-        <input type="hidden" name="Status" value="convene" />
-
         <div class="form-group">
             @Html.LabelFor(model => model.PlayDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" name="PlayDate" class="form-control" />
+                <input type="date" name="PlayDate" class="form-control" value="@GetMSData("PlayDate")"/>
                 @Html.ValidationMessageFor(model => model.PlayDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -78,7 +82,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PlayBeginTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="time" name="PlayBeginTime" class="form-control" />
+                <input type="time" name="PlayBeginTime" class="form-control" value="@GetMSData("PlayBeginTime")"/>
                 @Html.ValidationMessageFor(model => model.PlayBeginTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,7 +90,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PlayEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="time" name="PlayEndTime" class="form-control" />
+                <input type="time" name="PlayEndTime" class="form-control" value="@GetMSData("PlayEndTime")"/>
                 @Html.ValidationMessageFor(model => model.PlayEndTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,8 +108,15 @@
             <div class="col-md-10">
                 <input id="searchInput" class="form-control" placeholder="請輸入桌遊名稱" />
                 <button id="searchBtn" class="btn btn-warning">搜尋</button>
-                <select id="Preference" name="Preference" class="form-control" >
+                <select id="Preference" name="Preference" class="form-control">
                     <option>不限</option>
+                    @{
+                        string tableGameID = GetMSData("Preference");
+                        if (tableGameID != "")
+                        {
+                            <option value="@tableGameID" selected>@(new TGIS.Models.TGISDBEntities().TableGames.Find(tableGameID).ChineseName)</option>
+                        }
+                    }
                 </select>
             </div>
         </div>
