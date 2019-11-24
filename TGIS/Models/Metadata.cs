@@ -78,7 +78,7 @@ namespace TGIS.Models
     {
         [DisplayName("回報編號")]
         public string ID { get; set; }
-        [DisplayName("來信時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("來信時間")]
         public System.DateTime ReceivedDate { get; set; }
         [DisplayName("檢舉人"),StringLength(6)]
         public string Plaintiff { get; set; }

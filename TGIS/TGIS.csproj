@@ -417,6 +417,7 @@
     <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
     <Content Include="Views\ReturnSystem\ReturnList.cshtml" />
     <Content Include="Views\ReturnSystem\ReturnProblem.cshtml" />
+    <Content Include="Views\ReturnSystem\ReturnDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

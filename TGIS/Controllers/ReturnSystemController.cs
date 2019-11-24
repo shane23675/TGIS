@@ -24,8 +24,9 @@ namespace TGIS.Controllers
                 feedback.ReceivedDate = DateTime.Now;
                 db.Feedbacks.Add(feedback);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("ReturnList");
             }
+            ViewBag.TypeTagID = new SelectList(db.Tags, "ID", "TagName").Where(m => m.Value.Substring(0, 1) == "R");
             return View(feedback);
         }
         public ActionResult ReturnList()
@@ -38,6 +39,10 @@ namespace TGIS.Controllers
             db.Feedbacks.Remove(fd);
             db.SaveChanges();
             return RedirectToAction("ReturnList");
+        }
+        public ActionResult ReturnDetail(string id)
+        {
+            return View(db.Feedbacks.Find(id));
         }
     }
 }

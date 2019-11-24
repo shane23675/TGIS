@@ -21,9 +21,6 @@
             @Html.DisplayNameFor(model => model.Defendent)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.TypeTag.TagName)
         </th>
         <th></th>
@@ -41,15 +38,11 @@
             @Html.DisplayFor(modelItem => item.Defendent)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.TypeTag.TagName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Details", "ReturnDetail", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "ReturnDel", new { id=item.ID })
         </td>
     </tr>
 }
