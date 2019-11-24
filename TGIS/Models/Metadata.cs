@@ -128,8 +128,6 @@ namespace TGIS.Models
         public long ID { get; set; }
         [DisplayName("店家會員編號")]
         public string ShopID { get; set; }
-        [DisplayName("宣傳圖")]
-        public byte[] ADImage { get; set; }
         [DisplayName("標題"),StringLength(20)]
         public string Title { get; set; }
         [DisplayName("內文"),StringLength(300)]
@@ -166,8 +164,6 @@ namespace TGIS.Models
         public string Password { get; set; }
         [DisplayName("暱稱")]
         public string NickName { get; set; }
-        [DisplayName("照片")]
-        public byte[] PlayerImage { get; set; }
         [DisplayName("信箱"), EmailAddress]
         public string Email { get; set; }
         [DisplayName("性別"), Required]

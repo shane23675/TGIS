@@ -30,9 +30,7 @@ namespace TGIS.Models
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<District> Districts { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<NormalOffer> NormalOffers { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<Player> Players { get; set; }
         public virtual DbSet<PlayerCouponDetail> PlayerCouponDetails { get; set; }
@@ -45,5 +43,7 @@ namespace TGIS.Models
         public virtual DbSet<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<NormalOffer> NormalOffers { get; set; }
     }
 }
