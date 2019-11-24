@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "TeamCreate";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
-    //取得嘗試輸入的資料的函數
+    //取得嘗試輸入的資料的函數，用於輸入錯誤時保留輸入值
     string GetMSData(string name)
     {
         var state = ViewData.ModelState[name];

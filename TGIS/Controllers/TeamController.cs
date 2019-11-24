@@ -63,6 +63,10 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult TeamCreate(Team team, int CityID, int DistrictID)
         {
+            //若登入已超時導致無法取得玩家ID則重新導向至登入頁
+            if (Session["PlayerID"] == null)
+                return RedirectToAction("LoginForPlayer", "Login");
+
             //檢查輸入的資訊是否有效的函數，否則加入錯誤訊息並返回
             bool isInputValid()
             {

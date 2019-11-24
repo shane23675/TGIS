@@ -168,9 +168,9 @@ namespace TGIS.Models
         public string NickName { get; set; }
         [DisplayName("照片")]
         public byte[] PlayerImage { get; set; }
-        [DisplayName("信箱"),]
+        [DisplayName("信箱"), EmailAddress]
         public string Email { get; set; }
-        [DisplayName("性別")]
+        [DisplayName("性別"), Required]
         public bool Gender { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
