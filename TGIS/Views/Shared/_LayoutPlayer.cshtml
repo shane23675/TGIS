@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +22,10 @@
             height: 100%;
         }
 
-        .wrap {
+        .wrap{
+            min-height: 94.2%;
             position: relative;
-            min-height: 100%;
-            box-sizing: border-box;
         }
-
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -40,16 +38,15 @@
         footer {
             width: 100%;
             position: absolute;
-            bottom: -450px;
-            padding-bottom: 0;
+
         }
     </style>
 
 
 </head>
 <body>
-    <div class="wrap">
 
+    <div class="wrap">
         <header>
             <nav class="navbar navbar-expand-md">
                 <a class="navbar-brand" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">有桌方遊</a>
@@ -75,14 +72,14 @@
         </div>
 
 
-        <footer>
-            <nav class="navbar navbar-expand-md justify-content-end">
-                <a class="nav-link" href="#">關於我們</a>
-                <a class="nav-link" href="#">聯絡我們</a>
-            </nav>
-        </footer>
-
     </div>
+    <footer>
+        <nav class="navbar navbar-expand-md justify-content-end">
+            <a class="nav-link" href="#">關於我們</a>
+            <a class="nav-link" href="#">聯絡我們</a>
+        </nav>
+    </footer>
+
 
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
