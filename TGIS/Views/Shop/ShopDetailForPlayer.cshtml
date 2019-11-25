@@ -19,8 +19,8 @@
                 @foreach (int id in ViewBag.photoIDList)
                 {
                     string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active">
-                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="d-block w-100" />
+                    <div class="carousel-item @active" style="height:250px" >
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 h-100" />
                     </div>
                     count = 1;
                 }
@@ -40,7 +40,7 @@
         
         <span>@Model.ShopName</span>
         <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
-        <h3>營業時間：</h3>
+        <h3>營業時間： </h3>
         <p>@Model.OpeningHours</p>
     
     </div>

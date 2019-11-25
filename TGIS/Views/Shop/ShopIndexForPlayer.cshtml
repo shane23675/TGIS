@@ -107,7 +107,7 @@
 
                             @foreach (Shop shop in Model)
                             {
-                                <a class="dropdown-item" href="#">city name</a>
+                                <a class="dropdown-item" href="#">@shop.</a>
                             }
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                 <div class="card mb-3" style="width: 100%;">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img src="~/Html/images/profile.jpg" class="card-img"><!--Store image-->
+                            <img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="card-img"><!--Store image-->
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">

@@ -8,26 +8,26 @@
 
 <style>
 
-    .gameName{
-        position:absolute;
-        top:0;
-        right:0;
-        bottom:0;
-        left:0;
-        padding:10px;
-        background-color:rgba(0,0,0,.6);
-        color:#ffffff;
-        font-size:1.2rem;
-        opacity:0;
-        transition:opacity .3s;
+    .gameName {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+        background-color: rgba(0,0,0,.6);
+        color: #ffffff;
+        font-size: 1.2rem;
+        opacity: 0;
+        transition: opacity .3s;
     }
 
-    .gameName:hover{
-        opacity:1;
-    }
+        .gameName:hover {
+            opacity: 1;
+        }
 
-        .card-body{
-        position:relative;
+    .card-body {
+        position: relative;
     }
 
     @@media (min-width:576px) {
@@ -54,38 +54,39 @@
         }
     }
 
-    .dropdown{
-        position:absolute;
-        top:0;
-        right:0;
+    .dropdown {
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
-    .btn_store_sel{
-        position:absolute;
-        top:0;
-        right:0;
-        cursor:pointer;
+    .btn_store_sel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
     }
 
-    .btn_store_sel select{
-        -webkit-appearance:none;
-        display:none;
-    }
+        .btn_store_sel select {
+            -webkit-appearance: none;
+            display: none;
+        }
 
     #tgStore_left {
-        border-right:7px solid #1a459c;
-        border-radius:10px 0 0 10px;
-        background-color:#75c383;
-        color:#0d2149;
-        margin-right:-10px;
-        padding:5px;
+        border-right: 7px solid #1a459c;
+        border-radius: 10px 0 0 10px;
+        background-color: #75c383;
+        color: #0d2149;
+        margin-right: -10px;
+        padding: 5px;
     }
-        #tgStore_right{
-        border-radius:0 10px 10px 0;
-                background-color:#75c383;
-        color:#0d2149;
-                padding:5px;
-        }
+
+    #tgStore_right {
+        border-radius: 0 10px 10px 0;
+        background-color: #75c383;
+        color: #0d2149;
+        padding: 5px;
+    }
 </style>
 <div class="row">
 
@@ -189,14 +190,14 @@
         @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
         {
             <h3>Leave a Comment!</h3>
-                    <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-                    <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12"></textarea>
-                    <input id="Submit1" type="submit" value="submit" />
+            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+            <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+            <input id="Submit1" type="submit" value="Send Comment" class="btn btn-warning my-1" />
         }
 
 
         <!--Comments-->
-    <h3>Comments</h3>
+        <h3>Comments</h3>
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
@@ -206,39 +207,62 @@
                         <img src="../images/user.png" class="img-fluid rounded" />
                     </div>
 
-                    <div class="col-md-10 card">
-                        <div class="card-body tgCard">
-                            <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                    <div class="card col-md-10 no-gutters px-0 my-2">
+                        <div class="card-header">
+                            <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
+                            <span>@Html.ActionLink("Delete", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                        </div>
+                        <div class="card-body h-25">
                             <span>
                                 @Html.Raw(comment.Content.Replace("\n", "<br />"))
                             </span>
-                            <p>@comment.CommentDate</p>
-                            @Html.ActionLink("Delete", "CommentDelete", "TGComment", new { commentID = comment.ID}, new { })
                         </div>
+                        <div class="card-footer">
+                            <p>@comment.CommentDate</p>
+                        </div>
+
                     </div>
 
                     <br />
                 }
                 else
                 {
+
                     <div class="col-md-2">
                         <img src="../images/user.png" class="img-fluid rounded" />
                     </div>
-
-                    <div class="col-md-10 card">
-                        <div class="card-body tgCard">
+                    <div class="card col-md-10 no-gutters px-0 my-2">
+                        <div class="card-header">
                             <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                        </div>
+                        <div class="card-body h-25">
                             <span>
                                 @Html.Raw(comment.Content.Replace("\n", "<br />"))
                             </span>
+                        </div>
+                        <div class="card-footer">
                             <p>@comment.CommentDate</p>
                         </div>
+
                     </div>
 
-                    <br />
+                    @*<div class="col-md-2 my-1">
+                            <img src="../images/user.png" class="img-fluid rounded" />
+                        </div>
+
+                        <div class="col-md-10 card my-1 ">
+                            <div class="card-body tgCard">
+                                <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                                <span>
+                                    @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                                </span>
+                                <p>@comment.CommentDate</p>
+                            </div>
+                        </div>*@
+
                 }
             }
         </div>
-        </div>
+    </div>
 
 </div>
