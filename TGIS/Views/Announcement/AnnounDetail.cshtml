@@ -1,0 +1,50 @@
+﻿@model TGIS.Models.Announcement
+
+@{
+    ViewBag.Title = "AnnounDetail";
+}
+
+<h2>AnnounDetail</h2>
+
+<div>
+    <h4>Announcement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnnouncedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnouncedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Administrator.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Administrator.Account)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditAnnoun", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

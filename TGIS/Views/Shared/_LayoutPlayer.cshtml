@@ -1,3 +1,4 @@
+﻿@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +57,15 @@
                     <div class="navbar-nav mr-auto"> </div>
                     @*<form class="form-inline my-2 my-md-0"></form>*@
                     <a class="nav-link" href="#">會員中心</a>
-                    <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+                    @if (Session["PlayerID"] != null)
+                    {
+                        Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
+                        <a class="nav-link" href="#">@p.NickName</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+                    }
                 </div>
             </nav>
         </header>
