@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TGIS.Models.Feedback>
+
+@{
+    ViewBag.Title = "ReturnList";
+}
+
+<h2>ReturnList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plaintiff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Defendent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag.TagName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plaintiff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Defendent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tag.TagName)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "ReturnDetail", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "ReturnDel", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

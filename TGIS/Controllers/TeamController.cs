@@ -21,6 +21,31 @@ namespace TGIS.Controllers
         {
             return View(db.Teams.Find(teamID));
         }
+        [HttpPost]
+        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action)
+        {
+            //先找到對應的team、player
+            Team t = db.Teams.Find(teamID);
+            Player p = db.Players.Find(playerID);
+            //通過action判斷要參加、退出、取消出團或提前截止
+            switch (action)
+            {
+                case "exit":
+                    t.OtherPlayers.Remove(p);
+                    break;
+                case "join":
+                    t.OtherPlayers.Add(p);
+                    break;
+                case "cancel":
+                    t.IsCanceled = true;
+                    break;
+                case "close":
+                    t.IsClosed = true;
+                    break;
+            }
+            db.SaveChanges();
+            return View(t);
+        }
 
         //新開一桌(玩家用)
         public ActionResult TeamCreate()
@@ -36,12 +61,22 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult TeamCreate(Team team)
+        public ActionResult TeamCreate(Team team, int CityID, int DistrictID)
         {
+            //若登入已超時導致無法取得玩家ID則重新導向至登入頁
+            if (Session["PlayerID"] == null)
+                return RedirectToAction("LoginForPlayer", "Login");
+
             //檢查輸入的資訊是否有效的函數，否則加入錯誤訊息並返回
             bool isInputValid()
             {
                 bool flag = true;
+                //檢查報名截止日期是否在現在時間之後
+                if (team.ParticipateEndDate <= DateTime.Now)
+                {
+                    ModelState["ParticipateEndDate"].Errors.Add("報名截止日期必須在現在時間之後");
+                    flag = false;
+                }
                 //檢查遊戲日期是否在報名截止日期之後
                 if (team.PlayDate <= team.ParticipateEndDate)
                 {
@@ -63,7 +98,7 @@ namespace TGIS.Controllers
                 return flag;
             }
             //驗證主體
-            if (ModelState.IsValid && isInputValid())
+            if (isInputValid() && ModelState.IsValid)
             {
                 db.Teams.Add(team);
                 db.SaveChanges();
@@ -71,8 +106,8 @@ namespace TGIS.Controllers
             }
             //驗證失敗
             ViewBag.teamID = team.ID;
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", DistrictID);
             return View(team);
         }
     }

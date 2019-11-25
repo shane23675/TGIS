@@ -260,6 +260,7 @@
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\ReturnSystemController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
     <Compile Include="Controllers\TableGameInShopDetailController.cs" />
@@ -408,12 +409,14 @@
     <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
-    <Content Include="Views\Shared\_LayoutGuestPlayer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
     <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
+    <Content Include="Views\ReturnSystem\ReturnList.cshtml" />
+    <Content Include="Views\ReturnSystem\ReturnDetail.cshtml" />
+    <Content Include="Views\ReturnSystem\ReturnProblem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

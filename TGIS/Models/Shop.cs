@@ -18,9 +18,9 @@ namespace TGIS.Models
         public Shop()
         {
             this.Coupons = new HashSet<Coupon>();
-            this.NormalOffers = new HashSet<NormalOffer>();
             this.TableGameInShopDetails = new HashSet<TableGameInShopDetail>();
             this.Teams = new HashSet<Team>();
+            this.NormalOffers = new HashSet<NormalOffer>();
         }
     
         public string ID { get; set; }
@@ -47,10 +47,10 @@ namespace TGIS.Models
         public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormalOffer> NormalOffers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TableGameInShopDetail> TableGameInShopDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NormalOffer> NormalOffers { get; set; }
     }
 }

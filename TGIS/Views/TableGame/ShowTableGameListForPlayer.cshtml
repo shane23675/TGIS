@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "ShowTableGameList";
-    Layout = "~/Views/Shared/_LayoutGuestPlayer.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
 <style>
@@ -75,13 +75,13 @@
     <div class="row">
         <div class="col-md-2">
             <nav class="text-center">
-                <div id="sel" class="text-white">篩選列表</div>
+                <div id="sel" class="text-white">Filter</div>
                 @using (Html.BeginForm())
                 {
                     <div class="form-group">
-                        <h3><label class="control-label"><strong>分類標籤</strong></label></h3>
+                        <h3><label class="control-label"><strong>Filter</strong></label></h3>
                         <!--<div class="row">-->
-                        <p class="col-12 mt-3">遊戲難度</p>
+                        <p class="col-12 mt-3">Difficulty</p>
                         @foreach (Tag t in ViewBag.DifficultyTagList)
                         {
                             string isChecked = ((string[])(ViewBag.difficultTagIDs)).Contains(t.ID) ? "checked" : "";
@@ -91,7 +91,7 @@
                             </div>
                         }
                         <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                        <p class="col-12 mt-3">遊戲分類</p>
+                        <p class="col-12 mt-3">Category</p>
                         @foreach (Tag t in ViewBag.CategoryTagList)
                         {
                             string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
@@ -114,8 +114,8 @@
 
 
             <nav class="nav">
-                <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
-                <a class="nav-link" href="#">桌遊百科</a>
+                <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                <a class="nav-link" href="#">Games</a>
             </nav>
 
 

@@ -18,9 +18,9 @@
     <aside id="sidebar">
         <div class="sidebar-header">
             @*皆連回管理中心首頁*@
-            <strong>@Html.ActionLink("TGIS", "ShowTableGameListForPlayer", "TableGame")</strong>
+            <strong>@Html.ActionLink("有桌方遊", "ShowTableGameListForPlayer", "TableGame")</strong>
             <span class="h1">
-                @Html.ActionLink("有桌方遊", "ShowTableGameListForPlayer", "TableGame")
+                @Html.ActionLink("有桌方遊", "Index", "Home")
             </span>
             <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
                 <i class="fas fa-align-justify"></i>
@@ -92,7 +92,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="@Url.Action("ReturnList","ReturnSystem")">
                     <i class="fas fa-envelope"></i>
                     <span>&nbsp;回報管理</span>
                 </a>

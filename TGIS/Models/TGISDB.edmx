@@ -57,12 +57,13 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
           <Property Name="Plaintiff" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="Defendent" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TypeTagID" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="GameCategoryDetail">
           <Key>
@@ -87,9 +88,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="ADImage" Type="image" Nullable="false" />
           <Property Name="Title" Type="char" MaxLength="20" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="BeginDate" Type="datetime" Nullable="false" />
@@ -113,7 +113,6 @@
           <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="PlayerImage" Type="image" />
           <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="DistrictID" Type="int" Nullable="false" />
@@ -741,18 +740,6 @@
           <NavigationProperty Name="Players" Relationship="Self.Relationship36" FromRole="District" ToRole="Player" />
           <NavigationProperty Name="Shops" Relationship="Self.Relationship37" FromRole="District" ToRole="Shop" />
         </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Plaintiff" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Defendent" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TypeTagID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TypeTag" Relationship="Self.Relationship41" FromRole="Feedback" ToRole="Tag" />
-        </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="ID" />
@@ -764,20 +751,6 @@
           <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsPrivate" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Team" Relationship="Self.Relationship25" FromRole="Message" ToRole="Team" />
-        </EntityType>
-        <EntityType Name="NormalOffer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ADImage" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Clicks" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Shop" Relationship="Self.Relationship16" FromRole="NormalOffer" ToRole="Shop" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -796,7 +769,6 @@
           <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NickName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PlayerImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="Boolean" Nullable="false" />
           <Property Name="DistrictID" Type="Int32" Nullable="false" />
@@ -869,9 +841,9 @@
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Coupons" Relationship="Self.Relationship17" FromRole="Shop" ToRole="Coupon" />
           <NavigationProperty Name="District" Relationship="Self.Relationship37" FromRole="Shop" ToRole="District" />
-          <NavigationProperty Name="NormalOffers" Relationship="Self.Relationship16" FromRole="Shop" ToRole="NormalOffer" />
           <NavigationProperty Name="TableGameInShopDetails" Relationship="Self.Relationship15" FromRole="Shop" ToRole="TableGameInShopDetail" />
           <NavigationProperty Name="Teams" Relationship="Self.Relationship20" FromRole="Shop" ToRole="Team" />
+          <NavigationProperty Name="NormalOffers" Relationship="TGISDBModel.Relationship16" FromRole="Shop" ToRole="NormalOffer" />
         </EntityType>
         <EntityType Name="TableGame">
           <Key>
@@ -938,10 +910,10 @@
           </Key>
           <Property Name="ID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TagName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Feedbacks" Relationship="Self.Relationship41" FromRole="Tag" ToRole="Feedback" />
           <NavigationProperty Name="TableGamesForDifficulty" Relationship="Self.Relationship26" FromRole="Tag" ToRole="TableGame" />
           <NavigationProperty Name="TableGamesForBrand" Relationship="Self.Relationship27" FromRole="Tag" ToRole="TableGame" />
           <NavigationProperty Name="TableGamesForGameCategory" Relationship="Self.GameCategoryDetail" FromRole="Tag" ToRole="TableGame" />
+          <NavigationProperty Name="Feedbacks" Relationship="TGISDBModel.Relationship41" FromRole="Tag" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -1039,18 +1011,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Relationship41">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Feedback">
-              <PropertyRef Name="TypeTagID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Relationship25">
           <End Role="Team" Type="Self.Team" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
@@ -1060,18 +1020,6 @@
             </Principal>
             <Dependent Role="Message">
               <PropertyRef Name="TeamID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Relationship16">
-          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
-          <End Role="NormalOffer" Type="Self.NormalOffer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shop">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NormalOffer">
-              <PropertyRef Name="ShopID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1233,9 +1181,7 @@
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Coupons" EntityType="Self.Coupon" />
           <EntitySet Name="Districts" EntityType="Self.District" />
-          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
-          <EntitySet Name="NormalOffers" EntityType="Self.NormalOffer" />
           <EntitySet Name="Photos" EntityType="Self.Photo" />
           <EntitySet Name="Players" EntityType="Self.Player" />
           <EntitySet Name="PlayerCouponDetails" EntityType="Self.PlayerCouponDetail" />
@@ -1272,17 +1218,9 @@
             <End Role="District" EntitySet="Districts" />
             <End Role="Shop" EntitySet="Shops" />
           </AssociationSet>
-          <AssociationSet Name="Relationship41" Association="Self.Relationship41">
-            <End Role="Tag" EntitySet="Tags" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
           <AssociationSet Name="Relationship25" Association="Self.Relationship25">
             <End Role="Team" EntitySet="Teams" />
             <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="Relationship16" Association="Self.Relationship16">
-            <End Role="Shop" EntitySet="Shops" />
-            <End Role="NormalOffer" EntitySet="NormalOffers" />
           </AssociationSet>
           <AssociationSet Name="Relationship30" Association="Self.Relationship30">
             <End Role="Player" EntitySet="Players" />
@@ -1340,7 +1278,67 @@
             <End Role="Player" EntitySet="Players" />
             <End Role="Team" EntitySet="Teams" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="TGISDBModel.Feedback" />
+          <AssociationSet Name="Relationship41" Association="TGISDBModel.Relationship41">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <EntitySet Name="NormalOffers" EntityType="TGISDBModel.NormalOffer" />
+          <AssociationSet Name="Relationship16" Association="TGISDBModel.Relationship16">
+            <End Role="Shop" EntitySet="Shops" />
+            <End Role="NormalOffer" EntitySet="NormalOffers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Plaintiff" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="Defendent" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeTagID" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="TGISDBModel.Relationship41" FromRole="Feedback" ToRole="Tag" />
+        </EntityType>
+        <Association Name="Relationship41">
+          <End Type="TGISDBModel.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="TGISDBModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="TypeTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NormalOffer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="ShopID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Clicks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shop" Relationship="TGISDBModel.Relationship16" FromRole="NormalOffer" ToRole="Shop" />
+        </EntityType>
+        <Association Name="Relationship16">
+          <End Type="TGISDBModel.Shop" Role="Shop" Multiplicity="1" />
+          <End Type="TGISDBModel.NormalOffer" Role="NormalOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NormalOffer">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1400,18 +1398,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="TGISDBModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="Plaintiff" ColumnName="Plaintiff" />
-                <ScalarProperty Name="Defendent" ColumnName="Defendent" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="TypeTagID" ColumnName="TypeTagID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="TGISDBModel.Message">
               <MappingFragment StoreEntitySet="Message">
@@ -1421,20 +1407,6 @@
                 <ScalarProperty Name="Speaker" ColumnName="Speaker" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NormalOffers">
-            <EntityTypeMapping TypeName="TGISDBModel.NormalOffer">
-              <MappingFragment StoreEntitySet="NormalOffer">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
-                <ScalarProperty Name="ADImage" ColumnName="ADImage" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1456,7 +1428,6 @@
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="PlayerImage" ColumnName="PlayerImage" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
@@ -1617,6 +1588,32 @@
               <ScalarProperty Name="ID" ColumnName="TeamID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="TGISDBModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="TypeTagID" ColumnName="TypeTagID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Defendent" ColumnName="Defendent" />
+                <ScalarProperty Name="Plaintiff" ColumnName="Plaintiff" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormalOffers">
+            <EntityTypeMapping TypeName="TGISDBModel.NormalOffer">
+              <MappingFragment StoreEntitySet="NormalOffer">
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

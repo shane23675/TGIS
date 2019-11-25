@@ -14,9 +14,8 @@ namespace TGIS.Models
     
     public partial class NormalOffer
     {
-        public long ID { get; set; }
+        public string ID { get; set; }
         public string ShopID { get; set; }
-        public byte[] ADImage { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public System.DateTime BeginDate { get; set; }
