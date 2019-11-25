@@ -356,7 +356,43 @@ namespace TGIS.Models
     }
     //揪桌主檔
     [MetadataType(typeof(MetadataTeam))]
-    public partial class Team { }
+    public partial class Team
+    {
+        //以下是資料庫中沒有儲存，僅是推算出來的屬性
+        [DisplayName("狀態")]
+        public string Status
+        {
+            get
+            {
+                int nowPlayers = OtherPlayers.Count + 1;
+                if (DateTime.Now > PlayDate)
+                    return "已過期";
+                else if (IsCanceled)
+                    return "已取消出團";
+                else if (IsClosed)
+                    return "已提前截止報名";
+                else if (DateTime.Now > ParticipateEndDate)
+                    return "報名時間已過";
+                else if (nowPlayers >= MaxPlayer)
+                    return "已額滿，僅開放報名候補";
+                else if (nowPlayers < MinPlayer)
+                    return $"可報名，未達成團人數(目前：{nowPlayers} / 最低：{MinPlayer})";
+                else
+                    return $"可報名，已達成團人數(目前：{nowPlayers})";
+            }
+        }
+        [DisplayName("是否可報名")]
+        public bool IsOpen
+        {
+            get
+            {
+                int nowPlayers = OtherPlayers.Count + 1;
+                if (nowPlayers >= MinPlayer && nowPlayers <= MaxPlayer && !IsCanceled && !IsClosed && DateTime.Now <= ParticipateEndDate)
+                    return true;
+                return false;
+            }
+        }
+    }
     public class MetadataTeam
     {
         [DisplayName("揪桌編號")]
@@ -391,6 +427,7 @@ namespace TGIS.Models
         public bool IsCanceled { get; set; }
         [DisplayName("是否已提前截止")]
         public bool IsClosed { get; set; }
+
 
     }
 }
