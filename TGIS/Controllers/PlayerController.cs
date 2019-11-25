@@ -34,7 +34,7 @@ namespace TGIS.Controllers
                 db.Players.Add(player);
                 db.SaveChanges();
 
-                return RedirectToAction("EmailValidate", "EmailValidate",new {Email=player.Email,id=player.ID});
+                return RedirectToAction("EmailValidate", "EmailValidate",new {Email = player.Email,id=player.ID});
             }
             return View(player);
         }
