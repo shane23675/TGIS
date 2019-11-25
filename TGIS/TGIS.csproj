@@ -184,6 +184,7 @@
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
     <Content Include="images\boardGame.jpg" />
+    <Content Include="images\dog.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
