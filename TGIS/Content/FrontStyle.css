@@ -1,39 +1,55 @@
 ﻿body {
     font-family: 'Noto Sans TC', sans-serif;
 }
-.Mynav {
-    color: #f9ebe0;
-    background-color:rgba(32,138,174,0.7);
+
+.headnav {
+    background-color: #B1EDE8;
 }
-header a, footer a {
-    color: #f9ebe0;
+.footnav {
+    background-color: rgba(82,138,174,0.5);
 }
 
 .desk {
     background-image: url('../images/bg_desk2.jpg');
     background-repeat: no-repeat;
-    background-position:center;
-    background-size:100% 100%;
+    background-position: center;
+    background-size: 100% 100%;
 }
+
+.Frostedglass {
+    background-color: rgba(255,255,255,0.3);
+    margin: 90px 100px 250px 100px;
+}
+
 .OuterBox {
     background-image: url('../images/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    margin:90px 100px 250px 100px;
-    padding:1px;
-    box-shadow: #000000 5px 5px 5px 10px;
-    border-radius: 3px;
+    box-shadow: #000000 5px 5px 5px 8px;
+    border-radius: 4px;
 }
+
+.lightA {
+    box-shadow: inset rgba(255,255,255,0.4) 3px 3px 5px 5px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
 .gap {
     background-color: #515050;
     margin: 10px;
-    padding:2px;
+    padding: 2px;
     border-radius: 5px;
+    box-shadow: inset #000000 3px 3px 8px 5px;
 }
+
 .innerBox {
-    background-color: #D6F8D6;
+    background-color: #F9F3F2;
     margin: 5px;
     padding: 30px;
     border-radius: 5px;
     box-shadow: #000000 3px 3px 2px;
 }
+/* ---------------------------------------------------
+    bootstrap設計變動
+----------------------------------------------------- */
