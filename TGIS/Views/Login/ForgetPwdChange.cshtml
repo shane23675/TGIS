@@ -1,28 +1,31 @@
-﻿
+
 @{
     ViewBag.Title = "ForgetPwdChange";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>ForgetPwdChange</h2>
-<form method="post" action="~/Login/ForgetPwdChange" class="container">
-    <div>
-    <input id="Text1" type="hidden" name="fdew" value="@ViewBag.Account" />
-    </div>
-    <input id="Text0" type="hidden" name="aswe" value="@ViewBag.ID" />
-    <h2>變更密碼</h2>
-    <div class="form-group">
-        <span>新密碼:</span>
-    </div>
-    <div>
-        <input id="ac" type="text" name="newPwd" class="form-control w-25" />
-    </div>
-    <div class="form-group">
-        <span>新密碼確認:</span>
-    </div>
-    <div>
-        <input id="pwd" type="text" name="pwdRepeat" class="form-control w-25" />
-    </div>
-    <input id="Submit1" type="submit" value="submit" />
-    <div class="alert-danger w-25">@ViewBag.Error</div>
-</form>
+<div class="d-flex justify-content-center align-items-center" style="height:80vh">
+    <form method="post" action="~/Login/ForgetPwdChange">
+        <div class="card bg-light m-3" style="max-width:18rem">
+            <div>
+                <input id="Text1" type="hidden" name="fdew" value="@ViewBag.Account" />
+            </div>
+            <input id="Text0" type="hidden" name="aswe" value="@ViewBag.ID" />
+
+            <h2 class="card-header">變更密碼</h2>
+            <div class="card-body">
+
+                <label>新密碼:</label>
+                <input id="ac" type="text" name="newPwd" class="form-control" />
+                
+                <label class="mt-1">新密碼確認:</label>
+                <input id="pwd" type="text" name="pwdRepeat" class="form-control" />
+            </div>
+            <div class="text-right card-footer">
+                <input id="Submit1" type="submit" value="Confirm" class="btn btn-info"/>
+                <div class="alert-danger w-25">@ViewBag.Error</div>
+            </div>
+        </div>
+    </form>
+</div>
 

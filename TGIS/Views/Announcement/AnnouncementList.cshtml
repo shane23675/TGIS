@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TGIS.Models.Announcement>
+
+@{
+    ViewBag.Title = "AnnouncementList";
+}
+
+<h2>AnnouncementList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateAnnoun")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnouncedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Administrator.Account)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnouncedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Administrator.Account)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditAnnoun", new { id=item.ID }) |
+            @Html.ActionLink("Details", "AnnounDetail", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "AnnounDel", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

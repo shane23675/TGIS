@@ -1,7 +1,7 @@
 
 @{
     ViewBag.Title = "LoginForPlayer";
-    Layout = "~/Views/Shared/_LayoutGuestPlayer.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
     <div class="row justify-content-center align-items-center" style="height:80vh">
@@ -23,10 +23,18 @@
                         </div>
                         <div class="card-footer bg-transparent border-info text-right">
                             <p class="text-danger">@ViewBag.Error</p>
-                            <button type="button" class="btn btn-secondary">@Html.ActionLink("Forget Password", "ForgetPwd", new { }, new { @class = "text-white" })</button>
+                            <button type="button" class="btn btn-secondary">@Html.ActionLink("Forget Password", "ForgetPwd", new { }, new {style="color:#f0f0f0;text-decoration:none"})</button>
                             <input id="Submit1" type="submit" value="Log In" class="btn btn-info" />
                         </div>
                     </div>
+
+
+
+
+
+
+
+
 
 
                     @*<h2 >玩家登入</h2>
