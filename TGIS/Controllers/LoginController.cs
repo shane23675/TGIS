@@ -36,8 +36,8 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForShop (string account,string pwd)
         {
-            var password = Hash.PwdHash(pwd);
-            Shop user = db.Shops.Where(m => m.Account == account).Where(m => m.Password == password).SingleOrDefault();
+            //var password = Hash.PwdHash(pwd);
+            Shop user = db.Shops.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
             if (user != null)
             {
                 Session["ShopID"] =$"{user.ID}";
