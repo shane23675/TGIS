@@ -158,25 +158,27 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("會員帳號")]
+        [DisplayName("會員帳號"), Required]
         public string Account { get; set; }
-        [DisplayName("會員密碼")]
+        [DisplayName("會員密碼"), Required]
         public string Password { get; set; }
-        [DisplayName("暱稱")]
+        [DisplayName("暱稱"), Required]
         public string NickName { get; set; }
-        [DisplayName("信箱"), EmailAddress]
+        [DisplayName("信箱"), EmailAddress, Required]
         public string Email { get; set; }
         [DisplayName("性別"), Required]
         public bool Gender { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
-        [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
         public DateTime Birthday { get; set; }
         [DisplayName("持有點數量"),Range(0,int.MaxValue)]
         public int Points { get; set; }
         [DisplayName("是否停權")]
         public bool IsBanned { get; set; }
 
+        [DisplayName("Email驗證狀態")]
+        public bool IsEmailValid { get; set; }
     }
     //玩家優惠明細
     [MetadataType(typeof(MetadataPlyerCouponDetail))]
@@ -189,7 +191,7 @@ namespace TGIS.Models
         public string CouponID { get; set; }
         [DisplayName("優惠卷編碼")]
         public long Code { get; set; }
-        [DisplayName("兌換時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("兌換時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExchangedDate { get; set; }
         [DisplayName("是否使用")]
         public bool IsUsed { get; set; }
@@ -207,7 +209,7 @@ namespace TGIS.Models
         public int ChangedAmount { get; set; }
         [DisplayName("變動原因"),StringLength(20)]
         public string Cause { get; set; }
-        [DisplayName("獲得時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("獲得時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ChangedDate { get; set; }
     }
     //相關教學連結

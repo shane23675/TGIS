@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-light bg-player">
-        <a class="navbar-brand " href="#">
+        <a class="navbar-brand " href="@Url.Action("Index", "Home")">
             <h3>有桌方遊</h3>
         </a>
         <div class="collapse navbar-collapse" id="P-navbar">
@@ -74,5 +74,6 @@
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @RenderSection("Script", false)
 </body>    
 </html>

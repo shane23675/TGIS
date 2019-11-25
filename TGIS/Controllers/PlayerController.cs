@@ -27,7 +27,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PlayerCreate(Player player)
+        public ActionResult PlayerCreate(Player player, int CityID)
         {
             if (ModelState.IsValid)
             {
@@ -36,28 +36,39 @@ namespace TGIS.Controllers
 
                 return RedirectToAction("EmailValidate", "EmailValidate",new {Email = player.Email,id=player.ID});
             }
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", player.DistrictID);
+            ViewBag.PlayerID = player.ID;
             return View(player);
         }
         //刪除玩家資料
-        public ActionResult PlayerDelete(string id)
+        public ActionResult PlayerDelete(string playerID)
         {
-            var str = db.Players.Find(id);
-            db.Players.Remove(str);
+            Player p  = db.Players.Find(playerID);
+            db.Players.Remove(p);
             db.SaveChanges();
 
             return RedirectToAction("PlayerIndex");
         }
         //玩家詳細資料
-        public ActionResult PlayerDetail(string id)
+        public ActionResult PlayerDetail(string playerID)
         {
-            Player p = db.Players.Find(id);
+            Player p = db.Players.Find(playerID);
             return View(p);
         }
+        //玩家變更暱稱
+        public ActionResult ChangeNickName(string playerID, string nickname)
+        {
+            Player p = db.Players.Find(playerID);
+            p.NickName = nickname;
+            db.SaveChanges();
+            return Content(nickname);
+        }
         //管理員編輯玩家
-        public ActionResult PlayerEdit(string id)
+        public ActionResult PlayerEdit(string playerID)
         {
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            Player p  = db.Players.Find(id);
+            Player p  = db.Players.Find(playerID);
             return View(p);
         }
         [HttpPost]

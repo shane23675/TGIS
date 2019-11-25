@@ -1,0 +1,92 @@
+﻿@model TGIS.Models.Player
+
+@{
+    ViewBag.Title = "PlayerDetail";
+    Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
+}
+
+<h2 id="nickNameDisplay">@Model.NickName</h2>
+<input id="nickName" placeholder="Change your nickname..." />
+<button id="changeNickNameBtn" class="btn btn-warning">Change</button>
+<h3>@Model.Account</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @if (Model.Gender)
+            {
+                @: Male
+            }
+            else
+            {
+                @: Female
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEmailValid)
+        </dt>
+
+        <dd>
+            @if (Model.IsEmailValid)
+            {
+                @: Valid
+            }
+            else
+            {
+                @: Invalid
+            }
+        </dd>
+
+        <dt>
+            Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(m=>m.District.City.CityName)
+            @Html.DisplayFor(model => model.District.DistrictName)
+        </dd>
+
+    </dl>
+</div>
+
+@section Script{
+    <script>
+        //變更暱稱
+        $("#changeNickNameBtn").click(function () {
+            $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
+                $("#nickNameDisplay").html(data);
+            })
+        })
+    </script>
+    }
