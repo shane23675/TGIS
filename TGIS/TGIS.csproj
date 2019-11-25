@@ -184,6 +184,7 @@
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
     <Content Include="images\boardGame.jpg" />
+    <Content Include="images\dog.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -254,6 +255,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -417,6 +419,10 @@
     <Content Include="Views\ReturnSystem\ReturnList.cshtml" />
     <Content Include="Views\ReturnSystem\ReturnDetail.cshtml" />
     <Content Include="Views\ReturnSystem\ReturnProblem.cshtml" />
+    <Content Include="Views\Announcement\AnnouncementList.cshtml" />
+    <Content Include="Views\Announcement\CreateAnnoun.cshtml" />
+    <Content Include="Views\Announcement\EditAnnoun.cshtml" />
+    <Content Include="Views\Announcement\AnnounDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

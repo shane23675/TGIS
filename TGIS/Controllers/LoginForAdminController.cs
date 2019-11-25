@@ -24,6 +24,7 @@ namespace TGIS.Controllers
             var user = db.Administrators.Where(m => m.Account == ac).Where(m=>m.Password==pwd).FirstOrDefault();
             if (user !=null)
             {
+                Session["AdminID"] = user.ID;
                 return RedirectToAction("ShopIndex", "Shop");
             }
             ViewBag.Error = "帳號密碼錯誤";
