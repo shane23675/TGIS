@@ -32,6 +32,13 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2">Password Confirm</label>
+            <div class="col-md-10">
+                <input name="passwordConfirm" class="form-control" placeholder="Please enter your password again..." type="password" />
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
@@ -58,8 +65,21 @@
             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    <input type="radio" name="Gender" value="true"/> 男
-                    <input type="radio" name="Gender" value="false"/> 女
+                    @{ 
+                        //狀態保留
+                        string maleChecked = "checked";
+                        string femaleChecked = "";
+                        if (ViewData.ModelState["Gender"] != null)
+                        {
+                            if (ViewData.ModelState["Gender"].Value.AttemptedValue == "false")
+                            {
+                                maleChecked = "";
+                                femaleChecked = "checked";
+                            }
+                        }
+                    }
+                    <input type="radio" name="Gender" value="true" @maleChecked/> Male
+                    <input type="radio" name="Gender" value="false" @femaleChecked/> Female
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
             </div>

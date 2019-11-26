@@ -171,6 +171,7 @@ namespace TGIS.Models
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
         [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
+        [BirthdayValidation]
         public DateTime Birthday { get; set; }
         [DisplayName("持有點數量"),Range(0,int.MaxValue)]
         public int Points { get; set; }

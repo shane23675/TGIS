@@ -27,12 +27,19 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PlayerCreate(Player player, int CityID)
+        public ActionResult PlayerCreate(Player player, string passwordConfirm, int CityID, HttpPostedFileBase photo)
         {
+            //檢查確認密碼是否輸入正確
+            if (passwordConfirm != player.Password)
+            {
+                ModelState["Password"].Errors.Add("輸入的密碼和確認密碼不相符");
+            }
             if (ModelState.IsValid)
             {
                 db.Players.Add(player);
                 db.SaveChanges();
+                //儲存圖片(先將photo變為陣列再傳入)
+                PhotoManager.Create(player.ID, new HttpPostedFileBase[] { photo });
 
                 return RedirectToAction("EmailValidate", "EmailValidate",new {Email = player.Email,id=player.ID});
             }

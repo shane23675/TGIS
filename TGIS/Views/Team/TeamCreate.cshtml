@@ -170,7 +170,7 @@
     function getShopOption() {
         var id = $("#DistrictID").val();
         console.log(id)
-        $.post("/ajax/GetShopSelectList", { districtID: id }, function (data) {
+        $.post("/Shop/GetShopSelectList", { districtID: id }, function (data) {
             $("#ShopID").html(data);
         })
     }
@@ -179,7 +179,7 @@
     $("#searchBtn").click(function () {
         var tgName = $("#searchInput").val();
         console.log(tgName)
-        $.post("/ajax/SearchTableGameByName", { name: tgName }, function (data) {
+        $.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
             $("#Preference").html(data);
         })
         //避免送出表單
