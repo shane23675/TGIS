@@ -26,7 +26,7 @@
                 <button class="btn btn-outline-search my-2 my-sm-0" type="submit">搜尋</button>
             </form>
             <a class="nav-link" href="#">會員中心</a>
-            <a class="nav-link" href="#">登出</a>
+            <a class="nav-link" href="@Url.Action("Logout","Login",new { id="PlayerID"})">登出</a>
         </div>
     </nav>
     @* 後續補效果:hover時有框,邊框圓角,加半透明底,標籤顏色調整成底色 離navbar再遠一些  *@
