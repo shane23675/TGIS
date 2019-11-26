@@ -98,6 +98,8 @@ namespace TGIS.Controllers
         //玩家看到的店家列表
         public ActionResult ShopIndexForPlayer()
         {
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             return View(db.Shops.ToList());
         }
         //玩家看到店家詳細資料
@@ -160,5 +162,21 @@ namespace TGIS.Controllers
             }
             return View();
         }
+
+        //取得店家列表(Ajax)
+        public ActionResult GetShopSelectList(int districtID)
+        {
+            Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
+            //找不到任何店家則返回錯誤選項
+            if (shops.Length == 0)
+                return Content("<option value=\"ErrorMessage\">此地區無任何店家</option>");
+            string result = "";
+            foreach (Shop s in shops)
+            {
+                result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
+            }
+            return Content(result);
+        }
+
     }
 }
