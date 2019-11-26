@@ -47,10 +47,10 @@ namespace TGIS.Controllers
             return View();
         }
         //登出
-        public ActionResult ShopLogout(string id)
+        public ActionResult Logout(string id)
         {
-            Session.Remove(id);
-            return View();
+            Session.Contents.Remove(id);
+            return RedirectToAction("Index","Home");
         }
         //忘記密碼（寄信）
         public ActionResult ForgetPwd()
