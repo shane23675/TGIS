@@ -55,14 +55,16 @@
                 <div class="collapse navbar-collapse">
                     <div class="navbar-nav mr-auto"> </div>
                     @*<form class="form-inline my-2 my-md-0"></form>*@
-                    <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+
                     @if (Session["PlayerID"] != null)
                     {
                         Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
                         <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">@p.NickName</a>
+                        <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
                     }
                     else
                     {
+                        <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
                         <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
                     }
                 </div>
