@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +18,12 @@
 
 
     <style>
-        html, body {
-            height: 100%;
-        }
-
-        .wrap{
-            min-height: 94.2%;
+        body {
+            height: auto;
+            min-height: 100vh;
             position: relative;
         }
+
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -38,7 +36,11 @@
         footer {
             width: 100%;
             position: absolute;
+            bottom: 0;
+        }
 
+        .container {
+            padding-bottom: 5rem;
         }
     </style>
 
@@ -46,21 +48,23 @@
 </head>
 <body>
 
-    <div class="wrap">
+
         <header>
             <nav class="navbar navbar-expand-md">
                 <a class="navbar-brand" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">有桌方遊</a>
                 <div class="collapse navbar-collapse">
                     <div class="navbar-nav mr-auto"> </div>
                     @*<form class="form-inline my-2 my-md-0"></form>*@
-                    <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+
                     @if (Session["PlayerID"] != null)
                     {
                         Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
                         <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">@p.NickName</a>
+                        <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
                     }
                     else
                     {
+                        <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
                         <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
                     }
                 </div>
@@ -72,7 +76,7 @@
         </div>
 
 
-    </div>
+
     <footer>
         <nav class="navbar navbar-expand-md justify-content-end">
             <a class="nav-link" href="#">About us</a>|

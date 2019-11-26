@@ -22,9 +22,9 @@
         transition: opacity .3s;
     }
 
-        .gameName:hover {
-            opacity: 1;
-        }
+    .gameName:hover {
+        opacity: 1;
+    }
 
     .card-body {
         position: relative;
@@ -86,6 +86,29 @@
         background-color: #75c383;
         color: #0d2149;
         padding: 5px;
+    }
+
+    .tgcHeader {
+        padding: 1rem 1.25rem .3rem 1.25rem;
+        background-color: white;
+        border-bottom: none;
+    }
+
+        .tgcHeader span {
+            position: absolute;
+            right: 1.25rem;
+            top: 1rem;
+        }
+
+    .tgcBody {
+        padding: 0.3rem 1.25rem;
+        height: 50%;
+    }
+
+    .tgcFooter {
+        padding: 0rem 1.25rem 0.5rem 1.25rem;
+        background-color: white;
+        border-top: none;
     }
 </style>
 <div class="row">
@@ -156,7 +179,7 @@
         </div>
 
         <!--Rules-->
-        <div class="col-md-12">
+        <div class="col-md-12 my-1">
             <h3>Rules</h3>
             <p>
                 @Model.Rules
@@ -164,40 +187,43 @@
         </div>
 
         <!--Relavent Links-->
-        <h3>Links</h3>
-        <div class="card-deck">
-            @foreach (var item in Model.RelevantLinks)
-            {
-                <div class="col-md-3">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            @*<div class="embed-responsive embed-responsive-16by9">*@
-                            <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
-                            @*</div>*@
+        <div class="col-12 my-1">
+            <h3>Links</h3>
+            <div class="card-deck">
+                @foreach (var item in Model.RelevantLinks)
+                {
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                @*<div class="embed-responsive embed-responsive-16by9">*@
+                                <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                                @*</div>*@
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-
+                }
+            </div>
         </div>
 
         <!--Suggestions-->
-        <h3>Play More...</h3>
-        <div class="card-deck">
-            @Html.Action("_GetTableGameCards", new { tableGame = Model })
+        <div class="col-12 my-1">
+            <h3>Play More...</h3>
+            <div class="card-deck">
+                @Html.Action("_GetTableGameCards", new { tableGame = Model })
+            </div>
+
+            @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+            {
+                <h3>Leave a Comment!</h3>
+                <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+                <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+                <input id="Submit1" type="submit" value="Send Comment" class="btn btn-info my-1" />
+            }
+
         </div>
-
-        @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
-        {
-            <h3>Leave a Comment!</h3>
-            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-            <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
-            <input id="Submit1" type="submit" value="Send Comment" class="btn btn-warning my-1" />
-        }
-
-
         <!--Comments-->
-        <h3>Comments</h3>
+
+        <h3 class="col-12 my-1">Comments</h3>
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
@@ -205,61 +231,44 @@
                 {
                     <div class="col-md-2">
                         <img src="../images/user.png" class="img-fluid rounded" />
+                        @*<img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />*@
                     </div>
 
-                    <div class="card col-md-10 no-gutters px-0 my-2">
-                        <div class="card-header">
+                    <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
+                        <div class="card-header tgcHeader">
                             <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
-                            <span>@Html.ActionLink("Delete", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                            <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
                         </div>
-                        <div class="card-body h-25">
+                        <div class="card-body tgcBody">
                             <span>
-                                @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                                @Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
                             </span>
                         </div>
-                        <div class="card-footer">
-                            <p>@comment.CommentDate</p>
+                        <div class="card-footer tgcFooter">
+                            <span>@comment.CommentDate</span>
                         </div>
 
                     </div>
-
-                    <br />
                 }
                 else
                 {
-
                     <div class="col-md-2">
                         <img src="../images/user.png" class="img-fluid rounded" />
                     </div>
                     <div class="card col-md-10 no-gutters px-0 my-2">
-                        <div class="card-header">
+                        <div class="card-header tgcHeader">
                             <h3 class="font-weight-bold">@comment.Player.NickName</h3>
                         </div>
-                        <div class="card-body h-25">
+                        <div class="card-body tgcBody">
                             <span>
-                                @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                                @Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
                             </span>
                         </div>
-                        <div class="card-footer">
-                            <p>@comment.CommentDate</p>
+                        <div class="card-footer tgcFooter">
+                            <span>@comment.CommentDate</span>
                         </div>
 
                     </div>
-
-                    @*<div class="col-md-2 my-1">
-                            <img src="../images/user.png" class="img-fluid rounded" />
-                        </div>
-
-                        <div class="col-md-10 card my-1 ">
-                            <div class="card-body tgCard">
-                                <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                                <span>
-                                    @Html.Raw(comment.Content.Replace("\n", "<br />"))
-                                </span>
-                                <p>@comment.CommentDate</p>
-                            </div>
-                        </div>*@
-
                 }
             }
         </div>
