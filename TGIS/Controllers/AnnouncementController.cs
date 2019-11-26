@@ -38,6 +38,10 @@ namespace TGIS.Controllers
         }
         public ActionResult EditAnnoun(string id)
         {
+            if (Session["AdminID"] == null)
+            {
+                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
+            }
             return View(db.Announcements.Find(id));
         }
         [HttpPost]
@@ -61,6 +65,12 @@ namespace TGIS.Controllers
         public ActionResult AnnounDetail(string id)
         {
             return View(db.Announcements.Find(id));
+        }
+        public ActionResult _AnnouncementPartail(int number)
+        {
+            List<Announcement> Ann;
+            Ann = db.Announcements.OrderByDescending(m => m.AnnouncedDate).Take(number).ToList();
+            return PartialView(Ann);
         }
     }
 }
