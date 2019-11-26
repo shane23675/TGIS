@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "CreateDefaultPhoto";
+}
+
+<h2>CreateDefaultPhoto</h2>
+@using (Html.BeginForm("CreateDefaultPhoto", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="photos" multiple />
+    <input type="text" name="sourceID" value="D00000" />
+    <input type="submit" value="submit" />
+}
+
