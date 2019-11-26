@@ -77,6 +77,14 @@
             @Html.DisplayFor(model => model.District.DistrictName)
         </dd>
 
+        <dt>
+            Photo
+        </dt>
+
+        <dd>
+            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.ID, index=0})" alt="No photo"/>
+        </dd>
+
     </dl>
 </div>
 

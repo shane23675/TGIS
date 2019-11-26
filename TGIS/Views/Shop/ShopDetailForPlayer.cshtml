@@ -40,7 +40,7 @@
         
         <span>@Model.ShopName</span>
         <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
-        <h3>營業時間： </h3>
+        <h3>OpeningHours: </h3>
         <p>@Model.OpeningHours</p>
     
     </div>
@@ -51,19 +51,19 @@
     <!--BAR-->
     <ul class="nav nav-tabs mt-3">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Google評論</a>
+            <a class="nav-link active" href="#">Google Comments</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">優惠列表</a>
+            <a class="nav-link" href="#">Offers</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">店內桌遊列表</a>
+            <a class="nav-link" href="#">TableGames in this shop</a>
         </li>
     </ul>
 
 </div>
 
-
+@Html.ActionLink("Back to list", "ShopIndexForPlayer", "Shop")
 
 
 
