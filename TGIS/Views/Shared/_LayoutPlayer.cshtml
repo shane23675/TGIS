@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +18,12 @@
 
 
     <style>
-        html, body {
-            height: 100%;
+        body {
+            height:auto;
+            min-height:100vh;            
+            position:relative;
         }
 
-        .wrap{
-            min-height: 94.2%;
-            position: relative;
-        }
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -37,8 +35,12 @@
 
         footer {
             width: 100%;
-            position: absolute;
+            position:absolute;
+            bottom:0;
 
+        }
+        .container{
+            padding-bottom:5rem;
         }
     </style>
 
@@ -46,7 +48,7 @@
 </head>
 <body>
 
-    <div class="wrap">
+
         <header>
             <nav class="navbar navbar-expand-md">
                 <a class="navbar-brand" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">有桌方遊</a>
@@ -72,7 +74,7 @@
         </div>
 
 
-    </div>
+
     <footer>
         <nav class="navbar navbar-expand-md justify-content-end">
             <a class="nav-link" href="#">About us</a>|

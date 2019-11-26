@@ -8,60 +8,63 @@
 }
 
 
-<div class="row mt-4">
-    <!--For bar-->
-    <nav></nav>
-
-    <!--shop detail-->
-    <div class="col-md-5">
-        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                @foreach (int id in ViewBag.photoIDList)
-                {
-                    string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active" style="height:250px" >
-                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 h-100" />
-                    </div>
-                    count = 1;
-                }
+    <div class="row">
+        <!--For bar-->
+        <nav class="nav col-md-12 my-1">
+            @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+            @Html.ActionLink("Shop", "ShopIndexForPlayer", "Shop", null, new { @class = "nav-link" })
+            <a class="nav-link">@Model.ShopName</a>
+        </nav>
+        <!--shop detail-->
+        <div class="col-md-5">
+            <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach (int id in ViewBag.photoIDList)
+                    {
+                        string active = count == 0 ? "active" : "";
+                        <div class="carousel-item @active" >
+                            <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 d-block" />
+                        </div>
+                        count = 1;
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-    </div>
 
-    <div class="col-md-7">
-        
-        <span>@Model.ShopName</span>
-        <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
-        <h3>營業時間： </h3>
-        <p>@Model.OpeningHours</p>
-    
-    </div>
-    <div class="col-12 mt-3">
-        @Model.Description
-    </div>
+        <div class="col-md-7">
 
-    <!--BAR-->
-    <ul class="nav nav-tabs mt-3">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Google評論</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">優惠列表</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">店內桌遊列表</a>
-        </li>
-    </ul>
+            <span>@Model.ShopName</span>
+            <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
+            <h3>營業時間： </h3>
+            <p>@Model.OpeningHours</p>
 
-</div>
+        </div>
+        <div class="col-12 mt-3">
+            @Model.Description
+        </div>
+
+        <!--BAR-->
+        <ul class="nav nav-tabs mt-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Google評論</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">優惠列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">店內桌遊列表</a>
+            </li>
+        </ul>
+
+    </div>
 
 
 

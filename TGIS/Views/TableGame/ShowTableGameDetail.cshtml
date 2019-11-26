@@ -67,10 +67,10 @@
         cursor: pointer;
     }
 
-        .btn_store_sel select {
+    .btn_store_sel select {
             -webkit-appearance: none;
             display: none;
-        }
+    }
 
     #tgStore_left {
         border-right: 7px solid #1a459c;
@@ -156,7 +156,7 @@
         </div>
 
         <!--Rules-->
-        <div class="col-md-12">
+        <div class="col-md-12 my-1">
             <h3>Rules</h3>
             <p>
                 @Model.Rules
@@ -164,6 +164,7 @@
         </div>
 
         <!--Relavent Links-->
+        <div class="col-12 my-1">
         <h3>Links</h3>
         <div class="card-deck">
             @foreach (var item in Model.RelevantLinks)
@@ -178,26 +179,28 @@
                     </div>
                 </div>
             }
-
+        </div>
         </div>
 
         <!--Suggestions-->
-        <h3>Play More...</h3>
-        <div class="card-deck">
-            @Html.Action("_GetTableGameCards", new { tableGame = Model })
+        <div class="col-12 my-1">
+            <h3>Play More...</h3>
+            <div class="card-deck">
+                @Html.Action("_GetTableGameCards", new { tableGame = Model })
+            </div>
+
+            @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+            {
+                <h3>Leave a Comment!</h3>
+                <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+                <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+                <input id="Submit1" type="submit" value="Send Comment" class="btn btn-warning my-1" />
+            }
+
         </div>
-
-        @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
-        {
-            <h3>Leave a Comment!</h3>
-            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-            <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
-            <input id="Submit1" type="submit" value="Send Comment" class="btn btn-warning my-1" />
-        }
-
-
         <!--Comments-->
-        <h3>Comments</h3>
+        
+        <h3 class="col-12 my-1">Comments</h3>
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
@@ -247,18 +250,18 @@
                     </div>
 
                     @*<div class="col-md-2 my-1">
-                            <img src="../images/user.png" class="img-fluid rounded" />
-                        </div>
+                    <img src="../images/user.png" class="img-fluid rounded" />
+                </div>
 
-                        <div class="col-md-10 card my-1 ">
-                            <div class="card-body tgCard">
-                                <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                                <span>
-                                    @Html.Raw(comment.Content.Replace("\n", "<br />"))
-                                </span>
-                                <p>@comment.CommentDate</p>
-                            </div>
-                        </div>*@
+                <div class="col-md-10 card my-1 ">
+                    <div class="card-body tgCard">
+                        <h3 class="font-weight-bold">@comment.Player.NickName</h3>
+                        <span>
+                            @Html.Raw(comment.Content.Replace("\n", "<br />"))
+                        </span>
+                        <p>@comment.CommentDate</p>
+                    </div>
+                </div>*@
 
                 }
             }
