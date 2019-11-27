@@ -1,4 +1,4 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +32,7 @@
             {
                 Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
             <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
-                <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.PlayerID,index=0 })" width="60" height="60" class="playericon" />
+                <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
             </a>
                 @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
 
