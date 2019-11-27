@@ -367,7 +367,6 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\TableGame\CreateTableGame.cshtml" />
@@ -426,7 +425,7 @@
     <Content Include="Views\Player\PlayerDetail.cshtml" />
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
-    <Content Include="Views\Shared\_LayoutPlayer3.cshtml" />
+    <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

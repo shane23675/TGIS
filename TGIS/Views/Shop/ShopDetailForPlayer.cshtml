@@ -3,15 +3,19 @@
 
 @{
     ViewBag.Title = "ShopDetailForPlayer";
-    Layout="~/Views/Shared/_LayoutPlayer.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
 }
 
 
-<div class="row mt-4">
-    <!--For bar-->
-    <nav></nav>
 
+<!--For bar-->
+<nav class="nav">
+    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+    @Html.ActionLink("Shop", "ShopIndexForPlayer", "Shop", null, new { @class = "nav-link" })
+    <a class="nav-link">@Model.ShopName</a>
+</nav>
+<div class="row mt-4">
     <!--shop detail-->
     <div class="col-md-5">
         <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
@@ -19,7 +23,7 @@
                 @foreach (int id in ViewBag.photoIDList)
                 {
                     string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active" style="height:250px" >
+                    <div class="carousel-item @active" style="height:250px">
                         <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 h-100" />
                     </div>
                     count = 1;
@@ -37,12 +41,12 @@
     </div>
 
     <div class="col-md-7">
-        
+
         <span>@Model.ShopName</span>
         <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
         <h3>OpeningHours: </h3>
         <p>@Model.OpeningHours</p>
-    
+
     </div>
     <div class="col-12 mt-3">
         @Model.Description
@@ -62,8 +66,6 @@
     </ul>
 
 </div>
-
-@Html.ActionLink("Back to list", "ShopIndexForPlayer", "Shop")
 
 
 
@@ -100,113 +102,113 @@
 
 @*<h2>ShopIndexForDetail</h2>
 
-<div>
-    <h4>Shop</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ShopName)
-        </dt>
+    <div>
+        <h4>Shop</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ShopName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShopName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ShopName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OpeningHours)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.OpeningHours)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OpeningHours)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.OpeningHours)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsMinConsumeRequired)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsMinConsumeRequired)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsMinConsumeRequired)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.IsMinConsumeRequired)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsFoodAcceptable)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsFoodAcceptable)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsFoodAcceptable)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.IsFoodAcceptable)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AreaScale)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AreaScale)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AreaScale)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.AreaScale)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tel)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tel)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Tel)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Tel)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Line)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Line)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Line)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Line)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Website)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(m => m.District.City.CityName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(m => m.District.City.CityName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.District.DistrictName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.District.City.CityName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.District.City.CityName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.District.DistrictName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.District.DistrictName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.District.DistrictName)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

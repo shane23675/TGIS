@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "歡迎";
-    Layout = "~/Views/Shared/_LayoutPlayer3.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
     <head>
         <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-3 m-2 text-center">
       
-            <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
+        <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
         <input id="GameSearch" type="search" placeholder="請輸入欲搜尋桌遊" class="form-control" aria-label="search" />
         <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="text-info listbutton"><i class="fas fa-chess-rook "></i></a>
 

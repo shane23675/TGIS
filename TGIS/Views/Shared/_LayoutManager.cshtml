@@ -10,9 +10,8 @@
     <link href="~/Content/layoutstyle-M.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-    
+    <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
+    @RenderSection("CSS", false)
 </head>
 <body class="wrapper">
     <aside id="sidebar">
@@ -35,7 +34,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="indexSubmenu">
                     <li>
-                        @Html.ActionLink("公告管理","AnnouncementList","Announcement")
+                        @Html.ActionLink("公告管理", "AnnouncementList", "Announcement")
                     </li>
                     <li>
                         <a href="#">廣告管理</a>
@@ -122,5 +121,6 @@
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/_LayoutManager.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>
