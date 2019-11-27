@@ -64,13 +64,14 @@
                 <div class="card-header">
                     網站公告
                 </div>
-                <ul class="list-group">
+                @Html.Action("_AnnouncementPartail","Announcement",new { number = 5})
+                @*<ul class="list-group">
                     <li class="list-group-item">第一條</li>
                     <li class="list-group-item">第二條</li>
                     <li class="list-group-item">第三條</li>
                     <li class="list-group-item">第四條</li>
                     <li class="list-group-item">第五條</li>
-                </ul>
+                </ul>*@
             </div>
         
 
