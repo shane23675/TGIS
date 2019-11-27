@@ -34,6 +34,10 @@ namespace TGIS.Controllers
             {
                 ModelState["Password"].Errors.Add("輸入的密碼和確認密碼不相符");
             }
+            //檢查帳號及密碼是否符合規則
+            UsefulTools.RegisterValidate(player.Account, ModelState["Account"].Errors.Add, false, false);
+            UsefulTools.RegisterValidate(player.Password, ModelState["Password"].Errors.Add, true, false);
+
             if (ModelState.IsValid)
             {
                 db.Players.Add(player);
