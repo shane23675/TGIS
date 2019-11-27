@@ -4,10 +4,20 @@
 @{
     ViewBag.Title = "TeamDetailForPlayer";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    //判斷進入此頁面的玩家是否為隊長或其他玩家
+    bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
+    bool isInTeam = Model.OtherPlayers.Any(m => m.ID == (string)Session["playerID"]);
 }
 
 <h2>@Html.DisplayFor(model => model.Title)</h2>
-
+@if (isLeader)
+{
+    <h3 class="text-warning">You're the leader of this team</h3>
+}
+else if (isInTeam)
+{
+    <h3 class="text-warning">You have joined this team</h3>
+}
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -30,7 +40,7 @@
 
 
         <dt>
-            遊戲時間
+            When to play
         </dt>
 
         <dd>
@@ -51,21 +61,25 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Preference)
+            @{
+                TableGame tg = new TGISDBEntities().TableGames.Find(Model.Preference);
+                string preferenceDisplay = tg == null ? "不限" : tg.ChineseName;
+            }
+            @preferenceDisplay
         </dd>
 
         <dt>
-            人數
+            @Html.DisplayNameFor(m=>m.PlayerLimit)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MinPlayer) 至 @Html.DisplayFor(model => model.MaxPlayer) 人
+            @Html.DisplayFor(m => m.PlayerLimit)
         </dd>
 
 
 
         <dt>
-            發起人暱稱
+            Leader's Nickname
         </dt>
 
         <dd>
@@ -90,9 +104,6 @@
     </dl>
 </div>
 @{
-    //判斷進入此頁面的玩家是否為隊長或其他玩家
-    bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
-    bool isInTeam = Model.OtherPlayers.Any(m => m.ID == (string)Session["playerID"]);
     string btnInfo = "";
     string action = "";
     string disabled = "";
@@ -106,9 +117,18 @@
     {
         //什麼按鈕都沒有
     }
-    else if (DateTime.Now > Model.ParticipateEndDate && isLeader)
+    else if (DateTime.Now > Model.ParticipateEndDate)
     {
-         @*@Html.ActionLink("Create another team", 123)*@
+        if (isLeader)
+        {
+            btnInfo = "Create another team";
+            action = "restart";
+        }
+        else
+        {
+            btnInfo = "Join";
+            disabled = "disabled";
+        }
     }
     else
     {
@@ -119,14 +139,14 @@
         }
         else if (isInTeam)
         {
-            btnInfo = "退出";
+            btnInfo = "Exit";
             action = "exit";
         }
         else
         {
-            //若已經收團，則讓功能鈕失效
-            disabled = Model.IsOpen ? "" : "disabled";
-            btnInfo = "參加";
+            //若已經額滿，則讓功能鈕失效
+            disabled = Model.OtherPlayers.Count + 1 >= Model.MaxPlayer ? "disabled" : "";
+            btnInfo = "Join";
             action = "join";
         }
         using (Html.BeginForm())
@@ -134,25 +154,18 @@
             <input type="hidden" name="teamID" value="@Model.ID" />
             <input type="hidden" name="action" id="action" value="@action" />
             <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
-            <button class="btn btn-primary" type="submit" @disabled>@btnInfo</button>
-            if (isLeader && Model.IsOpen)
+            <button class="btn btn-primary" type="submit" @disabled onclick="return confirm('Are you sure you want to @action this team?')">@btnInfo</button>
+            if (isLeader && Model.OtherPlayers.Count + 1 >= Model.MinPlayer)
             {
-                <button class="btn btn-secondary" type="submit" onclick="$('#action').val('close')">提前截止</button>
+                <!-- 提前截止的按鈕，按下同時會讓發出的action變為close -->
+                <button class="btn btn-secondary" type="submit" onclick="$('#action').val('close'); return confirm('Are you sure you want to @action this team?')">Close this team now</button>
+            }
         }
-    }
     }
 
 }
 <p>
-    @Html.ActionLink("回到列表", "TeamIndexForPlayer")
+    @Html.ActionLink("Back to list", "TeamIndexForPlayer")
 </p>
 
 
-@*
-    參團功能：
-    -- 使用者來到桌遊詳細頁面，從session取得其ID
-    -- 若此桌並非由此使用者發起且狀態正常(無過期、取消、提早截止)則可以參加或退出
-    -- 點擊「參加」，將此使用者加入此團的揪桌人員明細
-    -- 點擊「退出」，將此使用者從此團的揪桌人員明細移除
-    -- 不論點擊哪個鈕都會重新整理頁面(也就是會發送表單)
-*@
