@@ -4,9 +4,10 @@
 
 .headnav {
     background-color: #B1EDE8;
+    padding:0px 10px 0px 10px;
 }
 .footnav {
-    background-color: rgba(82,138,174,0.5);
+    background-color: rgba(177,237,232,0.5);
 }
 
 .desk {
@@ -18,7 +19,7 @@
 
 .Frostedglass {
     background-color: rgba(255,255,255,0.3);
-    margin: 90px 100px 250px 100px;
+    margin: 120px 100px 250px 100px;
 }
 
 .OuterBox {
@@ -51,5 +52,47 @@
     box-shadow: #000000 3px 3px 2px;
 }
 /* ---------------------------------------------------
+    導覽列小選單
+----------------------------------------------------- */
+.playericon {
+    border-radius: 50%;
+}
+
+.pmenu {
+    margin: 70px 0px 0px 0px;
+}
+.pmenulist {
+    padding-right: 25px;
+    padding-left: 0px;
+    width:200px;
+    font-size: 1.2em;
+    background-color: #B1EDE8;
+    border: 1px solid #BFD7EA;
+}
+    .pmenulist ul l {
+        padding:8px 0px;
+    }
+
+    .pmenulist ul li a {
+        color: #208AAE;
+        text-decoration-line:underline;
+    }
+        .pmenulist ul li a:hover {
+            color: #84A9C0;
+        }
+.pmenulist ul li ul {
+    background-color: #BFD7EA;
+    margin-right:-25px;
+    padding-right:25px;
+    
+}
+    .pmenulist ul li ul li{
+        padding:8px 0px;
+    }
+
+
+/* ---------------------------------------------------
     bootstrap設計變動
 ----------------------------------------------------- */
+
+

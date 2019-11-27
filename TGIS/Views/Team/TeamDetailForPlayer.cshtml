@@ -89,21 +89,6 @@
         </dd>
     </dl>
 </div>
-@* 
-    狀態對應性：
-                        隊長                   隊員          非隊員玩家           未登入會員
-
-    可報名        提早收團           退出            參加                      登入
-                        解散                  
-    
-    已截止         解散                  退出?              xxx                    登入
-
-    已過期         xxx                     xxx             xxxx                      登入                   (根本不該顯示，僅作為紀錄)
-    已解散
-
-*@
-
-
 @{
     //判斷進入此頁面的玩家是否為隊長或其他玩家
     bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
@@ -116,16 +101,20 @@
     {
         @Html.ActionLink("登入", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
     }
-    //已過期或已解散
-    else if (Model.IsCanceled || DateTime.Now > Model.PlayDate) 
-    { 
+    //已過期或已提早成團
+    else if (Model.IsCanceled || Model.IsClosed)
+    {
         //什麼按鈕都沒有
+    }
+    else if (DateTime.Now > Model.ParticipateEndDate && isLeader)
+    {
+         @*@Html.ActionLink("Create another team", 123)*@
     }
     else
     {
         if (isLeader)
         {
-            btnInfo = "解散";
+            btnInfo = "Cancel this team";
             action = "cancel";
         }
         else if (isInTeam)
@@ -149,8 +138,8 @@
             if (isLeader && Model.IsOpen)
             {
                 <button class="btn btn-secondary" type="submit" onclick="$('#action').val('close')">提前截止</button>
-            }
         }
+    }
     }
 
 }

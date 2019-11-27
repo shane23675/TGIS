@@ -22,7 +22,7 @@ namespace TGIS.Controllers
             Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
             if (user != null)
             {
-                Session["PlayerID"] = $"{user.ID}";
+                Session["PlayerID"] = user.ID.ToString(); //$$$$$$
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Error = "帳號密碼錯誤";

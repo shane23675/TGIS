@@ -15,39 +15,46 @@
 
 <body class="desk">
     <header>
-        <nav class="navbar fixed-top headnav ">
-                <a class="navbar-brand text-info" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><stong>有桌方遊</stong></a>
-                <form class="form-inline ml-auto justify-content-end mr-2">
-                    <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
-                    <button class="btn navbar-btn btn-outline-info my-2 my-sm-0" type="submit">搜尋</button>
-                </form>
-                <div class="nav-item ">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
-                        <img src="~/images/dog.jpg" alt="測試玩家" width="60" height="60" />
-                    </button>
-                    @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
-                </div>
-                    <div class="navbar-collapse collapse" id="centerP">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">個人資料管理 </a>
+        <nav class="navbar fixed-top headnav">
+            <a class="navbar-brand text-info" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><h3><stong>有桌方遊</stong></h3></a>
+            <form class="form-inline ml-auto justify-content-end mr-2">
+                <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
+                <button class="btn navbar-btn btn-outline-info my-2 my-sm-0" type="submit">搜尋</button>
+            </form>
+            <div class="nav-item ">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="~/images/dog.jpg" alt="測試玩家" width="60" height="60" class="playericon"/>
+                </button>
+                @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
+            </div>
+        </nav>
+        <div class="navbar-collapse collapse text-right row fixed-top pmenu" id="centerP">
+            <div class="flex-fill"></div>
+            <div class="pmenulist">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">個人資料管理 </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">點數與優惠券管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" href="#pdropdown"  data-toggle="collapse" aria-haspopup="true" aria-expanded="false">我的揪桌</a>
+                        <ul class="collapse list-unstyled"id="pdropdown" >
+                            <li>
+                                <a href="#" >我參與的桌</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">點數與優惠券管理</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">我的揪桌</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                    <a class="dropdown-item" href="#">我參與的桌</a>
-                                    <a class="dropdown-item" href="#">我開的桌</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Logout","Login",new {id="PlayerID" })">登出</a>
+                            <li>
+                                <a href="#">我開的桌</a>
                             </li>
                         </ul>
-                    </div>
-</nav>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </header>
     <div class="Frostedglass">
         <div class="OuterBox">
@@ -68,6 +75,6 @@
     </footer>
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -368,16 +368,18 @@ namespace TGIS.Models
             get
             {
                 int nowPlayers = OtherPlayers.Count + 1;
-                if (DateTime.Now > PlayDate)
-                    return "已過期";
-                else if (IsCanceled)
+               if (IsCanceled)
                     return "已取消出團";
                 else if (IsClosed)
-                    return "已提前截止報名";
+                    return "已成團";
                 else if (DateTime.Now > ParticipateEndDate)
-                    return "報名時間已過";
+                {
+                    if (nowPlayers >= MinPlayer)
+                        return "已成團";
+                    return "已流團(人數不足)";
+                }
                 else if (nowPlayers >= MaxPlayer)
-                    return "已額滿，僅開放報名候補";
+                    return "已額滿";
                 else if (nowPlayers < MinPlayer)
                     return $"可報名，未達成團人數(目前：{nowPlayers} / 最低：{MinPlayer})";
                 else

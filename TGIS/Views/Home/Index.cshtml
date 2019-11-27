@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "歡迎";
-    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    Layout = "~/Views/Shared/_LayoutPlayer2.cshtml";
 }
     <head>
         <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
@@ -64,13 +64,14 @@
                 <div class="card-header">
                     網站公告
                 </div>
-                <ul class="list-group">
+                @Html.Action("_AnnouncementPartail","Announcement",new { number = 5})
+                @*<ul class="list-group">
                     <li class="list-group-item">第一條</li>
                     <li class="list-group-item">第二條</li>
                     <li class="list-group-item">第三條</li>
                     <li class="list-group-item">第四條</li>
                     <li class="list-group-item">第五條</li>
-                </ul>
+                </ul>*@
             </div>
         
 
