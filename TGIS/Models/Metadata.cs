@@ -64,7 +64,7 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("發佈管理員"),StringLength(4)]
         public string AdministratorID { get; set; }
-        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime AnnouncedDate { get; set; }
         [DisplayName("標題"),StringLength(40)]
         public string Title { get; set; }
