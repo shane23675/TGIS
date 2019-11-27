@@ -5,89 +5,85 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>有桌方遊 - @ViewBag.Title</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/mineCSS.css" rel="stylesheet" />
+    <link href="~/Content/FrontStyle.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-
-
-    <style>
-        body {
-            height: auto;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        * {
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        header, footer, header a, footer a {
-            color: #f9ebe0;
-            background-color: #0d2149;
-        }
-
-        footer {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .container {
-            padding-bottom: 5rem;
-        }
-    </style>
-
-
+    @* 背景圖來源:
+        <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
+        <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
+    *@
 </head>
-<body>
 
+<body class="desk">
+    <header>
+        <nav class="navbar fixed-top headnav">
+            <a class="navbar-brand text-info" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><h3><stong>有桌方遊</stong></h3></a>
 
-        <header>
-            <nav class="navbar navbar-expand-md">
-                <a class="navbar-brand" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">有桌方遊</a>
-                <div class="collapse navbar-collapse">
-                    <div class="navbar-nav mr-auto"> </div>
-                    @*<form class="form-inline my-2 my-md-0"></form>*@
+        <div class="nav-item ">
+            @if (Session["PlayerID"] != null)
+            {
+                Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 
-                    @if (Session["PlayerID"] != null)
-                    {
-                        Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
-                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">@p.NickName</a>
-                        <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
-                    }
-                    else
-                    {
-                        <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                        <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
-                    }
-                </div>
-            </nav>
-        </header>
-
-        <div class="container">
-            @RenderBody()
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
+                </button>            
+            }
+            else
+            {
+            <div class="form-inline">
+                <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+                <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+            </div>
+            }
         </div>
-
-
-
-    <footer>
+        </nav>
+        <div class="navbar-collapse collapse text-right row fixed-top pmenu" id="centerP">
+            <div class="flex-fill"></div>
+            <div class="pmenulist">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">PlayerDetail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">點數與優惠券管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" href="#pdropdown" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">我的揪桌</a>
+                        <ul class="collapse list-unstyled" id="pdropdown">
+                            <li>
+                                <a href="#">我參與的桌</a>
+                            </li>
+                            <li>
+                                <a href="#">我開的桌</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="Frostedglass">
+        <div class="OuterBox">
+            <div class="lightA">
+                <div class="gap">
+                    <div class="innerBox">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="rounded-bottom footnav">
         <nav class="navbar navbar-expand-md justify-content-end">
-            <a class="nav-link" href="#">About us</a>|
-            <a class="nav-link" href="#">Connect us</a>
+            <a class="nav-link" href="#">關於我們</a>
+            <a class="nav-link" href="#">聯絡我們</a>
         </nav>
     </footer>
-
-
-
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    @RenderSection("Script", false)
 </body>
 </html>
