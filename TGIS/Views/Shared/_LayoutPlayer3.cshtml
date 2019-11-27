@@ -18,37 +18,21 @@
     <header>
         <nav class="navbar fixed-top headnav">
             <a class="navbar-brand text-info" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><h3><stong>有桌方遊</stong></h3></a>
-            @*<form class="form-inline ml-auto justify-content-end mr-2">
-                    <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
-                    <button class="btn navbar-btn btn-outline-info my-2 my-sm-0" type="submit">搜尋</button>
-                </form>*@
-        <div class="nav-item ">
-            @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
-        <img src="~/images/dog.jpg" alt="測試玩家" width="60" height="60" class="playericon" />
-        </button>*@
-            @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
 
+        <div class="nav-item ">
             @if (Session["PlayerID"] != null)
             {
                 Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
-            <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
-                <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.PlayerID,index=0 })" width="60" height="60" class="playericon" />
-            </a>
-                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
 
-                    
-
-                </button>*@
-            
-                <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
+                </button>            
             }
             else
             {
                 <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
                 <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
             }
-
-
         </div>
         </nav>
         <div class="navbar-collapse collapse text-right row fixed-top pmenu" id="centerP">
@@ -56,7 +40,7 @@
             <div class="pmenulist">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">個人資料管理 </a>
+                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">PlayerDetail</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">點數與優惠券管理</a>
@@ -73,7 +57,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">登出</a>
+                        <a class="nav-link" href="@Url.Action("SignOutPlayer", "Login")">Sign out</a>
                     </li>
                 </ul>
             </div>
