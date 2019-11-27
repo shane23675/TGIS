@@ -426,6 +426,7 @@
     <Content Include="Views\Player\PlayerDetail.cshtml" />
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
+    <Content Include="Views\Shared\_LayoutPlayer3.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

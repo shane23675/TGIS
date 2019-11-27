@@ -386,15 +386,15 @@ namespace TGIS.Models
                     return $"可報名，已達成團人數(目前：{nowPlayers})";
             }
         }
-        [DisplayName("是否可報名")]
-        public bool IsOpen
+        [DisplayName("人數限制")]
+        public string PlayerLimit
         {
             get
             {
-                int nowPlayers = OtherPlayers.Count + 1;
-                if (nowPlayers >= MinPlayer && nowPlayers <= MaxPlayer && !IsCanceled && !IsClosed && DateTime.Now <= ParticipateEndDate)
-                    return true;
-                return false;
+                if (MaxPlayer == MinPlayer)
+                    return $"正好{MaxPlayer}人";
+                else
+                    return $"{MinPlayer} 至 {MaxPlayer} 人";
             }
         }
     }
@@ -422,7 +422,7 @@ namespace TGIS.Models
         public TimeSpan PlayEndTime { get; set; }
         [DisplayName("預估花費")]
         public int? EstimatedCost { get; set; }
-        [DisplayName("遊玩形式")]
+        [DisplayName("要玩的桌遊")]
         public string Preference { get; set; }
         [DisplayName("最低人數"), Range(2, 50, ErrorMessage = "必須在2~50之間"), Required(ErrorMessage = "最低人數為必填")]
         public int MinPlayer { get; set; }
