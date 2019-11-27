@@ -229,9 +229,8 @@
             {
                 if (Session["PlayerID"]?.ToString() == comment.PlayerID)
                 {
-                    <div class="col-md-2">
-                        <img src="../images/user.png" class="img-fluid rounded" />
-                        @*<img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />*@
+                    <div class="col-md-2 my-2">
+                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
                     </div>
 
                     <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
@@ -252,8 +251,8 @@
                 }
                 else
                 {
-                    <div class="col-md-2">
-                        <img src="../images/user.png" class="img-fluid rounded" />
+                    <div class="col-md-2 my-2">
+                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
                     </div>
                     <div class="card col-md-10 no-gutters px-0 my-2">
                         <div class="card-header tgcHeader">
