@@ -7,6 +7,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/FrontStyle.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    @RenderSection("CSS", false)
     @* 背景圖來源:
         <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
         <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
@@ -23,7 +24,7 @@
             </form>
             <div class="nav-item ">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="~/images/dog.jpg" alt="測試玩家" width="60" height="60" class="playericon"/>
+                    <img src="~/images/dog.jpg" alt="測試玩家" width="60" height="60" class="playericon" />
                 </button>
                 @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
             </div>
@@ -39,10 +40,10 @@
                         <a class="nav-link" href="#">點數與優惠券管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="dropdown-toggle" href="#pdropdown"  data-toggle="collapse" aria-haspopup="true" aria-expanded="false">我的揪桌</a>
-                        <ul class="collapse list-unstyled"id="pdropdown" >
+                        <a class="dropdown-toggle" href="#pdropdown" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">我的揪桌</a>
+                        <ul class="collapse list-unstyled" id="pdropdown">
                             <li>
-                                <a href="#" >我參與的桌</a>
+                                <a href="#">我參與的桌</a>
                             </li>
                             <li>
                                 <a href="#">我開的桌</a>
@@ -76,5 +77,6 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

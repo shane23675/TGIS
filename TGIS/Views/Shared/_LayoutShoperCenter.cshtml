@@ -12,7 +12,7 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-
+    @RenderSection("CSS", false)
 </head>
 <body class="wrapper">
     <nav class="navbar navbar-expand-md fixed-top navbar-light bg-player">
@@ -34,7 +34,7 @@
         </div>
     </nav>
 
-    <aside id="sidebar">  
+    <aside id="sidebar">
         <ul class="list-unstyled components">
             <li>
                 <a href="#">
@@ -55,7 +55,7 @@
                         <a href="#">店內桌遊管理</a>
                     </li>
                 </ul>
-            </li>         
+            </li>
             <li>
                 <a href="#">
                     <i class="fas fa-store-alt"></i>
@@ -91,7 +91,7 @@
             </li>
         </ul>
     </aside>
-    <div id="content"> 
+    <div id="content">
         @RenderBody()
     </div>
 
@@ -108,7 +108,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
+    @RenderSection("scripts", false)
     <script>
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {

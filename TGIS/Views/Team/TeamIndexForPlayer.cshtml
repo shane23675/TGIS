@@ -22,7 +22,7 @@
             時間
         </th>
         <th>
-            人數
+            @Html.DisplayNameFor(model => model.PlayerLimit)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Shop.ShopName)
@@ -46,7 +46,7 @@
             @item.PlayEndTime.ToString(@"hh\:mm")
         </td>
         <td>
-            @item.MinPlayer ~ @item.MaxPlayer
+            @item.PlayerLimit
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Shop.ShopName)
