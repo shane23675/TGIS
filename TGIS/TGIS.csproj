@@ -426,6 +426,7 @@
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
