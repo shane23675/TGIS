@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 @model Team
 
 @{
@@ -7,6 +7,7 @@
     //判斷進入此頁面的玩家是否為隊長或其他玩家
     bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
     bool isInTeam = Model.OtherPlayers.Any(m => m.ID == (string)Session["playerID"]);
+    var db = new TGISDBEntities();
 }
 
 <h2>@Html.DisplayFor(model => model.Title)</h2>
@@ -62,10 +63,16 @@ else if (isInTeam)
 
         <dd>
             @{
-                TableGame tg = new TGISDBEntities().TableGames.Find(Model.Preference);
-                string preferenceDisplay = tg == null ? "不限" : tg.ChineseName;
+                TableGame tg = db.TableGames.Find(Model.Preference);
+                if (tg == null)
+                {
+                    @: 不限
+                }
+                else
+                {
+                    @Html.ActionLink(tg.ChineseName, "ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID}, new { @class=""})
+                }
             }
-            @preferenceDisplay
         </dd>
 
         <dt>
@@ -91,7 +98,8 @@ else if (isInTeam)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Shop.ShopName)
+            @{ Shop s = Model.Shop;}
+            @Html.ActionLink(s.ShopName, "ShopDetailForPlayer", "Shop", new { id = s.ID}, new { @class=""})
         </dd>
 
         <dt>
