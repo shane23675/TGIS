@@ -7,6 +7,9 @@
 }
 
 <style>
+    .card-body{
+        padding:0.1rem;
+    }
     .card-deck .card {
         margin-right: 2px;
         margin-left: 2px;
@@ -65,22 +68,22 @@
             height:192.25px;
         }
     }
-
+    btn input{
+        -webkit-appearance:none;
+    }
 </style>
 
 
 
 
-<div class="container">
+
     <div class="row">
         <div class="col-md-2">
             <nav class="text-center">
-                <div id="sel" class="text-white">Filter</div>
                 @using (Html.BeginForm())
                 {
                     <div class="form-group">
                         <h3><label class="control-label"><strong>Filter</strong></label></h3>
-                        <!--<div class="row">-->
                         <p class="col-12 mt-3">Difficulty</p>
                         @foreach (Tag t in ViewBag.DifficultyTagList)
                         {
@@ -100,8 +103,6 @@
                                 <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
                             </div>
                         }
-
-                        <!--</div>-->
                     </div>
                     <input type="submit" class="btn btn-warning" value="Submit">
                 }
@@ -123,12 +124,12 @@
 
                 @foreach (TableGame tg in Model)
                 {
-                    <div class="col-md-3">
+                    <div class="col-lg-2 col-md-3 col-sm-12 px-1">
                         <div class="card mt-4">
                             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
-                                <div class="card-body" style="position:relative">
-                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="img-fluid h-100" />
-                                    <div class="gameName">
+                                <div class="card-body">
+                                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="w-100 h-100" />
+                                    <div class="gameName ">
                                         @tg.ChineseName<br />
                                         @tg.EnglishName
                                     </div>
@@ -141,4 +142,4 @@
             </div>
         </div>
     </div>
-</div>
+
