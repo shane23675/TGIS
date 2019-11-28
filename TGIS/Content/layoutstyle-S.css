@@ -7,8 +7,6 @@ body {
     color: #0D2149;
 }
 
-
-
 a,
 a:hover,
 a:focus {
@@ -20,11 +18,9 @@ a:focus {
     background-color: #84A9C0;
     color: #0D2149;
 }
-
 /* ---------------------------------------------------
     bootstrap設計變動
 ----------------------------------------------------- */
-
 .btn-info {
     color: #fff;
     background-color: #0D2149;
@@ -224,7 +220,7 @@ ul ul a {
 
 #content {
     width: 100%;
-    padding: 20px;
+    padding: 20px 30px 70px 30px;
     min-height: 100vh;
     transition: all 0.3s;
 }

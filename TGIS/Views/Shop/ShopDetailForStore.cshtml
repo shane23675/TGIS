@@ -15,6 +15,7 @@
     <dl class="row ml-1">
         <dt class="pt-1">密碼：</dt>
         <dd>＊＊＊＊＊＊＊&nbsp;&nbsp;</dd>
+        @*@Html.Action("_PhotoGallery")*@
         @Html.ActionLink("更換密碼", "ShopPasswordChange", "Shop", new { id = Model.ID }, new { @class = "btn btn-outline-info btn-sm" })
     </dl>
     <hr />
@@ -75,10 +76,12 @@
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.IsVIP)：</dt>
             <dd>@Html.DisplayFor(model => model.IsVIP)</dd>
+            @* 根據狀態顯示是/否 *@
         </dl>
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.ExpireDate)：</dt>
             <dd>@Html.DisplayFor(model => model.ExpireDate)</dd>
+            @*如果沒有加值過,顯示"尚未加值";如果加值過已到期,顯示已到期.*@
         </dl>
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.AccumulatedHours)：</dt>
@@ -92,6 +95,7 @@
             <dd>@Html.DisplayFor(model => model.Description)</dd>
         </dl>
     </div>
+    @* 少了照片展示 *@
 
 </div>
 
