@@ -262,7 +262,7 @@
     <Compile Include="Controllers\LoginForAdminController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
-    <Compile Include="Controllers\ReturnSystemController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
     <Compile Include="Controllers\TableGameInShopDetailController.cs" />
@@ -415,9 +415,9 @@
     <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
     <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
-    <Content Include="Views\ReturnSystem\ReturnList.cshtml" />
-    <Content Include="Views\ReturnSystem\ReturnDetail.cshtml" />
-    <Content Include="Views\ReturnSystem\ReturnProblem.cshtml" />
+    <Content Include="Views\Feedback\ReturnList.cshtml" />
+    <Content Include="Views\Feedback\ReturnDetail.cshtml" />
+    <Content Include="Views\Feedback\ReturnProblem.cshtml" />
     <Content Include="Views\Announcement\AnnouncementList.cshtml" />
     <Content Include="Views\Announcement\CreateAnnoun.cshtml" />
     <Content Include="Views\Announcement\EditAnnoun.cshtml" />

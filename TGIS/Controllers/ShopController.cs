@@ -33,6 +33,10 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            //驗證帳號密碼是否符合規則
+            UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
+            UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
+
             if (ModelState.IsValid)
             {
                 shop.Password = Hash.PwdHash(shop.Password);
@@ -45,7 +49,7 @@ namespace TGIS.Controllers
                 return RedirectToAction("ShopIndex");
             }
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", db.Districts.Find(shop.DistrictID).CityID);
             return View(shop);
         }
 

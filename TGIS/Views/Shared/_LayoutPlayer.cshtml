@@ -1,4 +1,4 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +8,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/FrontStyle.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    @RenderSection("CSS", false)
     @* 背景圖來源:
         <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
         <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
@@ -19,23 +20,23 @@
         <nav class="navbar fixed-top headnav">
             <a class="navbar-brand text-info" href="@Url.Action("Index", "Home")"><h3><stong>有桌方遊</stong></h3></a>
 
-        <div class="nav-item ">
-            @if (Session["PlayerID"] != null)
-            {
-                Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
+            <div class="nav-item ">
+                @if (Session["PlayerID"] != null)
+                {
+                    Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
-                </button>            
-            }
-            else
-            {
-            <div class="form-inline">
-                <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
+                    </button>
+                }
+                else
+                {
+                    <div class="form-inline">
+                        <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+                        <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+                    </div>
+                }
             </div>
-            }
-        </div>
         </nav>
         <div class="navbar-collapse collapse text-right row fixed-top pmenu" id="centerP">
             <div class="flex-fill"></div>
@@ -85,5 +86,6 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

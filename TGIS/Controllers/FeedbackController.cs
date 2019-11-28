@@ -7,7 +7,7 @@ using TGIS.Models;
 
 namespace TGIS.Controllers
 {
-    public class ReturnSystemController : Controller
+    public class FeedbackController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: ReturnSystem

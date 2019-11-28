@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace TGIS.Models
 {
@@ -74,6 +75,57 @@ namespace TGIS.Models
                     selectList.Add(new SelectListItem { Text = t.TagName, Value = t.ID });
             }
             return selectList;
+        }
+
+        /// <summary>
+        /// 註冊時驗證帳號或密碼的方法
+        /// </summary>
+        /// <param name="target">驗證目標(帳號或密碼)</param>
+        /// <param name="callback">回調函數，會將錯誤訊息傳入其中</param>
+        /// <param name="isPassword">驗證目標為密碼則為true</param>
+        /// <param name="isStrictMode">嚴格模式：需要大小寫字母</param>
+        /// <returns>是否通過驗證</returns>
+        public static bool RegisterValidate(string target, Action<string> callback, bool isPassword, bool isStrictMode)
+        {
+            bool isValid = true;
+            int minLength = isPassword ? 8 : 6;
+            Regex notWord = new Regex(@"[^A-Za-z0-9_]");
+
+            if (target.Length < minLength || target.Length > 20)
+            {
+                isValid = false;
+                callback($"長度需在{minLength}-20位之間");
+            }
+            if (notWord.IsMatch(target))
+            {
+                isValid = false;
+                callback("只能由英數字及底線符號組成，請勿輸入中文字元或特殊符號、空白等等");
+            }
+            //傳入的是密碼則進行下列判斷
+            if (isPassword)
+            {
+                Regex hasAlphabet = new Regex(@"[a-zA-Z]");
+                Regex hasNumber = new Regex(@"\d");
+                Regex hasLowerAlphabet = new Regex(@"[a-z]");
+                Regex hasUpperAlphabet = new Regex(@"[A-Z]");
+
+                if (!hasAlphabet.IsMatch(target))
+                {
+                    isValid = false;
+                    callback("必須包含英文字母");
+                }
+                if (!hasNumber.IsMatch(target))
+                {
+                    isValid = false;
+                    callback("必須包含數字");
+                }
+                if (isStrictMode && (!hasUpperAlphabet.IsMatch(target) || !hasLowerAlphabet.IsMatch(target)))
+                {
+                    isValid = false;
+                    callback("必須包含大小寫英文字母");
+                }
+            }
+            return isValid;
         }
 
     }
