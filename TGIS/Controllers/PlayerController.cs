@@ -67,13 +67,35 @@ namespace TGIS.Controllers
             Player p = db.Players.Find(playerID);
             return View(p);
         }
-        //玩家變更暱稱
+        //玩家變更暱稱(Ajax)
         public ActionResult ChangeNickName(string playerID, string nickname)
         {
             Player p = db.Players.Find(playerID);
             p.NickName = nickname;
             db.SaveChanges();
             return Content(nickname);
+        }
+        //玩家變更圖片
+        /*
+            --玩家點擊「變更圖片」並選擇圖片
+            --出現「上傳並變更」按鈕
+            --點選「上傳並變更」，將圖片送至控制器處理
+            --依據玩家ID刪除原來的圖片並新增新圖片
+            --重新導向至PlayerDetail
+        */
+        public ActionResult ChangePlayerPhoto(HttpPostedFileBase[] photo)
+        {
+            string playerID = (string)Session["PlayerID"];
+            //若登入時間已過則跳轉至登入頁
+            if (playerID == null)
+                return RedirectToAction("LoginForPlayer", "Login");
+            if (photo.Length != 0)
+            {
+                //先刪除原先圖片再新增圖片
+                PhotoManager.Delete(playerID);
+                PhotoManager.Create(playerID, photo);
+            }
+            return RedirectToAction("PlayerDetail", new { playerID });
         }
         //管理員編輯玩家
         public ActionResult PlayerEdit(string playerID)

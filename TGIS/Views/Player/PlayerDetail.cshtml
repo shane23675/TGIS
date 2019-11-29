@@ -83,6 +83,10 @@
 
         <dd>
             <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.ID, index=0})" alt="No photo"/>
+            <form action="@Url.Action("ChangePlayerPhoto", "Player")" method="post" enctype="multipart/form-data">
+                <input type="file" name="photo" id="photoInput"/>
+                <input type="submit" class="btn btn-primary" value="Change Photo" disabled="disabled" id="changePhotoBtn"/>
+            </form>
         </dd>
 
     </dl>
@@ -95,6 +99,13 @@
             $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
                 $("#nickNameDisplay").html(data);
             })
+        })
+        //選擇檔案後變更圖片的按鈕才能點擊
+        $("#photoInput").change(function () {
+            if ($("#photoInput").val() != "")
+                $("#changePhotoBtn").prop("disabled", "");
+            else
+                $("#changePhotoBtn").prop("disabled", "disabled");
         })
     </script>
     }

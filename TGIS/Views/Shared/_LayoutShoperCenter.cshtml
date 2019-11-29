@@ -40,10 +40,10 @@
                 </a>
                 <ul class="collapse list-unstyled" id="indexSubmenu">
                     <li>
-                        @Html.ActionLink("店家資訊管理", "RazorTest", "Home", new { area = "" })
+                        @Html.ActionLink("店家資訊管理", "ShopDetailForStore", "Shop", new { area = "" })
                     </li>
                     <li>
-                        <a href="#">店內桌遊管理</a>
+                        @Html.ActionLink("店內桌遊管理", "UpdateTableGameInShopDetail", "TableGameInShopDetail", new { shopID = (string)Session["ShopID"]}, new { @class=""})
                     </li>
                 </ul>
             </li>
