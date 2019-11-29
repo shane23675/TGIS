@@ -1,142 +1,168 @@
-﻿@model TGIS.Models.Shop
+﻿@using TGIS.Models
+@model TGIS.Models.Shop
 
 @{
     ViewBag.Title = "ShopDetailForShop";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
-    <div class="pl-4">
-        <div class="d-flex justify-content-between">
-            <span>            
-                <span class="h2">@Html.DisplayFor(model => model.ShopName)</span><span>@Html.DisplayFor(model => model.Account)</span>
-            </span>
-            <span>
-                <button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
-                    密碼設定
-                </button>
-                @Html.ActionLink("更改資料", "ShopEditForStore", new { id = Model.ID }, new { @class = "btn btn-outline-info btn-sm align-text-top" })
-            </span>
-        </div>
+<div class="pl-4">
+    <div class="d-flex justify-content-between">
+        <span>
+            <span class="h2">@Html.DisplayFor(model => model.ShopName)</span><span>@Html.DisplayFor(model => model.Account)</span>
+        </span>
+        <span>
+            <button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
+                密碼設定
+            </button>
+            @Html.ActionLink("更改資料", "ShopEditForStore", new { id = Model.ID }, new { @class = "btn btn-outline-info btn-sm align-text-top" })
+        </span>
+    </div>
 
 
 
 
-            <hr />      
-                <span class="h3">店家資訊</span>  
-            <br />
-            <br />
-            <div class="row">
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.OpeningHours)：</dt>
-                    <dd>@Html.DisplayFor(model => model.OpeningHours)</dd>
-                </dl>
-                <dl class="row ml-1 col-8">
-                    <dt>
-                        @Html.DisplayFor(model => model.District.DistrictName)
-                        @Html.DisplayFor(m => m.District.City.CityName)
-                        @Html.DisplayNameFor(model => model.Address)：
-                    </dt>
-                    <dd>@Html.DisplayFor(model => model.Address)</dd>
-                </dl>
-            </div>
-            <div class="row">
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.AreaScale)：</dt>
-                    <dd>@Html.DisplayFor(model => model.AreaScale)</dd>
-                </dl>
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.IsMinConsumeRequired)：</dt>
-                    <dd>@Html.DisplayFor(model => model.IsMinConsumeRequired)</dd>
-                </dl>
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.IsFoodAcceptable)：</dt>
-                    <dd>@Html.DisplayFor(model => model.IsFoodAcceptable)</dd>
-                </dl>
-            </div>
-            <div class="row">
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.Tel)：
-                    <dt>
-                    <dd>@Html.DisplayFor(model => model.Tel)</dd>
-                </dl>
-                <dl class="row ml-1 col-8">
-                    <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
-                    <dd>@Html.DisplayFor(model => model.Email)</dd>
-                </dl>
-            </div>
-            <div class="row">
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.Line)：</dt>
-                    <dd>@Html.DisplayFor(model => model.Line)</dd>
-                </dl>
-                <dl class="row ml-1 col-8">
-                    <dt>@Html.DisplayNameFor(model => model.Website)：</dt>
-                    <dd>@Html.DisplayFor(model => model.Website)</dd>
-                </dl>
-            </div>
-            <div class="row">
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.IsVIP)：</dt>
-                    <dd>@Html.DisplayFor(model => model.IsVIP)</dd>
-                    @* 根據狀態顯示是/否 *@
-                </dl>
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.ExpireDate)：</dt>
-                    <dd>@Html.DisplayFor(model => model.ExpireDate)</dd>
-                    @*如果沒有加值過,顯示"尚未加值";如果加值過已到期,顯示"已到期".*@
-                </dl>
-                <dl class="row ml-1 col-4">
-                    <dt>@Html.DisplayNameFor(model => model.AccumulatedHours)：</dt>
-                    <dd>@Html.DisplayFor(model => model.AccumulatedHours)</dd>
-                </dl>
-            </div>
-            <hr />
-            <div class="row">
-                <dl class="row ml-1 col-12">
-                    <dt>@Html.DisplayNameFor(model => model.Description)：</dt>
-                    <dd>@Html.DisplayFor(model => model.Description)</dd>
-                </dl>
-            </div>
-            @* 少了照片展示 *@
-
-        </div>
-        <!-- 忘記密碼的跳出窗 -->
-        <div class="modal fade" id="ShoppwChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <form method="post" action="~/Shop/ShopDetailForStore">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ShopPasswordChange">更改密碼</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input id="Text1" type="hidden" value="@ViewBag.ID" name="id" />
-                            <div>
-                                <span class="form-label">舊密碼：</span>
-                                <input id="pwd" type="text" name="pwd" class="form-control w-75" />
-                            </div>
-                            <div>
-                                <span class="form-label">新密碼：</span>
-                                <input id="newpwd" type="text" name="newpwd" class="form-control w-75" />
-                            </div>
-                            <div>
-                                <span class="form-label">新密碼確認：</span>
-                                <input id="pwdrepeat" type="text" name="pwdrepeat" class="form-control w-75" />
-                            </div>
-                            <div class="bg-danger w-25">@ViewBag.Error</div>
-                            @* 換到此頁後無法顯示錯誤訊息 *@
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button id="PWsubmit" type="submit" class="btn btn-primary">確認修改</button>
-                        </div>
-                    </form>
+    <hr />
+    <span class="h3">店家資訊</span>
+    <br />
+    <br />
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.OpeningHours)：</dt>
+            <dd>@Html.DisplayFor(model => model.OpeningHours)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>
+                @Html.DisplayFor(model => model.District.DistrictName)
+                @Html.DisplayFor(m => m.District.City.CityName)
+                @Html.DisplayNameFor(model => model.Address)：
+            </dt>
+            <dd>@Html.DisplayFor(model => model.Address)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.AreaScale)：</dt>
+            <dd>@Html.DisplayFor(model => model.AreaScale)</dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsMinConsumeRequired)：</dt>
+            <dd>@Html.DisplayFor(model => model.IsMinConsumeRequired)</dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsFoodAcceptable)：</dt>
+            <dd>@Html.DisplayFor(model => model.IsFoodAcceptable)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.Tel)：
+            <dt>
+            <dd>@Html.DisplayFor(model => model.Tel)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.Line)：</dt>
+            <dd>@Html.DisplayFor(model => model.Line)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>@Html.DisplayNameFor(model => model.Website)：</dt>
+            <dd>@Html.DisplayFor(model => model.Website)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsVIP)：</dt>
+            <dd>
+            @if (Model.IsVIP)
+            {
+                @: 是
+            }
+            else
+            {
+                @: 否
+            }
+            </dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.ExpireDate)：</dt>
+            <dd>
+                @if (Model.ExpireDate == null)
+                {
+                    @: 尚未加值
+                }
+                else if (Model.ExpireDate < DateTime.Now)
+                {
+                    @: 已到期
+                }
+                else
+                {
+                    @Model.ExpireDate
+                }
+            </dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.AccumulatedHours)：</dt>
+            <dd>@Html.DisplayFor(model => model.AccumulatedHours)</dd>
+        </dl>
+    </div>
+    <hr />
+    <div class="row">
+        <dl class="row ml-1 col-12">
+            <dt>@Html.DisplayNameFor(model => model.Description)：</dt>
+            <dd>@Html.DisplayFor(model => model.Description)</dd>
+        </dl>
+    </div>
+    <div>
+        @foreach (int i in PhotoManager.GetPhotoIDList(Model.ID))
+        {
+            <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=i})" class="col-sm-12 col-md-3 p-2" />
+        }
+    </div>
+    @* 之後追加更好看的樣式 *@
+</div>
+<!-- 更改密碼的跳出窗 -->
+<div class="modal fade" id="ShoppwChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post" action="~/Shop/ShopDetailForStore">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ShopPasswordChange">更改密碼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
+                <div class="modal-body">
+
+                    <input id="Text1" type="hidden" value="@ViewBag.ID" name="id" />
+                    <div>
+                        <span class="form-label">舊密碼：</span>
+                        <input id="pwd" type="text" name="pwd" class="form-control w-75" />
+                    </div>
+                    <div>
+                        <span class="form-label">新密碼：</span>
+                        <input id="newpwd" type="text" name="newpwd" class="form-control w-75" />
+                    </div>
+                    <div>
+                        <span class="form-label">新密碼確認：</span>
+                        <input id="pwdrepeat" type="text" name="pwdrepeat" class="form-control w-75" />
+                    </div>
+                    <div class="bg-danger w-25">@ViewBag.Error</div>
+                    @* 換到此頁後無法顯示錯誤訊息 *@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button id="PWsubmit" type="submit" class="btn btn-primary">確認修改</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
 @* 需要增加修改的重複確認窗,跟更改成功確認窗(皆用瀏覽器視窗) *@
-        
+
 
 
