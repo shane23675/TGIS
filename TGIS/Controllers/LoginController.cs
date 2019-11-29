@@ -47,9 +47,9 @@ namespace TGIS.Controllers
             return View();
         }
         //登出
-        public ActionResult Logout(string id)
+        public ActionResult Logout(string sessionName)
         {
-            Session.Contents.Remove(id);
+            Session.Contents.Remove(sessionName);
             return RedirectToAction("Index","Home");
         }
         //忘記密碼（寄信）

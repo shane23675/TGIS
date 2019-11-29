@@ -33,6 +33,10 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            //驗證帳號密碼是否符合規則
+            UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
+            UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
+
             if (ModelState.IsValid)
             {
                 shop.Password = Hash.PwdHash(shop.Password);
@@ -45,7 +49,7 @@ namespace TGIS.Controllers
                 return RedirectToAction("ShopIndex");
             }
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", db.Districts.Find(shop.DistrictID).CityID);
             return View(shop);
         }
 
@@ -111,19 +115,32 @@ namespace TGIS.Controllers
         //店家編輯店家資料
         public ActionResult ShopEditForStore(string id)
         {
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
+            var shop = db.Shops.Find(id);
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             return View(db.Shops.Find(id));
         }
         [HttpPost]
-        public ActionResult ShopEditForStore(Shop shop)
+        public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("ShopDetailForStore",new {id=shop.ID});
+                //刪除被勾選的圖片
+                if (deletedPhotoID != null)
+                {
+                    foreach (int id in deletedPhotoID)
+                    {
+                        PhotoManager.Delete(id);
+                    }
+                }
+                //加入新圖片
+                PhotoManager.Create(shop.ID, newPhoto);
+
+                return RedirectToAction("ShopIndex");
             }
             return View(shop);
         }

@@ -15,25 +15,16 @@
     @RenderSection("CSS", false)
 </head>
 <body class="wrapper">
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-player">
-        <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info">
+    <nav class="navbar fixed-top navbar-expand-md bg-player">
+        <button type="button" id="sidebarCollapse" class="btn navbar-btn btn-info ml-2 mr-3">
             <i class="fas fa-align-justify"></i>
         </button>
-        <a class="navbar-brand " href="#">
-            <h3>有桌方遊</h3>
-        </a>
-        @* 之後調整縮小後標題位跟按鈕位 *@
-        <div class="collapse navbar-collapse" id="P-navbar">
-            <div class="navbar-nav mr-auto"> </div>
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
-                <button class="btn btn-outline-search my-2 my-sm-0" type="submit">搜尋</button>
-            </form>
-            <a class="nav-link" href="#">會員中心</a>
-            <a class="nav-link" href="#">登出</a>
+        <a class="navbar-brand mt-1 ml-4" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><h3><stong>有桌方遊</stong></h3></a>
+        <div class="row justify-content-end ml-auto mr-1">
+            <a class="nav-link" href="@Url.Action("","",new {sessionName="ShopID" })">登出</a>
+            @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
         </div>
     </nav>
-
     <aside id="sidebar">
         <ul class="list-unstyled components">
             <li>
@@ -49,7 +40,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="indexSubmenu">
                     <li>
-                        @Html.ActionLink("店家資訊管理", "RazorTest", "Home", new { area = "" })
+                        @Html.ActionLink("店家資訊管理", "ShopDetailForStore", "Shop", new { area = "" })
                     </li>
                     <li>
                         <a href="#">店內桌遊管理</a>
@@ -91,13 +82,9 @@
             </li>
         </ul>
     </aside>
-    <div id="content">
+    <div id="content" class="body-content">
         @RenderBody()
     </div>
-
-
-
-
     <footer class="fixed-bottom bg-player">
         <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
             <a class="nav-link" href="#">關於我們</a>

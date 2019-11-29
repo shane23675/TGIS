@@ -1,157 +1,130 @@
-﻿@model TGIS.Models.Shop
+﻿@using TGIS.Models
+@model Shop
 
 @{
     ViewBag.Title = "ShopDetailForShop";
-     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";//測試用
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
-
-<h2>店家資訊</h2>
-
-<div>
-    <h4>Shop</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Account)
-            @Html.ActionLink("更換密碼","ShopPasswordChange","Shop",new { id=Model.ID})
-            
-        </dd>
-
-         <dt>
-            @Html.DisplayNameFor(model => model.ShopName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShopName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OpeningHours)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OpeningHours)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsMinConsumeRequired)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsMinConsumeRequired)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsFoodAcceptable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsFoodAcceptable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AreaScale)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AreaScale)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Line)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Line)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsVIP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsVIP)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpireDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExpireDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccumulatedHours)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccumulatedHours)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(m=>m.District.City.CityName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(m=>m.District.City.CityName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.District.DistrictName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.District.DistrictName)
-        </dd>
+<div class="pl-4">
+    <span class="h2">@Html.DisplayFor(model => model.ShopName)</span>
+    <br />
+    <br />
+    <dl class="row ml-1">
+        <dt> @Html.DisplayNameFor(model => model.Account)：</dt>
+        <dd>@Html.DisplayFor(model => model.Account)</dd>
     </dl>
-
-<p>
-    @Html.ActionLink("Edit", "ShopEditForStore", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <dl class="row ml-1">
+        <dt class="pt-1">密碼：</dt>
+        <dd>＊＊＊＊＊＊＊&nbsp;&nbsp;</dd>
+        @*@Html.Action("_PhotoGallery")*@
+        @Html.ActionLink("更換密碼", "ShopPasswordChange", "Shop", new { id = Model.ID }, new { @class = "btn btn-outline-info btn-sm" })
+    </dl>
+    <hr />
+    <span class="h3">店家資訊</span>
+    @Html.ActionLink("更改資料", "ShopEditForStore", new { id = Model.ID }, new { @class = "btn btn-outline-info btn-sm align-text-bottom" })
+    <br />
+    <br />
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.OpeningHours)：</dt>
+            <dd>@Html.DisplayFor(model => model.OpeningHours)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)：
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.District.City.CityName)
+                @Html.DisplayFor(model => model.District.DistrictName)
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.AreaScale)：</dt>
+            <dd>@Html.DisplayFor(model => model.AreaScale)</dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsMinConsumeRequired)：</dt>
+            <dd>@Html.DisplayFor(model => model.IsMinConsumeRequired)</dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsFoodAcceptable)：</dt>
+            <dd>@Html.DisplayFor(model => model.IsFoodAcceptable)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.Tel)：
+            <dt>
+            <dd>@Html.DisplayFor(model => model.Tel)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.Line)：</dt>
+            <dd>@Html.DisplayFor(model => model.Line)</dd>
+        </dl>
+        <dl class="row ml-1 col-8">
+            <dt>@Html.DisplayNameFor(model => model.Website)：</dt>
+            <dd>@Html.DisplayFor(model => model.Website)</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.IsVIP)：</dt>
+            <dd>
+                @if (Model.IsVIP)
+                {
+                    @: 是
+                }
+                else
+                {
+                    @: 否
+                }
+            </dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.ExpireDate)：</dt>
+            <dd>
+                @if (Model.ExpireDate == null)
+                {
+                    @: 尚未加值
+                }
+                else if (Model.ExpireDate < DateTime.Now)
+                {
+                    @: 已到期
+                }
+                else
+                {
+                    @Model.ExpireDate 
+                }
+            </dd>
+        </dl>
+        <dl class="row ml-1 col-4">
+            <dt>@Html.DisplayNameFor(model => model.AccumulatedHours)：</dt>
+            <dd>@Html.DisplayFor(model => model.AccumulatedHours)</dd>
+        </dl>
+    </div>
+    <hr />
+    <div class="row">
+        <dl class="row ml-1 col-12">
+            <dt>@Html.DisplayNameFor(model => model.Description)：</dt>
+            <dd>@Html.DisplayFor(model => model.Description)</dd>
+        </dl>
+    </div>
+    <div>
+        @foreach (int i in PhotoManager.GetPhotoIDList(Model.ID))
+        {
+            <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=i})" class="img-fluid" />
+        }
+    </div>
 </div>
+
+
+

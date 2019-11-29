@@ -64,7 +64,7 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("發佈管理員"),StringLength(4)]
         public string AdministratorID { get; set; }
-        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime AnnouncedDate { get; set; }
         [DisplayName("標題"),StringLength(40)]
         public string Title { get; set; }
@@ -262,11 +262,11 @@ namespace TGIS.Models
         public bool IsVIP { get; set; }
         [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> ExpireDate { get; set; }
-        [DisplayName("累積加值時數")]
+        [DisplayName("累積加值月數")]
         public Nullable<int> AccumulatedHours { get; set; }
         [DisplayName("帳號是否啟用")]
         public bool IsAccountEnabled { get; set; }
-        [DisplayName("內容描述")]
+        [DisplayName("店家介紹")]
         public string Description { get; set; }
     }
     //桌遊主檔
