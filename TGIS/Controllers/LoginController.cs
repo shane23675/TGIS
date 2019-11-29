@@ -47,6 +47,7 @@ namespace TGIS.Controllers
             return View();
         }
         //登出
+        //Session["sessionName"]
         public ActionResult Logout(string sessionName)
         {
             Session.Contents.Remove(sessionName);
