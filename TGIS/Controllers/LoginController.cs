@@ -19,7 +19,8 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForPlayer(string account,string pwd)
         {
-            Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
+            var password = Hash.PwdHash(pwd);
+            Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == password).SingleOrDefault();
             if (user != null)
             {
                 Session["PlayerID"] = user.ID.ToString(); //$$$$$$

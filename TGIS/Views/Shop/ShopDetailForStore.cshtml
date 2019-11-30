@@ -163,34 +163,33 @@
     </div>
 </div>
 @* 需要增加修改的重複確認窗,跟更改成功確認窗(皆用瀏覽器視窗) *@
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script>
-    $('#PWsubmit').click(function () {
-        $.post(
-            "/ajax/PasswordChange",
-            { oldpwd: $("#pwd").val(), newpwd: $("#newpwd").val(), pwdrepeat: $("#pwdrepeat").val(), userId: $("#userId").val() },
-            function (state) {
-                switch (state)
-                {
-                    case "0":
-                        $("#error").empty().text("新密碼錯誤")
-                        break;
-                    case "1":
-                        $("#error").empty().text("舊密碼錯誤")
-                        break;
-                    case "2":
-                        location.reload();
-                        alert("修改成功")
-                        break;
-                    case "3":
-                        location.reload();
-                        alert("請重新登入")
-                        break;
+@section scripts{
+    <script>
+        $('#PWsubmit').click(function () {
+            $.post(
+                "/ajax/PasswordChange",
+                { oldpwd: $("#pwd").val(), newpwd: $("#newpwd").val(), pwdrepeat: $("#pwdrepeat").val(), userId: $("#userId").val() },
+                function (state) {
+                    switch (state) {
+                        case "0":
+                            $("#error").empty().text("新密碼錯誤")
+                            break;
+                        case "1":
+                            $("#error").empty().text("舊密碼錯誤")
+                            break;
+                        case "2":
+                            location.reload();
+                            alert("修改成功")
+                            break;
+                        case "3":
+                            location.reload();
+                            alert("請重新登入")
+                            break;
+                    }
                 }
-            }
-        )
-    });
-</script>
-
+            )
+        });
+    </script>
+}
 
 

@@ -40,6 +40,7 @@ namespace TGIS.Controllers
 
             if (ModelState.IsValid)
             {
+                player.Password = Hash.PwdHash(player.Password);
                 db.Players.Add(player);
                 db.SaveChanges();
                 //儲存圖片(先將photo變為陣列再傳入)
