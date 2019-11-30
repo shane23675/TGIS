@@ -397,6 +397,16 @@ namespace TGIS.Models
                     return $"{MinPlayer} 至 {MaxPlayer} 人";
             }
         }
+        [DisplayName("遊戲時間")]
+        public string PlayPeriod
+        {
+            get
+            {
+                return PlayDate.ToString("yyyy/MM/dd") + "<br/>" +
+                    PlayBeginTime.ToString(@"hh\:mm") + "至" + PlayEndTime.ToString(@"hh\:mm");
+            }
+        }
+
     }
     public class MetadataTeam
     {

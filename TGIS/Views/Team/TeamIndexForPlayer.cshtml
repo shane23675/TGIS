@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.ParticipateEndDate)
         </th>
         <th>
-            時間
+            @Html.DisplayNameFor(model => model.PlayPeriod)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PlayerLimit)
@@ -40,10 +40,7 @@
             @Html.DisplayFor(modelItem => item.ParticipateEndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem=>item.PlayDate)
-            @item.PlayBeginTime.ToString(@"hh\:mm")
-            至
-            @item.PlayEndTime.ToString(@"hh\:mm")
+            @Html.Raw(item.PlayPeriod)
         </td>
         <td>
             @item.PlayerLimit
