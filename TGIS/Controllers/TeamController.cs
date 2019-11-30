@@ -110,5 +110,22 @@ namespace TGIS.Controllers
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", DistrictID);
             return View(team);
         }
+
+        //我的揪桌
+        public ActionResult MyTeam()
+        {
+            //尚未登入則跳轉至登入頁面
+            if ((string)Session["PlayerID"] == null)
+                return View("LoginForPlayer", "Login");
+
+            return View();
+        }
+        //我的揪桌的PartialView
+        [ChildActionOnly]
+        public ActionResult _GetMyTeam(List<Team> teams, string teamType)
+        {
+            ViewBag.teamType = teamType;
+            return PartialView(teams);
+        }
     }
 }
