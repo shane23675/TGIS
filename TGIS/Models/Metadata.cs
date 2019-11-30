@@ -367,23 +367,22 @@ namespace TGIS.Models
         {
             get
             {
-                int nowPlayers = OtherPlayers.Count + 1;
                if (IsCanceled)
                     return "已取消出團";
                 else if (IsClosed)
                     return "已成團";
                 else if (DateTime.Now > ParticipateEndDate)
                 {
-                    if (nowPlayers >= MinPlayer)
+                    if (CurrentPlayers >= MinPlayer)
                         return "已成團";
                     return "已流團(人數不足)";
                 }
-                else if (nowPlayers >= MaxPlayer)
+                else if (CurrentPlayers >= MaxPlayer)
                     return "已額滿";
-                else if (nowPlayers < MinPlayer)
-                    return $"可報名，未達成團人數(目前：{nowPlayers} / 最低：{MinPlayer})";
+                else if (CurrentPlayers < MinPlayer)
+                    return "可報名，未達成團人數";
                 else
-                    return $"可報名，已達成團人數(目前：{nowPlayers})";
+                    return "可報名，已達成團人數";
             }
         }
         [DisplayName("人數限制")]
@@ -406,7 +405,22 @@ namespace TGIS.Models
                     PlayBeginTime.ToString(@"hh\:mm") + "至" + PlayEndTime.ToString(@"hh\:mm");
             }
         }
-
+        [DisplayName("當前人數")]
+        public int CurrentPlayers
+        {
+            get
+            {
+                return OtherPlayers.Count + 1;
+            }
+        }
+        [DisplayName("是否已截止報名")]
+        public bool IsExpired
+        {
+            get
+            {
+                return DateTime.Now > ParticipateEndDate || IsCanceled || IsClosed;
+            }
+        }
     }
     public class MetadataTeam
     {

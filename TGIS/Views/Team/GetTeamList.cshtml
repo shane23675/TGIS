@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TGIS.Models.Team>
+
+@{
+    string usage = (string)ViewBag.usage;
+    if (usage == "TeamIndex")
+    {
+        ViewBag.Title = "TeamIndex";
+        Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    }
+}
+
+@if (usage == "TeamIndex")
+{
+    <h2>Teams</h2>
+    @Html.ActionLink("Create a New Team", "TeamCreate")
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shop.ShopName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        @if (usage == "TeamIndex" || usage == "Home")
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ParticipateEndDate)
+            </th>
+        }
+        @if (usage == "TeamIndex" || usage == "Other")
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.LeaderPlayer.NickName) of Leader
+            </th>
+        }
+        @if (usage == "Leader")
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPlayers)
+            </th>
+        }
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.Raw(item.PlayPeriod)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Shop.ShopName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    @if (usage == "TeamIndex" || usage == "Home")
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.ParticipateEndDate)
+        </td>
+    }
+    @if (usage == "TeamIndex" || usage == "Other")
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
+        </td>
+    }
+    @if (usage == "Leader")
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPlayers)
+        </td>
+    }
+    <td>
+        @Html.ActionLink("Details", "TeamDetailForPlayer", new { teamID = item.ID })
+    </td>
+</tr>
+}
+
+</table>
