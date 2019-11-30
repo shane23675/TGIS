@@ -30,9 +30,9 @@ namespace TGIS.Models
         public string ShopID { get; set; }
         [DisplayName("優惠內容"),StringLength(100)]
         public string Content { get; set; }
-        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpireDate { get; set; }
         [DisplayName("需求點數"),Range(0,int.MaxValue)]
         public int PointsRequired { get; set; }
@@ -42,7 +42,7 @@ namespace TGIS.Models
         public Nullable<int> RemainedAmount { get; set; }
         [DisplayName("總兌換人數"), Range(0, int.MaxValue)]
         public Nullable<int> ExchangedAmount { get; set; }
-        [DisplayName("活動狀態")]
+        [DisplayName("是否開放兌換")]
         public bool IsAvailable { get; set; }
     }
     //縣市列表
@@ -110,7 +110,7 @@ namespace TGIS.Models
         public int ID { get; set; }
         [DisplayName("揪桌編號")]
         public string TeamID { get; set; }
-        [DisplayName("留言時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("留言時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime MessageDate { get; set; }
         [DisplayName("留言者"),StringLength(6)]
         public string Speaker { get; set; }
@@ -132,9 +132,9 @@ namespace TGIS.Models
         public string Title { get; set; }
         [DisplayName("內文"),StringLength(300)]
         public string Content { get; set; }
-        [DisplayName("開啟日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("開啟日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("關閉日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("關閉日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime EndDate { get; set; }
         [DisplayName("被點閱數")]
         public int Clicks { get; set; }
@@ -260,7 +260,7 @@ namespace TGIS.Models
         public string Website { get; set; }
         [DisplayName("是否啟用VIP")]
         public bool IsVIP { get; set; }
-        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> ExpireDate { get; set; }
         [DisplayName("累積加值月數")]
         public Nullable<int> AccumulatedHours { get; set; }
@@ -308,7 +308,7 @@ namespace TGIS.Models
     {
         [DisplayName("流水號")]
         public int ID { get; set; }
-        [DisplayName("評論日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("評論日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime CommentDate { get; set; }
         [DisplayName("評論內容"),StringLength(500)]
         public string Content { get; set; }
@@ -339,7 +339,7 @@ namespace TGIS.Models
     public partial class TableGameVisitedStatistic { }
     public class MetadataTableGameVisitedStatistic
     {
-        [DisplayName("被閱覽時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/DD}", ApplyFormatInEditMode = true)]
+        [DisplayName("被閱覽時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime VisitedDate { get; set; }
         [DisplayName("閱覽次數")]
         public int Clicks { get; set; }

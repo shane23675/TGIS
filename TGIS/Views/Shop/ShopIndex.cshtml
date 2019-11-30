@@ -12,13 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShopName)
@@ -35,22 +29,13 @@
         <th>
             @Html.DisplayNameFor(model => model.IsAccountEnabled)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ShopName)
@@ -68,9 +53,7 @@
             @Html.DisplayFor(modelItem => item.IsAccountEnabled)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
+            @Html.ActionLink("新增優惠券", "CouponCreateForAdmin", "Coupon", new { shopID = item.ID}, new { @class="btn btn-success"})
             @Html.ActionLink("編輯", "MgShopEdit", new { id=item.ID }, new { @class="btn btn-secondary"}) 
             @Html.ActionLink("刪除", "ShopDelete", new { id=item.ID }, new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎？')"})
         </td>
