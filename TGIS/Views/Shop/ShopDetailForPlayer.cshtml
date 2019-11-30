@@ -65,8 +65,43 @@
         </li>
     </ul>
 
+    <!-- TableGame Search-->
+    <div>
+        <input id="tableGameInShopSearch" placeholder="check if this shop contains a certain table game..." />
+        <button id="searchBtn" class="btn btn-warning">Search</button>
+    </div>
+    <div class="col-md-12">
+        <dl id="showResult">
+            @* 查到的資料會渲染在這裡(id="showResult") *@
+        </dl>
+    </div>
 </div>
 
+@section scripts{
+    <script>
+        //搜尋店內桌遊
+        $("#searchBtn").click(function () {
+            var targetName = $("#tableGameInShopSearch").val();
+            //無輸入則無反應
+            if (targetName.trim() == "")
+                return false;
+            $.post("/TableGameInShopDetail/SearchTableGameInShopByName",
+                { shopID: "@Model.ID", name: $("#tableGameInShopSearch").val() },
+                function (data) {
+                    //先清空結果顯示區域
+                    $("#showResult").empty();
+                    //將Json檔讀取並渲染
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        $("#showResult").append(`
+                                <dt>${item.ChineseName}</dt>
+                                <dd>${item.IsContained}</dd>
+                        `)
+                    }
+                })
+        })
+    </script>    
+}
 
 
 
