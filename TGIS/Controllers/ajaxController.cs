@@ -63,6 +63,27 @@ namespace TGIS.Controllers
             }
             return Content("已使用過".ToString());
         }
+        [HttpPost]
+        public ActionResult PasswordChange(string oldpwd, string newpwd, string pwdrepeat,string userId)
+        {
+            Shop shop = db.Shops.Find(userId);
+            if (shop != null)
+            {
+                if (shop.Password == Hash.PwdHash(oldpwd))
+                {
+                    if (newpwd == pwdrepeat)
+                    {
+                        shop.Password = Hash.PwdHash(newpwd);
+                        db.SaveChanges();
+
+                        return Content("2");
+                    }
+                    return Content("0");
+                }
+                return Content("1");
+            }
+            return Content("3");
+        }
 
 
     }
