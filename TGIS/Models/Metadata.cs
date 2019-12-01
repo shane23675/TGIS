@@ -393,7 +393,7 @@ namespace TGIS.Models
                 if (MaxPlayer == MinPlayer)
                     return $"正好{MaxPlayer}人";
                 else
-                    return $"{MinPlayer} 至 {MaxPlayer} 人";
+                    return $"{MinPlayer} ~ {MaxPlayer}";
             }
         }
         [DisplayName("遊戲時間")]

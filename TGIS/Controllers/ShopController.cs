@@ -153,7 +153,7 @@ namespace TGIS.Controllers
  
 
         //取得店家列表(Ajax)
-        public ActionResult GetShopSelectList(int districtID)
+        public ActionResult GetShopSelectList(int districtID, string shopID)
         {
             Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
             //找不到任何店家則返回錯誤選項
@@ -162,7 +162,11 @@ namespace TGIS.Controllers
             string result = "";
             foreach (Shop s in shops)
             {
-                result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
+                //通過shopID判斷是否有已經選擇的項目
+                if (s.ID == shopID)
+                    result += $"<option value=\"{s.ID}\" selected>{s.ShopName}</option>";
+                else
+                    result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
             }
             return Content(result);
         }

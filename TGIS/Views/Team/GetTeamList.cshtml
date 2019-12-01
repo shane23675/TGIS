@@ -2,6 +2,7 @@
 
 @{
     string usage = (string)ViewBag.usage;
+    string playerID = (string)Session["PlayerID"];
     if (usage == "TeamIndex")
     {
         ViewBag.Title = "TeamIndex";
@@ -43,7 +44,7 @@
         @if (usage == "Leader")
         {
             <th>
-                @Html.DisplayNameFor(model => model.CurrentPlayers)
+                @Html.DisplayNameFor(model => model.CurrentPlayers) / @Html.DisplayNameFor(m=>m.PlayerLimit)
             </th>
         }
         <th></th>
@@ -78,12 +79,48 @@
     @if (usage == "Leader")
     {
         <td>
-            @Html.DisplayFor(modelItem => item.CurrentPlayers)
+            @Html.DisplayFor(modelItem => item.CurrentPlayers) / @item.PlayerLimit
         </td>
     }
-    <td>
-        @Html.ActionLink("Details", "TeamDetailForPlayer", new { teamID = item.ID })
-    </td>
+<td>
+    @if (!item.IsExpired)
+    {
+        if (usage == "Leader")
+        {
+            //滿足最小人數才出現提早截團按鈕
+            if (item.CurrentPlayers >= item.MinPlayer)
+            {
+                <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                    <input type="hidden" name="teamID" value="@item.ID" />
+                    <input type="hidden" name="action" value="close" />
+                    <input type="hidden" name="playerID" value="@playerID" />
+                    <input type="hidden" name="fromMyTeam" value="true" />
+                    <input type="submit" class="btn btn-success" value="Close" />
+                </form>
+            }
+            //取消出團按鈕
+            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                <input type="hidden" name="teamID" value="@item.ID" />
+                <input type="hidden" name="action" value="cancel" />
+                <input type="hidden" name="playerID" value="@playerID" />
+                <input type="hidden" name="fromMyTeam" value="true" />
+                <input type="submit" class="btn btn-danger" value="Cancel" />
+            </form>
+        }
+        else if (usage == "Other")
+        {
+            //退團按鈕
+            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                <input type="hidden" name="teamID" value="@item.ID" />
+                <input type="hidden" name="action" value="exit" />
+                <input type="hidden" name="playerID" value="@playerID" />
+                <input type="hidden" name="fromMyTeam" value="true" />
+                <input type="submit" class="btn btn-danger" value="Exit" />
+            </form>
+        }
+    }
+    @Html.ActionLink("Details", "TeamDetailForPlayer", new { teamID = item.ID })
+</td>
 </tr>
 }
 

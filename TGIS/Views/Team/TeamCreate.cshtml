@@ -1,4 +1,5 @@
-@model TGIS.Models.Team
+@using TGIS.Models;
+@model Team
 
 @{
     ViewBag.Title = "TeamCreate";
@@ -30,13 +31,6 @@
             @Html.DropDownList("DistrictID", null, new { @class = "form-control d-inline w-25" })
         </div>
     </div>
-
-    @*<div class="form-group">
-        <label class="control-label col-md-2">行政區</label>
-        <div class="col-md-10">
-            
-        </div>
-    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Shop.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -82,20 +76,6 @@
         <input type="time" name="PlayEndTime" class="form-control d-inline w-25" value="@GetMSData("PlayEndTime")" />
     </div>
 
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.PlayBeginTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-
-            </div>
-        </div>*@
-
     <div class="form-group">
         @Html.LabelFor(model => model.EstimatedCost, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -131,22 +111,6 @@
         至
         @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control d-inline w-25" } })
     </div>
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.MinPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
 
 
@@ -191,8 +155,7 @@
     getShopOption();
     function getShopOption() {
         var id = $("#DistrictID").val();
-        console.log(id)
-        $.post("/Shop/GetShopSelectList", { districtID: id }, function (data) {
+        $.post("/Shop/GetShopSelectList", { districtID: id, shopID: "@GetMSData("ShopID")" }, function (data) {
             $("#ShopID").html(data);
         })
     }

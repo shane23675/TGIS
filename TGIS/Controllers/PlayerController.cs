@@ -53,7 +53,7 @@ namespace TGIS.Controllers
             ViewBag.PlayerID = player.ID;
             return View(player);
         }
-        //玩家詳細資料
+        //玩家詳細資料(玩家會員中心)
         public ActionResult PlayerDetail(string playerID)
         {
             Player p = db.Players.Find(playerID);

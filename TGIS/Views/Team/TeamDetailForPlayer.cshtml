@@ -83,7 +83,20 @@ else if (isInTeam)
             @Html.DisplayFor(m => m.PlayerLimit)
         </dd>
 
+        <dt>
+            Participants' Nickname
+        </dt>
 
+        <dd>
+            @foreach (Player p in Model.OtherPlayers)
+            {
+                <p>@p.NickName</p>
+            }
+            @if (Model.CurrentPlayers == 1)
+            {
+                <p class="text-info">No Participants Now</p>
+            }
+        </dd>
 
         <dt>
             Leader's Nickname
@@ -120,29 +133,38 @@ else if (isInTeam)
     {
         @Html.ActionLink("Log In", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
     }
-    //已過期或已提早成團
-    else if (Model.IsCanceled || Model.IsClosed)
+    //已取消或已提早成團、超過截止日期
+    else if (Model.IsExpired && !Model.IsClosed)
     {
-        //什麼按鈕都沒有
-    }
-    else if (DateTime.Now > Model.ParticipateEndDate)
-    {
+        //隊長可以重開此團
         if (isLeader)
         {
-            btnInfo = "Create another team";
-            action = "restart";
-        }
-        else
-        {
-            btnInfo = "Join";
-            disabled = "disabled";
+            using(Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
+            {
+                @Html.Hidden("ID", UsefulTools.GetNextID(new TGISDBEntities().Teams, 1))
+                @Html.Hidden("CityID", Model.Shop.District.CityID)
+                @Html.Hidden("LeaderPlayerID", Model.LeaderPlayerID)
+                @Html.Hidden("DistrictID", Model.Shop.DistrictID)
+                @Html.Hidden("ShopID", Model.ShopID)
+                @Html.Hidden("Title", Model.Title)
+                @Html.Hidden("ParticipateEndDate", Model.ParticipateEndDate)
+                @Html.Hidden("PlayDate", Model.PlayDate)
+                @Html.Hidden("PlayBeginTime", Model.PlayBeginTime)
+                @Html.Hidden("PlayEndTime", Model.PlayEndTime)
+                @Html.Hidden("EstimatedCost", Model.EstimatedCost)
+                @Html.Hidden("Preference", Model.Preference)
+                @Html.Hidden("MinPlayer", Model.MinPlayer)
+                @Html.Hidden("MaxPlayer", Model.MaxPlayer)
+                @Html.Hidden("Notes", Model.Notes)
+                <input type="submit" class="btn btn-primary" value="Recreate This Team" />
+            }
         }
     }
     else
     {
         if (isLeader)
         {
-            btnInfo = "Cancel this team";
+            btnInfo = "Cancel This Team";
             action = "cancel";
         }
         else if (isInTeam)
@@ -153,7 +175,7 @@ else if (isInTeam)
         else
         {
             //若已經額滿，則讓功能鈕失效
-            disabled = Model.OtherPlayers.Count + 1 >= Model.MaxPlayer ? "disabled" : "";
+            disabled = Model.CurrentPlayers >= Model.MaxPlayer ? "disabled" : "";
             btnInfo = "Join";
             action = "join";
         }

@@ -17,7 +17,7 @@ namespace TGIS.Controllers
             return View(db.Teams.Find(teamID));
         }
         [HttpPost]
-        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action)
+        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action, bool fromMyTeam=false)
         {
             //先找到對應的team、player
             Team t = db.Teams.Find(teamID);
@@ -39,6 +39,10 @@ namespace TGIS.Controllers
                     break;
             }
             db.SaveChanges();
+
+            //若此請求來自「我的揪桌」則導回
+            if (fromMyTeam)
+                return RedirectToAction("MyTeam");
             return View(t);
         }
 
@@ -53,6 +57,8 @@ namespace TGIS.Controllers
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             //這裡不傳PlayerID，直接在View中通過Session取得
+
+            //若傳入team表示要重開之前流團的揪桌
             return View();
         }
         [HttpPost]
@@ -74,6 +80,7 @@ namespace TGIS.Controllers
             //檢查最高人數是否不小於最低人數
             if (team.MaxPlayer < team.MinPlayer)
                 ModelState["MaxPlayer"].Errors.Add("最高人數不得小於最低人數");
+
             //驗證主體
             if (ModelState.IsValid)
             {
@@ -93,7 +100,7 @@ namespace TGIS.Controllers
         {
             //尚未登入則跳轉至登入頁面
             if ((string)Session["PlayerID"] == null)
-                return View("LoginForPlayer", "Login");
+                return RedirectToAction("LoginForPlayer", "Login");
 
             return View();
         }
