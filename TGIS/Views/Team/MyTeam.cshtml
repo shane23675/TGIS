@@ -12,41 +12,8 @@
 <p>
     @Html.ActionLink("Create a new team", "TeamCreate")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParticipateEndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayPeriod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstimatedCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preference)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerLimit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LeaderPlayer.NickName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop.ShopName)
-        </th>
-        <th></th>
-    </tr>
-    @Html.Action("_GetMyTeam", new { teams = player.TeamsForLeader.ToList(), teamType = "Teams that I created:"})
-    @Html.Action("_GetMyTeam", new { teams = player.TeamsForOtherPlayer.ToList(), teamType = "Teams that I participated:"})
 
-</table>
+<h2>I'm Leader</h2>
+@Html.Action("GetTeamList", new { usage="Leader"})
+<h2>I'm Participant</h2>
+@Html.Action("GetTeamList", new { usage="Other"})
