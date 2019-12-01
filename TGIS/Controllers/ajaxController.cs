@@ -66,23 +66,35 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult PasswordChange(string oldpwd, string newpwd, string pwdrepeat,string userId)
         {
-            Shop shop = db.Shops.Find(userId);
-            if (shop != null)
+            if (newpwd == pwdrepeat)
             {
-                if (shop.Password == Hash.PwdHash(oldpwd))
-                {
-                    if (newpwd == pwdrepeat)
+                if (userId.Substring(0, 1) == "S") 
                     {
-                        shop.Password = Hash.PwdHash(newpwd);
+                        Shop shop = db.Shops.Find(userId);
+                        if (shop.Password == Hash.PwdHash(oldpwd))
+                        {
+                            shop.Password = Hash.PwdHash(newpwd);
+                            db.SaveChanges();
+
+                            return Content("2");
+                        }
+                        return Content("1");
+                    }
+                else if (userId.Substring(0, 1) == "T")
+                {
+                    Player player = db.Players.Find(userId);
+                    if (player.Password == Hash.PwdHash(oldpwd))
+                    {
+                        player.Password = Hash.PwdHash(newpwd);
                         db.SaveChanges();
 
                         return Content("2");
                     }
-                    return Content("0");
+                    return Content("1");
                 }
-                return Content("1");
+                return Content("3");
             }
-            return Content("3");
+            return Content("0");
         }
 
 
