@@ -46,7 +46,7 @@ else if (isInTeam)
 
         <dd>
             @Html.DisplayFor(model => model.PlayDate)<br />
-            @Model.PlayBeginTime.ToString(@"hh\:mm") 至 @Model.PlayEndTime.ToString(@"hh\:mm")
+            @Model.PlayBeginTime.ToString(@"hh\:mm") to @Model.PlayEndTime.ToString(@"hh\:mm")
         </dd>
 
         <dt>
@@ -66,7 +66,7 @@ else if (isInTeam)
                 TableGame tg = db.TableGames.Find(Model.Preference);
                 if (tg == null)
                 {
-                    @: 不限
+                    @: Unlimited
                 }
                 else
                 {
@@ -103,7 +103,7 @@ else if (isInTeam)
         </dd>
 
         <dt>
-            狀態
+            Status
         </dt>
 
         <dd>
@@ -118,7 +118,7 @@ else if (isInTeam)
     //尚未登入
     if (Session["PlayerID"] == null)
     {
-        @Html.ActionLink("登入", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Log In", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
     }
     //已過期或已提早成團
     else if (Model.IsCanceled || Model.IsClosed)
