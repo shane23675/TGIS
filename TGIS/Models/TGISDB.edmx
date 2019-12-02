@@ -41,8 +41,6 @@
           <Property Name="ExpireDate" Type="date" Nullable="false" />
           <Property Name="PointsRequired" Type="int" Nullable="false" />
           <Property Name="LimitedAmount" Type="int" />
-          <Property Name="RemainedAmount" Type="int" />
-          <Property Name="ExchangedAmount" Type="int" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="District">
@@ -723,8 +721,6 @@
           <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PointsRequired" Type="Int32" Nullable="false" />
           <Property Name="LimitedAmount" Type="Int32" />
-          <Property Name="RemainedAmount" Type="Int32" />
-          <Property Name="ExchangedAmount" Type="Int32" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Shop" Relationship="Self.Relationship17" FromRole="Coupon" ToRole="Shop" />
           <NavigationProperty Name="PlayerCouponDetails" Relationship="Self.Relationship39" FromRole="Coupon" ToRole="PlayerCouponDetail" />
@@ -1383,8 +1379,6 @@
                 <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
                 <ScalarProperty Name="PointsRequired" ColumnName="PointsRequired" />
                 <ScalarProperty Name="LimitedAmount" ColumnName="LimitedAmount" />
-                <ScalarProperty Name="RemainedAmount" ColumnName="RemainedAmount" />
-                <ScalarProperty Name="ExchangedAmount" ColumnName="ExchangedAmount" />
                 <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
               </MappingFragment>
             </EntityTypeMapping>
