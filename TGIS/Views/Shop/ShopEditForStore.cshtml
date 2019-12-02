@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-    
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal container">
-        <h2>店家資訊編輯</h2><br />
+        <h2>店家資訊編輯</h2>
+        <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
         <h4>店面資訊</h4>
@@ -94,7 +95,8 @@
                         <div class="col-md-6">
                             <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
                             <div>
-                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                                刪除
+                                <input type="checkbox" name="deletedPhotoID" value="@id" />
                             </div>
                         </div>
                     }
@@ -107,7 +109,7 @@
             <div class="col-md-8">
                 <input type="file" name="newPhoto" multiple />
             </div>
-        </div>  
+        </div>
         <h4>聯絡資訊</h4>
         <hr />
         <div class="row form-group">
@@ -137,16 +139,34 @@
                 @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
             </div>
-        </div>       
+        </div>
 
         <div class="form-group">
             <input type="submit" value="儲存更改" class="btn btn-info" />
         </div>
     </div>
-    }   
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
     //讓CityID一開始預設選擇Model對應的城市
-    $("#CityID").val(@Model.District.CityID);
-    </script>
-    <script src="~/Scripts/address.js"></script>
+        $("#CityID").val(@Model.District.CityID);
+     //離開前跳小窗重複確認(參考他人,待優化)
+    var isChange = false;
+    $(function () {
+        $("input,textarea,select").change(function () {
+            isChange = true;
+            $(this).addClass("editing");
+        });
+
+        $(window).bind('beforeunload', function () {
+            if (isChange || $(".editing").get().length > 0) {
+                return '更改尚未儲存，確定離開？';
+            }
+        })
+    });
+    $("input:submit").click(function () {
+        $(window).unbind('beforeunload');
+    });
+
+</script>
+<script src="~/Scripts/address.js"></script>
