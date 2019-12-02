@@ -27,7 +27,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Coupon</h4>
+    <h4 class="text-warning">Warning: Any change to this coupon will deactivate it, the new version of this coupon needs to be activated by admin again.</h4>
     <hr />
     @Html.HiddenFor(model => model.ID)
     @Html.HiddenFor(model => model.ShopID)
@@ -71,12 +71,10 @@
             @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <input type="hidden" name="IsAvailable" value="false" />
-
+    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-primary" onclick="return confirm('Save changes and deactivate this coupon?')"/>
         </div>
     </div>
 </div>

@@ -22,9 +22,6 @@
     <div class="form-horizontal">
         <hr />
 
-        <input type="hidden" name="ID" value="@UsefulTools.GetNextID(new TGISDBEntities().Coupons, 1)" />
-        <input type="hidden" name="ShopID" value="@((string)Session["ShopID"])" />
-
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -64,8 +61,6 @@
                 @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <input type="hidden" name="IsAvailable" value="false" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

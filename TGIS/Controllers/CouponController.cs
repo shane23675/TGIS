@@ -49,6 +49,11 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult CouponCreate(Coupon coupon)
         {
+            //填入預設值
+            coupon.ID = UsefulTools.GetNextID(db.Coupons, 1);
+            coupon.ShopID = (string)Session["ShopID"];
+            coupon.IsAvailable = false;
+
             CouponCheck(coupon);
             if (ModelState.IsValid)
             {
@@ -62,11 +67,14 @@ namespace TGIS.Controllers
         //店家修改優惠券
         public ActionResult CouponEdit(string couponID)
         {
+            TempData["Coupon_ID"] = couponID;
             return View(db.Coupons.Find(couponID));
         }
         [HttpPost]
         public ActionResult CouponEdit(Coupon coupon)
         {
+            coupon.ID = (string)TempData["Coupon_ID"];
+            coupon.IsAvailable = false;
             CouponCheck(coupon);
             if (ModelState.IsValid)
             {
