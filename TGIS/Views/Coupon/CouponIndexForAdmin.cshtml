@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TGIS.Models.Coupon>
+
+@{
+    ViewBag.Title = "CouponIndexForAdmin";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>CouponIndexForAdmin</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PointsRequired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LimitedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RemainedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shop.ShopName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpireDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PointsRequired)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LimitedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RemainedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExchangedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAvailable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shop.ShopName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

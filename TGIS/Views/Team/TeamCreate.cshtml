@@ -1,4 +1,5 @@
-﻿@model TGIS.Models.Team
+@using TGIS.Models;
+@model Team
 
 @{
     ViewBag.Title = "TeamCreate";
@@ -11,143 +12,128 @@
     }
 }
 
-<h2>揪桌趣</h2>
+<h2>Create a New Team</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        <input type="hidden" name="ID" value="@ViewBag.teamID" />
-        <input type="hidden" name="LeaderPlayerID" value="@((string)Session["PlayerID"])" />
+<div class="form-horizontal">
+    <hr />
+    <input type="hidden" name="ID" value="@ViewBag.teamID" />
+    <input type="hidden" name="LeaderPlayerID" value="@((string)Session["PlayerID"])" />
 
-        <div class="form-group">
-            <label class="control-label col-md-2">城市</label>
-            <div class="col-md-10">
-                @Html.DropDownList("CityID", null, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">行政區</label>
-            <div class="col-md-10">
-                @Html.DropDownList("DistrictID", null, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Shop.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @* 這個<select>是等DistrictID選好後才填入<option> *@
-                <select name="ShopID" id="ShopID" class="form-control">
-                </select>
-                @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParticipateEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="datetime-local" name="ParticipateEndDate" class="form-control" value="@GetMSData("ParticipateEndDate")"/>
-                @Html.ValidationMessageFor(model => model.ParticipateEndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" name="PlayDate" class="form-control" value="@GetMSData("PlayDate")"/>
-                @Html.ValidationMessageFor(model => model.PlayDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayBeginTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="time" name="PlayBeginTime" class="form-control" value="@GetMSData("PlayBeginTime")"/>
-                @Html.ValidationMessageFor(model => model.PlayBeginTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlayEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="time" name="PlayEndTime" class="form-control" value="@GetMSData("PlayEndTime")"/>
-                @Html.ValidationMessageFor(model => model.PlayEndTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EstimatedCost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EstimatedCost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EstimatedCost, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class = "control-label col-md-2">遊玩形式</label>
-            <div class="col-md-10">
-                <input id="searchInput" class="form-control" placeholder="請輸入桌遊名稱" />
-                <button id="searchBtn" class="btn btn-warning">搜尋</button>
-                <select id="Preference" name="Preference" class="form-control">
-                    <option>不限</option>
-                    @{
-                        string tableGameID = GetMSData("Preference");
-                        if (tableGameID != "")
-                        {
-                            <option value="@tableGameID" selected>@(new TGIS.Models.TGISDBEntities().TableGames.Find(tableGameID).ChineseName)</option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MinPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Where To Play</label>
+        <div class="col-md-10">
+            @Html.DropDownList("CityID", null, new { @class = "form-control d-inline w-25" })
+            @Html.DropDownList("DistrictID", null, new { @class = "form-control d-inline w-25" })
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("回到列表", "TeamIndexForPlayer")
+    <div class="form-group">
+        @Html.LabelFor(model => model.Shop.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @* 這個<select>是等DistrictID選好後才填入<option> *@
+            <select name="ShopID" id="ShopID" class="form-control">
+            </select>
+            @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ParticipateEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" name="ParticipateEndDate" class="form-control" value="@GetMSData("ParticipateEndDate")" />
+            @Html.ValidationMessageFor(model => model.ParticipateEndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PlayDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" name="PlayDate" class="form-control" value="@GetMSData("PlayDate")" />
+            @Html.ValidationMessageFor(model => model.PlayDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group ml-3">
+        <label>When To Play</label>
+        @Html.ValidationMessageFor(model => model.PlayBeginTime,"", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.PlayEndTime, "", new { @class = "text-danger" })
+        <br />
+        <input type="time" name="PlayBeginTime" class="form-control d-inline w-25" value="@GetMSData("PlayBeginTime")" />
+        To
+        <input type="time" name="PlayEndTime" class="form-control d-inline w-25" value="@GetMSData("PlayEndTime")" />
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EstimatedCost, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EstimatedCost, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EstimatedCost, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Want to Play a Certain Game?</label>
+        <div class="col-md-10">
+            <input id="searchInput" class="form-control w-50 d-inline" placeholder="please enter the game's name..." />
+            <button id="searchBtn" class="btn btn-warning mb-2">Search</button>
+            <select id="Preference" name="Preference" class="form-control">
+                <option value="">Unlimited</option>
+                @{
+                    string tableGameID = GetMSData("Preference");
+                    if (tableGameID != "")
+                    {
+                        <option value="@tableGameID" selected>@(new TGIS.Models.TGISDBEntities().TableGames.Find(tableGameID).ChineseName)</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group ml-3">
+        <label>Player Amount Limit</label>
+        @Html.ValidationMessageFor(model => model.MinPlayer, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.MaxPlayer, "", new { @class = "text-danger" })
+        <br />
+        @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control d-inline w-25" } })
+        至
+        @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control d-inline w-25" } })
+    </div>
+
+
+
+    <!--use TextArea type-->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", style = "resize: none;height:200px"})
+            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <!--Submit btn-->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Cancel", "TeamIndexForPlayer", null, new { @class = "btn btn-secondary" })
+            <input type="submit" value="Create" class="btn btn-info" />
+        </div>
+    </div>
 </div>
+}
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -169,8 +155,7 @@
     getShopOption();
     function getShopOption() {
         var id = $("#DistrictID").val();
-        console.log(id)
-        $.post("/Shop/GetShopSelectList", { districtID: id }, function (data) {
+        $.post("/Shop/GetShopSelectList", { districtID: id, shopID: "@GetMSData("ShopID")" }, function (data) {
             $("#ShopID").html(data);
         })
     }
@@ -185,4 +170,5 @@
         //避免送出表單
         return false;
     })
+
 </script>

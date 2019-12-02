@@ -268,7 +268,7 @@ namespace TGIS.Controllers
                 isEnglishSearch = true;
             }
             if (tgs.Length == 0)
-                return Content("<option>找不到可能相符的項目</option>");
+                return Content("<option value=''>找不到可能相符的項目</option>");
             string result = "";
             string tgName;
             foreach (var tg in tgs)

@@ -150,38 +150,10 @@ namespace TGIS.Controllers
             var id = Session["ShopID"].ToString();
             return View(db.Shops.Find(id));
         }
-        public ActionResult ShopPasswordChange()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult ShopPasswordChange(string pwd,string newpwd,string pwdrepeat)
-        {
-            var id = Session["ShopID"].ToString();
-            Shop shop = db.Shops.Find(id);
-            if (ModelState.IsValid)
-            {
-                if (shop.Password == Hash.PwdHash(pwd))
-                {
-                    if (newpwd == pwdrepeat)
-                    {
-                        shop.Password = Hash.PwdHash(newpwd);
-                        db.SaveChanges();
-
-                        return RedirectToAction("ShopDetailForStore",new {id});
-                    }
-                    ViewBag.Error = "新密碼不符";
-                    return View();
-                }
-                ViewBag.Error = "舊密碼不符";
-                return View();
-            }
-            return View();
-        }
+ 
 
         //取得店家列表(Ajax)
-        public ActionResult GetShopSelectList(int districtID)
+        public ActionResult GetShopSelectList(int districtID, string shopID)
         {
             Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
             //找不到任何店家則返回錯誤選項
@@ -190,7 +162,11 @@ namespace TGIS.Controllers
             string result = "";
             foreach (Shop s in shops)
             {
-                result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
+                //通過shopID判斷是否有已經選擇的項目
+                if (s.ID == shopID)
+                    result += $"<option value=\"{s.ID}\" selected>{s.ShopName}</option>";
+                else
+                    result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
             }
             return Content(result);
         }

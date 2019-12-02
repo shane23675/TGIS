@@ -1,0 +1,19 @@
+﻿@using TGIS.Models
+@model IEnumerable<Team>
+
+@{
+    ViewBag.Title = "MyTeam";
+    Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
+    Player player = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
+}
+
+<h2>MyTeam</h2>
+
+<p>
+    @Html.ActionLink("Create a new team", "TeamCreate")
+</p>
+
+<h2>I'm Leader</h2>
+@Html.Action("GetTeamList", new { usage="Leader"})
+<h2>I'm Participant</h2>
+@Html.Action("GetTeamList", new { usage="Other"})

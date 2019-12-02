@@ -256,6 +256,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -407,7 +408,6 @@
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
     <Content Include="Views\Tool\_GetTimeInput.cshtml" />
-    <Content Include="Views\Team\TeamIndexForPlayer.cshtml" />
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -427,6 +427,10 @@
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
     <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
+    <Content Include="Views\Team\MyTeam.cshtml" />
+    <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
+    <Content Include="Views\Coupon\CouponCreateForAdmin.cshtml" />
+    <Content Include="Views\Team\GetTeamList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

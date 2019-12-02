@@ -19,6 +19,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult LoginForPlayer(string account,string pwd)
         {
+            //var password = Hash.PwdHash(pwd);
             Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == pwd).SingleOrDefault();
             if (user != null)
             {
@@ -47,6 +48,7 @@ namespace TGIS.Controllers
             return View();
         }
         //登出
+        //Session["sessionName"]
         public ActionResult Logout(string sessionName)
         {
             Session.Contents.Remove(sessionName);

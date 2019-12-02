@@ -21,7 +21,7 @@
         </button>
         <a class="navbar-brand mt-1 ml-4" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")"><h3><stong>有桌方遊</stong></h3></a>
         <div class="row justify-content-end ml-auto mr-1">
-            <a class="nav-link" href="@Url.Action("","",new {sessionName="ShopID" })">登出</a>
+            <a class="nav-link" href="@Url.Action("Logout","Login",new {sessionName="ShopID" })">登出</a>
             @*<a class="nav-link ml-3 text-info justify-content-end" href="@Url.Action("LoginForPlayer", "Login")">登入</a>*@
         </div>
     </nav>
@@ -40,7 +40,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="indexSubmenu">
                     <li>
-                        @Html.ActionLink("店家資訊管理", "ShopDetailForStore", "Shop", new { area = "" })
+                        @Html.ActionLink("店家資訊管理", "ShopDetailForStore", "Shop")
                     </li>
                     <li>
                         @Html.ActionLink("店內桌遊管理", "UpdateTableGameInShopDetail", "TableGameInShopDetail", new { shopID = (string)Session["ShopID"]}, new { @class=""})

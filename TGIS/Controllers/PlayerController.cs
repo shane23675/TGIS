@@ -40,6 +40,7 @@ namespace TGIS.Controllers
 
             if (ModelState.IsValid)
             {
+                player.Password = Hash.PwdHash(player.Password);
                 db.Players.Add(player);
                 db.SaveChanges();
                 //儲存圖片(先將photo變為陣列再傳入)
@@ -52,16 +53,7 @@ namespace TGIS.Controllers
             ViewBag.PlayerID = player.ID;
             return View(player);
         }
-        //刪除玩家資料
-        public ActionResult PlayerDelete(string playerID)
-        {
-            Player p  = db.Players.Find(playerID);
-            db.Players.Remove(p);
-            db.SaveChanges();
-
-            return RedirectToAction("PlayerIndex");
-        }
-        //玩家詳細資料
+        //玩家詳細資料(玩家會員中心)
         public ActionResult PlayerDetail(string playerID)
         {
             Player p = db.Players.Find(playerID);
@@ -76,13 +68,6 @@ namespace TGIS.Controllers
             return Content(nickname);
         }
         //玩家變更圖片
-        /*
-            --玩家點擊「變更圖片」並選擇圖片
-            --出現「上傳並變更」按鈕
-            --點選「上傳並變更」，將圖片送至控制器處理
-            --依據玩家ID刪除原來的圖片並新增新圖片
-            --重新導向至PlayerDetail
-        */
         public ActionResult ChangePlayerPhoto(HttpPostedFileBase[] photo)
         {
             string playerID = (string)Session["PlayerID"];
@@ -116,5 +101,16 @@ namespace TGIS.Controllers
             }
             return View(player);
         }
+        //管理員刪除玩家資料
+        public ActionResult PlayerDelete(string playerID)
+        {
+            //Player p = db.Players.Find(playerID);
+            //db.Players.Remove(p);
+            //db.SaveChanges();
+            //return RedirectToAction("PlayerIndex");
+            //尚未完成
+            return HttpNotFound();
+        }
+
     }
 }
