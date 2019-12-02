@@ -28,21 +28,17 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("店家會員編號"),StringLength(6)]
         public string ShopID { get; set; }
-        [DisplayName("優惠內容"),StringLength(100)]
+        [DisplayName("優惠內容"),StringLength(100), Required]
         public string Content { get; set; }
-        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
         public System.DateTime ExpireDate { get; set; }
-        [DisplayName("需求點數"),Range(0,int.MaxValue)]
+        [DisplayName("需求點數"),Range(1, int.MaxValue), Required]
         public int PointsRequired { get; set; }
         [DisplayName("可換張數"), Range(0, int.MaxValue)]
         public Nullable<int> LimitedAmount { get; set; }
-        [DisplayName("剩餘張數"), Range(0, int.MaxValue)]
-        public Nullable<int> RemainedAmount { get; set; }
-        [DisplayName("總兌換人數"), Range(0, int.MaxValue)]
-        public Nullable<int> ExchangedAmount { get; set; }
-        [DisplayName("是否開放兌換")]
+        [DisplayName("已啟用")]
         public bool IsAvailable { get; set; }
     }
     //縣市列表

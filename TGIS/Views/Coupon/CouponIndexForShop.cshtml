@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TGIS.Models.Coupon>
+
+@{
+    ViewBag.Title = "CouponIndexForShop";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+
+<h2>CouponIndexForShop</h2>
+
+<p>
+    @Html.ActionLink("Create a New Coupon", "CouponCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PointsRequired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LimitedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model.Count() == 0)
+{
+    <tr>
+        <td colspan="7">No Coupons Now</td>
+    </tr>
+}
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpireDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PointsRequired)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LimitedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAvailable)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CouponEdit", new { couponID=item.ID }) 
+        </td>
+    </tr>
+}
+
+</table>

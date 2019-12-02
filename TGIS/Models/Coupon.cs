@@ -27,8 +27,6 @@ namespace TGIS.Models
         public System.DateTime ExpireDate { get; set; }
         public int PointsRequired { get; set; }
         public Nullable<int> LimitedAmount { get; set; }
-        public Nullable<int> RemainedAmount { get; set; }
-        public Nullable<int> ExchangedAmount { get; set; }
         public bool IsAvailable { get; set; }
     
         public virtual Shop Shop { get; set; }
