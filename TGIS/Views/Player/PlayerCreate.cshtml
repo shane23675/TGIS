@@ -13,8 +13,6 @@
 
     <div class="form-horizontal">
 
-        <input type="hidden" name="ID" value="@ViewBag.PlayerID" />
-
         <div class="form-group">
             @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -105,12 +103,6 @@
                 @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <input type="hidden" name="Points" value="0" />
-
-        <input type="hidden" name="IsBanned" value="false" />
-
-        <input type="hidden" name="IsEmailValid" value="false" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
