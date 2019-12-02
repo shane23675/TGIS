@@ -431,9 +431,11 @@
     <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <Content Include="Views\Team\MyTeam.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
-    <Content Include="Views\Coupon\CouponCreateForAdmin.cshtml" />
     <Content Include="Views\Team\GetTeamList.cshtml" />
     <Content Include="Views\Shared\_LayoutEntry2.cshtml" />
+    <Content Include="Views\Coupon\CouponCreate.cshtml" />
+    <Content Include="Views\Coupon\CouponEdit.cshtml" />
+    <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
