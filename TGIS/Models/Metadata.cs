@@ -290,7 +290,7 @@ namespace TGIS.Models
         public string Feature { get; set; }
         [DisplayName("桌遊規則簡介")]
         public string Rules { get; set; }
-        [DisplayName("上架狀態")]
+        [DisplayName("是否上架")]
         public bool IsShown { get; set; }
         [DisplayName("遊戲難度標籤"),StringLength(3)]
         public string DifficultyTagID { get; set; }
