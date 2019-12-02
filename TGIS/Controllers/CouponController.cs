@@ -28,5 +28,17 @@ namespace TGIS.Controllers
             ViewBag.shopID = shopID;
             return View();
         }
+        [HttpPost]
+        public ActionResult CouponCreateForAdmin(Coupon coupon)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Coupons.Add(coupon);
+                db.SaveChanges();
+                return RedirectToAction("CouponIndexForAdmin");
+            }
+            ViewBag.shopID = coupon.ShopID;
+            return View();
+        }
     }
 }
