@@ -7,9 +7,6 @@
 
 <h2>CouponIndexForAdmin</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -60,8 +57,7 @@
             @Html.DisplayFor(modelItem => item.Shop.ShopName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Activate", "CouponActivate", new { couponID = item.ID})
         </td>
     </tr>
 }
