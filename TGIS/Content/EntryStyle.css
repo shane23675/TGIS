@@ -1,0 +1,8 @@
+﻿.wall {
+    background-image: url('../images/bg_wall.png');
+    background-attachment: fixed;
+    background-color: #F9F3F2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position:center;
+}

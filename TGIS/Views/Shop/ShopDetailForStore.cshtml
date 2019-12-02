@@ -141,28 +141,25 @@
                     <input id="userId" type="hidden" value="@Session["ShopID"].ToString()" />
                     <div>
                         <span class="form-label">舊密碼：</span>
-                        <input id="pwd" type="text"  class="form-control w-75" />
+                        <input id="pwd" type="password"  class="form-control w-75" />
                     </div>
                     <div>
                         <span class="form-label">新密碼：</span>
-                        <input id="newpwd" type="text"  class="form-control w-75" />
+                        <input id="newpwd" type="password"  class="form-control w-75" />
                     </div>
                     <div>
                         <span class="form-label">新密碼確認：</span>
-                        <input id="pwdrepeat" type="text"  class="form-control w-75" />
+                        <input id="pwdrepeat" type="password"  class="form-control w-75" />
                     </div>
                     <span id="error" class="bg-danger w-25"></span>
-                    @* 換到此頁後無法顯示錯誤訊息 *@
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <button id="PWsubmit" type="button" class="btn btn-primary">確認修改</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-@* 需要增加修改的重複確認窗,跟更改成功確認窗(皆用瀏覽器視窗) *@
 @section scripts{
     <script>
         $('#PWsubmit').click(function () {
@@ -172,7 +169,7 @@
                 function (state) {
                     switch (state) {
                         case "0":
-                            $("#error").empty().text("新密碼錯誤")
+                            $("#error").empty().text("新密碼錯誤,請重新確認新密碼")
                             break;
                         case "1":
                             $("#error").empty().text("舊密碼錯誤")
