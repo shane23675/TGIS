@@ -5,6 +5,23 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
+
+    <link href="~/Content/croppie.css" rel="stylesheet" />
+<style>
+    #crop {
+        display: none;
+    }
+    #result{
+        display:none;
+    }
+    #crop_close{
+        display:none;
+    }
+</style>
+
+
+
+
 <h2>Register</h2>
 
 @using (Html.BeginForm("PlayerCreate", "Player", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -26,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.Password,  new { @class = "form-control", placeholder = "Enter Password" } )
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,12 +63,35 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Your Photo</label>
-            <div class="col-md-10">
-                <input type="file" name="photo" />
+
+        <!--photo-->
+
+    <div class="form-group">
+        <label class="control-label pl-3">Your Photo</label>
+        <button type="button" id="crop_close" class="btn mb-2 btn-outline-warning" onclick="cropCancel();">Reupload</button>
+        <div class="crop_range">
+            <div id="upload" class="col-md-10">
+                <label id="filedrag">
+                    <input type="file" id="photo" name="photo" accept="image/*" />
+                </label>
+            </div>
+
+            <div id="crop" class="col-md-10">
+                <button type="button" class="btn btn-info" id="prev" onclick="cropCancel();">PREV</button>
+                <button type="button" class="btn btn-info" id="next" onclick="cropResult();">Crop</button>
+                <div id="croppie"></div>
+            </div>
+
+            <div id="result" class="col-md-10">
+                <img src="" />
             </div>
         </div>
+    </div>
+
+
+        <!--//////////////////////////////////////////////////-->
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -65,8 +105,8 @@
             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @{ 
-                        //狀態保留
+                    @{
+                        // 狀態保留
                         string maleChecked = "checked";
                         string femaleChecked = "";
                         if (ViewData.ModelState["Gender"] != null)
@@ -78,8 +118,8 @@
                             }
                         }
                     }
-                    <input type="radio" name="Gender" value="true" @maleChecked/> Male
-                    <input type="radio" name="Gender" value="false" @femaleChecked/> Female
+                    <input type="radio" name="Gender" value="true" @maleChecked /> Male
+                    <input type="radio" name="Gender" value="false" @femaleChecked /> Female
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -92,10 +132,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m=>m.District.DistrictName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(m => m.District.DistrictName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("DistrictID", null, new { @class = "form-control" })
-             </div>
+            </div>
         </div>
 
         <div class="form-group">
@@ -127,6 +167,9 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/address.js"></script>
+
+<script src="~/Scripts/croppie.js"></script>
+
 <script>
     $('#Account').blur(function () {
         account = $('#Account').val();
@@ -135,6 +178,110 @@
     function confirm(e) {
         $('#confirm1').text(e)
     };
+
+
+    //crop
+
+    const $upload = $('#upload'),
+            $crop = $('#crop'),
+            $result = $('#result'),
+            $croppie = $('#croppie');
+
+        var cr,
+            cr_img = '',
+            img_w = 320,
+            img_h = 320,
+            isCrop = 0;
+
+        var photo = document.getElementById("photo"),
+            filedrag = document.getElementById("filedrag");
+
+        photo.addEventListener("change", FileSelectHandler, false);
+
+        function FileSelectHandler(e) {
+            // fetch FileList object
+            var files = e.target.files;
+            console.log(files);
+            console.log(e);
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $upload.hide();
+                if (cr_img == '') {
+                    cr_img = e.target.result;
+                    console.log(e);
+                    console.log(e.target);
+                    console.log(cr_img);
+                    cropInit();
+                }
+                else {
+                    cr_img = e.target.result;
+                    bindCropImg();
+                }
+                $crop.fadeIn(300);
+            }
+            reader.readAsDataURL(files[0]);
+        }
+
+        // 裁切設定
+        function cropInit() {
+            cr = $croppie.croppie({
+                viewport: {
+                    width: img_w,
+                    height: img_h
+                },
+                boundary: {
+                    width: img_w,
+                    height: img_h
+                },
+                mouseWheelZoom: true,
+                enableOrientation: true
+            });
+
+            $(".cr-slider-wrap").append('<button type="button" id="cr-rotate" class="btn btn-dark ml-1" onClick="cropRotate(-90);">↻ Rotate</button>');
+
+            bindCropImg();
+        }
+
+        // 綁定圖片
+        function bindCropImg() {
+            cr.croppie('bind', {
+                url: cr_img
+            });
+        }
+
+        // 旋轉按鈕
+        function cropRotate(deg) {
+            cr.croppie('rotate', parseInt(deg));
+        }
+
+        // 取消裁切
+        function cropCancel() {
+            if ($upload.is(':hidden')) {
+                $upload.fadeIn(300).siblings().hide();
+                $('#crop_close').hide();
+                photo.value = "";
+                isCrop = 0;
+            }
+        }
+
+        // 圖片裁切
+        function cropResult() {
+            if (!isCrop) {
+                isCrop = 1;
+                cr.croppie('result', {
+                    type: 'canvas', 
+                    size: { width: img_w, height: img_h }, 
+                    format: 'jpeg',
+                    quality: 1 
+                }).then(function (resp) {
+                    $crop.hide();
+                    $result.find('img').attr('src', resp);
+                    $result.fadeIn(300);
+                    $('#crop_close').fadeIn(300);
+                });
+            }
+        }
+
 
 
 </script>
