@@ -28,6 +28,9 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
+            //檢查帳號是否重複
+            if (db.Shops.Any(m => m.Account == shop.Account))
+                ModelState["Account"].Errors.Add("此帳號已經有人使用");
             //驗證帳號密碼是否符合規則
             UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
@@ -68,7 +71,7 @@ namespace TGIS.Controllers
         {
             var shop = db.Shops.Find(id);
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", shop.DistrictID);
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
             TempData["Shop_ID"] = id;
             return View(db.Shops.Find(id));

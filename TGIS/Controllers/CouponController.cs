@@ -67,13 +67,18 @@ namespace TGIS.Controllers
         //店家修改優惠券
         public ActionResult CouponEdit(string couponID)
         {
-            TempData["Coupon_ID"] = couponID;
-            return View(db.Coupons.Find(couponID));
+            Coupon c = db.Coupons.Find(couponID);
+            TempData["Coupon"] = c;
+            return View(c);
         }
         [HttpPost]
         public ActionResult CouponEdit(Coupon coupon)
         {
-            coupon.ID = (string)TempData["Coupon_ID"];
+            //從TempData取出原始資料並存入必要欄位
+            Coupon c = (Coupon)TempData["Coupon"];
+            coupon.ID = c.ID;
+            coupon.ShopID = c.ShopID;
+            //優惠券只要有修改過就必須再經審核
             coupon.IsAvailable = false;
             CouponCheck(coupon);
             if (ModelState.IsValid)

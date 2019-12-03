@@ -199,6 +199,7 @@
       <DependentUpon>TGISDB.edmx</DependentUpon>
       <LastGenOutput>TGISDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\date_convert.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

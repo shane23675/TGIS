@@ -71,7 +71,7 @@
             @Html.DisplayFor(modelItem => item.District.DistrictName)
         </td>
         <td>
-            @Html.ActionLink("修改", "PlayerEdit", new { id = item.ID }) |
+            @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }) |
             @Html.ActionLink("刪除", "PlayerDelete", new { id = item.ID })
         </td>
     </tr>
