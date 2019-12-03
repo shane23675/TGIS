@@ -1,8 +1,12 @@
-﻿.wall {
+﻿body {
     background-image: url('../images/bg_wall.png');
-    background-attachment: fixed;
-    background-color: #F9F3F2;
+    background-size: cover;
+}
+.dec {
+    width:1600px;
+    height:800px;
+    background-image: url('../images/dec.png');
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position:center;
+    background-repeat:no-repeat;
+    /*padding: 40px 390px 300px 90px;*/
 }
