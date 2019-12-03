@@ -186,6 +186,7 @@
     <Content Include="images\bg_desk2.jpg" />
     <Content Include="images\bg_wall.png" />
     <Content Include="images\boardGame.jpg" />
+    <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
