@@ -165,7 +165,7 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("會員帳號"), Required]
+        [DisplayName("會員帳號"), Required, PlayerAccountRepeatCheck]
         public string Account { get; set; }
         [DisplayName("會員密碼"), Required]
         public string Password { get; set; }
@@ -239,7 +239,7 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("帳號")]
+        [DisplayName("帳號"), ShopAccountRepeatCheck]
         public string Account { get; set; }
         [DisplayName("密碼")]
         public string Password { get; set; }
