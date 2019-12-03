@@ -239,29 +239,29 @@ namespace TGIS.Models
     {
         [DisplayName("會員編號")]
         public string ID { get; set; }
-        [DisplayName("帳號"), ShopAccountRepeatCheck]
+        [DisplayName("帳號"), ShopAccountRepeatCheck, Required]
         public string Account { get; set; }
-        [DisplayName("密碼")]
+        [DisplayName("密碼"), Required]
         public string Password { get; set; }
-        [DisplayName("店家名稱")]
+        [DisplayName("店家名稱"), Required, StringLength(40)]
         public string ShopName { get; set; }
-        [DisplayName("營業時間")]
+        [DisplayName("營業時間"), Required, StringLength(100)]
         public string OpeningHours { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
-        [DisplayName("地址")]
+        [DisplayName("地址"), Required, StringLength(60)]
         public string Address { get; set; }
         [DisplayName("有無低消")]
         public bool IsMinConsumeRequired { get; set; }
         [DisplayName("可否外食")]
         public bool IsFoodAcceptable { get; set; }
-        [DisplayName("場地規模")]
+        [DisplayName("場地規模"), Required, StringLength(1)]
         public string AreaScale { get; set; }
-        [DisplayName("電話")]
+        [DisplayName("電話"), Required, StringLength(25)]
         public string Tel { get; set; }
-        [DisplayName("信箱")]
+        [DisplayName("信箱"), StringLength(60)]
         public string Email { get; set; }
-        [DisplayName("Line")]
+        [DisplayName("Line"), StringLength(30)]
         public string Line { get; set; }
         [DisplayName("官網")]
         public string Website { get; set; }
@@ -269,11 +269,11 @@ namespace TGIS.Models
         public bool IsVIP { get; set; }
         [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> ExpireDate { get; set; }
-        [DisplayName("累積加值月數")]
+        [DisplayName("累積加值月數"), Range(0, int.MaxValue)]
         public Nullable<int> AccumulatedHours { get; set; }
         [DisplayName("帳號是否啟用")]
         public bool IsAccountEnabled { get; set; }
-        [DisplayName("店家介紹")]
+        [DisplayName("店家介紹"), StringLength(1000)]
         public string Description { get; set; }
     }
     //桌遊主檔
