@@ -30,9 +30,9 @@ namespace TGIS.Models
         public string ShopID { get; set; }
         [DisplayName("優惠內容"),StringLength(100), Required]
         public string Content { get; set; }
-        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
+        [DisplayName("開始使用日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required, DataType(DataType.Date)]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
+        [DisplayName("到期日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required, DataType(DataType.Date)]
         public System.DateTime ExpireDate { get; set; }
         [DisplayName("需求點數"),Range(1, int.MaxValue), Required]
         public int PointsRequired { get; set; }
@@ -166,7 +166,7 @@ namespace TGIS.Models
         public bool Gender { get; set; }
         [DisplayName("行政區編號")]
         public int DistrictID { get; set; }
-        [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required]
+        [DisplayName("生日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required, DataType(DataType.Date)]
         [BirthdayValidation]
         public DateTime Birthday { get; set; }
         [DisplayName("持有點數量"),Range(0,int.MaxValue)]
@@ -428,17 +428,17 @@ namespace TGIS.Models
         public string LeaderPlayerID { get; set; }
         [DisplayName("揪桌標題"),StringLength(10, ErrorMessage ="標題長度不得大於10個字"), Required(ErrorMessage = "標題為必填")]
         public string Title { get; set; }
-        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true), DataType(DataType.DateTime)]
         [Required(ErrorMessage = "報名結束時間為必填")]
         public System.DateTime ParticipateEndDate { get; set; }
         [DisplayName("其他資訊備註"),StringLength(20)]
         public string Notes { get; set; }
-        [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         [Required(ErrorMessage = "遊戲日期為必填")]
         public DateTime PlayDate { get; set; }
-        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填")]
+        [DisplayName("開始時間"), Required(ErrorMessage = "開始時間為必填"), DataType(DataType.Time)]
         public TimeSpan PlayBeginTime { get; set; }
-        [DisplayName("結束時間"), Required(ErrorMessage = "結束時間為必填")]
+        [DisplayName("結束時間"), Required(ErrorMessage = "結束時間為必填"), DataType(DataType.Time)]
         public TimeSpan PlayEndTime { get; set; }
         [DisplayName("預估花費")]
         public int? EstimatedCost { get; set; }
