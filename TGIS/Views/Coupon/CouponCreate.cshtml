@@ -4,12 +4,6 @@
 @{
     ViewBag.Title = "CouponCreateForAdmin";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
-    //取得嘗試輸入的資料的函數，用於輸入錯誤時保留輸入值
-    string GetMSData(string name)
-    {
-        var state = ViewData.ModelState[name];
-        return state == null ? "" : state.Value.AttemptedValue;
-    }
 }
 
 <h2>New Coupon</h2>
@@ -33,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" id="BeginDate" name="BeginDate" class="form-control" value="@GetMSData("BeginDate")" />
+                @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" id="ExpireDate" name="ExpireDate" class="form-control" value="@GetMSData("ExpireDate")"  />
+                @Html.EditorFor(model => model.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
             </div>
         </div>
