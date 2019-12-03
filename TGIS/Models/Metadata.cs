@@ -21,7 +21,18 @@ namespace TGIS.Models
     }
     //優惠卷主檔
     [MetadataType(typeof(MetadataCoupon))]
-    public partial class Coupon { }
+    public partial class Coupon
+    {
+        //以下為推導出的屬性，在資料庫中不會儲存
+        [DisplayName("已兌換人數")]
+        public int ExchangedAmount
+        {
+            get
+            {
+                return PlayerCouponDetails.Count;
+            }
+        }
+    }
     public class MetadataCoupon
     {
         [DisplayName("活動編號"),StringLength(11)]
