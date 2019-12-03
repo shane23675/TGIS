@@ -92,8 +92,6 @@ namespace TGIS.Controllers
         public ActionResult CreateTableGame()
         {
             UpdateTableGamePreparaion();
-            //傳入自動生成的ID
-            ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
             return View();
         }
         [HttpPost]
@@ -103,11 +101,10 @@ namespace TGIS.Controllers
             if (!ModelState.IsValid)
             {
                 UpdateTableGamePreparaion();
-                //傳入自動生成的ID
-                ViewBag.tableGameID = UsefulTools.GetNextID(db.TableGames, 1);
                 return View();
             }
             //儲存newTableGame
+            newTableGame.ID = UsefulTools.GetNextID(db.TableGames, 1);
             db.TableGames.Add(newTableGame);
             db.SaveChanges();
             foreach(string sc in selectedCategories)
@@ -127,6 +124,7 @@ namespace TGIS.Controllers
         public ActionResult EditTableGame(string tableGameID)
         {
             UpdateTableGamePreparaion();
+            TempData["TableGame_ID"] = tableGameID;
             //將圖片的ID的List傳入ViewBag
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
             return View(db.TableGames.Find(tableGameID));
@@ -143,6 +141,7 @@ namespace TGIS.Controllers
                 ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGame.ID);
                 return View(db.TableGames.Find(tableGame.ID));
             }
+            tableGame.ID = (string)TempData["TableGame_ID"];
             //通過ID找到舊的tableGame資料
             TableGame oldTableGame = db.TableGames.Find(tableGame.ID);
             //使用自訂方法更新

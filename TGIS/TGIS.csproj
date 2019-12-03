@@ -150,6 +150,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EntryStyle.css" />
     <Content Include="Content\FrontStyle.css" />
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
@@ -183,6 +184,7 @@
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
+    <Content Include="images\bg_wall.png" />
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\dog.jpg" />
     <Content Include="images\user.png" />
@@ -429,10 +431,11 @@
     <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <Content Include="Views\Team\MyTeam.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
-    <Content Include="Views\Coupon\CouponCreate.cshtml" />
     <Content Include="Views\Team\GetTeamList.cshtml" />
-    <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
+    <Content Include="Views\Shared\_LayoutEntry2.cshtml" />
+    <Content Include="Views\Coupon\CouponCreate.cshtml" />
     <Content Include="Views\Coupon\CouponEdit.cshtml" />
+    <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

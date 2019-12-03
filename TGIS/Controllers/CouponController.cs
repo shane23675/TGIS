@@ -7,12 +7,6 @@ using TGIS.Models;
 
 namespace TGIS.Controllers
 {
-    /*
-        優惠券：
-        店家要新增活動必須先以書面形式提出專案，也就是說優惠券只能由管理員增刪修
-        所以...就是正常的增刪修
-        店家本身應該只能查看/提前結束活動等等(需要再確認)
-    */
     public class CouponController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
@@ -55,6 +49,11 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult CouponCreate(Coupon coupon)
         {
+            //填入預設值
+            coupon.ID = UsefulTools.GetNextID(db.Coupons, 1);
+            coupon.ShopID = (string)Session["ShopID"];
+            coupon.IsAvailable = false;
+
             CouponCheck(coupon);
             if (ModelState.IsValid)
             {
@@ -68,11 +67,14 @@ namespace TGIS.Controllers
         //店家修改優惠券
         public ActionResult CouponEdit(string couponID)
         {
+            TempData["Coupon_ID"] = couponID;
             return View(db.Coupons.Find(couponID));
         }
         [HttpPost]
         public ActionResult CouponEdit(Coupon coupon)
         {
+            coupon.ID = (string)TempData["Coupon_ID"];
+            coupon.IsAvailable = false;
             CouponCheck(coupon);
             if (ModelState.IsValid)
             {
