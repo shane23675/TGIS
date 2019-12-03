@@ -1,0 +1,12 @@
+﻿body {
+    background-image: url('../images/bg_wall.png');
+    background-size: cover;
+}
+.dec {
+    width:1600px;
+    height:800px;
+    background-image: url('../images/dec.png');
+    background-size: contain;
+    background-repeat:no-repeat;
+    /*padding: 40px 390px 300px 90px;*/
+}

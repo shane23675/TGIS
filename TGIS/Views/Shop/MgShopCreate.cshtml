@@ -16,7 +16,6 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <input type="hidden" name="ID" value="@ViewBag.shopID" />
         <div class="form-group">
             @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
             <span id="confirm1"></span>

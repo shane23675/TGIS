@@ -23,7 +23,6 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            ViewBag.PlayerID = UsefulTools.GetNextID(db.Players, 2);
             return View();
         }
         [HttpPost]
@@ -37,6 +36,11 @@ namespace TGIS.Controllers
             //檢查帳號及密碼是否符合規則
             UsefulTools.RegisterValidate(player.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(player.Password, ModelState["Password"].Errors.Add, true, false);
+            //填入預設值
+            player.ID = UsefulTools.GetNextID(db.Players, 2);
+            player.Points = 0;
+            player.IsBanned = false;
+            player.IsEmailValid = false;
 
             if (ModelState.IsValid)
             {
@@ -50,7 +54,6 @@ namespace TGIS.Controllers
             }
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", player.DistrictID);
-            ViewBag.PlayerID = player.ID;
             return View(player);
         }
         //玩家詳細資料(玩家會員中心)
@@ -87,11 +90,13 @@ namespace TGIS.Controllers
         {
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             Player p  = db.Players.Find(playerID);
+            TempData["Player_ID"] = playerID;
             return View(p);
         }
         [HttpPost]
         public ActionResult PlayerEdit(Player player)
         {
+            player.ID = (string)TempData["Player_ID"];
             if (ModelState.IsValid)
             {
                 db.Entry(player).State = EntityState.Modified;

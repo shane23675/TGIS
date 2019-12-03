@@ -12,9 +12,6 @@ namespace TGIS.Controllers
     public class ShopController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        // GET: Shop
-        //店家主檔
-
         //店家頁面
         public ActionResult ShopIndex()
         {
@@ -26,8 +23,6 @@ namespace TGIS.Controllers
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            //傳入自動生成的ID
-            ViewBag.shopID = UsefulTools.GetNextID(db.Shops, 1);
             return View();
         }
         [HttpPost]
@@ -36,7 +31,8 @@ namespace TGIS.Controllers
             //驗證帳號密碼是否符合規則
             UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
-
+            //填入自動生成的ID
+            shop.ID = UsefulTools.GetNextID(db.Shops, 1);
             if (ModelState.IsValid)
             {
                 shop.Password = Hash.PwdHash(shop.Password);
@@ -74,11 +70,13 @@ namespace TGIS.Controllers
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName",shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
+            TempData["Shop_ID"] = id;
             return View(db.Shops.Find(id));
         }
         [HttpPost]
         public ActionResult MgShopEdit(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
+            shop.ID = (string)TempData["Shop_ID"];
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;
@@ -119,11 +117,13 @@ namespace TGIS.Controllers
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
+            TempData["Shop_ID"] = id;
             return View(db.Shops.Find(id));
         }
         [HttpPost]
         public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
+            shop.ID = (string)TempData["Shop_ID"];
             if (ModelState.IsValid)
             {
                 db.Entry(shop).State = EntityState.Modified;

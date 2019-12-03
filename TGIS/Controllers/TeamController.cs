@@ -128,5 +128,9 @@ namespace TGIS.Controllers
             }
             return HttpNotFound();
         }
+
+        void Test()
+        {
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/FrontStyle.css" rel="stylesheet" />
+    <link href="~/Content/EntryStyle.css" rel="stylesheet" />
+    @*背景圖片來自 <a href="https://pngtree.com/free-backgrounds">pngtree.com</a>*@
+</head>
+<body>
+    <div class="row">
+        <div class="dec"> @RenderBody()</div>
+    </div>
+    
+
+
+        
+     <footer class="navbar navbar-expand-md justify-content-end footnav fixed-bottom">
+        <a class="nav-link" href="#">關於我們</a>
+        <a class="nav-link" href="#">聯絡我們</a>
+    </footer>
+</body>
+</html>

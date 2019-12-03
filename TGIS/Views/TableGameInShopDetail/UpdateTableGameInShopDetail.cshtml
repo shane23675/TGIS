@@ -6,28 +6,35 @@
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-<h2>店內桌遊明細表</h2>
-@using (Html.BeginForm())
-{
-<table class="table table-sm table-bordered table-hover">
-    <thead>
-        <tr class="table-primary">
-            <th >持有</th>
-            <th>桌遊名稱</th>
-            <th>是否販售</th>
-            <th>價格</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (TableGame item in Model)
-        {
-            @Html.Action("_GetOneDetail", new { tableGameID = item.ID, shopID = ViewBag.shopID })
-        }
-    </tbody>
-</table>
-<input type="submit" class="btn btn-info" value="儲存變更" />
-}
-<script>
+<h2 class="text-center">店內桌遊明細表</h2>
+<br />
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <table class="table table-sm table-bordered table-hover shadow">
+            <thead>
+                <tr class="table-primary">
+                    <th >持有</th>
+                    <th class="w-75">桌遊名稱</th>
+                    <th>是否販售</th>
+                    <th>價格</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TableGame item in Model)
+                {
+                    @Html.Action("_GetOneDetail", new { tableGameID = item.ID, shopID = ViewBag.shopID })
+                }
+            </tbody>
+        </table>
+        <br />
+        <div class="text-center">
+            <input type="submit" class="btn btn-info" value="儲存變更" />
+        </div>
+    }
+</div>
+@* 待補上離開未儲存的確認 *@
+@*<script>
     var isChange = false;
     $(function () {
         $("input,textarea,select").change(function () {
@@ -44,4 +51,4 @@
     $("input:submit").click(function () {
         $(window).unbind('beforeunload');
     });
-</script>
+</script>*@
