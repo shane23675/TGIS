@@ -15,51 +15,16 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-light bg-player">
-        <a class="navbar-brand " href="@Url.Action("Index", "Home")">
+        <a class="navbar-light bg-player" href="@Url.Action("Index", "Home")">
             <h3>有桌方遊</h3>
         </a>
         <div class="collapse navbar-collapse" id="P-navbar">
             <div class="navbar-nav mr-auto"> </div>
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="請輸入關鍵字" aria-label="search" />
-                <button class="btn btn-outline-search my-2 my-sm-0" type="submit">搜尋</button>
-            </form>
             <a class="nav-link" href="#">會員中心</a>
             <a class="nav-link" href="@Url.Action("Logout","Login",new { sessionName="PlayerID"})">登出</a>
         </div>
     </nav>
-    @* 後續補效果:hover時有框,邊框圓角,加半透明底,標籤顏色調整成底色 離navbar再遠一些  *@
-    <div class="container mt-2">
-        <div id="sidebar">@* view完成後再調整分頁連結 *@
-            <ul class="nav nav-tabs">
-                <li class="nav-item ">
-                    @*因為圖標放在a標籤裡面,跟上面不同,要改用Url.Action設定連結*@
-                    <a href="#" class="nav-link nav-p active">
-                        <i class="fas fa-user-edit"></i>
-                        <span>&nbsp;個人資料管理</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>&nbsp;點數與優惠券管理</span>
-                    </a>
-                </li>       
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="@Url.Action("MyTeam", "Team")">
-                        <i class="fas fa-door-open"></i>
-                        <span>我的揪桌</span>
-                    </a>
-                </li>
-            </ul>
-
-            @*<a href="#" class="btn btn-light ">進行開桌</a>*@
-
-        </div>
-        <div class="body-content">
-            @RenderBody()
-        </div>
-    </div>
+            @RenderBody() 
     <footer class="fixed-bottom bg-player">
         <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
             <a class="nav-link" href="#">關於我們</a>
@@ -70,5 +35,5 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("Script", false)
-</body>    
+</body>
 </html>

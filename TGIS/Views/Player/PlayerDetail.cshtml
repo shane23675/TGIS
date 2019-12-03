@@ -5,95 +5,119 @@
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
 }
 
-<h2 id="nickNameDisplay">@Model.NickName</h2>
-<input id="nickName" placeholder="Change your nickname..." />
-<button id="changeNickNameBtn" class="btn btn-warning">Change</button>
-<h3>@Model.Account</h3>
+<div class="container mt-4">
+    <div id="sidebar">
+        <ul class="nav nav-tabs">
+            <li class="nav-item ">
+                <a class="nav-link nav-p active" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
+                    <i class="fas fa-user-edit"></i>
+                    <span>&nbsp;個人資料管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link nav-p">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>&nbsp;點數與優惠券管理</span>
+                </a>
+            </li>
+            <li class="nav-item nav-p">
+                <a class="nav-link" href="@Url.Action("MyTeam", "Team")">
+                    <i class="fas fa-door-open"></i>
+                    <span>我的揪桌</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="body-content p-5">
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
+        <div class="col-8">
+            <span class="h2" id="nickNameDisplay">@Model.NickName</span>
+            <div class="row">
+                <input id="nickName" placeholder="輸入新暱稱" class="form-control col-2  ml-5 mr-2" />
+                <button type="button" id="changeNickNameBtn" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ShoppwChange">
+                    更改暱稱
+                </button>
+                @* 之後追加跳窗 *@
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="col-3 ">
+            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.ID, index=0})" alt="No photo" />
+            <button type="button" class="btn btn-outline-info btn-sm justify-content-center" data-toggle="modal" data-target="#PlayerPhotoChange">
+                更換大頭貼
+            </button>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+        <hr />
+        <div class="row">
+            <dl class="row ml-1 col-4">
+                <dt>@Html.DisplayNameFor(model => model.Account)：</dt>
+                <dd>@Html.DisplayFor(model => model.Account)</dd>
+            </dl>
+            <dl class="row ml-1 col-4">
+                <dt>密碼：</dt>
+                <dd>
+                    @*<button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
+                            更改密碼
+                        </button>*@
+                    更改密碼(尚未完成)
+                </dd>
+            </dl>
+        </div>
+        <div class="row">
+            <dl class="row ml-1 col-4">
+                <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
+                <dd>@Html.DisplayFor(model => model.Email)</dd>
+            </dl>
+            <dl class="row ml-1 col-8">
+                @*<dt> @Html.DisplayNameFor(model => model.Points)=</dt>
+                    <dd>=@Html.DisplayFor(model => model.Points)</dd>*@
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsEmailValid)：
+                </dt>
 
-        <dd>
-            @if (Model.Gender)
-            {
-                @: Male
-            }
-            else
-            {
-                @: Female
-            }
-        </dd>
+                <dd>
+                    @if (Model.IsEmailValid)
+                    {
+                        @: 已驗證
+                    }
+                    else
+                    {
+                        @: 尚未驗證
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div class="row">
+            <dl class="row ml-1 col-4">
+                <dt>@Html.DisplayNameFor(model => model.Gender)：</dt>
+                <dd>
+                    @if (Model.Gender)
+                    {
+                        @:男
+                    }
+                    else
+                    {
+                        @: 女
+                    }
+                </dd>
+            </dl>
+            <dl class="row ml-1 col-8">
+                <dt>@Html.DisplayNameFor(model => model.Birthday)：</dt>
+                <dd>@Html.DisplayFor(model => model.Birthday)</dd>
+            </dl>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Points)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Points)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsEmailValid)
-        </dt>
-
-        <dd>
-            @if (Model.IsEmailValid)
-            {
-                @: Valid
-            }
-            else
-            {
-                @: Invalid
-            }
-        </dd>
-
-        <dt>
-            Address
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(m=>m.District.City.CityName)
-            @Html.DisplayFor(model => model.District.DistrictName)
-        </dd>
-
-        <dt>
-            Photo
-        </dt>
-
-        <dd>
-            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.ID, index=0})" alt="No photo"/>
-            <form action="@Url.Action("ChangePlayerPhoto", "Player")" method="post" enctype="multipart/form-data">
-                <input type="file" name="photo" id="photoInput"/>
-                <input type="submit" class="btn btn-primary" value="Change Photo" disabled="disabled" id="changePhotoBtn"/>
-            </form>
-        </dd>
-
-    </dl>
-</div>
-
-@section Script{
-    <script>
+        <dl class="row ml-1">
+            <dt>居住縣市：</dt>
+            <dd>
+                @Html.DisplayFor(m => m.District.City.CityName)
+                @Html.DisplayFor(model => model.District.DistrictName)
+            </dd>
+        </dl>
+        @section Script{
+            <script>
         //變更暱稱
         $("#changeNickNameBtn").click(function () {
             $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
@@ -107,5 +131,91 @@
             else
                 $("#changePhotoBtn").prop("disabled", "disabled");
         })
-    </script>
-    }
+            </script>
+        }
+    </div>
+</div>
+<!-- 更改密碼的跳出窗 -->
+@*<div class="modal fade" id="ShoppwChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="post" action="~/Shop/ShopDetailForStore">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ShopPasswordChange">更改密碼</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modalPwd" class="modal-body">
+
+                        <input id="userId" type="hidden" value="@Session["ShopID"].ToString()" />
+                        <div>
+                            <span class="form-label">舊密碼：</span>
+                            <input id="pwd" type="password" class="form-control w-75" />
+                        </div>
+                        <div>
+                            <span class="form-label">新密碼：</span>
+                            <input id="newpwd" type="password" class="form-control w-75" />
+                        </div>
+                        <div>
+                            <span class="form-label">新密碼確認：</span>
+                            <input id="pwdrepeat" type="password" class="form-control w-75" />
+                        </div>
+                        <span id="error" class="bg-danger w-25"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="PWsubmit" type="button" class="btn btn-primary">確認修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <script>
+            $('#PWsubmit').click(function () {
+                $.post(
+                    "/ajax/PasswordChange",
+                    { oldpwd: $("#pwd").val(), newpwd: $("#newpwd").val(), pwdrepeat: $("#pwdrepeat").val(), userId: $("#userId").val() },
+                    function (state) {
+                        switch (state) {
+                            case "0":
+                                $("#error").empty().text("新密碼錯誤,請重新確認新密碼")
+                                break;
+                            case "1":
+                                $("#error").empty().text("舊密碼錯誤")
+                                break;
+                            case "2":
+                                alert("修改成功")
+                                location.reload();
+                                break;
+                            case "3":
+                                alert("請重新登入")
+                                location.reload();
+                                break;
+                        }
+                    }
+                )
+            });
+        </script>
+    }*@
+<!-- 更改頭貼的跳出窗 -->
+<div class="modal fade" id="PlayerPhotoChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="@Url.Action("ChangePlayerPhoto", "Player")" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ShopPasswordChange">更換頭貼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name="photo" id="photoInput" />
+                </div>
+                <div class="modal-footer">
+                    <button id="changePhotoBtn" type="button" class="btn btn-primary">更換大頭貼</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
