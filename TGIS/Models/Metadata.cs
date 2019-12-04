@@ -267,7 +267,7 @@ namespace TGIS.Models
         public string Website { get; set; }
         [DisplayName("是否啟用VIP")]
         public bool IsVIP { get; set; }
-        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         public Nullable<DateTime> ExpireDate { get; set; }
         [DisplayName("累積加值月數"), Range(0, int.MaxValue)]
         public Nullable<int> AccumulatedHours { get; set; }
