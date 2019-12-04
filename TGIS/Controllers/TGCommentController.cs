@@ -26,12 +26,7 @@ namespace TGIS.Controllers
                     tgc.Content = comment;
                     tgc.IsHidden = false;
                     db.TableGameComments.Add(tgc);
-                    PlayerPointDetail ppd = new PlayerPointDetail();
-                    ppd.PlayerID = pId;
-                    ppd.Cause = "評論桌遊";
-                    ppd.ChangedAmount = 1;
-                    ppd.ChangedDate = DateTime.Now;
-                    db.PlayerPointDetails.Add(ppd);
+                    UsefulTools.PointRecord((string)Session["PlayerID"],"評論桌遊",1);
                     Player player = db.Players.Find(pId);
                     player.Points += 1;
                     db.SaveChanges();

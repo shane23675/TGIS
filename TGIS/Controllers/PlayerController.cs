@@ -131,6 +131,11 @@ namespace TGIS.Controllers
             //尚未完成
             return HttpNotFound();
         }
+        public ActionResult PointRecord(string playerId)
+        {
+            var ppd = db.PlayerPointDetails.Where(m => m.PlayerID == playerId).ToList();
+            return View(ppd);
+        }
 
     }
 }
