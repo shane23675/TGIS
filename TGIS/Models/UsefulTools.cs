@@ -127,6 +127,19 @@ namespace TGIS.Models
             }
             return isValid;
         }
+        /// <summary>
+        /// PointRecord(PlayerID,點數變動原因,點數變動數量)
+        /// </summary>
+        public static void PointRecord(string pId,string cause,int amount)
+        {
+            PlayerPointDetail ppd = new PlayerPointDetail();
+            ppd.PlayerID = pId;
+            ppd.Cause = cause;
+            ppd.ChangedAmount = amount;
+            ppd.ChangedDate = DateTime.Now;
+            db.PlayerPointDetails.Add(ppd);
+            db.SaveChanges();
+        }
 
     }
 }
