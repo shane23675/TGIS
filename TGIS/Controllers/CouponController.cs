@@ -108,14 +108,7 @@ namespace TGIS.Controllers
                 //從玩家扣除使用的點數
                 p.Points -= c.PointsRequired;
                 //產生點數使用明細
-                PlayerPointDetail pointDetail = new PlayerPointDetail
-                {
-                    PlayerID = p.ID,
-                    ChangedAmount = -c.PointsRequired,
-                    Cause = "兌換優惠券",
-                    ChangedDate = DateTime.Now
-                };
-                db.PlayerPointDetails.Add(pointDetail);
+                UsefulTools.PointRecord(p.ID, "兌換優惠券", -c.PointsRequired);
                 //產生玩家優惠券明細
                 PlayerCouponDetail couponDetail = new PlayerCouponDetail
                 {

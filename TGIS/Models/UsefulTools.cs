@@ -128,12 +128,15 @@ namespace TGIS.Models
             return isValid;
         }
         /// <summary>
-        /// PointRecord(PlayerID,點數變動原因,點數變動數量)
+        /// 新增一筆PlayerPointDetail資料
         /// </summary>
-        public static void PointRecord(string pId,string cause,int amount)
+        /// <param name="playerID">玩家ID</param>
+        /// <param name="cause">變動原因</param>
+        /// <param name="amount">變動數量(增加為正，減少為負)</param>
+        public static void PointRecord(string playerID,string cause,int amount)
         {
             PlayerPointDetail ppd = new PlayerPointDetail();
-            ppd.PlayerID = pId;
+            ppd.PlayerID = playerID;
             ppd.Cause = cause;
             ppd.ChangedAmount = amount;
             ppd.ChangedDate = DateTime.Now;
