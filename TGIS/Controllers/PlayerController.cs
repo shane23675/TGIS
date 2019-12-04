@@ -66,6 +66,7 @@ namespace TGIS.Controllers
             return Content(nickname);
         }
         //玩家變更圖片
+        [HttpPost]
         public ActionResult ChangePlayerPhoto(HttpPostedFileBase[] photo)
         {
             string playerID = (string)Session["PlayerID"];
