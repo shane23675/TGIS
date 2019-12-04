@@ -75,6 +75,9 @@
             @* 查到的資料會渲染在這裡(id="showResult") *@
         </dl>
     </div>
+    <div class="col-md-12">
+        @Html.ActionLink("Coupons", "CouponInShopIndex", "Coupon", new { shopID = Model.ID}, new { @class="btn btn-success"})
+    </div>
 </div>
 
 @section scripts{

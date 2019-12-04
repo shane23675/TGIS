@@ -440,6 +440,7 @@
     <Content Include="Views\Coupon\CouponCreate.cshtml" />
     <Content Include="Views\Coupon\CouponEdit.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
+    <Content Include="Views\Coupon\CouponInShopIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
