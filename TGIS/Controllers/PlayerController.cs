@@ -12,12 +12,6 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
        
-        //玩家頁面
-        public ActionResult PlayerIndex()
-        {
-            return View(db.Players.ToList());
-        }
-
         //創建玩家會員(註冊)
         public ActionResult PlayerCreate()
         {
@@ -30,9 +24,10 @@ namespace TGIS.Controllers
         {
             //檢查確認密碼是否輸入正確
             if (passwordConfirm != player.Password)
-            {
                 ModelState["Password"].Errors.Add("輸入的密碼和確認密碼不相符");
-            }
+            //檢查帳號是否重複
+            if (db.Players.Any(m=>m.Account == player.Account))
+                ModelState["Account"].Errors.Add("此帳號已經有人使用");
             //檢查帳號及密碼是否符合規則
             UsefulTools.RegisterValidate(player.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(player.Password, ModelState["Password"].Errors.Add, true, false);
@@ -85,18 +80,35 @@ namespace TGIS.Controllers
             }
             return RedirectToAction("PlayerDetail", new { playerID });
         }
+
+        //管理員查看玩家列表
+        public ActionResult PlayerIndex()
+        {
+            return View(db.Players.ToList());
+        }
+
         //管理員編輯玩家
         public ActionResult PlayerEdit(string playerID)
         {
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            Player p  = db.Players.Find(playerID);
-            TempData["Player_ID"] = playerID;
+            Player p = db.Players.Find(playerID);
+            TempData["Player"] = p;
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", p.District.CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", p.DistrictID);
             return View(p);
         }
         [HttpPost]
-        public ActionResult PlayerEdit(Player player)
+        public ActionResult PlayerEdit(Player player, int CityID, int DistrictID)
         {
-            player.ID = (string)TempData["Player_ID"];
+            //從TempData中取出原始資料並存入
+            Player p = (Player)TempData["Player"];
+            player.ID = p.ID;
+            player.Account = p.Account;
+            player.Password = p.Password;
+            player.NickName = p.NickName;
+            //將帳號相關檢查移除以免觸發錯誤
+            List<string> exceptions = new List<string>{ "Account", "Password", "NickName" };
+            exceptions.ForEach(m => ModelState[m].Errors.Clear());
+
             if (ModelState.IsValid)
             {
                 db.Entry(player).State = EntityState.Modified;
@@ -104,6 +116,9 @@ namespace TGIS.Controllers
 
                 return RedirectToAction("PlayerIndex");
             }
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", DistrictID);
+            TempData.Keep("Player_ID");
             return View(player);
         }
         //管理員刪除玩家資料

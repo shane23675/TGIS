@@ -15,113 +15,116 @@
     <h2>Teams</h2>
     @Html.ActionLink("Create a New Team", "TeamCreate")
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayPeriod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop.ShopName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        @if (usage == "TeamIndex" || usage == "Home")
-        {
+<table class="table table-bordered text-center">
+    <thead >
+        <tr class="table-success">
             <th>
-                @Html.DisplayNameFor(model => model.ParticipateEndDate)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
-        }
-        @if (usage == "TeamIndex" || usage == "Other")
-        {
             <th>
-                @Html.DisplayNameFor(model => model.LeaderPlayer.NickName) of Leader
+                @Html.DisplayNameFor(model => model.PlayPeriod)
             </th>
-        }
-        @if (usage == "Leader")
-        {
             <th>
-                @Html.DisplayNameFor(model => model.CurrentPlayers) / @Html.DisplayNameFor(m=>m.PlayerLimit)
+                @Html.DisplayNameFor(model => model.Shop.ShopName)
             </th>
-        }
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.Raw(item.PlayPeriod)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Shop.ShopName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
-    @if (usage == "TeamIndex" || usage == "Home")
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.ParticipateEndDate)
-        </td>
-    }
-    @if (usage == "TeamIndex" || usage == "Other")
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
-        </td>
-    }
-    @if (usage == "Leader")
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentPlayers) / @item.PlayerLimit
-        </td>
-    }
-<td>
-    @if (!item.IsExpired)
-    {
-        if (usage == "Leader")
-        {
-            //滿足最小人數才出現提早截團按鈕
-            if (item.CurrentPlayers >= item.MinPlayer)
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            @if (usage == "TeamIndex" || usage == "Home")
             {
-                <form action="@Url.Action("TeamDetailForPlayer")" method="post">
-                    <input type="hidden" name="teamID" value="@item.ID" />
-                    <input type="hidden" name="action" value="close" />
-                    <input type="hidden" name="playerID" value="@playerID" />
-                    <input type="hidden" name="fromMyTeam" value="true" />
-                    <input type="submit" class="btn btn-success" value="Close" />
-                </form>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParticipateEndDate)
+                </th>
             }
-            //取消出團按鈕
-            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
-                <input type="hidden" name="teamID" value="@item.ID" />
-                <input type="hidden" name="action" value="cancel" />
-                <input type="hidden" name="playerID" value="@playerID" />
-                <input type="hidden" name="fromMyTeam" value="true" />
-                <input type="submit" class="btn btn-danger" value="Cancel" />
-            </form>
-        }
-        else if (usage == "Other")
+            @if (usage == "TeamIndex" || usage == "Other")
+            {
+                <th>
+                    開團者
+                </th>
+            }
+            @if (usage == "Leader")
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrentPlayers) / @Html.DisplayNameFor(m => m.PlayerLimit)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            //退團按鈕
-            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
-                <input type="hidden" name="teamID" value="@item.ID" />
-                <input type="hidden" name="action" value="exit" />
-                <input type="hidden" name="playerID" value="@playerID" />
-                <input type="hidden" name="fromMyTeam" value="true" />
-                <input type="submit" class="btn btn-danger" value="Exit" />
-            </form>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.Raw(item.PlayPeriod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shop.ShopName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                @if (usage == "TeamIndex" || usage == "Home")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParticipateEndDate)
+                    </td>
+                }
+                @if (usage == "TeamIndex" || usage == "Other")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
+                    </td>
+                }
+                @if (usage == "Leader")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentPlayers) / @item.PlayerLimit
+                    </td>
+                }
+                <td>
+                    @if (!item.IsExpired)
+                    {
+                        if (usage == "Leader")
+                        {
+                            //滿足最小人數才出現提早結團按鈕
+                            if (item.CurrentPlayers >= item.MinPlayer)
+                            {
+                                <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                                    <input type="hidden" name="teamID" value="@item.ID" />
+                                    <input type="hidden" name="action" value="close" />
+                                    <input type="hidden" name="playerID" value="@playerID" />
+                                    <input type="hidden" name="fromMyTeam" value="true" />
+                                    <input type="submit" class="btn btn-success" value="提早結團" />
+                                </form>
+                            }
+                            //取消出團按鈕
+                            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                                <input type="hidden" name="teamID" value="@item.ID" />
+                                <input type="hidden" name="action" value="cancel" />
+                                <input type="hidden" name="playerID" value="@playerID" />
+                                <input type="hidden" name="fromMyTeam" value="true" />
+                                <input type="submit" class="btn btn-danger" value="取消此團" />
+                            </form>
+                        }
+                        else if (usage == "Other")
+                        {
+                            //退團按鈕
+                            <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                                <input type="hidden" name="teamID" value="@item.ID" />
+                                <input type="hidden" name="action" value="exit" />
+                                <input type="hidden" name="playerID" value="@playerID" />
+                                <input type="hidden" name="fromMyTeam" value="true" />
+                                <input type="submit" class="btn btn-danger" value="離開此團" />
+                            </form>
+                        }
+                    }
+                    @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID },new {@class="btn btn-info"})
+                </td>
+            </tr>
         }
-    }
-    @Html.ActionLink("Details", "TeamDetailForPlayer", new { teamID = item.ID })
-</td>
-</tr>
-}
-
+    </tbody>
 </table>

@@ -155,7 +155,8 @@
 <div>
     @Html.ActionLink("Cancel", "Index", "Home")
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@section scripts{
+    
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/address.js"></script>
@@ -173,9 +174,5 @@
     };
 
 
-    //crop
-
-
-
-
 </script>
+}

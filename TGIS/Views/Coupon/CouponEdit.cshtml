@@ -3,20 +3,6 @@
 @{
     ViewBag.Title = "CouponEdit";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
-    //取得嘗試輸入的資料的函數，用於輸入錯誤時保留輸入值
-    string GetData(string name)
-    {
-        var state = ViewData.ModelState[name];
-        if (state != null)
-        {
-            return state.Value.AttemptedValue;
-        }
-        else
-        {
-            //剛進入修改頁面時，顯示傳入的Model資料
-            return ((DateTime)Model.GetType().GetProperty(name).GetValue(Model)).ToString("yyyy-MM-dd");
-        }
-    }
 }
 
 <h2>CouponEdit</h2>
@@ -26,65 +12,63 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4 class="text-warning">Warning: Any change to this coupon will deactivate it, the new version of this coupon needs to be activated by admin again.</h4>
-    <hr />
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.ShopID)
+    <div class="form-horizontal">
+        <h4 class="text-warning">Warning: Any change to this coupon will deactivate it, the new version of this coupon needs to be activated by admin again.</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.BeginDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="date" id="BeginDate" name="BeginDate" class="form-control" value="@GetData("BeginDate")" />
-            @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m=>m.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="date" id="ExpireDate" name="ExpireDate" class="form-control" value="@GetData("ExpireDate")" />
-            @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PointsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PointsRequired, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PointsRequired, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PointsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PointsRequired, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PointsRequired, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.LimitedAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LimitedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.LimitedAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LimitedAmount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" onclick="return confirm('Save changes and deactivate this coupon?')" />
+            </div>
         </div>
     </div>
-    
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-primary" onclick="return confirm('Save changes and deactivate this coupon?')"/>
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "CouponIndexForShop")
 </div>
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/date_convert.js"></script>
 }
