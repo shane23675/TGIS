@@ -2,7 +2,7 @@
 @model IEnumerable<Team>
 
 @{
-    ViewBag.Title = "MyTeam";
+    ViewBag.Title = "會員中心";
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
     Player player = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 }
