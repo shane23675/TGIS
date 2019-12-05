@@ -12,7 +12,7 @@ namespace TGIS.Controllers
     public class ShopController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        //店家頁面
+        //管理員查看店家列表
         public ActionResult ShopIndex()
         {
             return View(db.Shops.ToList());
@@ -77,25 +77,24 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         [HttpPost]
-        public ActionResult MgShopEdit(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
+        public ActionResult MgShopEdit(Shop shop)
         {
-            shop.ID = (string)TempData["Shop_ID"];
+            //移除不能修改部分的ModelState錯誤
+            List<string> exceptions = new List<string>{ "ID", "Account", "Password", "ShopName", "OpeningHours", 
+                "Address", "AreaScale", "Tel"};
+            exceptions.ForEach(m => ModelState[m].Errors.Clear());
+
             if (ModelState.IsValid)
             {
-                db.Entry(shop).State = EntityState.Modified;
+                //找到原始店家資料並修改變動項目
+                Shop s = db.Shops.Find((string)TempData["Shop_ID"]);
+                s.IsVIP = shop.IsVIP;
+                s.ExpireDate = shop.ExpireDate;
+                s.AccumulatedHours = shop.AccumulatedHours;
+                s.IsAccountEnabled = shop.IsAccountEnabled;
+
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
-
-                //刪除被勾選的圖片
-                if (deletedPhotoID != null)
-                {
-                    foreach (int id in deletedPhotoID)
-                    {
-                        PhotoManager.Delete(id);
-                    }
-                }
-                //加入新圖片
-                PhotoManager.Create(shop.ID, newPhoto);
-
                 return RedirectToAction("ShopIndex");
             }
             return View(shop);
@@ -118,17 +117,37 @@ namespace TGIS.Controllers
         {
             var shop = db.Shops.Find(id);
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", shop.District.CityID);
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", shop.DistrictID);
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
+            ViewBag.AreaScale = new SelectList(new List<SelectListItem>{
+                new SelectListItem { Text = "大", Value = "大" },
+                new SelectListItem { Text = "中", Value = "中" },
+                new SelectListItem { Text = "小", Value = "小" }
+            }, "Value", "Text", shop.AreaScale);
             TempData["Shop_ID"] = id;
             return View(db.Shops.Find(id));
         }
         [HttpPost]
         public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
-            shop.ID = (string)TempData["Shop_ID"];
+            Shop s = db.Shops.Find((string)TempData["Shop_ID"]);
+
+            //清除ModelState中的錯誤以免無法通過
+            List<string> exceptions = new List<string> { "Account", "Password"};
+            exceptions.ForEach(m => ModelState[m].Errors.Clear());
+
             if (ModelState.IsValid)
             {
+                //取得原始檔案並將必要資料存入
+                shop.ID = s.ID;
+                shop.Account = s.Account;
+                shop.Password = s.Password;
+                shop.IsVIP = s.IsVIP;
+                shop.ExpireDate = s.ExpireDate;
+                shop.AccumulatedHours = s.AccumulatedHours;
+                
+                //取消追蹤變量s，以免儲存時發生錯誤
+                db.Entry(s).State = EntityState.Detached;
                 db.Entry(shop).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -143,8 +162,17 @@ namespace TGIS.Controllers
                 //加入新圖片
                 PhotoManager.Create(shop.ID, newPhoto);
 
-                return RedirectToAction("ShopIndex");
+                return RedirectToAction("ShopDetailForStore");
             }
+            ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", s.District.CityID);
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", s.DistrictID);
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(s.ID);
+            TempData.Keep("Shop_ID");
+            ViewBag.AreaScale = new SelectList(new List<SelectListItem>{
+                new SelectListItem { Text = "大", Value = "大" },
+                new SelectListItem { Text = "中", Value = "中" },
+                new SelectListItem { Text = "小", Value = "小" }
+            }, "Value", "Text", shop.AreaScale);
             return View(shop);
         }
         //店家看到店家詳細資料
@@ -173,6 +201,5 @@ namespace TGIS.Controllers
             }
             return Content(result);
         }
-
     }
 }

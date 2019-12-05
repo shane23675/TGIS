@@ -66,6 +66,7 @@ namespace TGIS.Controllers
             return Content(nickname);
         }
         //玩家變更圖片
+        [HttpPost]
         public ActionResult ChangePlayerPhoto(HttpPostedFileBase[] photo)
         {
             string playerID = (string)Session["PlayerID"];
@@ -130,6 +131,11 @@ namespace TGIS.Controllers
             //return RedirectToAction("PlayerIndex");
             //尚未完成
             return HttpNotFound();
+        }
+        public ActionResult PointRecord(string playerId)
+        {
+            var ppd = db.PlayerPointDetails.Where(m => m.PlayerID == playerId).ToList();
+            return View(ppd);
         }
 
     }

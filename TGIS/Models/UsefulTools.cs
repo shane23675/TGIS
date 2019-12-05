@@ -127,6 +127,22 @@ namespace TGIS.Models
             }
             return isValid;
         }
+        /// <summary>
+        /// 新增一筆PlayerPointDetail資料
+        /// </summary>
+        /// <param name="playerID">玩家ID</param>
+        /// <param name="cause">變動原因</param>
+        /// <param name="amount">變動數量(增加為正，減少為負)</param>
+        public static void PointRecord(string playerID,string cause,int amount)
+        {
+            PlayerPointDetail ppd = new PlayerPointDetail();
+            ppd.PlayerID = playerID;
+            ppd.Cause = cause;
+            ppd.ChangedAmount = amount;
+            ppd.ChangedDate = DateTime.Now;
+            db.PlayerPointDetails.Add(ppd);
+            db.SaveChanges();
+        }
 
     }
 }

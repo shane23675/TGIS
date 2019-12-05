@@ -32,11 +32,13 @@
         </dl>
         <dl class="row ml-1 col-8">
             <dt>
-                @Html.DisplayFor(model => model.District.DistrictName)
-                @Html.DisplayFor(m => m.District.City.CityName)
                 @Html.DisplayNameFor(model => model.Address)：
             </dt>
-            <dd>@Html.DisplayFor(model => model.Address)</dd>
+            <dd>
+                @Html.DisplayFor(m => m.District.City.CityName)
+                @Html.DisplayFor(model => model.District.DistrictName)
+                @Html.DisplayFor(model => model.Address)
+            </dd>
         </dl>
     </div>
     <div class="row">
