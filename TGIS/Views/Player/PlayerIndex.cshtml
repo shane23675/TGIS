@@ -72,7 +72,7 @@
         </td>
         <td>
             @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }) |
-            @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID })
+            @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID }, new { onclick = "return confirm('確定要刪除嗎？')"})
         </td>
     </tr>
 }
