@@ -32,18 +32,11 @@
         <div class="row form-group">
             <label class="control-label col-md-2">店家地址</label>
             <div class="col-md-2">
-                <select id="CityID" class="form-control">
-                    @foreach (SelectListItem c in (SelectList)(ViewBag.CityID))
-                    {
-                        <option value="@c.Value">@c.Text</option>
-                    }
-                </select>
+                @Html.DropDownList("CityID", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                <select id="DistrictID" name="DistrictID" class="form-control">
-                    <option value="@Model.DistrictID">@Model.District.DistrictName</option>
-                </select>
+                @Html.DropDownList("DistrictID", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-4">
@@ -68,7 +61,7 @@
             </div>
             @Html.LabelFor(model => model.AreaScale, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.AreaScale, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("AreaScale", null, new { @class="form-control"})
                 @Html.ValidationMessageFor(model => model.AreaScale, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -144,27 +137,27 @@
         </div>
     </div>
 }
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script>
-    //讓CityID一開始預設選擇Model對應的城市
-        $("#CityID").val(@Model.District.CityID);
-     //離開前跳小窗重複確認(參考他人,待優化)
-    var isChange = false;
-    $(function () {
-        $("input,textarea,select").change(function () {
-            isChange = true;
-            $(this).addClass("editing");
+
+@section scripts{
+    <script>
+        //離開前跳小窗重複確認(參考他人,待優化)
+        var isChange = false;
+        $(function () {
+            $("input,textarea,select").change(function () {
+                isChange = true;
+                $(this).addClass("editing");
+            });
+
+            $(window).bind('beforeunload', function () {
+                if (isChange || $(".editing").get().length > 0) {
+                    return '更改尚未儲存，確定離開？';
+                }
+            })
+        });
+        $("input:submit").click(function () {
+            $(window).unbind('beforeunload');
         });
 
-        $(window).bind('beforeunload', function () {
-            if (isChange || $(".editing").get().length > 0) {
-                return '更改尚未儲存，確定離開？';
-            }
-        })
-    });
-    $("input:submit").click(function () {
-        $(window).unbind('beforeunload');
-    });
-
-</script>
-<script src="~/Scripts/address.js"></script>
+    </script>
+    <script src="~/Scripts/address.js"></script>
+}

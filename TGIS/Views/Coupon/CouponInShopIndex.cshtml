@@ -1,0 +1,84 @@
+﻿@using TGIS.Models;
+@model IEnumerable<Coupon>
+
+@{
+    ViewBag.Title = "CouponInShopIndex";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    Player player = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
+}
+
+<h2>CouponInShopIndex</h2>
+@* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
+@if (player == null)
+{
+    <h3 class="text-warning">Please log in before you exchange any coupon.</h3>
+}
+else
+{
+    <h3>Points Remained: @player.Points</h3>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PointsRequired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LimitedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangedAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BeginDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExpireDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PointsRequired)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LimitedAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExchangedAmount)
+    </td>
+    @if (player != null)
+    {
+        <td>
+            @if (player.PlayerCouponDetails.Any(m=>m.CouponID == item.ID))
+            {
+                @: Exchanged
+            }
+            else if (player.Points < item.PointsRequired)
+            {
+                @: Insufficient Points
+            }
+            else
+            {
+                @Html.ActionLink("Exchange", "ExchangeCoupon", new { couponID = item.ID }, new { @class = "btn btn-primary" })
+            }
+        </td>
+    }
+
+</tr>
+}
+
+</table>

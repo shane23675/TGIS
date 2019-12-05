@@ -98,7 +98,7 @@
                                     <input type="hidden" name="action" value="close" />
                                     <input type="hidden" name="playerID" value="@playerID" />
                                     <input type="hidden" name="fromMyTeam" value="true" />
-                                    <input type="submit" class="btn btn-success" value="提早結團" />
+                                    <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')"/>
                                 </form>
                             }
                             //取消出團按鈕
@@ -107,7 +107,8 @@
                                 <input type="hidden" name="action" value="cancel" />
                                 <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger" value="取消此團" />
+                                <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')"　/>
+
                             </form>
                         }
                         else if (usage == "Other")
@@ -118,7 +119,7 @@
                                 <input type="hidden" name="action" value="exit" />
                                 <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger" value="離開此團" />
+                                <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')"/>
                             </form>
                         }
                     }

@@ -16,7 +16,6 @@ namespace TGIS.Models
     {
         public string PlayerID { get; set; }
         public string CouponID { get; set; }
-        public long Code { get; set; }
         public System.DateTime ExchangedDate { get; set; }
         public bool IsUsed { get; set; }
     

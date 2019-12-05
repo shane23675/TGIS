@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TGIS.Models.PlayerPointDetail>
+
+@{
+    ViewBag.Title = "PointRecord";
+    Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
+}
+
+<h2>PointRecord</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cause)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.Account)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChangedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cause)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChangedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.Account)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,7 +1,7 @@
 ﻿@model TGIS.Models.Player
 
 @{
-    ViewBag.Title = "PlayerDetail";
+    ViewBag.Title = "會員中心";
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
 }
 
@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-p">
+                <a  href="@Url.Action("PointRecord","Player",new { playerID = (string)Session["PlayerID"]})" class="nav-link nav-p">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>&nbsp;點數與優惠券管理</span>
                 </a>
@@ -28,96 +28,92 @@
             </li>
         </ul>
     </div>
-    <div class="body-content p-5">
-
-        <div class="col-8">
-            <span class="h2" id="nickNameDisplay">@Model.NickName</span>
-            <div class="row">
-                <input id="nickName" placeholder="輸入新暱稱" class="form-control col-2  ml-5 mr-2" />
-                <button type="button" id="changeNickNameBtn" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ShoppwChange">
+    <div class="body-content p-5 row">
+        <div class="col-9">
+            <div class="row ml-1">
+                <span class="h2 mr-3" id="nickNameDisplay">@Model.NickName</span>
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#PlayerNameChange">
                     更改暱稱
                 </button>
-                @* 之後追加跳窗 *@
             </div>
+            <hr />
+            <div class="row">
+                <dl class="row ml-1 col-5">
+                    <dt>@Html.DisplayNameFor(model => model.Account)：</dt>
+                    <dd>@Html.DisplayFor(model => model.Account)</dd>
+                </dl>
+                <dl class="row ml-1 col-4">
+                    <dt>密碼：</dt>
+                    <dd>
+                        @*<button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
+                                更改密碼
+                            </button>*@
+                        更改密碼(尚未完成)
+                    </dd>
+                </dl>
+            </div>
+            <div class="row">
+                <dl class="row ml-1 col-5">
+                    <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
+                    <dd>@Html.DisplayFor(model => model.Email)</dd>
+                </dl>
+                <dl class="row ml-1 col-4">
+                    @*<dt> @Html.DisplayNameFor(model => model.Points)=</dt>
+                        <dd>=@Html.DisplayFor(model => model.Points)</dd>*@
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsEmailValid)：
+                    </dt>
+
+                    <dd>
+                        @if (Model.IsEmailValid)
+                        {
+                            @: 已驗證
+                        }
+                        else
+                        {
+                            @: 尚未驗證
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="row">
+                <dl class="row ml-1 col-5">
+                    <dt>@Html.DisplayNameFor(model => model.Gender)：</dt>
+                    <dd>
+                        @if (Model.Gender)
+                        {
+                            @:男
+                        }
+                        else
+                        {
+                            @: 女
+                        }
+                    </dd>
+                </dl>
+                <dl class="row ml-1 col-4">
+                    <dt>@Html.DisplayNameFor(model => model.Birthday)：</dt>
+                    <dd>@Html.DisplayFor(model => model.Birthday)</dd>
+                </dl>
+            </div>
+            <dl class="row ml-1">
+                <dt>居住縣市：</dt>
+                <dd>
+                    @Html.DisplayFor(m => m.District.City.CityName)
+                    @Html.DisplayFor(model => model.District.DistrictName)
+                </dd>
+            </dl>
         </div>
-
-
-        <div class="col-3 ">
+        <div class="col-3  d-flex flex-column justify-content-center">
             <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=Model.ID, index=0})" alt="No photo" />
-            <button type="button" class="btn btn-outline-info btn-sm justify-content-center" data-toggle="modal" data-target="#PlayerPhotoChange">
+            <br />
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#PlayerPhotoChange">
                 更換大頭貼
             </button>
         </div>
-
-        <hr />
-        <div class="row">
-            <dl class="row ml-1 col-4">
-                <dt>@Html.DisplayNameFor(model => model.Account)：</dt>
-                <dd>@Html.DisplayFor(model => model.Account)</dd>
-            </dl>
-            <dl class="row ml-1 col-4">
-                <dt>密碼：</dt>
-                <dd>
-                    @*<button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
-                            更改密碼
-                        </button>*@
-                    更改密碼(尚未完成)
-                </dd>
-            </dl>
-        </div>
-        <div class="row">
-            <dl class="row ml-1 col-4">
-                <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
-                <dd>@Html.DisplayFor(model => model.Email)</dd>
-            </dl>
-            <dl class="row ml-1 col-8">
-                @*<dt> @Html.DisplayNameFor(model => model.Points)=</dt>
-                    <dd>=@Html.DisplayFor(model => model.Points)</dd>*@
-                <dt>
-                    @Html.DisplayNameFor(model => model.IsEmailValid)：
-                </dt>
-
-                <dd>
-                    @if (Model.IsEmailValid)
-                    {
-                        @: 已驗證
-                    }
-                    else
-                    {
-                        @: 尚未驗證
-                    }
-                </dd>
-            </dl>
-        </div>
-        <div class="row">
-            <dl class="row ml-1 col-4">
-                <dt>@Html.DisplayNameFor(model => model.Gender)：</dt>
-                <dd>
-                    @if (Model.Gender)
-                    {
-                        @:男
-                    }
-                    else
-                    {
-                        @: 女
-                    }
-                </dd>
-            </dl>
-            <dl class="row ml-1 col-8">
-                <dt>@Html.DisplayNameFor(model => model.Birthday)：</dt>
-                <dd>@Html.DisplayFor(model => model.Birthday)</dd>
-            </dl>
-        </div>
-
-        <dl class="row ml-1">
-            <dt>居住縣市：</dt>
-            <dd>
-                @Html.DisplayFor(m => m.District.City.CityName)
-                @Html.DisplayFor(model => model.District.DistrictName)
-            </dd>
-        </dl>
-        @section Script{
-            <script>
+    </div>
+</div>
+@section Script{
+    <script>
         //變更暱稱
         $("#changeNickNameBtn").click(function () {
             $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
@@ -126,15 +122,14 @@
         })
         //選擇檔案後變更圖片的按鈕才能點擊
         $("#photoInput").change(function () {
-            if ($("#photoInput").val() != "")
+            if ($("#photoInput").val() != "") 
                 $("#changePhotoBtn").prop("disabled", "");
-            else
-                $("#changePhotoBtn").prop("disabled", "disabled");
+            else 
+            $("#changePhotoBtn").prop("disabled", "disabled");                    
         })
-            </script>
-        }
-    </div>
-</div>
+        //追加：按鈕顏色更換
+    </script>
+}
 <!-- 更改密碼的跳出窗 -->
 @*<div class="modal fade" id="ShoppwChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -199,12 +194,12 @@
         </script>
     }*@
 <!-- 更改頭貼的跳出窗 -->
-<div class="modal fade" id="PlayerPhotoChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
+<div class="modal fade" id="PlayerPhotoChange" tabindex="-1" role="dialog" aria-labelledby="PlayerPhotoChange" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form action="@Url.Action("ChangePlayerPhoto", "Player")" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ShopPasswordChange">更換頭貼</h5>
+                    <h5 class="modal-title" id="PlayerPhotoChange">更換頭貼</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -213,9 +208,28 @@
                     <input type="file" name="photo" id="photoInput" />
                 </div>
                 <div class="modal-footer">
-                    <button id="changePhotoBtn" type="button" class="btn btn-primary">更換大頭貼</button>
+                    <input id="changePhotoBtn" type="submit" class="btn btn-secondary" value="更換大頭貼" disabled/>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<!-- 更改暱稱的跳出窗 -->
+<div class="modal fade" id="PlayerNameChange" tabindex="-1" role="dialog" aria-labelledby="PlayerNameChange" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PlayerNameChange">更換暱稱</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="nickName" placeholder="@Model.NickName" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button id="changeNickNameBtn" type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">確認更改</button>
+            </div>
         </div>
     </div>
 </div>
