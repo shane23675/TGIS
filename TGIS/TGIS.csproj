@@ -443,6 +443,9 @@
     <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
     <Content Include="Views\Player\PointRecord.cshtml" />
     <Content Include="Views\Coupon\CouponInShopIndex.cshtml" />
+    <Content Include="Views\NormalOffer\OfferCreate.cshtml" />
+    <Content Include="Views\NormalOffer\OfferList.cshtml" />
+    <Content Include="Views\NormalOffer\OfferDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -451,7 +454,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\NormalOffer\" />
     <Folder Include="Views\TableGameInShop\" />
     <Folder Include="Views\TGComment\" />
   </ItemGroup>

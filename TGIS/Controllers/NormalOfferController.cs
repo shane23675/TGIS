@@ -21,13 +21,15 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult OfferCreate(NormalOffer normalOffer)
+        public ActionResult OfferCreate(NormalOffer normalOffer, HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
+                normalOffer.ShopID = Session["ShopID"].ToString();
                 db.NormalOffers.Add(normalOffer);
+                PhotoManager.Create(normalOffer.ID, new HttpPostedFileBase[] { photo });
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("OfferList");
             }
             return View();
         }
@@ -52,6 +54,10 @@ namespace TGIS.Controllers
             db.NormalOffers.Remove(offer);
             db.SaveChanges();
             return View();
+        }
+        public ActionResult OfferDetail(string id)
+        {
+            return View(db.NormalOffers.Find(id));
         }
     }
 }
