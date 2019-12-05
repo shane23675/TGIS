@@ -1,18 +1,24 @@
 ﻿@model TGIS.Models.Shop
 
 
-@using (Html.BeginForm("MgShopEdit", "Shop", FormMethod.Post, new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("MgShopEdit", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Shop</h4>
         <hr />
         <div class="form-group">
+            @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ID)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Account)
             </div>
         </div>
 
@@ -27,40 +33,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ShopName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShopName, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.ShopName)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.OpeningHours, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.OpeningHours)
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.District.CityID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.District.City.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.District.City.ID, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.District.City.CityName)
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.DistrictID, "DistrictID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.District.DistrictName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="districtID" name="DistrictID" class="form-control">
-                    <option value="@Model.DistrictID">@Model.District.DistrictName</option>
-                </select>
-                @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.District.DistrictName)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Address)
             </div>
         </div>
 
@@ -68,8 +67,7 @@
             @Html.LabelFor(model => model.IsMinConsumeRequired, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsMinConsumeRequired)
-                    @Html.ValidationMessageFor(model => model.IsMinConsumeRequired, "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model => model.IsMinConsumeRequired)
                 </div>
             </div>
         </div>
@@ -78,8 +76,7 @@
             @Html.LabelFor(model => model.IsFoodAcceptable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsFoodAcceptable)
-                    @Html.ValidationMessageFor(model => model.IsFoodAcceptable, "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model => model.IsFoodAcceptable)
                 </div>
             </div>
         </div>
@@ -87,40 +84,35 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AreaScale, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AreaScale, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AreaScale, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.AreaScale)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Tel)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Email)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Line, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Line, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Line, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Line)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Website)
             </div>
         </div>
 
@@ -163,8 +155,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Description)
             </div>
         </div>
 
@@ -181,19 +172,9 @@
                     {
                         <div class="col-md-4">
                             <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
-                            <div>
-                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
-                            </div>
                         </div>
                     }
                 }
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
-            <div class="col-md-10 row">
-                <input type="file" name="newPhoto" multiple />
             </div>
         </div>
 
@@ -201,26 +182,13 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="儲存" class="btn btn-primary" />
-                @Html.ActionLink("返回", "ShopIndex", null, new { @class="btn btn-light ml-4"})
+                @Html.ActionLink("返回", "ShopIndex", null, new { @class = "btn btn-light ml-4" })
             </div>
         </div>
     </div>
 }
 
+@section scripts{
+    <script src="~/Scripts/date_convert.js"></script>
+}
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
-<script>
-    //讓cityID一開始預設選擇Model對應的城市
-    init();
-    $("#CityID").change(init);
-    function init() {
-        CId = $("#CityID").val();
-        Did = $("#districtID").val();
-        $.post("/ajax/generateStateList", { CId, Did }, callback)
-    }
-    function callback(val) {
-        $("#districtID").html(val);
-    }
-
-</script>

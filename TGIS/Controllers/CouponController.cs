@@ -89,5 +89,41 @@ namespace TGIS.Controllers
             }
             return View(coupon);
         }
+
+        //玩家查看店家優惠券列表
+        public ActionResult CouponInShopIndex(string shopID)
+        {
+            //僅傳入可兌換的優惠券
+            return View(db.Shops.Find(shopID).Coupons.Where(m=>m.IsExchangable).ToList());
+        }
+
+        //玩家兌換優惠券
+        public ActionResult ExchangeCoupon(string couponID)
+        {
+            Coupon c = db.Coupons.Find(couponID);
+            Player p = db.Players.Find(Session["PlayerID"]);
+            //排除不能兌換、已經兌換過的優惠券
+            if (c.IsExchangable && !p.PlayerCouponDetails.Any(m=>m.Coupon.Equals(c)))
+            {
+                //從玩家扣除使用的點數
+                p.Points -= c.PointsRequired;
+                //產生點數使用明細
+                UsefulTools.PointRecord(p.ID, "兌換優惠券", -c.PointsRequired);
+                //產生玩家優惠券明細
+                PlayerCouponDetail couponDetail = new PlayerCouponDetail
+                {
+                    CouponID = c.ID,
+                    PlayerID = p.ID,
+                    ExchangedDate = DateTime.Now,
+                    IsUsed = false
+                };
+                db.PlayerCouponDetails.Add(couponDetail);
+                db.SaveChanges();
+
+                return RedirectToAction("CouponInShopIndex", new { shopID = c.ShopID });
+            }
+            //優惠券已無法兌換則顯示錯誤訊息
+            return HttpNotFound();
+        }
     }
 }

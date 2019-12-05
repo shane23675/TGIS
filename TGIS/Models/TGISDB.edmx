@@ -126,7 +126,6 @@
           </Key>
           <Property Name="PlayerID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="CouponID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Code" Type="bigint" Nullable="false" />
           <Property Name="ExchangedDate" Type="datetime" Nullable="false" />
           <Property Name="IsUsed" Type="bit" Nullable="false" />
         </EntityType>
@@ -786,7 +785,6 @@
           </Key>
           <Property Name="PlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CouponID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Code" Type="Int64" Nullable="false" />
           <Property Name="ExchangedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsUsed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Coupon" Relationship="Self.Relationship39" FromRole="PlayerCouponDetail" ToRole="Coupon" />
@@ -1436,7 +1434,6 @@
               <MappingFragment StoreEntitySet="PlayerCouponDetail">
                 <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ExchangedDate" ColumnName="ExchangedDate" />
                 <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
               </MappingFragment>

@@ -32,6 +32,14 @@ namespace TGIS.Models
                 return PlayerCouponDetails.Count;
             }
         }
+        [DisplayName("是否可兌換")]
+        public bool IsExchangable
+        {
+            get
+            {
+                return IsAvailable && DateTime.Today <= ExpireDate && ExchangedAmount < LimitedAmount;
+            }
+        }
     }
     public class MetadataCoupon
     {
@@ -213,7 +221,7 @@ namespace TGIS.Models
         public int ID { get; set; }
         [DisplayName("玩家會員編號")]
         public string PlayerID { get; set; }
-        [DisplayName("點數變化"),Range(0,int.MaxValue)]
+        [DisplayName("點數變化"),Range(int.MinValue,int.MaxValue)]
         public int ChangedAmount { get; set; }
         [DisplayName("變動原因"),StringLength(20)]
         public string Cause { get; set; }
@@ -267,7 +275,7 @@ namespace TGIS.Models
         public string Website { get; set; }
         [DisplayName("是否啟用VIP")]
         public bool IsVIP { get; set; }
-        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("到期日"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         public Nullable<DateTime> ExpireDate { get; set; }
         [DisplayName("累積加值月數"), Range(0, int.MaxValue)]
         public Nullable<int> AccumulatedHours { get; set; }
