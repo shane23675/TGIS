@@ -31,10 +31,13 @@
                 }
                 else
                 {
-                    <div class="form-inline">
-                        <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                        <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
-                    </div>
+            <div class="form-inline">
+                <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+                <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#loginModal">
+                    新版登入鈕
+                </button>
+            </div>
                 }
             </div>
         </nav>
@@ -77,21 +80,44 @@
     </footer>
 
     <!-- 登入的跳出窗 -->
-    <div class="modal fade" id="依需要取名" tabindex="-1" role="dialog" aria-labelledby="同id" aria-hidden="true">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="PlayerNameChange">選擇你的身分</h5>
+                    <h5 class="modal-title" id="">選擇你的身分</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input id="nickName" placeholder="@Model.NickName" class="form-control" maxlength="10" />
-                    <p>暱稱長度為10個字以內(不分中英文)</p>
+                    <ul class="nav nav-tabs" id="LoginTab" role="tablist">
+                        <li class="nav-item active">
+                            <a class="nav-link active" id="player-tab" data-toggle="tab" href="#player" role="tab" aria-controls="player" aria-selected="true">玩家</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="shoper-tab" data-toggle="tab" href="#shoper" role="tab" aria-controls="shoper" aria-selected="false">店家</a>
+                        </li>                     
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="player" role="tabpanel" aria-labelledby="player-tab">
+                            <span>帳號：</span>
+                            <input id="ac" type="text" name="account" class="form-control" /><br />
+                            <span>密碼：</span>
+                            <input id="pwd" type="password" name="pwd" class="form-control" />
+                            <p class="text-danger">@ViewBag.Error</p>
+                            <button type="button" class="btn btn-secondary">@Html.ActionLink("Forget Password", "ForgetPwd", new { }, new { style = "color:#f0f0f0;text-decoration:none" })</button>
+                        </div>
+                        <div class="tab-pane fade" id="shoper" role="tabpanel" aria-labelledby="shoper-tab">
+                            <span>帳號：</span>
+                            <input id="ac" type="text" name="account" class="form-control" /><br />
+                            <span>密碼：</span>
+                            <input id="pwd" type="password" name="pwd" class="form-control" />
+                            <p class="text-danger">@ViewBag.Error</p>
+                        </div>    
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="changeNickNameBtn" type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">確認更改</button>
+                    <button id="changeNickNameBtn" type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">登入</button>
                 </div>
             </div>
         </div>
