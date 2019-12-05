@@ -129,13 +129,31 @@ namespace TGIS.Controllers
         //管理員刪除玩家資料
         public ActionResult PlayerDelete(string playerID)
         {
-            //Player p = db.Players.Find(playerID);
-            //db.Players.Remove(p);
-            //db.SaveChanges();
-            //return RedirectToAction("PlayerIndex");
-            //尚未完成
-            return HttpNotFound();
+            Player p = db.Players.Find(playerID);
+            //刪除桌遊評論
+            p.TableGameComments.ToList().ForEach(m => db.TableGameComments.Remove(m));
+            //刪除相關圖片
+            PhotoManager.Delete(playerID);
+            //刪除優惠券明細
+            p.PlayerCouponDetails.ToList().ForEach(m => db.PlayerCouponDetails.Remove(m));
+            //刪除點數明細
+            p.PlayerPointDetails.ToList().ForEach(m => db.PlayerPointDetails.Remove(m));
+            //刪除揪桌人員明細
+            p.TeamsForOtherPlayer.ToList().ForEach(m => m.OtherPlayers.Remove(p));
+            //刪除揪桌主檔
+            p.TeamsForLeader.ToList().ForEach(m =>
+            {
+                //先刪除該桌的訊息
+                m.Messages.ToList().ForEach(n => db.Messages.Remove(n));
+                db.Teams.Remove(m);
+            });
+            //刪除玩家本身
+            db.Players.Remove(p);
+            db.SaveChanges();
+            return RedirectToAction("PlayerIndex");
         }
+
+        //玩家點數更動明細
         public ActionResult PointRecord(string playerId)
         {
             var ppd = db.PlayerPointDetails.Where(m => m.PlayerID == playerId).ToList();

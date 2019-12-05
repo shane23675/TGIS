@@ -43,7 +43,7 @@
             <div class="pmenulist">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">PlayerDetail</a>
+                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">會員中心</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">點數與優惠券管理</a>
@@ -52,7 +52,7 @@
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Login",new { sessionName = "PlayerID"})">Sign out</a>
+                        <a class="nav-link" href="@Url.Action("Logout", "Login",new { sessionName = "PlayerID"})">登出</a>
                     </li>
                 </ul>
             </div>
