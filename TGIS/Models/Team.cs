@@ -24,7 +24,6 @@ namespace TGIS.Models
         public string ID { get; set; }
         public string ShopID { get; set; }
         public string LeaderPlayerID { get; set; }
-        public string Title { get; set; }
         public System.DateTime ParticipateEndDate { get; set; }
         public string Notes { get; set; }
         public System.DateTime PlayDate { get; set; }
@@ -36,6 +35,7 @@ namespace TGIS.Models
         public int MaxPlayer { get; set; }
         public bool IsCanceled { get; set; }
         public bool IsClosed { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }

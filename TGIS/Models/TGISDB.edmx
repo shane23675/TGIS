@@ -232,7 +232,7 @@
           <Property Name="ID" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="Title" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="datetime" Nullable="false" />
           <Property Name="Notes" Type="nvarchar" MaxLength="100" />
           <Property Name="PlayDate" Type="date" Nullable="false" />
@@ -916,7 +916,6 @@
           <Property Name="ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Messages" Relationship="Self.Relationship25" FromRole="Team" ToRole="Message" />
@@ -932,6 +931,7 @@
           <Property Name="MaxPlayer" Type="Int32" Nullable="false" />
           <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
           <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="Relationship24">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -1545,6 +1545,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="TGISDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
                 <ScalarProperty Name="MaxPlayer" ColumnName="MaxPlayer" />
@@ -1557,7 +1558,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="LeaderPlayerID" ColumnName="LeaderPlayerID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ParticipateEndDate" ColumnName="ParticipateEndDate" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
               </MappingFragment>
