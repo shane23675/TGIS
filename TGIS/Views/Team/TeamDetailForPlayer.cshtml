@@ -10,12 +10,12 @@
     var db = new TGISDBEntities();
 }
 
-            
-  
-<span class="h2">@Html.DisplayFor(model => model.Title)</span><span class="h6">@Model.Status</span>
+
+
+<span class="h1">@Html.DisplayFor(model => model.Title)</span><span class="h6">@Model.Status</span>
 <hr />
 <div class="info ml-3">
-    
+
     <div class="row">
         <dl class="row col-6">
             <dt>@Html.DisplayNameFor(model => model.ParticipateEndDate)：</dt>
@@ -39,6 +39,8 @@
             <dd>
                 @{ Shop s = Model.Shop;}
                 @Html.ActionLink(s.ShopName, "ShopDetailForPlayer", "Shop", new { id = s.ID }, new { @class = "" })
+                <a tabindex="0" id="shopinfo" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus"  data-html="true"  
+                   title="地點資訊" data-content="<img src='~/images/B02.jpg' /><br />地圖,地址,'了解更多'的超連結按鈕">店家名稱</a>
             </dd>
         </dl>
     </div>
@@ -57,6 +59,7 @@
                         @Html.ActionLink(tg.ChineseName, "ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID }, new { @class = "" })
                     }
                 }
+                <a tabindex="0" id="shopinfo" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus" title="關於此桌遊" data-content="首圖,'了解更多'的超連結按鈕">桌遊名稱</a>
             </dd>
         </dl>
         <dl class="row col-6">
@@ -64,133 +67,119 @@
             <dd>@Html.DisplayFor(m => m.PlayerLimit)<span>人</span></dd>
         </dl>
     </div>
-        <dl class="row">
-            <dt>@Html.DisplayNameFor(model => model.EstimatedCost)：</dt>
-            <dd>@Html.DisplayFor(model => model.EstimatedCost)</dd>
-        </dl>
-        <dl class="row">
-            <dt>@Html.DisplayNameFor(model => model.Notes)：</dt>
-            <dd>@Html.DisplayFor(model => model.Notes)</dd>
-        </dl>
-        <dl class="row">
-            <dt>目前參團名單：</dt>
-            <dd>
-                @foreach (Player p in Model.OtherPlayers)
-                {
-                    <p>@p.NickName</p>
-                }
-                @if (Model.CurrentPlayers == 1)
-                {
-                    <p class="text-info">目前無人參加</p>
-                }
-            </dd>
-        </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-    @if (isLeader)
-    {
-        <h3 class="text-warning">你是開團者</h3>
-    }
-    else if (isInTeam)
-    {
-        <h3 class="text-warning">你已經參加此團</h3>
-    }
-
-
-    @{
-        string btnInfo = "";
-        string action = "";
-        string disabled = "";
-        //尚未登入
-        if (Session["PlayerID"] == null)
-        {
-            @Html.ActionLink("登入進行參團", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
-        }
-        //已取消或已提早成團、超過截止日期
-        else if (Model.IsExpired && !Model.IsClosed)
-        {
-            //隊長可以重開此團
-            if (isLeader)
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.EstimatedCost)：</dt>
+        <dd>@Html.DisplayFor(model => model.EstimatedCost)</dd>
+    </dl>
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.Notes)：</dt>
+        <dd>@Html.DisplayFor(model => model.Notes)</dd>
+    </dl>
+    <dl class="row">
+        <dt>目前參團名單：</dt>
+        <dd>
+            @foreach (Player p in Model.OtherPlayers)
             {
-                using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
-                {
-                    @Html.Hidden("ID", UsefulTools.GetNextID(new TGISDBEntities().Teams, 1))
-                    @Html.Hidden("CityID", Model.Shop.District.CityID)
-                    @Html.Hidden("LeaderPlayerID", Model.LeaderPlayerID)
-                    @Html.Hidden("DistrictID", Model.Shop.DistrictID)
-                    @Html.Hidden("ShopID", Model.ShopID)
-                    @Html.Hidden("Title", Model.Title)
-                    @Html.Hidden("ParticipateEndDate", Model.ParticipateEndDate)
-                    @Html.Hidden("PlayDate", Model.PlayDate)
-                    @Html.Hidden("PlayBeginTime", Model.PlayBeginTime)
-                    @Html.Hidden("PlayEndTime", Model.PlayEndTime)
-                    @Html.Hidden("EstimatedCost", Model.EstimatedCost)
-                    @Html.Hidden("Preference", Model.Preference)
-                    @Html.Hidden("MinPlayer", Model.MinPlayer)
-                    @Html.Hidden("MaxPlayer", Model.MaxPlayer)
-                    @Html.Hidden("Notes", Model.Notes)
-                    <input type="submit" class="btn btn-primary" value="重開此團" />
-                }
+                <p>@p.NickName</p>
             }
+            @if (Model.CurrentPlayers == 1)
+            {
+                <p class="text-info">目前無人參加</p>
+            }
+        </dd>
+    </dl>
+
+
+
+</div>
+@if (isLeader)
+{
+    <h3 class="text-warning">你是開團者</h3>
+}
+else if (isInTeam)
+{
+    <h3 class="text-warning">你已經參加此團</h3>
+}
+
+
+@{
+    string btnInfo = "";
+    string action = "";
+    string disabled = "";
+    //尚未登入
+    if (Session["PlayerID"] == null)
+    {
+        @Html.ActionLink("進行登入", "LoginForPlayer", "Login", null, new { @class = "btn btn-primary" })
+    }
+    //討論是否需要此鈕
+    //已取消或已提早成團、超過截止日期
+    else if (Model.IsExpired && !Model.IsClosed)
+    {
+        //隊長可以重開此團
+        if (isLeader)
+        {
+            using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
+            {
+                @Html.Hidden("ID", UsefulTools.GetNextID(new TGISDBEntities().Teams, 1))
+                @Html.Hidden("CityID", Model.Shop.District.CityID)
+                @Html.Hidden("LeaderPlayerID", Model.LeaderPlayerID)
+                @Html.Hidden("DistrictID", Model.Shop.DistrictID)
+                @Html.Hidden("ShopID", Model.ShopID)
+                @Html.Hidden("Title", Model.Title)
+                @Html.Hidden("ParticipateEndDate", Model.ParticipateEndDate)
+                @Html.Hidden("PlayDate", Model.PlayDate)
+                @Html.Hidden("PlayBeginTime", Model.PlayBeginTime)
+                @Html.Hidden("PlayEndTime", Model.PlayEndTime)
+                @Html.Hidden("EstimatedCost", Model.EstimatedCost)
+                @Html.Hidden("Preference", Model.Preference)
+                @Html.Hidden("MinPlayer", Model.MinPlayer)
+                @Html.Hidden("MaxPlayer", Model.MaxPlayer)
+                @Html.Hidden("Notes", Model.Notes)
+                <input type="submit" class="btn btn-danger" value="重開此團" />
+            }
+        }
+    }
+    else
+    {
+        if (isLeader)
+        {
+            btnInfo = "取消此團";
+            action = "取消";
+        }
+        else if (isInTeam)
+        {
+            btnInfo = "退出此團";
+            action = "退出";
         }
         else
         {
-            if (isLeader)
+            //若已經額滿，則讓功能鈕失效
+            disabled = Model.CurrentPlayers >= Model.MaxPlayer ? "disabled" : "";
+            btnInfo = "加入此團";
+            action = "加入";
+        }
+        using (Html.BeginForm())
+        {
+            <input type="hidden" name="teamID" value="@Model.ID" />
+            <input type="hidden" name="action" id="action" value="@action" />
+            <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
+            <button class="btn btn-primary" type="submit" @disabled onclick="return confirm('你確定要 @action 此團嗎??')">@btnInfo</button>
+            if (isLeader && Model.OtherPlayers.Count + 1 >= Model.MinPlayer)
             {
-                btnInfo = "取消此團";
-                action = "取消";
-            }
-            else if (isInTeam)
-            {
-                btnInfo = "退出此團";
-                action = "退出";
-            }
-            else
-            {
-                //若已經額滿，則讓功能鈕失效
-                disabled = Model.CurrentPlayers >= Model.MaxPlayer ? "disabled" : "";
-                btnInfo = "加入此團";
-                action = "加入";
-            }
-            using (Html.BeginForm())
-            {
-                <input type="hidden" name="teamID" value="@Model.ID" />
-                <input type="hidden" name="action" id="action" value="@action" />
-                <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
-                <button class="btn btn-primary" type="submit" @disabled onclick="return confirm('你確定要 @action 此團嗎??')">@btnInfo</button>
-                if (isLeader && Model.OtherPlayers.Count + 1 >= Model.MinPlayer)
-                {
-                    <!-- 提前截止的按鈕，按下同時會讓發出的action變為close -->
-                    <button class="btn btn-secondary" type="submit" onclick="$('#action').val('close'); return confirm('Are you sure you want to @action this team?')">提早結團</button>
-                }
+                <!-- 提前截止的按鈕，按下同時會讓發出的action變為close -->
+                <button class="btn btn-success" type="submit" onclick="$('#action').val('close'); return confirm('Are you sure you want to @action this team?')">提早結團</button>
             }
         }
-
     }
-    <p>@Html.ActionLink("回到糾桌列表", "TeamIndexForPlayer")</p>
 
+}
+<span class="btn btn-info text-white">@Html.ActionLink("回到糾桌列表", "TeamIndexForPlayer")</span>
+@section scripts{
+    <script>
+        //店家的彈出框
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+    </script>
+    }
 

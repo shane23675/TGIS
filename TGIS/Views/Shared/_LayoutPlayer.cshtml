@@ -43,7 +43,7 @@
             <div class="pmenulist">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">PlayerDetail</a>
+                        <a class="nav-link" href="@Url.Action("個人資訊", "Player", new { playerID = (string)Session["PlayerID"]})">PlayerDetail</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">點數與優惠券管理</a>
@@ -52,7 +52,7 @@
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Login",new { sessionName = "PlayerID"})">Sign out</a>
+                        <a class="nav-link" href="@Url.Action("Logout", "Login",new { sessionName = "PlayerID"})">登出</a>
                     </li>
                 </ul>
             </div>
@@ -75,6 +75,28 @@
             <a class="nav-link" href="#">聯絡我們</a>
         </nav>
     </footer>
+
+    <!-- 登入的跳出窗 -->
+    <div class="modal fade" id="依需要取名" tabindex="-1" role="dialog" aria-labelledby="同id" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="PlayerNameChange">選擇你的身分</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="nickName" placeholder="@Model.NickName" class="form-control" maxlength="10" />
+                    <p>暱稱長度為10個字以內(不分中英文)</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="changeNickNameBtn" type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">確認更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
