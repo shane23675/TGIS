@@ -61,6 +61,10 @@ namespace TGIS.Controllers
         public ActionResult ChangeNickName(string playerID, string nickname)
         {
             Player p = db.Players.Find(playerID);
+            //暱稱不得超過15字
+            if (nickname.Length > 15)
+                nickname = nickname.Substring(0, 15);
+
             p.NickName = nickname;
             db.SaveChanges();
             return Content(nickname);
