@@ -55,11 +55,24 @@ namespace TGIS.Controllers
         //刪除店家資料
         public ActionResult ShopDelete(string id)
         {
+            Shop s = db.Shops.Find(id);
             //刪除該店家的圖片
             PhotoManager.Delete(id);
-
+            //刪除店內桌遊明細
+            db.TableGameInShopDetails.RemoveRange(s.TableGameInShopDetails);
+            //刪除一般優惠(活動)
+            db.NormalOffers.RemoveRange(s.NormalOffers);
+            //刪除優惠券主檔及其明細
+            s.Coupons.ToList().ForEach(m => db.PlayerCouponDetails.RemoveRange(m.PlayerCouponDetails));
+            db.Coupons.RemoveRange(s.Coupons);
+            //刪除揪桌主檔及其相關資料
+            foreach(Team t in s.Teams)
+            {
+                t.OtherPlayers.Clear();
+                t.Messages.Clear();
+                db.Teams.Remove(t);
+            }
             //最後再刪除店家本身
-            Shop s = db.Shops.Find(id);
             db.Shops.Remove(s);
             db.SaveChanges();
 
