@@ -26,14 +26,13 @@
                     Player p = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#centerP" aria-controls="centerP" aria-expanded="false" aria-label="Toggle navigation">
-                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID,index=0 })" width="60" height="60" class="playericon" />
+                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = p.ID, index = 0 })" width="60" height="60" class="playericon" />
                     </button>
                 }
                 else
                 {
             <div class="form-inline">
                 <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                <a class="nav-link" href="@Url.Action("LoginForPlayer", "Login")">登入</a>
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#loginModal">
                     新版登入鈕
                 </button>
@@ -46,7 +45,7 @@
             <div class="pmenulist">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">個人資訊</a>
+                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"] })">個人資訊</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">點數與優惠券管理</a>
@@ -55,7 +54,7 @@
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Login",new { sessionName = "PlayerID"})">登出</a>
+                        <a class="nav-link" href="@Url.Action("Logout", "Login", new { sessionName = "PlayerID" })">登出</a>
                     </li>
                 </ul>
             </div>
@@ -156,7 +155,7 @@
                             break;
                         case "2":
                             alert("登入成功")
-                            location.reload();
+                            break;
                     }
                 }
             )
