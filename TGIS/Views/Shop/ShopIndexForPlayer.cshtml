@@ -1,4 +1,4 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 @model IEnumerable<Shop>
 
 @{
@@ -21,11 +21,11 @@
     <div class="col-md-12">
         <ul class="nav nav-pills nav-fill my-3">
             <li class="nav-item">
-                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
 
             </li>
             <li class="nav-item">
-                <a class="nav-link">Shops</a>
+                <a class="nav-link">店家列表</a>
             </li>
             <li class="nav-item">
                 @Html.DropDownList("CityID", null, new { @class = "form-control" })
@@ -35,7 +35,7 @@
             </li>
             <li class="nav-item">
                 <input class="form-control d-inline" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success mb-1" type="submit">Search</button>
+                <button class="btn btn-outline-success mb-1" type="submit">搜尋</button>
             </li>
         </ul>
 
