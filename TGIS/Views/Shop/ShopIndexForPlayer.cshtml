@@ -1,10 +1,11 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 @model IEnumerable<Shop>
 
 @{
     ViewBag.Title = "ShopIndexForPlayer";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
-    int count = 0;
+    //搜尋某桌遊的資訊
+    TableGame game = (TableGame)ViewBag.SearchingTGInfo;
 }
 
 <style>
@@ -36,11 +37,19 @@
                 <form class="form-inline my-2 my-lg-0">
                     @Html.DropDownList("CityID", null, new { @class = "form-control mr-1" })
                     @Html.DropDownList("DistrictID", null, new { @class = "form-control mr-1" })
+                    @if (game != null)
+                    {
+                        <input type="hidden" name="searchedTableGameID" value="@game.ID" />
+                    }
                     <input class="form-control mr-sm-2 w-auto" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜尋</button>
                 </form>
             </div>
         </nav>
+@if(game != null)
+{
+    <p>正在搜尋包含"@game.ChineseName"的店家</p>
+}
 
     <!-- 店家列表 -->
 
@@ -75,6 +84,7 @@
             </div>
         </div>
     }
-</div>
-<script src="~/Scripts/address.js"></script>
-<script src="~/Scripts/address.js"></script>
+
+@section scripts{
+    <script src="~/Scripts/address.js"></script>
+}
