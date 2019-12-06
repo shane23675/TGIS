@@ -1,4 +1,4 @@
-﻿@*@using TGIS.Models
+@*@using TGIS.Models
     @model IEnumerable<TableGame>*@
 
 @{
@@ -62,14 +62,11 @@
     </div>
     <div class="col-md-8 m-1">
 
-        <div class="card">
-            <div class="card-header">
-                網站公告
-            </div>
-            <div class="card-body">
+
+            <h3><strong>網站公告</strong></h3>
                 @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
-            </div>
-        </div>
+
+
 
 
         <hr />

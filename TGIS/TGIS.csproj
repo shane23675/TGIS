@@ -181,6 +181,7 @@
     <Content Include="images\B01.jpg" />
     <Content Include="images\B02.jpg" />
     <Content Include="images\B03.jpg" />
+    <Content Include="images\backIndex.png" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
@@ -188,6 +189,7 @@
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
+    <Content Include="images\email_check.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
