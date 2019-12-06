@@ -83,8 +83,8 @@
                 @using (Html.BeginForm())
                 {
                     <div class="form-group">
-                        <h3><label class="control-label"><strong>Filter</strong></label></h3>
-                        <p class="col-12 mt-3">Difficulty</p>
+                        <h3><label class="control-label"><strong>進階搜尋</strong></label></h3>
+                        <p class="col-12 mt-3">遊戲難度</p>
                         @foreach (Tag t in ViewBag.DifficultyTagList)
                         {
                             string isChecked = ((string[])(ViewBag.difficultTagIDs)).Contains(t.ID) ? "checked" : "";
@@ -94,7 +94,7 @@
                             </div>
                         }
                         <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                        <p class="col-12 mt-3">Category</p>
+                        <p class="col-12 mt-3">遊戲種類</p>
                         @foreach (Tag t in ViewBag.CategoryTagList)
                         {
                             string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
@@ -104,7 +104,7 @@
                             </div>
                         }
                     </div>
-                    <input type="submit" class="btn btn-warning" value="Submit">
+                    <input type="submit" class="btn btn-warning" value="搜尋">
                 }
             </nav>
         </div>
@@ -115,7 +115,7 @@
 
 
             <nav class="nav">
-                <a class="nav-link" href="@Url.Action("Index", "Home")">Index</a>
+                <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
                 <a class="nav-link" href="#">桌遊列表</a>
             </nav>
 

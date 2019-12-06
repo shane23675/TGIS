@@ -1,4 +1,4 @@
-@model TGIS.Models.Shop
+ï»¿@model TGIS.Models.Shop
 
 
 @{
@@ -8,7 +8,7 @@
 }
 
 
-
+//ä¼¼ä¹æœ‰äº‚ç¢¼å•é¡Œ,æ¸¬è©¦
 <!--For bar-->
 <nav class="nav">
     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
@@ -55,7 +55,7 @@
     <!--BAR-->
     <ul class="nav nav-tabs mt-3">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Google Comments</a>
+            <a class="nav-link active" href="#">Google è©•è«–</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("OfferDetail","NormalOffer",new { id = Model.ID })">Offers</a>
@@ -72,7 +72,7 @@
     </div>
     <div class="col-md-12">
         <dl id="showResult">
-            @* ¬d¨ìªº¸ê®Æ·|´è¬V¦b³o¸Ì(id="showResult") *@
+            @* æŸ¥åˆ°çš„è³‡æ–™æœƒæ¸²æŸ“åœ¨é€™è£¡(id="showResult") *@
         </dl>
     </div>
     <div class="col-md-12">
@@ -82,18 +82,18 @@
 
 @section scripts{
     <script>
-        //·j´M©±¤º®à¹C
+        //æœå°‹åº—å…§æ¡ŒéŠ
         $("#searchBtn").click(function () {
             var targetName = $("#tableGameInShopSearch").val();
-            //µL¿é¤J«hµL¤ÏÀ³
+            //ç„¡è¼¸å…¥å‰‡ç„¡åæ‡‰
             if (targetName.trim() == "")
                 return false;
             $.post("/TableGameInShopDetail/SearchTableGameInShopByName",
                 { shopID: "@Model.ID", name: $("#tableGameInShopSearch").val() },
                 function (data) {
-                    //¥ı²MªÅµ²ªGÅã¥Ü°Ï°ì
+                    //å…ˆæ¸…ç©ºçµæœé¡¯ç¤ºå€åŸŸ
                     $("#showResult").empty();
-                    //±NJsonÀÉÅª¨ú¨Ã´è¬V
+                    //å°‡Jsonæª”è®€å–ä¸¦æ¸²æŸ“
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         $("#showResult").append(`
