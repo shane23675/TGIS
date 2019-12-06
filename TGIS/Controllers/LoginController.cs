@@ -24,10 +24,9 @@ namespace TGIS.Controllers
             if (user != null)
             {
                 Session["PlayerID"] = user.ID.ToString(); //$$$$$$
-                return RedirectToAction("Index", "Home");
+                return Content("2");
             }
-            ViewBag.Error = "帳號密碼錯誤";
-            return View();
+            return Content("1");
         }
         //店家登入
         public ActionResult LoginForShop()
@@ -42,10 +41,9 @@ namespace TGIS.Controllers
             if (user != null)
             {
                 Session["ShopID"] =$"{user.ID}";
-                return RedirectToAction("ShopDetailForStore", "Shop");
+                return Content("2");
             }
-            ViewBag.Error = "帳號密碼錯誤";
-            return View();
+            return Content("1");
         }
         //登出
         //Session["sessionName"]

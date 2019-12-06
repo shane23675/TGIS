@@ -1,0 +1,66 @@
+﻿@model TGIS.Models.NormalOffer
+
+@{
+    ViewBag.Title = "OfferDetail";
+}
+
+<h2>OfferDetail</h2>
+
+<div>
+    <h4>NormalOffer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clicks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clicks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shop.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shop.Account)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
