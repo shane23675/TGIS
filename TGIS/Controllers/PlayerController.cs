@@ -30,7 +30,7 @@ namespace TGIS.Controllers
                 ModelState["Account"].Errors.Add("此帳號已經有人使用");
             //檢查帳號及密碼是否符合規則
             UsefulTools.RegisterValidate(player.Account, ModelState["Account"].Errors.Add, false, false);
-            UsefulTools.RegisterValidate(player.Password, ModelState["Password"].Errors.Add, true, false);
+            //UsefulTools.RegisterValidate(player.Password, ModelState["Password"].Errors.Add, true, false);
             //填入預設值
             player.ID = UsefulTools.GetNextID(db.Players, 2);
             player.Points = 0;

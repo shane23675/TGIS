@@ -144,19 +144,19 @@ else if (isInTeam)
         if (isLeader)
         {
             btnInfo = "取消此團";
-            action = "取消";
+            action = "cancel";
         }
         else if (isInTeam)
         {
             btnInfo = "退出此團";
-            action = "退出";
+            action = "exit";
         }
         else
         {
             //若已經額滿，則讓功能鈕失效
             disabled = Model.CurrentPlayers >= Model.MaxPlayer ? "disabled" : "";
             btnInfo = "加入此團";
-            action = "加入";
+            action = "join";
         }
         using (Html.BeginForm())
         {
