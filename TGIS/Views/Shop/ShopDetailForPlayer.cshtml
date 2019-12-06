@@ -23,7 +23,7 @@
                 @foreach (int id in ViewBag.photoIDList)
                 {
                     string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active" style="height:250px">
+                    <div class="carousel-item @active" style="height:50vh">
                         <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 h-100" />
                     </div>
                     count = 1;
@@ -42,11 +42,41 @@
 
     <div class="col-md-7">
 
-        <span>@Model.ShopName</span>
-        <p>@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
-        <h3>OpeningHours: </h3>
-        <p>@Model.OpeningHours</p>
+        <div class="row">
+            <h3 class="col-lg-6 col-md-5"><strong>@Model.ShopName</strong></h3>
+            <div class="row col-lg-6 col-md-auto justify-content-end">
 
+                    @{
+                        if (Model.IsFoodAcceptable == true)
+                        {
+                            <span class="btn btn-outline-primary mr-2">可帶外食</span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-outline-danger mr-2">禁帶外食</span>
+                        }
+
+                        if (Model.IsMinConsumeRequired == true)
+                        {
+                            <span class="btn btn-outline-primary">無低消</span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-outline-danger">有低消</span>
+                        }
+                    }
+
+            </div>
+        </div>
+        <p>地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
+
+        <p>信箱：@Model.Email</p>
+
+        <p>Line：@Model.Line</p>
+        <p>聯絡方式：@Model.Tel</p>
+        <p>官網：<a href="@Model.Website">@Model.Website</a></p>
+        <p>店內規模：@Model.AreaScale</p>
+        <p>營業時間：@Model.OpeningHours</p>
     </div>
     <div class="col-12 mt-3">
         @Model.Description
@@ -55,7 +85,7 @@
     <!--BAR-->
     <ul class="nav nav-tabs mt-3">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Google Comments</a>
+            <a class="nav-link active" href="#">Google 評論</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("OfferDetail","NormalOffer",new { id = Model.ID })">Offers</a>
@@ -72,7 +102,7 @@
     </div>
     <div class="col-md-12">
         <dl id="showResult">
-            @* �d�쪺��Ʒ|��V�b�o��(id="showResult") *@
+            @* 查到的資料會渲染在這裡(id="showResult") *@
         </dl>
     </div>
     <div class="col-md-12">
@@ -82,18 +112,18 @@
 
 @section scripts{
     <script>
-        //�j�M������C
+        //搜尋店內桌遊
         $("#searchBtn").click(function () {
             var targetName = $("#tableGameInShopSearch").val();
-            //�L��J�h�L����
+            //無輸入則無反應
             if (targetName.trim() == "")
                 return false;
             $.post("/TableGameInShopDetail/SearchTableGameInShopByName",
                 { shopID: "@Model.ID", name: $("#tableGameInShopSearch").val() },
                 function (data) {
-                    //���M�ŵ��G��ܰϰ�
+                    //先清空結果顯示區域
                     $("#showResult").empty();
-                    //�NJson��Ū���ô�V
+                    //將Json檔讀取並渲染
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         $("#showResult").append(`

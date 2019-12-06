@@ -1,4 +1,4 @@
-﻿@*@using TGIS.Models
+@*@using TGIS.Models
     @model IEnumerable<TableGame>*@
 
 @{
@@ -54,27 +54,24 @@
     <div class="col-md-3 m-2 text-center">
 
         <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
-        <input id="GameSearch" type="search" placeholder="Search table games..." class="form-control" aria-label="search" />
+        <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control" aria-label="search" />
         @* 之後研究出即時搜尋的方法 *@
 
         <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="text-info listbutton"><i class="fas fa-chess-rook "></i></a>
-        <input id="ShopSearch" type="search" placeholder="Search shops..." class="form-control" aria-label="search" />
+        <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control" aria-label="search" />
     </div>
     <div class="col-md-8 m-1">
 
-        <div class="card">
-            <div class="card-header">
-                Announcement
-            </div>
-            <div class="card-body">
+
+            <h3><strong>網站公告</strong></h3>
                 @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
-            </div>
-        </div>
+
+
 
 
         <hr />
         <h3>
-            <strong>@Html.ActionLink("Teams", "GetTeamList", "Team", new { usage="TeamIndex"}, new { })</strong>
+            <strong>@Html.ActionLink("～揪桌一起玩～", "GetTeamList", "Team", new { usage="TeamIndex"}, new { })</strong>
         </h3>
         @Html.Action("GetTeamList", "Team", new { usage = "Home"})
     </div>

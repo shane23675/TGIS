@@ -181,6 +181,7 @@
     <Content Include="images\B01.jpg" />
     <Content Include="images\B02.jpg" />
     <Content Include="images\B03.jpg" />
+    <Content Include="images\backIndex.png" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
@@ -188,6 +189,7 @@
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
+    <Content Include="images\email_check.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -245,6 +247,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mineCrop.js" />
+    <Content Include="Scripts\mineJS.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
