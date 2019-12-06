@@ -23,7 +23,48 @@
             <a class="nav-link" href="@Url.Action("Logout","Login",new { sessionName="PlayerID"})">登出</a>
         </div>
     </nav>
-            @RenderBody() 
+    @{ 
+        //判斷現在頁面
+        string personalData = "", pointAndCoupon = "", myTeam = "";
+        string nowPage = (string)Session["nowPage"];
+        if (nowPage == "personalData")
+        {
+            personalData = "active";
+        }
+        else if (nowPage == "pointAndCoupon")
+        {
+            pointAndCoupon = "active";
+        }
+        else
+        {
+            myTeam = "active";
+        }
+    }
+    <div class="container mt-4">
+        <div id="sidebar">
+            <ul class="nav nav-tabs">
+                <li class="nav-item ">
+                    <a class="nav-link nav-p @personalData" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
+                        <i class="fas fa-user-edit"></i>
+                        <span>&nbsp;個人資料管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-p @pointAndCoupon">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>&nbsp;點數與優惠券管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-p @myTeam" href="@Url.Action("MyTeam", "Team")">
+                        <i class="fas fa-door-open"></i>
+                        <span>我的揪桌</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        @RenderBody()
+    </div>
     <footer class="fixed-bottom bg-player">
         <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
             <a class="nav-link" href="#">關於我們</a>

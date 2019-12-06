@@ -55,6 +55,7 @@ namespace TGIS.Controllers
         public ActionResult PlayerDetail(string playerID)
         {
             Player p = db.Players.Find(playerID);
+            Session["nowPage"] = "personalData";
             return View(p);
         }
         //玩家變更暱稱(Ajax)
