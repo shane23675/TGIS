@@ -63,8 +63,16 @@
             @Html.DisplayFor(modelItem => item.Shop.ShopName)
         </td>
         <td>
-            @Html.ActionLink("Activate", "CouponActivate", new { couponID = item.ID}, new { @class="btn btn-danger", onclick="return confirm('Activate This Coupon?')"})
+            @if (!item.IsAvailable)
+            {
+                @Html.ActionLink("啟用", "CouponActivate", new { couponID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Activate This Coupon?')" })
+            }
+            else
+            {
+                @: 已啟用
+            }
         </td>
+        
     </tr>
 }
 

@@ -126,7 +126,6 @@
           </Key>
           <Property Name="PlayerID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="CouponID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Code" Type="bigint" Nullable="false" />
           <Property Name="ExchangedDate" Type="datetime" Nullable="false" />
           <Property Name="IsUsed" Type="bit" Nullable="false" />
         </EntityType>
@@ -233,7 +232,7 @@
           <Property Name="ID" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="ShopID" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="Title" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="datetime" Nullable="false" />
           <Property Name="Notes" Type="nvarchar" MaxLength="100" />
           <Property Name="PlayDate" Type="date" Nullable="false" />
@@ -786,7 +785,6 @@
           </Key>
           <Property Name="PlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CouponID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Code" Type="Int64" Nullable="false" />
           <Property Name="ExchangedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsUsed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Coupon" Relationship="Self.Relationship39" FromRole="PlayerCouponDetail" ToRole="Coupon" />
@@ -918,7 +916,6 @@
           <Property Name="ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ShopID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="LeaderPlayerID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ParticipateEndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Messages" Relationship="Self.Relationship25" FromRole="Team" ToRole="Message" />
@@ -934,6 +931,7 @@
           <Property Name="MaxPlayer" Type="Int32" Nullable="false" />
           <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
           <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="Relationship24">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -1436,7 +1434,6 @@
               <MappingFragment StoreEntitySet="PlayerCouponDetail">
                 <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ExchangedDate" ColumnName="ExchangedDate" />
                 <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
               </MappingFragment>
@@ -1548,6 +1545,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="TGISDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
                 <ScalarProperty Name="MaxPlayer" ColumnName="MaxPlayer" />
@@ -1560,7 +1558,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="LeaderPlayerID" ColumnName="LeaderPlayerID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ParticipateEndDate" ColumnName="ParticipateEndDate" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
               </MappingFragment>

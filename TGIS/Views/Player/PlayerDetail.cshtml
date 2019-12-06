@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-p">
+                <a href="@Url.Action("PointRecord","Player",new { playerID = (string)Session["PlayerID"]})" class="nav-link nav-p">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>&nbsp;點數與優惠券管理</span>
                 </a>
@@ -45,10 +45,9 @@
                 <dl class="row ml-1 col-4">
                     <dt>密碼：</dt>
                     <dd>
-                        @*<button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#ShoppwChange">
-                                更改密碼
-                            </button>*@
-                        更改密碼(尚未完成)
+                        <button type="button" class="btn btn-outline-info btn-sm align-text-top" data-toggle="modal" data-target="#playerpwChange">
+                            更改密碼
+                        </button>
                     </dd>
                 </dl>
             </div>
@@ -112,87 +111,41 @@
         </div>
     </div>
 </div>
-@section Script{
-    <script>
-        //變更暱稱
-        $("#changeNickNameBtn").click(function () {
-            $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
-                $("#nickNameDisplay").html(data);
-            })
-        })
-        //選擇檔案後變更圖片的按鈕才能點擊
-        $("#photoInput").change(function () {
-            if ($("#photoInput").val() != "") 
-                $("#changePhotoBtn").prop("disabled", "");
-            else 
-            $("#changePhotoBtn").prop("disabled", "disabled");                    
-        })
-        //追加：按鈕顏色更換
-    </script>
-}
 <!-- 更改密碼的跳出窗 -->
-@*<div class="modal fade" id="ShoppwChange" tabindex="-1" role="dialog" aria-labelledby="ShopPasswordChange" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form method="post" action="~/Shop/ShopDetailForStore">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ShopPasswordChange">更改密碼</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div id="modalPwd" class="modal-body">
+<div class="modal fade" id="playerpwChange" tabindex="-1" role="dialog" aria-labelledby="playerPasswordChange" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="post" action="~/player/playerDetail">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="playerPasswordChange">更改密碼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="modalPwd" class="modal-body">
 
-                        <input id="userId" type="hidden" value="@Session["ShopID"].ToString()" />
-                        <div>
-                            <span class="form-label">舊密碼：</span>
-                            <input id="pwd" type="password" class="form-control w-75" />
-                        </div>
-                        <div>
-                            <span class="form-label">新密碼：</span>
-                            <input id="newpwd" type="password" class="form-control w-75" />
-                        </div>
-                        <div>
-                            <span class="form-label">新密碼確認：</span>
-                            <input id="pwdrepeat" type="password" class="form-control w-75" />
-                        </div>
-                        <span id="error" class="bg-danger w-25"></span>
+                    <input id="userId" type="hidden" value="@Session["PlayerID"].ToString()" />
+                    <div>
+                        <span class="form-label">舊密碼：</span>
+                        <input id="pwd" type="password" class="form-control w-75" />
                     </div>
-                    <div class="modal-footer">
-                        <button id="PWsubmit" type="button" class="btn btn-primary">確認修改</button>
+                    <div>
+                        <span class="form-label">新密碼：</span>
+                        <input id="newpwd" type="password" class="form-control w-75" />
                     </div>
-                </form>
-            </div>
+                    <div>
+                        <span class="form-label">新密碼確認：</span>
+                        <input id="pwdrepeat" type="password" class="form-control w-75" />
+                    </div>
+                    <span id="error" class="bg-danger w-25"></span>
+                </div>
+                <div class="modal-footer">
+                    <button id="PWsubmit" type="button" class="btn btn-primary">確認修改</button>
+                </div>
+            </form>
         </div>
     </div>
-    @section scripts{
-        <script>
-            $('#PWsubmit').click(function () {
-                $.post(
-                    "/ajax/PasswordChange",
-                    { oldpwd: $("#pwd").val(), newpwd: $("#newpwd").val(), pwdrepeat: $("#pwdrepeat").val(), userId: $("#userId").val() },
-                    function (state) {
-                        switch (state) {
-                            case "0":
-                                $("#error").empty().text("新密碼錯誤,請重新確認新密碼")
-                                break;
-                            case "1":
-                                $("#error").empty().text("舊密碼錯誤")
-                                break;
-                            case "2":
-                                alert("修改成功")
-                                location.reload();
-                                break;
-                            case "3":
-                                alert("請重新登入")
-                                location.reload();
-                                break;
-                        }
-                    }
-                )
-            });
-        </script>
-    }*@
+</div>
 <!-- 更改頭貼的跳出窗 -->
 <div class="modal fade" id="PlayerPhotoChange" tabindex="-1" role="dialog" aria-labelledby="PlayerPhotoChange" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -208,7 +161,7 @@
                     <input type="file" name="photo" id="photoInput" />
                 </div>
                 <div class="modal-footer">
-                    <button id="changePhotoBtn" type="button" class="btn btn-secondary">更換大頭貼</button>
+                    <input id="changePhotoBtn" type="submit" class="btn btn-info" value="更換大頭貼" disabled />
                 </div>
             </form>
         </div>
@@ -225,7 +178,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input id="nickName" placeholder="@Model.NickName" class="form-control" />
+                <input id="nickName" placeholder="@Model.NickName" class="form-control" maxlength="10"/>
+                <p>暱稱長度為10個字以內(不分中英文)</p>
             </div>
             <div class="modal-footer">
                 <button id="changeNickNameBtn" type="button" class="btn btn-outline-info btn-sm" data-dismiss="modal">確認更改</button>
@@ -233,3 +187,46 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        //變更暱稱
+        $("#changeNickNameBtn").click(function () {
+            $.post("/Player/ChangeNickName", { playerID: "@((string)Session["PlayerID"])", nickname: $("#nickName").val() }, function (data) {
+                $("#nickNameDisplay").html(data);
+            })
+        })
+        //選擇檔案後變更圖片的按鈕才能點擊
+        $("#photoInput").change(function () {
+            if ($("#photoInput").val() != "")
+                $("#changePhotoBtn").prop("disabled", "");
+            else
+            $("#changePhotoBtn").prop("disabled", "disabled");
+        })
+    //密碼檢查功能
+        $('#PWsubmit').click(function () {
+            $.post(
+                "/ajax/PasswordChange",
+                { oldpwd: $("#pwd").val(), newpwd: $("#newpwd").val(), pwdrepeat: $("#pwdrepeat").val(), userId: $("#userId").val() },
+                function (state) {
+                    switch (state) {
+                        case "0":
+                            $("#error").empty().text("新密碼錯誤,請重新確認新密碼")
+                            break;
+                        case "1":
+                            $("#error").empty().text("舊密碼錯誤")
+                            break;
+                        case "2":
+                            alert("修改成功")
+                            location.reload();
+                            break;
+                        case "3":
+                            alert("請重新登入")
+                            location.reload();
+                            break;
+                    }
+                }
+            )
+        });
+    </script>
+}
+

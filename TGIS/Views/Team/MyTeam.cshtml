@@ -34,11 +34,11 @@
 
             <div class="row justify-content-between m-2">
                 <h3>我開的團</h3>
-                <p class="">@Html.ActionLink("進行開桌", "TeamCreate", "Team", new { @class = "btn btn-info" })</p>
+                <p>@Html.ActionLink("進行開桌", "TeamCreate", "Team", new { @class = "btn btn-info" })</p>
             </div>
 
             @Html.Action("GetTeamList", new { usage = "Leader" })
-            <div class="row m-2">
+            <div class="row justify-content-between m-2">
                 <h3>我參與的團</h3>
             </div>
             @Html.Action("GetTeamList", new { usage = "Other" })

@@ -32,6 +32,14 @@ namespace TGIS.Models
                 return PlayerCouponDetails.Count;
             }
         }
+        [DisplayName("是否可兌換")]
+        public bool IsExchangable
+        {
+            get
+            {
+                return IsAvailable && DateTime.Today <= ExpireDate && ExchangedAmount < LimitedAmount;
+            }
+        }
     }
     public class MetadataCoupon
     {
@@ -169,7 +177,7 @@ namespace TGIS.Models
         public string Account { get; set; }
         [DisplayName("會員密碼"), Required]
         public string Password { get; set; }
-        [DisplayName("暱稱"), Required]
+        [DisplayName("暱稱"), Required, StringLength(10)]
         public string NickName { get; set; }
         [DisplayName("信箱"), EmailAddress, Required]
         public string Email { get; set; }
@@ -213,7 +221,7 @@ namespace TGIS.Models
         public int ID { get; set; }
         [DisplayName("玩家會員編號")]
         public string PlayerID { get; set; }
-        [DisplayName("點數變化"),Range(0,int.MaxValue)]
+        [DisplayName("點數變化"),Range(int.MinValue,int.MaxValue)]
         public int ChangedAmount { get; set; }
         [DisplayName("變動原因"),StringLength(20)]
         public string Cause { get; set; }
@@ -437,7 +445,7 @@ namespace TGIS.Models
         public string ShopID { get; set; }
         [DisplayName("主揪玩家編號"),StringLength(6)]
         public string LeaderPlayerID { get; set; }
-        [DisplayName("揪桌標題"),StringLength(10, ErrorMessage ="標題長度不得大於10個字"), Required(ErrorMessage = "標題為必填")]
+        [DisplayName("揪桌標題"),StringLength(15, ErrorMessage ="標題長度不得大於15個字"), Required(ErrorMessage = "標題為必填")]
         public string Title { get; set; }
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true), DataType(DataType.DateTime)]
         [Required(ErrorMessage = "報名結束時間為必填")]

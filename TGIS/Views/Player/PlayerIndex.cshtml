@@ -6,16 +6,10 @@
 
 <h2>PlayerIndex</h2>
 
-<p>
-    @Html.ActionLink("Create New", "PlayerCreate")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NickName)
@@ -24,19 +18,13 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday)
+            @Html.DisplayNameFor(model => model.IsEmailValid)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Points)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsBanned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District.DistrictName)
         </th>
         <th></th>
     </tr>
@@ -47,19 +35,13 @@
             @Html.DisplayFor(modelItem => item.Account)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.NickName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
+            @Html.DisplayFor(modelItem => item.IsEmailValid)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Points)
@@ -67,12 +49,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.IsBanned)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.District.DistrictName)
-        </td>
-        <td>
-            @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }) |
-            @Html.ActionLink("刪除", "PlayerDelete", new { id = item.ID })
+        <td >
+            @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }, new { @class="btn btn-secondary"}) 
+            @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID }, new { @class="btn btn-danger" ,onclick = "return confirm('確定要刪除嗎？')"})
         </td>
     </tr>
 }

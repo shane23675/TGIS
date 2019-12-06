@@ -96,7 +96,5 @@ namespace TGIS.Controllers
             }
             return Content("0");
         }
-
-
     }
 }
