@@ -276,6 +276,8 @@ namespace TGIS.Controllers
                 tgName = isEnglishSearch ? tg.EnglishName : tg.ChineseName;
                 result += $"<option value=\"{tg.ID}\">{tgName}</option>";
             }
+            //加入「不限」選項
+            result += "<option value=\"\">不限遊戲種類</option>";
             return Content(result);
         }
 
