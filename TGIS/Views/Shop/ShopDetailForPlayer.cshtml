@@ -107,12 +107,13 @@
         <div class="tab-content">
             <!-- 活動 -->
             <div class="tab-pane fade active show" id="NormalOffer">
-                <p>待處理</p>
+                @Html.Action("_OfferListForPlayer", "NormalOffer", new { shopID = Model.ID })
             </div>
 
             <!-- 優惠券 -->
             <div class="tab-pane fade" id="Coupons">
                 @Html.Action("_CouponInShopIndex", "Coupon", new { shopID = Model.ID })
+                
             </div>
 
             <!-- 桌遊清單 -->

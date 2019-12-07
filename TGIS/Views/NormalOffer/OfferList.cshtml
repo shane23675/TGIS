@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TGIS.Models.NormalOffer>
 
 @{
-    ViewBag.Title = "OfferList";
+    ViewBag.Title = "活動列表";
 }
 
-<h2>OfferList</h2>
+    <h2>活動列表</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增一筆活動", "OfferCreate")
 </p>
 <table class="table">
     <tr>
@@ -53,9 +53,8 @@
             @Html.DisplayFor(modelItem => item.Shop.Account)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "OfferDetail", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("編輯", "OfferEdit", new { normalOfferID=item.ID }) |
+            @Html.ActionLink("刪除", "OfferDel", new { normalOfferID=item.ID })
         </td>
     </tr>
 }

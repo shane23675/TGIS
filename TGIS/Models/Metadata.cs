@@ -143,13 +143,13 @@ namespace TGIS.Models
         public long ID { get; set; }
         [DisplayName("店家會員編號")]
         public string ShopID { get; set; }
-        [DisplayName("標題"),StringLength(20)]
+        [DisplayName("標題"),StringLength(20), Required]
         public string Title { get; set; }
-        [DisplayName("內文"),StringLength(300)]
+        [DisplayName("活動內容"),StringLength(300), Required]
         public string Content { get; set; }
-        [DisplayName("開啟日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("開始時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = true), Required]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("關閉日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = true), Required]
         public System.DateTime EndDate { get; set; }
         [DisplayName("被點閱數")]
         public int Clicks { get; set; }
