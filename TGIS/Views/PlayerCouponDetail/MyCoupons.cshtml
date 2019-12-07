@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TGIS.Models.PlayerCouponDetail>
+
+@{
+    ViewBag.Title = "MyCoupons";
+    Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
+}
+<p>
+    優惠券使用說明：<br />
+    請直接至店家並出示此優惠券<br />
+    由服務人員點擊「使用鈕」以確認使用<br />
+    使用後優惠券即失效<br />
+    玩家請勿自行點擊以免失效
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Coupon.Shop.ShopName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coupon.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coupon.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coupon.ExpireDate)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Coupon.Shop.ShopName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Coupon.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExchangedDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Coupon.BeginDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Coupon.ExpireDate)
+    </td>
+    <td>
+        @if (item.IsUsed)
+        {
+            @: 已使用
+        }
+        else if (item.Coupon.ExpireDate < DateTime.Today)
+        {
+            @: 已過期
+        }
+        else if (item.Coupon.BeginDate > DateTime.Now)
+        {
+            @: 尚未開始使用
+        }
+        else
+        {
+            @Html.ActionLink("使用", "UseCoupon", "Coupon", new { couponID = item.CouponID }, new { @class="btn btn-success", onclick="return confirm('確定要使用嗎？\\n此按鈕請由店家人員點選\\n玩家請勿自行點擊以免優惠券失效！')"}) 
+        }
+    </td>
+</tr>
+}
+
+</table>

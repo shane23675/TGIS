@@ -25,15 +25,19 @@
     </nav>
     @{ 
         //判斷現在頁面
-        string personalData = "", pointAndCoupon = "", myTeam = "";
+        string personalData = "", myPoints = "", myCoupon = "", myTeam = "";
         string nowPage = (string)Session["nowPage"];
         if (nowPage == "personalData")
         {
             personalData = "active";
         }
-        else if (nowPage == "pointAndCoupon")
+        else if (nowPage == "myPoints")
         {
-            pointAndCoupon = "active";
+            myPoints = "active";
+        }
+        else if (nowPage == "myCoupon")
+        {
+            myCoupon = "active";
         }
         else
         {
@@ -50,9 +54,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link nav-p @pointAndCoupon">
+                    <a class="nav-link nav-p @myPoints" href="@Url.Action("MyPoints", "PlayerPointDetail")">
                         <i class="fas fa-money-bill-wave"></i>
-                        <span>&nbsp;點數與優惠券管理</span>
+                        <span>&nbsp;點數使用明細</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-p @myCoupon" href="@Url.Action("MyCoupons", "PlayerCouponDetail")">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>&nbsp;優惠券管理</span>
                     </a>
                 </li>
                 <li class="nav-item">

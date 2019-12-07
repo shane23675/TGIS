@@ -197,16 +197,14 @@ namespace TGIS.Models
         public bool IsEmailValid { get; set; }
     }
     //玩家優惠明細
-    [MetadataType(typeof(MetadataPlyerCouponDetail))]
-    public partial class PlyerCouponDetail { }
-    public class MetadataPlyerCouponDetail
+    [MetadataType(typeof(MetadataPlayerCouponDetail))]
+    public partial class PlayerCouponDetail { }
+    public class MetadataPlayerCouponDetail
     {
         [DisplayName("會員編號")]
         public string PlayerID { get; set; }
         [DisplayName("活動編號")]
         public string CouponID { get; set; }
-        [DisplayName("優惠卷編碼")]
-        public long Code { get; set; }
         [DisplayName("兌換時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExchangedDate { get; set; }
         [DisplayName("是否使用")]
@@ -225,7 +223,7 @@ namespace TGIS.Models
         public int ChangedAmount { get; set; }
         [DisplayName("變動原因"),StringLength(20)]
         public string Cause { get; set; }
-        [DisplayName("獲得時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("變動時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ChangedDate { get; set; }
     }
     //相關教學連結

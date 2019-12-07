@@ -52,16 +52,16 @@ namespace TGIS.Controllers
             return View(player);
         }
         //玩家詳細資料(玩家會員中心)
-        public ActionResult PlayerDetail(string playerID)
+        public ActionResult PlayerDetail()
         {
-            Player p = db.Players.Find(playerID);
+            Player p = db.Players.Find((string)Session["playerID"]);
             Session["nowPage"] = "personalData";
             return View(p);
         }
         //玩家變更暱稱(Ajax)
-        public ActionResult ChangeNickName(string playerID, string nickname)
+        public ActionResult ChangeNickName(string nickname)
         {
-            Player p = db.Players.Find(playerID);
+            Player p = db.Players.Find((string)Session["playerID"]);
             //暱稱不得超過15字
             if (nickname.Length > 15)
                 nickname = nickname.Substring(0, 15);
@@ -84,7 +84,7 @@ namespace TGIS.Controllers
                 PhotoManager.Delete(playerID);
                 PhotoManager.Create(playerID, photo);
             }
-            return RedirectToAction("PlayerDetail", new { playerID });
+            return RedirectToAction("PlayerDetail");
         }
 
         //管理員查看玩家列表

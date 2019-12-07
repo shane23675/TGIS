@@ -125,5 +125,16 @@ namespace TGIS.Controllers
             //優惠券已無法兌換則顯示錯誤訊息
             return HttpNotFound();
         }
+
+        //玩家使用優惠券
+        public ActionResult UseCoupon(string couponID)
+        {
+            Player p = db.Players.Find((string)Session["PlayerID"]);
+            var detail = db.PlayerCouponDetails.Find(p.ID, couponID);
+            detail.IsUsed = true;
+            db.SaveChanges();
+            return RedirectToAction("MyCoupons", "PlayerCouponDetail");
+        }
+
     }
 }
