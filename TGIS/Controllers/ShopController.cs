@@ -118,7 +118,7 @@ namespace TGIS.Controllers
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             //店家查詢結果的容器
-            var shops = new List<Shop>();
+            var shops = db.Shops.ToList();
             if (searchedTableGameID == null)
             {
                 //桌遊搜尋ID為空，啟用一般篩選功能
@@ -130,13 +130,13 @@ namespace TGIS.Controllers
                     }
                     else
                     {
+                        shops.Clear();
                         foreach (District d in db.Cities.Find(CityID).Districts)
                         {
                             shops.AddRange(d.Shops);
                         }
                     }
                 }
-                shops = db.Shops.ToList();
             }
             //在哪裡可以玩此桌遊的查詢
             else
@@ -145,6 +145,8 @@ namespace TGIS.Controllers
                 TableGame game = db.TableGames.Find(searchedTableGameID);
                 //傳送搜尋相關資訊
                 ViewBag.SearchingTGInfo = game;
+                //將包含此桌遊的店家找出
+                shops.Clear();
                 foreach (var detail in game.TableGameInShopDetails)
                 {
                     shops.Add(detail.Shop);
