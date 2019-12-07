@@ -91,10 +91,10 @@ namespace TGIS.Controllers
         }
 
         //玩家查看店家優惠券列表
-        public ActionResult CouponInShopIndex(string shopID)
+        public ActionResult _CouponInShopIndex(string shopID)
         {
             //僅傳入可兌換的優惠券
-            return View(db.Shops.Find(shopID).Coupons.Where(m=>m.IsExchangable).ToList());
+            return PartialView(db.Shops.Find(shopID).Coupons.Where(m=>m.IsExchangable).ToList());
         }
 
         //玩家兌換優惠券

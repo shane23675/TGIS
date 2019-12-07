@@ -3,11 +3,9 @@
 
 @{
     ViewBag.Title = "CouponInShopIndex";
-    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     Player player = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 }
 
-<h2>CouponInShopIndex</h2>
 @* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
 @if (player == null)
 {

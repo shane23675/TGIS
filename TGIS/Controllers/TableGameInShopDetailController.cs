@@ -78,11 +78,10 @@ namespace TGIS.Controllers
         }
 
         //查看店家內的所有桌遊
-        public ActionResult AllTableGamesInTheShop(string shopID)
+        public ActionResult _AllTableGamesInTheShop(string shopID)
         {
             Shop s = db.Shops.Find(shopID);
-            ViewBag.ShopName = s.ShopName;
-            return View(s.TableGameInShopDetails.ToList());
+            return PartialView(s.TableGameInShopDetails.ToList());
         }
     }
 }

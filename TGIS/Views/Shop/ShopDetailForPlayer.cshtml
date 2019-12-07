@@ -43,7 +43,9 @@
     <div class="col-md-7">
 
         <div class="row">
-            <h3 class="col-lg-6 col-md-5"><strong>@Model.ShopName</strong></h3>
+            <h3 class="col-lg-6 col-md-5">
+                <strong>@Model.ShopName</strong>
+            </h3>
             <div class="row col-lg-6 col-md-auto justify-content-end">
 
                 @{
@@ -77,7 +79,10 @@
 
         <p>Line：@Model.Line</p>
         <p>聯絡方式：@Model.Tel</p>
-        <p>官網：<a href="@Model.Website">@Model.Website</a></p>
+        <p>
+            官網：
+            <a href="@Model.Website">@Model.Website</a>
+        </p>
         <p>店內規模：@Model.AreaScale</p>
         <p>營業時間：@Model.OpeningHours</p>
     </div>
@@ -85,23 +90,38 @@
         @Model.Description
     </div>
 
-    <!--BAR-->
-    <ul class="nav nav-tabs mt-3">
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("OfferDetail","NormalOffer",new { id = Model.ID })">活動</a>
-        </li>
-    </ul>
+    <div class="col-12">
+        <!-- 導航欄 -->
+        <ul class="nav nav-tabs mt-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="#NormalOffer" data-toggle="tab">活動</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#Coupons" data-toggle="tab">優惠券</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#TableGameList" data-toggle="tab">桌遊清單</a>
+            </li>
+        </ul>
 
-    <!-- 優惠券 -->
-    <div class="col-md-12">
-        @Html.ActionLink("查看此店家發行的優惠券", "CouponInShopIndex", "Coupon", new { shopID = Model.ID }, new { @class = "btn btn-success" })
-    </div>
+        <div class="tab-content">
+            <!-- 活動 -->
+            <div class="tab-pane fade active show" id="NormalOffer">
+                <p>待處理</p>
+            </div>
 
-    <!-- TableGame Search-->
-    <div class="col-md-12">
-        @Html.ActionLink("查看此店家包含的所有桌遊", "AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID }, new { @class = "btn btn-secondary" })
+            <!-- 優惠券 -->
+            <div class="tab-pane fade" id="Coupons">
+                @Html.Action("_CouponInShopIndex", "Coupon", new { shopID = Model.ID })
+            </div>
+
+            <!-- 桌遊清單 -->
+            <div class="tab-pane fade" id="TableGameList">
+                @Html.Action("_AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID })
+            </div>
+        </div>
     </div>
 </div>
-
 @section scripts{
+
 }
