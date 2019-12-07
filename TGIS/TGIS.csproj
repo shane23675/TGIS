@@ -453,6 +453,7 @@
     <Content Include="Views\NormalOffer\OfferDetail.cshtml" />
     <Content Include="Views\PlayerPointDetail\MyPoints.cshtml" />
     <Content Include="Views\PlayerCouponDetail\MyCoupons.cshtml" />
+    <Content Include="Views\TableGameInShopDetail\AllTableGamesInTheShop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

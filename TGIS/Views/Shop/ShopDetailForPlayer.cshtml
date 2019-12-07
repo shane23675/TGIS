@@ -46,29 +46,32 @@
             <h3 class="col-lg-6 col-md-5"><strong>@Model.ShopName</strong></h3>
             <div class="row col-lg-6 col-md-auto justify-content-end">
 
-                    @{
-                        if (Model.IsFoodAcceptable == true)
-                        {
-                            <span class="btn btn-outline-primary mr-2">可帶外食</span>
-                        }
-                        else
-                        {
-                            <span class="btn btn-outline-danger mr-2">禁帶外食</span>
-                        }
-
-                        if (Model.IsMinConsumeRequired == true)
-                        {
-                            <span class="btn btn-outline-primary">無低消</span>
-                        }
-                        else
-                        {
-                            <span class="btn btn-outline-danger">有低消</span>
-                        }
+                @{
+                    if (Model.IsFoodAcceptable == true)
+                    {
+                        <span class="btn btn-outline-primary mr-2">可帶外食</span>
                     }
+                    else
+                    {
+                        <span class="btn btn-outline-danger mr-2">禁帶外食</span>
+                    }
+
+                    if (Model.IsMinConsumeRequired == true)
+                    {
+                        <span class="btn btn-outline-primary">無低消</span>
+                    }
+                    else
+                    {
+                        <span class="btn btn-outline-danger">有低消</span>
+                    }
+                }
 
             </div>
         </div>
-        <p>地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address</p>
+        <p>
+            地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address
+            <a href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address">在Google 地圖中查看</a>
+        </p>
 
         <p>信箱：@Model.Email</p>
 
@@ -85,198 +88,20 @@
     <!--BAR-->
     <ul class="nav nav-tabs mt-3">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Google 評論</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("OfferDetail","NormalOffer",new { id = Model.ID })">Offers</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">TableGames in this shop</a>
+            <a class="nav-link" href="@Url.Action("OfferDetail","NormalOffer",new { id = Model.ID })">活動</a>
         </li>
     </ul>
 
+    <!-- 優惠券 -->
+    <div class="col-md-12">
+        @Html.ActionLink("查看此店家發行的優惠券", "CouponInShopIndex", "Coupon", new { shopID = Model.ID }, new { @class = "btn btn-success" })
+    </div>
+
     <!-- TableGame Search-->
-    <div>
-        <input id="tableGameInShopSearch" placeholder="check if this shop contains a certain table game..." />
-        <button id="searchBtn" class="btn btn-warning">Search</button>
-    </div>
     <div class="col-md-12">
-        <dl id="showResult">
-            @* 查到的資料會渲染在這裡(id="showResult") *@
-        </dl>
-    </div>
-    <div class="col-md-12">
-        @Html.ActionLink("Coupons", "CouponInShopIndex", "Coupon", new { shopID = Model.ID}, new { @class="btn btn-success"})
+        @Html.ActionLink("查看此店家包含的所有桌遊", "AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID }, new { @class = "btn btn-secondary" })
     </div>
 </div>
 
 @section scripts{
-    <script>
-        //搜尋店內桌遊
-        $("#searchBtn").click(function () {
-            var targetName = $("#tableGameInShopSearch").val();
-            //無輸入則無反應
-            if (targetName.trim() == "")
-                return false;
-            $.post("/TableGameInShopDetail/SearchTableGameInShopByName",
-                { shopID: "@Model.ID", name: $("#tableGameInShopSearch").val() },
-                function (data) {
-                    //先清空結果顯示區域
-                    $("#showResult").empty();
-                    //將Json檔讀取並渲染
-                    for (var i = 0; i < data.length; i++) {
-                        var item = data[i];
-                        $("#showResult").append(`
-                                <dt>${item.ChineseName}</dt>
-                                <dd>${item.IsContained}</dd>
-                        `)
-                    }
-                })
-        })
-    </script>    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<h2>ShopIndexForDetail</h2>
-
-    <div>
-        <h4>Shop</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ShopName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ShopName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.OpeningHours)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OpeningHours)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Address)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.IsMinConsumeRequired)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsMinConsumeRequired)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.IsFoodAcceptable)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsFoodAcceptable)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AreaScale)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AreaScale)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Tel)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Tel)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Line)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Line)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Website)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Website)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(m => m.District.City.CityName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(m => m.District.City.CityName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.District.DistrictName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.District.DistrictName)
-            </dd>
-
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>*@
