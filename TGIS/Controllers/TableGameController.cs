@@ -254,7 +254,7 @@ namespace TGIS.Controllers
             return PartialView(selectedGames);
         }
 
-        //以名稱搜尋桌遊(Ajax)
+        //以名稱搜尋桌遊(Ajax)(暫時停用)
         public ActionResult SearchTableGameByName(string name)
         {
             bool isEnglishSearch = false;

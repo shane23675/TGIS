@@ -83,5 +83,25 @@ namespace TGIS.Controllers
             Shop s = db.Shops.Find(shopID);
             return PartialView(s.TableGameInShopDetails.ToList());
         }
+
+        //查詢店家內的所有桌遊(揪桌用，Ajax)
+        //$.post("/TableGameInShopDetail/GetTableGameInShopJson", { shopID: $("#ShopID").val() }, function (data){})
+        public ActionResult GetTableGameInShopJson(string shopID)
+        {
+            //取得該店家的所有店內桌遊明細
+            var details = db.Shops.Find(shopID).TableGameInShopDetails.ToArray();
+            //建構一個Json檔案的匿名類別容器
+            var data = new[]
+            {
+                new { ChineseName = ""}
+            }.ToList();
+            data.Clear();
+            //將明細中的資料填入data
+            foreach(var d in details)
+            {
+                data.Add(new { ChineseName = d.TableGame.ChineseName });
+            }
+            return Json(data);
+        }
     }
 }
