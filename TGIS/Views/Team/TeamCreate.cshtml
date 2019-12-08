@@ -90,9 +90,9 @@
         </div>
         <div class="row form-group">
             <label class="control-label col-2 mr-3">遊玩人數</label>
-            @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control d-inline col-1 mr-3",min="2",max="50" } })
+            @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control d-inline col-1 mr-3", min = "2", max = "50" } })
             <p>至</p>
-            @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control d-inline col-1 ml-3 mr-3",min="2",max="50" } })
+            @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control d-inline col-1 ml-3 mr-3", min = "2", max = "50" } })
             <p>人</p>
             <div class="col-1 mr-5"></div>
             @Html.LabelFor(model => model.EstimatedCost, htmlAttributes: new { @class = "control-label col-1 ml-4" })
@@ -122,8 +122,8 @@
         <!--Submit btn-->
         <br />
         <div class="row form-group justify-content-center">
-                @Html.ActionLink("取消", "MyTeam","Team", new { @class = "btn btn-secondary mr-1" })
-                <input type="submit" value="開團" class="btn btn-info ml-1" />
+            @Html.ActionLink("取消", "MyTeam", "Team", new { @class = "btn btn-secondary mr-1" })
+            <input type="submit" value="開團" class="btn btn-info ml-1" />
         </div>
     </div>
 }
@@ -151,6 +151,8 @@
         $.post("/Shop/GetShopSelectList", { districtID: id, shopID: "@GetMSData("ShopID")" }, function (data) {
             $("#ShopID").html(data);
         })
+
+        setTimeout(GetTableGameInShop, 1000);
     }
 
 
@@ -163,17 +165,68 @@
         //})
 
         var tgName = $("#searchInput").val();
-        $.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
-            $("#Preference").html(data);
-            console.log($("#Preference").html(data))
-        })
 
+        if (tgName != null) {
 
-
-
+        $('#Preference').empty().append(ListForSel[0]);
+        for (i = 1; i < TGList.length; i++) {
+            if (TGList[i].indexOf(tgName) != -1) {
+                $('#Preference').append(ListForSel[i]);
+            }
+        }
+        $('#Preference option:first').attr('selected','selected');
+            }
 
         //避免送出表單(請勿刪除)
         return false;
     })
 
+
+    //取得所有桌遊
+
+    var Preference = document.getElementById('Preference');
+
+    const TGList = [], ListForSel = [];
+    GetTGList();
+    function GetTGList() {
+        for (i = 0; i < Preference.length; i++) {
+            TGList[i] = Preference.options[i].text;
+            ListForSel[i] = Preference[i];
+         }
+    }
+
+
+    //取得店內桌遊
+
+    $('#ShopID').change(GetTableGameInShop);
+
+    function GetTableGameInShop() {
+        $.post("/TableGameInShopDetail/GetTableGameInShopJson", { shopID: $("#ShopID").val() }, function (data) {
+
+            var GetTGInShop = [];
+
+            //抓GetTableGameInShopJson ChineseName 字串
+            for (index = 0; index < data.length; index++) {
+                GetTGInShop[index] = data[index].ChineseName;
+            }
+            $('#Preference').empty().append(ListForSel);
+            ChangeTGList(GetTGInShop);
+        }
+    )}
+
+    //改變桌遊列表
+
+    function ChangeTGList(GetTGInShop) {
+            for (i = 1; i < TGList.length; i++) {
+                var check = Preference.options[i];
+
+                if ($.inArray(TGList[i],GetTGInShop) == -1) {
+                    $(check).attr('disabled',true).text(TGList[i] + '(此店家無此桌遊)');
+                } else {
+                    $(check).attr('disabled',false).text(TGList[i]);
+                }
+            }
+    }
+
+    
 </script>
