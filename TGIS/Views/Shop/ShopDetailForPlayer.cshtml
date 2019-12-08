@@ -89,6 +89,9 @@
     <div class="col-12 mt-3">
         @Model.Description
     </div>
+    <div class="col-12 mt-3">
+        @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID}, new { @class = "btn btn-danger"})
+    </div>
 
     <div class="col-12">
         <!-- 導航欄 -->
@@ -123,6 +126,3 @@
         </div>
     </div>
 </div>
-@section scripts{
-
-}

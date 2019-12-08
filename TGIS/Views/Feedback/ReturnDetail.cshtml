@@ -1,13 +1,14 @@
-﻿@model TGIS.Models.Feedback
+﻿@using TGIS.Models;
+@model Feedback
 
 @{
     ViewBag.Title = "ReturnDetail";
+    TGISDBEntities db = new TGISDBEntities();
 }
 
-<h2>ReturnDetail</h2>
+<h2>回報明細</h2>
 
 <div>
-    <h4>Feedback</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -23,7 +24,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Plaintiff)
+            @if (Model.TypeTagID == "R03")
+            {
+                @: 匿名檢舉
+            }
+            else
+            {
+                @db.Players.Find(Model.Plaintiff).NickName
+            }
         </dd>
 
         <dt>
@@ -31,7 +39,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Defendent)
+            @if (Model.TypeTagID == "R01")
+            {
+                @db.Players.Find(Model.Defendent).NickName
+            }
+            else if (Model.TypeTagID == "R02")
+            {
+                @db.Shops.Find(Model.Defendent).ShopName
+            }
+            else
+            {
+                @: 本網站
+            }
         </dd>
 
         <dt>
@@ -43,7 +62,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tag.TagName)
+            回報類型
         </dt>
 
         <dd>

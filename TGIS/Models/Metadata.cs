@@ -93,16 +93,18 @@ namespace TGIS.Models
     {
         [DisplayName("回報編號")]
         public string ID { get; set; }
-        [DisplayName("來信時間")]
+        [DisplayName("來信時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd  hh:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime ReceivedDate { get; set; }
         [DisplayName("檢舉人"),StringLength(6)]
         public string Plaintiff { get; set; }
         [DisplayName("被檢舉人"),StringLength(6)]
         public string Defendent { get; set; }
-        [DisplayName("檢舉內容")]
+        [DisplayName("檢舉內容"), Required]
         public string Content { get; set; }
         [DisplayName("回報分類編號")]
         public string TypeTagID { get; set; }
+        [DisplayName("已讀取")]
+        public string IsRead { get; set; }
     }
     //行政區列表
     [MetadataType(typeof(MetadataDistrict))]
