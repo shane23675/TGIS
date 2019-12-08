@@ -12,17 +12,19 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnouncedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("查看更多", "AnnounDetail", new { id=item.ID },new { @class="btn btn-info"}) 
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnouncedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }, new { @class = "btn btn-info" })
+            </td>
         </tr>
-}
+    }
 
 </table>

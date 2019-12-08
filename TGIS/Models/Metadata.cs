@@ -79,11 +79,11 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("發佈管理員"),StringLength(4)]
         public string AdministratorID { get; set; }
-        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required, DataType(DataType.Date)]
         public System.DateTime AnnouncedDate { get; set; }
-        [DisplayName("標題"),StringLength(40)]
+        [DisplayName("標題"),StringLength(40), Required]
         public string Title { get; set; }
-        [DisplayName("內文")]
+        [DisplayName("內文"), Required]
         public string Content { get; set; }
     }
     //回報列表

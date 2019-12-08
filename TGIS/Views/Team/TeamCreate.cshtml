@@ -70,20 +70,19 @@
                 <option value="">不限遊戲種類</option>
                 @{
                     string tableGameID = GetMSData("Preference");
-                    if (tableGameID != "")
+                    foreach (TableGame game in db.TableGames)
                     {
-                        <option value="@tableGameID" selected>@db.TableGames.Find(tableGameID).ChineseName</option>
-                    }
-                    else
-                    {
-                        foreach (TableGame game in db.TableGames)
+                        if (game.ID == tableGameID)
+                        {
+                            <option value="@game.ID" selected>@game.ChineseName</option>
+                        }
+                        else
                         {
                             <option value="@game.ID">@game.ChineseName</option>
                         }
                     }
                 }
             </select>
-            @*要調查使用者習慣確定不選擇狀態下是否要顯示全部 *@
             <div class="col-5">
                 <input id="searchInput" class="form-control w-50 d-inline" placeholder="輸入想搜尋的遊戲" />
                 <button id="searchBtn" class="btn btn-info mb-2">搜尋</button>
@@ -154,14 +153,15 @@
         })
     }
 
+
     //從輸入框搜尋桌遊
     $("#searchBtn").click(function () {
-        var tgName = $("#searchInput").val();
-        console.log(tgName)
-        $.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
-            $("#Preference").html(data);
-        })
-        //避免送出表單
+        //*******暫時停用，但在新的程式碼寫好前請勿刪除******
+        //var tgName = $("#searchInput").val();
+        //$.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
+        //    $("#Preference").html(data);
+        //})
+        //避免送出表單(請勿刪除)
         return false;
     })
 
