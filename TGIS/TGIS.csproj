@@ -429,7 +429,7 @@
     <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
     <Content Include="Views\Feedback\ReturnList.cshtml" />
     <Content Include="Views\Feedback\ReturnDetail.cshtml" />
-    <Content Include="Views\Feedback\ReturnProblem.cshtml" />
+    <Content Include="Views\Feedback\Report.cshtml" />
     <Content Include="Views\Announcement\AnnouncementList.cshtml" />
     <Content Include="Views\Announcement\CreateAnnoun.cshtml" />
     <Content Include="Views\Announcement\EditAnnoun.cshtml" />
@@ -456,6 +456,8 @@
     <Content Include="Views\TableGameInShopDetail\_AllTableGamesInTheShop.cshtml" />
     <Content Include="Views\NormalOffer\OfferEdit.cshtml" />
     <Content Include="Views\NormalOffer\_OfferListForPlayer.cshtml" />
+    <Content Include="Views\Feedback\ContactUs.cshtml" />
+    <Content Include="Views\Feedback\ThanksForFeedback.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

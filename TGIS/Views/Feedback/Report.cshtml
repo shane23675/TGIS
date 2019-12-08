@@ -1,0 +1,46 @@
+﻿@model TGIS.Models.Feedback
+
+@{
+    ViewBag.Title = "ReturnProblem";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<h2>檢舉</h2>
+<p>檢舉對象：@ViewBag.PlaintiffName</p>
+<p>
+    注意：<br />
+    不要給我亂檢舉喔<br />
+    我們沒那麼閒聽你抱怨那些五四三的
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="送出" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="javascript: history.back();">回上一頁</a>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
