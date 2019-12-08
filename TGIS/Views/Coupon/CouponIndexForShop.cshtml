@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<TGIS.Models.Coupon>
 
 @{
-    ViewBag.Title = "CouponIndexForShop";
+    ViewBag.Title = "優惠券管理";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-<h2>CouponIndexForShop</h2>
+<h2>優惠券管理</h2>
 
 <p>
-    @Html.ActionLink("Create a New Coupon", "CouponCreate")
+    @Html.ActionLink("建立新的優惠活動", "CouponCreate")
 </p>
 <table class="table">
     <tr>
@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.LimitedAmount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsAvailable)
+            活動狀態
         </th>
         <th></th>
     </tr>
@@ -59,9 +59,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.IsAvailable)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "CouponEdit", new { couponID=item.ID }) 
-        </td>
+        </td>*@
     </tr>
 }
 

@@ -1,16 +1,17 @@
 ﻿@model IEnumerable<TGIS.Models.Announcement>
 
 @{
-    ViewBag.Title = "AnnouncementList";
+    ViewBag.Title = "公告列表";
 }
 
-<h2>AnnouncementList</h2>
+
+    <h2>公告列表</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateAnnoun")
+    @Html.ActionLink("發佈新公告", "CreateAnnoun")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-bordered text-center">
+    <tr class="table-primary">
         <th>
             @Html.DisplayNameFor(model => model.AnnouncedDate)
         </th>
@@ -18,34 +19,31 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Administrator.Account)
         </th>
-        <th></th>
+        <th>
+            管理
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnouncedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Administrator.Account)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditAnnoun", new { id=item.ID }) |
-            @Html.ActionLink("Details", "AnnounDetail", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "AnnounDel", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnouncedDate)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Administrator.Account)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "EditAnnoun", new { id = item.ID }) |
+                @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }) |
+                @Html.ActionLink("刪除", "AnnounDel", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
