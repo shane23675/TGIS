@@ -157,10 +157,21 @@
     //從輸入框搜尋桌遊
     $("#searchBtn").click(function () {
         //*******暫時停用，但在新的程式碼寫好前請勿刪除******
-        //var tgName = $("#searchInput").val();
+        //var tgName = $("#searchInput").val(); 抓資料
         //$.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
         //    $("#Preference").html(data);
         //})
+
+        var tgName = $("#searchInput").val();
+        $.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
+            $("#Preference").html(data);
+            console.log($("#Preference").html(data))
+        })
+
+
+
+
+
         //避免送出表單(請勿刪除)
         return false;
     })
