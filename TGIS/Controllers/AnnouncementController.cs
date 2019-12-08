@@ -29,6 +29,8 @@ namespace TGIS.Controllers
         {
             if (ModelState.IsValid)
             {
+                //填入必要資料
+                ann.ID = UsefulTools.GetNextID(db.Announcements, 2);
                 ann.AdministratorID = Session["AdminID"].ToString();
                 ann.AnnouncedDate = DateTime.Today;
                 db.Announcements.Add(ann);
@@ -42,6 +44,7 @@ namespace TGIS.Controllers
             {
                 return RedirectToAction("LoginForAdmin", "LoginForAdmin");
             }
+            TempData["AnnouncementID"] = id;
             return View(db.Announcements.Find(id));
         }
         [HttpPost]
@@ -49,10 +52,17 @@ namespace TGIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ann).State = EntityState.Modified;
+                //取出原始資料進行修改
+                var announcement = db.Announcements.Find((string)TempData["AnnouncementID"]);
+                announcement.AdministratorID = (string)Session["AdminID"];
+                announcement.AnnouncedDate = DateTime.Today;
+                announcement.Title = ann.Title;
+                announcement.Content = ann.Content;
+
                 db.SaveChanges();
                 return RedirectToAction("AnnouncementList");
             }
+            TempData.Keep("AnnouncementID");
             return View(ann);
         }
         public ActionResult AnnounDel(string id)
