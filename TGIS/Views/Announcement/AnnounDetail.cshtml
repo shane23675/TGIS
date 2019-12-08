@@ -1,50 +1,33 @@
 ﻿@model TGIS.Models.Announcement
 
 @{
-    ViewBag.Title = "AnnounDetail";
+    ViewBag.Title = "公告詳細內容";
 }
 
-<h2>AnnounDetail</h2>
 
-<div>
-    <h4>Announcement</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AnnouncedDate)
-        </dt>
+        <h2 class="mb-0">@Html.DisplayFor(model => model.Title)</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.AnnouncedDate)
-        </dd>
+    <div>
+        <div class="row justify-content-end">
+            @Html.ActionLink("編輯", "EditAnnoun", new { id = Model.ID },new { @class="btn btn-outline-info mr-3"})
+        </div>
+        <hr />
+        
+            <h6>
+                <strong>公告日期：</strong>@Html.DisplayFor(model => model.AnnouncedDate)
+            </h6>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <h6>
+                <strong>發佈帳號：</strong>@Html.DisplayFor(model => model.Administrator.Account)
+            </h6>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Administrator.Account)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Administrator.Account)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "EditAnnoun", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <h6>
+                <strong>公告內文：</strong>
+                <br/>
+                <span style="line-height:2rem">@Html.DisplayFor(model => model.Content)</span>
+            </h6>
+        
+        <p>
+          
+            @Html.ActionLink("←返回列表", "AnnouncementList",null,new { @class=""})
+        </p>
