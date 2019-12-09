@@ -11,11 +11,12 @@ namespace TGIS.Controllers
     public class AnnouncementController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        // GET: Announcement
-        public ActionResult AnnouncementList()
+        //管理員查看公告列表
+        public ActionResult AnnouncementIndexForAdmin()
         {
             return View(db.Announcements.ToList());
         }
+        //管理員新增公告
         public ActionResult CreateAnnoun()
         {
             if (Session["AdminID"] == null)
@@ -38,6 +39,8 @@ namespace TGIS.Controllers
             }
             return RedirectToAction("AnnouncementList");
         }
+
+        //管理員修改公告
         public ActionResult EditAnnoun(string id)
         {
             if (Session["AdminID"] == null)
@@ -65,6 +68,8 @@ namespace TGIS.Controllers
             TempData.Keep("AnnouncementID");
             return View(ann);
         }
+
+        //管理員刪除公告
         public ActionResult AnnounDel(string id)
         {
             var ann = db.Announcements.Find(id);
@@ -72,15 +77,31 @@ namespace TGIS.Controllers
             db.SaveChanges();
             return RedirectToAction("AnnouncementList");
         }
+
+        //管理員查看公告明細
         public ActionResult AnnounDetail(string id)
         {
             return View(db.Announcements.Find(id));
         }
+
+        //首頁的公告PartialView
         public ActionResult _AnnouncementPartail(int number)
         {
             List<Announcement> Ann;
             Ann = db.Announcements.OrderByDescending(m => m.AnnouncedDate).Take(number).ToList();
             return PartialView(Ann);
+        }
+
+        //玩家查看公告列表
+        public ActionResult AnnouncementIndexForPlayer()
+        {
+            return View(db.Announcements.ToList().OrderByDescending(a => a.AnnouncedDate).ThenByDescending(a => a.ID));
+        }
+
+        //玩家查看公告詳細內容
+        public ActionResult AnnouncementDetailForPlayer(string annID)
+        {
+            return View(db.Announcements.Find(annID));
         }
     }
 }
