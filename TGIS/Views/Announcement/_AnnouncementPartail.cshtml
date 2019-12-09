@@ -22,7 +22,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("查看更多", "AnnouncementDetailForPlayer", new { annID = item.ID }, new { @class = "btn btn-info" })
             </td>
         </tr>
     }

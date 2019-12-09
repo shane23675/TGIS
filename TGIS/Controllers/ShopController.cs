@@ -235,6 +235,8 @@ namespace TGIS.Controllers
         public ActionResult ShopDetailForStore()
         {
             var id = Session["ShopID"].ToString();
+            if (id == null)
+                return HttpNotFound();
             return View(db.Shops.Find(id));
         }
  

@@ -1,0 +1,14 @@
+﻿@model TGIS.Models.Announcement
+
+@{
+    ViewBag.Title = "AnnouncementDetailForPlayer";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<h2>@Model.Title</h2>
+<p>@Model.AnnouncedDate</p>
+<hr />
+
+<p>@Model.Content</p>
+
+    @Html.ActionLink("回到公告列表", "AnnouncementIndexForPlayer")
