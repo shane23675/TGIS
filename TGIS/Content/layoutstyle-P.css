@@ -24,10 +24,13 @@ a:hover {
     color: #84A9C0;
     text-decoration:none;
 }
-/* ---------------------------------------------------
+.text-player {
+    color: #005E28;
+}
+    /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-#sidebar ul li a {
+    #sidebar ul li a {
     color: #005E28;
 }
 .nav-tabs {
@@ -54,4 +57,7 @@ a:hover {
     box-shadow: #84A9C0 2px 2px 5px;
     border-bottom-left-radius: 1%;
     border-bottom-right-radius: 1%;
+}
+.table-bordered td {
+    border: 1px solid #86cfda;
 }

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
 }
 
-    <div class="body-content p-5 row">
+    <div class="body-content p-4 row">
         <div class="col-9">
             <div class="row ml-1">
                 <span class="h2 mr-3" id="nickNameDisplay">@Model.NickName</span>
@@ -33,9 +33,7 @@
                     <dt>@Html.DisplayNameFor(model => model.Email)：</dt>
                     <dd>@Html.DisplayFor(model => model.Email)</dd>
                 </dl>
-                <dl class="row ml-1 col-4">
-                    @*<dt> @Html.DisplayNameFor(model => model.Points)=</dt>
-                        <dd>=@Html.DisplayFor(model => model.Points)</dd>*@
+                <dl class="row ml-1 col-4">              
                     <dt>
                         @Html.DisplayNameFor(model => model.IsEmailValid)：
                     </dt>

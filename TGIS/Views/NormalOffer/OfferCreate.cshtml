@@ -1,20 +1,21 @@
 ﻿@model TGIS.Models.NormalOffer
 
 @{
-    ViewBag.Title = "新增活動";
+    ViewBag.Title = "新增活動廣告";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-<h2>新增活動</h2>
+
 
 
 @using (Html.BeginForm("OfferCreate", "NormalOffer", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal container">
+        <h2>新增活動廣告</h2>
         <hr />
-        <div class="form-group">
+        <div class="row form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
@@ -22,15 +23,15 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="row form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Content, 5, 100, new { @class = "form-control" })  
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="row form-group">
             @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
@@ -38,7 +39,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="row form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
@@ -46,24 +47,19 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="row form-group">
             <label class="control-label col-md-2">上傳圖片</label>
             <div class="col-md-10">
                 <input type="file" name="photos" multiple />
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="form-group">           
+                <input type="submit" value="新增" class="btn btn-info" />
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "OfferList")
-</div>
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>

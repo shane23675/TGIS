@@ -23,7 +23,7 @@
             <a class="nav-link" href="@Url.Action("Logout","Login",new { sessionName="PlayerID"})">登出</a>
         </div>
     </nav>
-    @{ 
+    @{
         //判斷現在頁面
         string personalData = "", myPoints = "", myCoupon = "", myTeam = "";
         string nowPage = (string)Session["nowPage"];
