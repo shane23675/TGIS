@@ -105,12 +105,14 @@
     border: 1px solid rgba(0, 94, 40, 0.2);
     border-radius: 1rem;
 }
-
 .modal-header {
     border-bottom: 1px solid #005E28;
-    background-color: #7FC6A4;
-    
-   
+    background-color: #7FC6A4;      
+}
+.modal-footer {
+    border-top: none;
+    justify-content:center;
+    padding-top:0px;
 }
 /*-----------------------------------------------------*/
 .nav-TG {
@@ -122,6 +124,7 @@
     }
 
     .nav-TG .nav-link {
+        color: #7FC6A4;
         border: 1px solid transparent;
         border-top-left-radius: 0.25rem;
         border-top-right-radius: 0.25rem;
@@ -129,6 +132,7 @@
 
         .nav-TG .nav-link:hover, .nav-tabs .nav-link:focus {
             border-color: #005E28 #005E28 #005E28;
+            color: #005E28;
         }
 
 

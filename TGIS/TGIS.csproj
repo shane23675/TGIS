@@ -426,7 +426,6 @@
     <Content Include="Views\Player\PlayerCreate.cshtml" />
     <Content Include="Views\EmailValidate\EmailRepeat.cshtml" />
     <Content Include="Views\EmailValidate\EmailValidate.cshtml" />
-    <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
     <Content Include="Views\Feedback\ReturnList.cshtml" />
     <Content Include="Views\Feedback\ReturnDetail.cshtml" />
     <Content Include="Views\Feedback\Report.cshtml" />

@@ -50,19 +50,19 @@
                 <li class="nav-item ">
                     <a class="nav-link nav-p @personalData" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
                         <i class="fas fa-user-edit"></i>
-                        <span>&nbsp;個人資料管理</span>
+                        <span>&nbsp;我的個人資訊</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-p @myPoints" href="@Url.Action("MyPoints", "PlayerPointDetail")">
                         <i class="fas fa-money-bill-wave"></i>
-                        <span>&nbsp;點數使用明細</span>
+                        <span>&nbsp;我的點數</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-p @myCoupon" href="@Url.Action("MyCoupons", "PlayerCouponDetail")">
                         <i class="fas fa-money-bill-wave"></i>
-                        <span>&nbsp;優惠券管理</span>
+                        <span>&nbsp;我的優惠券</span>
                     </a>
                 </li>
                 <li class="nav-item">
