@@ -27,27 +27,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsHidden)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Player.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
-        </td>
-        <td>
-            @Html.ActionLink("隱藏", "HideTGComment", new { commentID=item.ID }, new { @class="btn btn-danger"}) 
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsHidden)
+            </td>
+            <td>
+                <a href="@Url.Action("PlayerEdit", "Player", new { playerID = item.PlayerID})" class="text-info">@item.PlayerID</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+            </td>
+            <td>
+                @if (!item.IsHidden)
+                {
+                    @Html.ActionLink("隱藏", "HideTGComment", new { commentID = item.ID }, new { @class = "btn btn-danger", onclick="return confirm('確定要隱藏該評論嗎？')" })
+                }
+            </td>
+</tr>
+    }
 
 </table>
