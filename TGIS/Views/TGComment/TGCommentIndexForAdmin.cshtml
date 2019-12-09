@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TGIS.Models.TableGameComment>
+
+@{
+    ViewBag.Title = "TGCommentForAdmin";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>評論管理</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CommentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsHidden)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.Account)
+        </th>
+        <th>
+            桌遊名稱
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsHidden)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.Account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+        </td>
+        <td>
+            @Html.ActionLink("隱藏", "HideTGComment", new { commentID=item.ID }, new { @class="btn btn-danger"}) 
+        </td>
+    </tr>
+}
+
+</table>

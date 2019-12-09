@@ -460,6 +460,7 @@
     <Content Include="Views\Tool\Test.cshtml" />
     <Content Include="Views\Announcement\AnnouncementIndexForPlayer.cshtml" />
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
+    <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -467,10 +468,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\TableGameInShop\" />
-    <Folder Include="Views\TGComment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

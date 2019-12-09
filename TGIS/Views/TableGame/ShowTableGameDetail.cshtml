@@ -220,8 +220,6 @@
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
-                if (Session["PlayerID"]?.ToString() == comment.PlayerID)
-                {
                     <div class="col-md-2 my-2">
                         <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
                     </div>
@@ -229,40 +227,27 @@
                     <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
                         <div class="card-header tgcHeader">
                             <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
-                            <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                            @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
+                            {
+                                <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                            }
                         </div>
                         <div class="card-body tgcBody">
-                            <span>
-                                @Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
-                            </span>
+                            
+                                @if (comment.IsHidden)
+                                {
+                                    <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
+                                }
+                                else
+                                {
+                                    <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
+                                }
                         </div>
                         <div class="card-footer tgcFooter">
-                            <span>@comment.CommentDate</span>
+                            <span>@comment.CommentDate.ToString("yyyy年MM月dd日")</span>
                         </div>
-
                     </div>
                 }
-                else
-                {
-                    <div class="col-md-2 my-2">
-                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
-                    </div>
-                    <div class="card col-md-10 no-gutters px-0 my-2">
-                        <div class="card-header tgcHeader">
-                            <h3 class="font-weight-bold">@comment.Player.NickName</h3>
-                        </div>
-                        <div class="card-body tgcBody">
-                            <span>
-                                @Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
-                            </span>
-                        </div>
-                        <div class="card-footer tgcFooter">
-                            <span>@comment.CommentDate</span>
-                        </div>
-
-                    </div>
-                }
-            }
         </div>
     </div>
 
