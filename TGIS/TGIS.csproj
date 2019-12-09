@@ -460,6 +460,7 @@
     <Content Include="Views\Tool\Test.cshtml" />
     <Content Include="Views\Announcement\AnnouncementIndexForPlayer.cshtml" />
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
