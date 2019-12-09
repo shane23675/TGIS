@@ -13,19 +13,21 @@ $(document).delegate('input', 'propertychange input', function () {
 function SearchTG(keyword) {
     $.post("/TableGame/SearchTableGameByName", { name: keyword }, function (data) {
         $('#TGResultList').empty();
-
+        $('#TGResultList').css('z-index', '-1');
         //空值時不顯示結果
         if (keyword == "" || keyword == " ") {
             return;
         } else if (data.length == 0) {
+            $('#TGResultList').css('z-index', '10');
             $('#TGResultList').append('<a>查無此桌遊</a>');
             return;
         }
 
         //顯示搜尋結果
+        $('#TGResultList').css('z-index', '10');
         for (i = 0; i < data.length; i++) {
             let result = '<a href="' + data[i].Link + '">' + data[i].ChineseName + '</a>';
-            console.log(result);
+            
             $('#TGResultList').append(result);
         }
     })

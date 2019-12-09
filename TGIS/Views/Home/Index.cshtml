@@ -31,21 +31,32 @@
         #TGResultList,#ShopResultList{
             position:absolute;
             width:100%;     
+            overflow:auto;
+            height:20rem;
         }
-         #TGResultList{
+         /*#TGResultList{
              z-index:10;
-         }
+         }*/
 
         #TGResultList a,#ShopResultList a{
             display:block;
             border:1px solid #a5a5a5;
-            background-color:#0d1e5f;
+            padding:0.5rem;
+            background-color:#26179ed9;
             color:#ffffff;
             width:100%;
-
         }
 
-
+        #TGResultList a:last-child,#ShopResultList a:last-child{
+            display:block;
+            border:1px solid #a5a5a5;
+            border-bottom-left-radius:0.25rem;
+            border-bottom-right-radius:0.25rem;
+            padding:0.5rem;
+            background-color:#26179ed9;
+            color:#ffffff;
+            width:100%;
+        }
 
 
     </style>
