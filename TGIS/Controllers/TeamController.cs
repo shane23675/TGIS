@@ -102,6 +102,7 @@ namespace TGIS.Controllers
             if ((string)Session["PlayerID"] == null)
                 return RedirectToAction("LoginForPlayer", "Login");
 
+            Session["nowPage"] = "myTeam";
             return View();
         }
 

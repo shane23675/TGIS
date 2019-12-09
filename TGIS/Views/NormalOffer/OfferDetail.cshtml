@@ -2,22 +2,14 @@
 
 @{
     ViewBag.Title = "OfferDetail";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    int count = 0;
 }
 
-<h2>OfferDetail</h2>
-
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
+    <h5>@Html.DisplayFor(model => model.Shop.ShopName)</h5>
 <div>
-    <h4>NormalOffer</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Content)
         </dt>
@@ -50,17 +42,21 @@
             @Html.DisplayFor(model => model.Clicks)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shop.Account)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Shop.Account)
-        </dd>
-
     </dl>
+
+    <div>
+        <p>活動圖片</p>
+        @* active是方便做成跑馬燈 *@
+        @foreach (int id in ViewBag.photoIDList)
+        {
+            string active = count == 0 ? "active" : "";
+            <div class="carousel-item @active">
+                <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })"  />
+            </div>
+            count = 1;
+        }
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "ShopDetailForPlayer", "Shop", new { id = (string)ViewBag.ShopID }, null)
 </p>

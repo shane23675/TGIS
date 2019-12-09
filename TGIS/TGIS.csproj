@@ -181,6 +181,7 @@
     <Content Include="images\B01.jpg" />
     <Content Include="images\B02.jpg" />
     <Content Include="images\B03.jpg" />
+    <Content Include="images\backIndex.png" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\bg_desk.jpg" />
     <Content Include="images\bg_desk2.jpg" />
@@ -188,6 +189,7 @@
     <Content Include="images\boardGame.jpg" />
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
+    <Content Include="images\email_check.jpg" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -245,6 +247,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mineCrop.js" />
+    <Content Include="Scripts\mineJS.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -271,6 +274,8 @@
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\PlayerCouponDetailController.cs" />
+    <Compile Include="Controllers\PlayerPointDetailController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
     <Compile Include="Controllers\TableGameInShopDetailController.cs" />
@@ -424,7 +429,7 @@
     <Content Include="Views\Shared\_LayoutPlayer2.cshtml" />
     <Content Include="Views\Feedback\ReturnList.cshtml" />
     <Content Include="Views\Feedback\ReturnDetail.cshtml" />
-    <Content Include="Views\Feedback\ReturnProblem.cshtml" />
+    <Content Include="Views\Feedback\Report.cshtml" />
     <Content Include="Views\Announcement\AnnouncementList.cshtml" />
     <Content Include="Views\Announcement\CreateAnnoun.cshtml" />
     <Content Include="Views\Announcement\EditAnnoun.cshtml" />
@@ -442,10 +447,18 @@
     <Content Include="Views\Coupon\CouponEdit.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForShop.cshtml" />
     <Content Include="Views\Player\PointRecord.cshtml" />
-    <Content Include="Views\Coupon\CouponInShopIndex.cshtml" />
+    <Content Include="Views\Coupon\_CouponInShopIndex.cshtml" />
     <Content Include="Views\NormalOffer\OfferCreate.cshtml" />
     <Content Include="Views\NormalOffer\OfferList.cshtml" />
     <Content Include="Views\NormalOffer\OfferDetail.cshtml" />
+    <Content Include="Views\PlayerPointDetail\MyPoints.cshtml" />
+    <Content Include="Views\PlayerCouponDetail\MyCoupons.cshtml" />
+    <Content Include="Views\TableGameInShopDetail\_AllTableGamesInTheShop.cshtml" />
+    <Content Include="Views\NormalOffer\OfferEdit.cshtml" />
+    <Content Include="Views\NormalOffer\_OfferListForPlayer.cshtml" />
+    <Content Include="Views\Feedback\ContactUs.cshtml" />
+    <Content Include="Views\Feedback\ThanksForFeedback.cshtml" />
+    <Content Include="Views\Tool\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

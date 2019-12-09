@@ -156,14 +156,7 @@
 
 
                     <!--select store-->
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            在哪裡可以玩到它?
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"><!-- 連結店家頁面 店家名 --></a>
-                        </div>
-                    </div>
+                    @Html.ActionLink("在哪裡可以玩到它?", "ShopIndexForPlayer", "Shop", new { searchedTableGameID=Model.ID}, new { @class="btn btn-primary dropdown-toggle"})
                     <!--select store-->
 
                 </div>

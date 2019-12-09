@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TGIS.Models.TableGameInShopDetail>
+
+@{
+    ViewBag.Title = "AllTableGamesInTheShop";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TableGame.ChineseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TableGame.EnglishName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})">
+            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+        </a>
+    </td>
+    <td>
+        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})">
+            @Html.DisplayFor(modelItem => item.TableGame.EnglishName)
+        </a>
+    </td>
+    <td>
+        @if (item.IsSale)
+        {
+            @Html.DisplayFor(modelItem => item.Price)
+        }
+        else
+        {
+            @: 無販售
+        }
+    </td>
+</tr>
+}
+
+</table>

@@ -79,11 +79,11 @@ namespace TGIS.Models
         public string ID { get; set; }
         [DisplayName("發佈管理員"),StringLength(4)]
         public string AdministratorID { get; set; }
-        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("發佈日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), Required, DataType(DataType.Date)]
         public System.DateTime AnnouncedDate { get; set; }
-        [DisplayName("標題"),StringLength(40)]
+        [DisplayName("標題"),StringLength(40), Required]
         public string Title { get; set; }
-        [DisplayName("內文")]
+        [DisplayName("內文"), Required]
         public string Content { get; set; }
     }
     //回報列表
@@ -93,16 +93,18 @@ namespace TGIS.Models
     {
         [DisplayName("回報編號")]
         public string ID { get; set; }
-        [DisplayName("來信時間")]
+        [DisplayName("來信時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd  hh:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime ReceivedDate { get; set; }
         [DisplayName("檢舉人"),StringLength(6)]
         public string Plaintiff { get; set; }
         [DisplayName("被檢舉人"),StringLength(6)]
         public string Defendent { get; set; }
-        [DisplayName("檢舉內容")]
+        [DisplayName("檢舉內容"), Required]
         public string Content { get; set; }
         [DisplayName("回報分類編號")]
         public string TypeTagID { get; set; }
+        [DisplayName("已讀取")]
+        public string IsRead { get; set; }
     }
     //行政區列表
     [MetadataType(typeof(MetadataDistrict))]
@@ -143,13 +145,13 @@ namespace TGIS.Models
         public long ID { get; set; }
         [DisplayName("店家會員編號")]
         public string ShopID { get; set; }
-        [DisplayName("標題"),StringLength(20)]
+        [DisplayName("標題"),StringLength(20), Required]
         public string Title { get; set; }
-        [DisplayName("內文"),StringLength(300)]
+        [DisplayName("活動內容"),StringLength(300), Required]
         public string Content { get; set; }
-        [DisplayName("開啟日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("開始時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = true), Required]
         public System.DateTime BeginDate { get; set; }
-        [DisplayName("關閉日期"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = true), Required]
         public System.DateTime EndDate { get; set; }
         [DisplayName("被點閱數")]
         public int Clicks { get; set; }
@@ -197,16 +199,14 @@ namespace TGIS.Models
         public bool IsEmailValid { get; set; }
     }
     //玩家優惠明細
-    [MetadataType(typeof(MetadataPlyerCouponDetail))]
-    public partial class PlyerCouponDetail { }
-    public class MetadataPlyerCouponDetail
+    [MetadataType(typeof(MetadataPlayerCouponDetail))]
+    public partial class PlayerCouponDetail { }
+    public class MetadataPlayerCouponDetail
     {
         [DisplayName("會員編號")]
         public string PlayerID { get; set; }
         [DisplayName("活動編號")]
         public string CouponID { get; set; }
-        [DisplayName("優惠卷編碼")]
-        public long Code { get; set; }
         [DisplayName("兌換時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExchangedDate { get; set; }
         [DisplayName("是否使用")]
@@ -225,7 +225,7 @@ namespace TGIS.Models
         public int ChangedAmount { get; set; }
         [DisplayName("變動原因"),StringLength(20)]
         public string Cause { get; set; }
-        [DisplayName("獲得時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("變動時間"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ChangedDate { get; set; }
     }
     //相關教學連結

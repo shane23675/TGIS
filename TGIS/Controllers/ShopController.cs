@@ -113,11 +113,54 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //玩家看到的店家列表
-        public ActionResult ShopIndexForPlayer()
+        public ActionResult ShopIndexForPlayer(int? CityID, int? DistrictID, string searchedTableGameID)
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
-            return View(db.Shops.ToList());
+            //店家查詢結果的容器
+            var shops = db.Shops.ToList();
+            if (searchedTableGameID == null)
+            {
+                //桌遊搜尋ID為空，啟用一般篩選功能
+                if (CityID != null)
+                {
+                    if (DistrictID != null)
+                    {
+                        shops = db.Districts.Find(DistrictID).Shops.ToList();
+                    }
+                    else
+                    {
+                        shops.Clear();
+                        foreach (District d in db.Cities.Find(CityID).Districts)
+                        {
+                            shops.AddRange(d.Shops);
+                        }
+                    }
+                }
+            }
+            //在哪裡可以玩此桌遊的查詢
+            else
+            {
+                //先找到有此桌遊的店家
+                TableGame game = db.TableGames.Find(searchedTableGameID);
+                //傳送搜尋相關資訊
+                ViewBag.SearchingTGInfo = game;
+                //將包含此桌遊的店家找出
+                shops.Clear();
+                foreach (var detail in game.TableGameInShopDetails)
+                {
+                    shops.Add(detail.Shop);
+                }
+                //地區篩選
+                if (CityID != null)
+                {
+                    if (DistrictID != null)
+                        shops = shops.Where(s => s.DistrictID == DistrictID).ToList();
+                    else
+                        shops = shops.Where(s => s.District.CityID == CityID).ToList();
+                }
+            }
+            return View(shops);
         }
         //玩家看到店家詳細資料
         public ActionResult ShopDetailForPlayer(string id)
@@ -213,6 +256,19 @@ namespace TGIS.Controllers
                     result += $"<option value=\"{s.ID}\">{s.ShopName}</option>";
             }
             return Content(result);
+        }
+
+        //從名稱搜尋店家(Ajax)
+        //$.post("/Shop/SearchShopByName", { name: 店家搜尋框的值 }, function(data){})
+        [HttpPost]
+        public ActionResult SearchShopByName(string name)
+        {
+            //找到可能的店家
+            var result = db.Shops.Where(s => s.ShopName.Contains(name)).ToArray();
+            //選出需要的資料
+            var data = result.Select(s => new { s.ShopName, Link = Url.Action("ShopDetailForPlayer", "Shop", new { id = s.ID }) });
+
+            return Json(data);
         }
     }
 }

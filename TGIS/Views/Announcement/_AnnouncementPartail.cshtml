@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<TGIS.Models.Announcement>
 
 
-<table class="table">
-    <tr>
+<table class="table table-bordered text-center">
+    <tr class="table-primary">
         <th>
             @Html.DisplayNameFor(model => model.AnnouncedDate)
         </th>
@@ -12,17 +12,19 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnouncedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "AnnounDetail", new { id=item.ID }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnouncedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }, new { @class = "btn btn-info" })
+            </td>
         </tr>
-}
+    }
 
 </table>

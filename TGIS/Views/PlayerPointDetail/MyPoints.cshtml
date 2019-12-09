@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TGIS.Models.PlayerPointDetail>
+
+@{
+    ViewBag.Title = "MyPoints";
+    Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
+}
+<h3>剩餘點數： @(ViewBag.PointAmount)點</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cause)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ChangedDate)
+    </td>
+    <td>
+        @if(item.ChangedAmount > 0)
+        {
+            @: +@item.ChangedAmount
+        }
+        else
+        {
+            @item.ChangedAmount
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cause)
+    </td>
+</tr>
+}
+
+</table>

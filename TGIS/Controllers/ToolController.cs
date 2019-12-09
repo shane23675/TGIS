@@ -15,5 +15,11 @@ namespace TGIS.Controllers
         {
             return PartialView();
         }
+
+        //測試專區
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

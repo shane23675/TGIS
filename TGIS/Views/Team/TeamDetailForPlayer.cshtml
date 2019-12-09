@@ -80,7 +80,10 @@
         <dd>
             @foreach (Player p in Model.OtherPlayers)
             {
-                <p>@p.NickName</p>
+                <p>
+                    @p.NickName
+                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = p.ID }, new { @class = "btn btn-danger" })
+                </p>
             }
             @if (Model.CurrentPlayers == 1)
             {

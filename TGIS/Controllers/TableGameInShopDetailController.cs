@@ -57,7 +57,7 @@ namespace TGIS.Controllers
             return RedirectToAction("UpdateTableGameInShopDetail", new { shopID = shopID });
         }
 
-        //取得TableGameInShopDetail的partialView
+        //取得店內桌遊明細的partialView(店家編輯用)
         [ChildActionOnly]
         public ActionResult _GetOneDetail(string tableGameID, string shopID)
         {
@@ -77,43 +77,31 @@ namespace TGIS.Controllers
             }
         }
 
-        //以桌遊名稱查詢店內桌遊(Ajax)
-        public ActionResult SearchTableGameInShopByName(string shopID, string name)
+        //查看店家內的所有桌遊
+        public ActionResult _AllTableGamesInTheShop(string shopID)
         {
-            //建立一匿名型別的集合來準備製成JSON檔案
+            Shop s = db.Shops.Find(shopID);
+            return PartialView(s.TableGameInShopDetails.ToList());
+        }
+
+        //查詢店家內的所有桌遊(揪桌用，Ajax)
+        //$.post("/TableGameInShopDetail/GetTableGameInShopJson", { shopID: $("#ShopID").val() }, function (data){})
+        public ActionResult GetTableGameInShopJson(string shopID)
+        {
+            //取得該店家的所有店內桌遊明細
+            var details = db.Shops.Find(shopID).TableGameInShopDetails.ToArray();
+            //建構一個Json檔案的匿名類別容器
             var data = new[]
             {
-                new
-                {
-                    ChineseName = "",
-                    EnglishName = "",
-                    IsContained = ""
-                }
+                new { ChineseName = ""}
             }.ToList();
-            data.RemoveAt(0);
-
-            //先找到可能的桌遊
-            TableGame[] games = db.TableGames.Where(m => m.ChineseName.Contains(name)).ToArray();
-            //中文找不到再找英文
-            if (games.Length == 0)
-                games = db.TableGames.Where(m => m.EnglishName.Contains(name)).ToArray();
-            if (games.Length == 0)
+            data.Clear();
+            //將明細中的資料填入data
+            foreach(var d in details)
             {
-                data.Add(new { ChineseName = "找不到相符的項目", EnglishName = "No Possible Matches", IsContained = "" });
-                return Json(data.ToList());
+                data.Add(new { ChineseName = d.TableGame.ChineseName });
             }
-
-            //填入資料
-            foreach (var game in games)
-            {
-                data.Add(new
-                {
-                    ChineseName = game.ChineseName,
-                    EnglishName = game.EnglishName,
-                    IsContained = game.TableGameInShopDetails.Any(m=>m.ShopID == shopID) ? "有" : "無"
-                });
-            }
-            return Json(data.ToList());
+            return Json(data);
         }
     }
 }

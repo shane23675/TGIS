@@ -4,5 +4,10 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>EmailValidate</h2>
-<h1>請至信箱收取確認信</h1>
+    <div class="row justify-content-center align-content-center vh-100">
+        <div class="col-12 mb-3 text-center" style="position:relative">
+            <img src="~/images/email_check.jpg" class="img-fluid" style="border-radius:1%" />
+        </div>
+        <h1 class="col-12 text-center">請至信箱收取確認信</h1>
+        @Html.ActionLink("立即返回首頁", "Index", "Home", null, new { @class = "btn btn-outline-danger mt-2" })
+    </div>

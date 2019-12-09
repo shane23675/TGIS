@@ -5,29 +5,6 @@
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
 }
 
-<div class="container mt-4">
-    <div id="sidebar">
-        <ul class="nav nav-tabs">
-            <li class="nav-item ">
-                <a class="nav-link nav-p active" href="@Url.Action("PlayerDetail", "Player", new { playerID = (string)Session["PlayerID"]})">
-                    <i class="fas fa-user-edit"></i>
-                    <span>&nbsp;個人資料管理</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="@Url.Action("PointRecord","Player",new { playerID = (string)Session["PlayerID"]})" class="nav-link nav-p">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <span>&nbsp;點數與優惠券管理</span>
-                </a>
-            </li>
-            <li class="nav-item nav-p">
-                <a class="nav-link" href="@Url.Action("MyTeam", "Team")">
-                    <i class="fas fa-door-open"></i>
-                    <span>我的揪桌</span>
-                </a>
-            </li>
-        </ul>
-    </div>
     <div class="body-content p-5 row">
         <div class="col-9">
             <div class="row ml-1">
@@ -110,7 +87,6 @@
             </button>
         </div>
     </div>
-</div>
 <!-- 更改密碼的跳出窗 -->
 <div class="modal fade" id="playerpwChange" tabindex="-1" role="dialog" aria-labelledby="playerPasswordChange" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
