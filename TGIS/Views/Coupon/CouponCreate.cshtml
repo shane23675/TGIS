@@ -2,76 +2,71 @@
 @model Coupon
 
 @{
-    ViewBag.Title = "CouponCreateForAdmin";
+    ViewBag.Title = "新增優惠券";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-<h2>New Coupon</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
+    <div class="form-horizontal container">
+        <h2>建立優惠券</h2>
+        <p>注意：建立完成的優惠券需經本網確認後才行生效。</p>
+        
+        <hr />
+        <div class="row form-group">
+            @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.PointsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PointsRequired, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PointsRequired, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.LimitedAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LimitedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label" })
+                <p class="countResult text-secondary"></p>
+            </div>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control textCount", style = "resize:none", maxlength = "100", rows = "4" })
+                @*@Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="row form-group ml-1">           
+                <input type="submit" value="建立" class="btn btn-info" />
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PointsRequired, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PointsRequired, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PointsRequired, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LimitedAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LimitedAmount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LimitedAmount, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label ml-3" })
-        <span class="countResult ml-1 text-secondary"></span>
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Content, new { @class = "form-control textCount", style = "resize:none", maxlength = "100",rows="4" })
-            @*@Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })*@
-        </div>
-    </div>
-
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @Html.ActionLink("Cancel", "CouponIndexForShop", null, new { @class = "btn btn-secondary" })
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </div>
-</div>
 }
 
 
 @section scripts{
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/mineJS.js"></script>
-
 }

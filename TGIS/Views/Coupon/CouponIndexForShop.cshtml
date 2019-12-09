@@ -4,89 +4,87 @@
     ViewBag.Title = "優惠券管理";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
+    <div class="row m-3 d-flex justify-content-between">
+        <h2>優惠券管理</h2>
+        @Html.ActionLink("建立新的優惠活動", "CouponCreate", null, new { @class = "btn btn-info pt-2" })
+    </div>
 
-<h2>優惠券管理</h2>
-
-<p>
-    @Html.ActionLink("建立新的優惠活動", "CouponCreate",null,new { @class="text-info"})
-</p>
-<table class="table table-bordered text-center">
-    <tr class="table-info">
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BeginDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpireDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PointsRequired)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LimitedAmount)
-        </th>
-        <th>
-            活動狀態
-        </th>
-        <th>
-            編輯
-        </th>
-
-    </tr>
-
-    @if (Model.Count() == 0)
-    {
-        <tr>
-            <td colspan="7">No Coupons Now</td>
+<table class="table table-sm table-bordered table-hover shadow ">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpireDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PointsRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimitedAmount)
+            </th>
+            <th>
+                活動狀態
+            </th>
+            <th></th>
+            
         </tr>
-    }
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BeginDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpireDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PointsRequired)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LimitedAmount)
-            </td>
-            <td>
-                @if (item.IsAvailable)
-                {
+        </thead>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="7">目前沒有建立任何優惠券</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle w-50">
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.BeginDate)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.ExpireDate)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.PointsRequired)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.LimitedAmount)
+                </td>
+                <td class="align-middle">
+                    @if (item.IsAvailable)
+                    {
 
-                    if (DateTime.Today > item.ExpireDate)
-                    {
-                        <label class="mb-0 text-secondary">活動結束</label>
-                    }
-                    else if (DateTime.Now < item.BeginDate)
-                    {
-                        <label class="mb-0 btn btn-info">尚未開始</label>
+                        if (DateTime.Today > item.ExpireDate)
+                        {
+                            <label class="mb-0 text-secondary">活動結束</label>
+                        }
+                        else if (DateTime.Now < item.BeginDate)
+                        {
+                            <label class="mb-0 text-info">尚未開始</label>
+                        }
+                        else
+                        {
+                            <label class="mb-0 text-success">進行中</label>
+                        }
                     }
                     else
                     {
-                        <label class="mb-0 btn btn-success">進行中</label>
+                        <label class="mb-0 text-danger">尚未通過審核</label>
                     }
-                }
-                else
-                {
-                    <label class="mb-0 btn btn-danger">尚未通過審核</label>
-                }
-                @*@Html.DisplayFor(modelItem => item.IsAvailable)*@
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "CouponEdit", new { couponID=item.ID })
-            </td>
-        </tr>
-    }
+                    @*@Html.DisplayFor(modelItem => item.IsAvailable)*@
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "CouponEdit", new { couponID = item.ID },new { @class="btn btn-info btn-block"})
+                </td>
+            </tr>
+        }
 
 </table>

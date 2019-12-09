@@ -43,7 +43,7 @@
                         @Html.ActionLink("店家資訊管理", "ShopDetailForStore", "Shop")
                     </li>
                     <li>
-                        @Html.ActionLink("店內桌遊管理", "UpdateTableGameInShopDetail", "TableGameInShopDetail", new { shopID = (string)Session["ShopID"]}, new { @class=""})
+                        @Html.ActionLink("店內桌遊管理", "UpdateTableGameInShopDetail", "TableGameInShopDetail", new { shopID = (string)Session["ShopID"] }, new { @class = "" })
                     </li>
                 </ul>
             </li>
@@ -95,6 +95,8 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("scripts", false)
     <script>
         $(document).ready(function () {

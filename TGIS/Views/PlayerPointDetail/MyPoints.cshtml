@@ -4,39 +4,44 @@
     ViewBag.Title = "MyPoints";
     Layout = "~/Views/Shared/_LayoutPlayerCenter.cshtml";
 }
-<h3>剩餘點數： @(ViewBag.PointAmount)點</h3>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ChangedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChangedAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cause)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ChangedDate)
-    </td>
-    <td>
-        @if(item.ChangedAmount > 0)
-        {
-            @: +@item.ChangedAmount
-        }
-        else
-        {
-            @item.ChangedAmount
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cause)
-    </td>
-</tr>
-}
-
-</table>
+    <div class="body-content p-4 ">
+        <h2>剩餘點數： @(ViewBag.PointAmount)點</h2>
+        <hr />
+        <h4 class="text-center">點數使用紀錄</h4>
+        <table class="table table-bordered">
+            <thead class="table-info">
+                <tr>
+                    <th class="w-25">
+                        @Html.DisplayNameFor(model => model.ChangedDate)
+                    </th>
+                    <th class="w-25">
+                        @Html.DisplayNameFor(model => model.ChangedAmount)
+                    </th>
+                    <th class="w-50">
+                        @Html.DisplayNameFor(model => model.Cause)
+                    </th>
+                </tr>
+            </thead>   
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChangedDate)
+                        </td>
+                        <td>
+                            @if (item.ChangedAmount > 0)
+                            {
+                                @: +@item.ChangedAmount
+                            }
+                            else
+                            {
+                                @item.ChangedAmount
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cause)
+                        </td>
+                    </tr>
+                }
+        </table>
+        </div>
