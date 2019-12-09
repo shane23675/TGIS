@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<h2>Test</h2>
+
+@section scripts{
+    <script>
+        var c = console.log;
+        $.post("/Shop/SearchShopByName", { name: "來" }, function (data) {
+            c(data)
+        })
+    </script>    
+}

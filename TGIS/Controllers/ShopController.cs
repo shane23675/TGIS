@@ -257,5 +257,18 @@ namespace TGIS.Controllers
             }
             return Content(result);
         }
+
+        //從名稱搜尋店家(Ajax)
+        //$.post("/Shop/SearchShopByName", { name: 店家搜尋框的值 }, function(data){})
+        [HttpPost]
+        public ActionResult SearchShopByName(string name)
+        {
+            //找到可能的店家
+            var result = db.Shops.Where(s => s.ShopName.Contains(name)).ToArray();
+            //選出需要的資料
+            var data = result.Select(s => new { s.ShopName, Link = Url.Action("ShopDetailForPlayer", "Shop", new { id = s.ID }) });
+
+            return Json(data);
+        }
     }
 }
