@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TGIS.Models.Announcement>
+
+@{
+    ViewBag.Title = "AnnouncementIndexForPlayer";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+<h2>公告列表</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnouncedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnouncedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("查看詳細", "AnnouncementDetailForPlayer", new { annID=item.ID }) 
+        </td>
+    </tr>
+}
+
+</table>

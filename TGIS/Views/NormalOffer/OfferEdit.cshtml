@@ -1,20 +1,21 @@
 ﻿@model TGIS.Models.NormalOffer
 
 @{
-    ViewBag.Title = "編輯活動";
+    ViewBag.Title = "編輯活動廣告";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-<h2>編輯活動</h2>
+
 
 @using (Html.BeginForm("OfferEdit", "NormalOffer", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+<div class="form-horizontal container">
+    <h2>編輯活動</h2>
     <hr />
 
-    <div class="form-group">
+    <div class="row form-group">
         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
@@ -22,7 +23,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
@@ -30,7 +31,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
         @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
@@ -38,7 +39,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
         @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
@@ -46,9 +47,9 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
         <label class="control-label col-md-2">圖片資料</label>
-        <div class="col-md-10 row">
+        <div class="col-md-10">
             @if (ViewBag.photoIDList.Count == 0)
             {
                 <p class="text-info">目前尚無任何圖片</p>
@@ -57,10 +58,10 @@
             {
                 foreach (int id in ViewBag.photoIDList)
                 {
-                    <div class="col-md-4">
+                    <div>
                         <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
                         <div>
-                            刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                            刪除<input type="checkbox" name="deletedPhotoID" value="@id" class="ml-1"/>
                         </div>
                     </div>
                 }
@@ -68,28 +69,20 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
-        <div class="col-md-10 row">
+    <div class="row form-group">
+        <label class="control-label col-md-2">上傳新圖片<br />(可一次選取多張)</label>
+        <div class="col-md-8">
             <input type="file" name="photos" multiple />
         </div>
     </div>
 
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
+        <input type="submit" value="儲存更改" class="btn btn-info" />
     </div>
 </div>
 }
 
-<div>
-    @Html.ActionLink("回到活動列表", "OfferList")
-</div>
-
 @section scripts{
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/date_convert.js"></script>
 }

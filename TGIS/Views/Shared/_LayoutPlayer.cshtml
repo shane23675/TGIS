@@ -18,7 +18,16 @@
 <body class="desk">
     <header>
         <nav class="navbar fixed-top headnav">
-            <a class="navbar-brand text-info" href="@Url.Action("Index", "Home")"><h3><stong>有桌方遊</stong></h3></a>
+            <a class="navbar-brand text-info" href="@Url.Action("Index", "Home")">
+                <h3>
+                    <stong>有桌方遊</stong>
+                </h3>
+            </a>
+            <a class="navbar-brand text-danger text-left" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">
+                <p>
+                    <stong>管理員介面點此進入(暫時通道)</stong>
+                </p>
+            </a>
 
             <div class="nav-item ">
                 @if (Session["PlayerID"] != null)
@@ -31,12 +40,12 @@
                 }
                 else
                 {
-            <div class="form-inline">
-                <a class="nav-link" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#loginModal">
-                    登入
-                </button>
-            </div>
+                    <div>
+                        <a class="btn btn-outline-info" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">
+                            登入
+                        </button>
+                    </div>
                 }
             </div>
         </nav>
@@ -45,13 +54,13 @@
             <div class="pmenulist">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player")">個人資訊</a>
+                        <a class="nav-link" href="@Url.Action("PlayerDetail", "Player")">我的個人資訊</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("MyPoints", "PlayerPointDetail")">點數使用明細</a>
+                        <a class="nav-link" href="@Url.Action("MyPoints", "PlayerPointDetail")">我的點數</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("MyCoupons", "PlayerCouponDetail")">優惠券管理</a>
+                        <a class="nav-link" href="@Url.Action("MyCoupons", "PlayerCouponDetail")">我的優惠券</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
@@ -76,8 +85,8 @@
     </div>
     <footer class="rounded-bottom footnav">
         <nav class="navbar navbar-expand-md justify-content-end">
-            <a class="nav-link" href="#">關於我們</a>
-            <a class="nav-link" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
+            <a class="nav-link text-info" href="#">關於我們</a>
+            <a class="nav-link text-info" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
         </nav>
     </footer>
 
@@ -92,34 +101,42 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <ul class="nav nav-tabs" id="LoginTab" role="tablist">
+                    <ul class="nav nav-TG nav-fill" id="LoginTab" role="tablist">
                         <li class="nav-item active">
                             <a class="nav-link active" id="player-tab" data-toggle="tab" href="#player" role="tab" aria-controls="player" aria-selected="true">玩家</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="shoper-tab" data-toggle="tab" href="#shoper" role="tab" aria-controls="shoper" aria-selected="false">店家</a>
-                        </li>                     
+                        </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="player" role="tabpanel" aria-labelledby="player-tab">
-                            <span>帳號：</span>
-                            <input id="PlayerAccount" type="text" name="account" class="form-control" /><br />
-                            <span>密碼：</span>
-                            <input id="PlayerPwd" type="password" name="pwd" class="form-control" />
-                            <button id="PlayerLogin" type="button" class="btn btn-outline-info btn-sm" >登入</button>
-                            <button type="button" class="btn btn-secondary">@Html.ActionLink("Forget Password", "ForgetPwd", new { }, new { style = "color:#f0f0f0;text-decoration:none" })</button>
+                        <div class="tab-pane fade show active bg-white p-3 border-login" id="player" role="tabpanel" aria-labelledby="player-tab">
+                            <div class="row m-3">
+                                <span class="w-25 mt-1">帳&emsp;&emsp;&emsp;號：</span>
+                                <input id="PlayerAccount" type="text" name="account" class="form-control w-75" />
+                            </div>
+                            <div class="row m-3 ">
+                                <span class="w-25 mt-1">密&emsp;&emsp;&emsp;碼：</span>
+                                <input id="PlayerPwd" type="password" name="pwd" class="form-control w-75" />
+                            </div>
+                            <button id="PlayerLogin" type="button" class="btn btn-outline-info ml-1">登入</button>
+                            <button type="button" class="btn btn-sm btn-link float-right mt-1  mr-1">@Html.ActionLink("忘記密碼", "ForgetPwd", new { })</button>
                         </div>
-                        <div class="tab-pane fade" id="shoper" role="tabpanel" aria-labelledby="shoper-tab">
-                            <span>帳號：</span>
-                            <input id="ShopAccount" type="text" name="account" class="form-control" /><br />
-                            <span>密碼：</span>
-                            <input id="ShopPwd" type="password" name="pwd" class="form-control" />
-                    <button id="ShopLogin" type="button" class="btn btn-outline-info btn-sm" >登入</button>
-                        </div>    
+                        <div class="tab-pane fade bg-white p-3 border-login" id="shoper" role="tabpanel" aria-labelledby="shoper-tab">
+                            <div class="row m-3">
+                                <span class="w-25 mt-1">帳&emsp;&emsp;&emsp;號：</span>
+                                <input id="ShopAccount" type="text" name="account" class="form-control w-75" />
+                            </div>
+                            <div class="row m-3 ">
+                                <span class="w-25 mt-1">密&emsp;&emsp;&emsp;碼：</span>
+                                <input id="ShopPwd" type="password" name="pwd" class="form-control w-75" />
+                            </div>
+                            <button id="ShopLogin" type="button" class="btn btn-outline-info ml-1">登入</button>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                            <span class="text-danger" id="error"></span>
+                <div class="modal-footer ">
+                    <span class="text-danger" id="error"></span>
                 </div>
             </div>
         </div>
@@ -134,8 +151,7 @@
                 "/Login/LoginForPlayer",
                 { account: $('#PlayerAccount').val(), pwd: $('#PlayerPwd').val() },
                 function (state) {
-                    switch (state)
-                    {
+                    switch (state) {
                         case "1":
                             $("#error").empty().text("帳號密碼錯誤")
                             break;
@@ -151,13 +167,13 @@
                 "/Login/LoginForShop",
                 { account: $('#ShopAccount').val(), pwd: $('#ShopPwd').val() },
                 function (state) {
-                    switch (state)
-                    {
+                    switch (state) {
                         case "1":
                             $("#error").empty().text("帳號密碼錯誤")
                             break;
                         case "2":
                             alert("登入成功")
+                            location.assign("@Url.Action("ShopDetailForStore", "Shop")")
                             break;
                     }
                 }

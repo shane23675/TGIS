@@ -96,8 +96,8 @@
     <div class="col-md-8 m-1">
 
 
-        <h3><strong>網站公告</strong></h3>
-        @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
+            <h3><strong><a href="@Url.Action("AnnouncementIndexForPlayer", "Announcement")">網站公告</a></strong></h3>
+                @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
 
 
 

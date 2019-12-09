@@ -90,10 +90,64 @@
         padding:8px 0px;
     }
 
-
+.border-login {
+    border-bottom: #005E28 1px solid;
+    border-left: #005E28 1px solid;
+    border-right: #005E28 1px solid;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
 /* ---------------------------------------------------
     bootstrap設計變動
 ----------------------------------------------------- */
+.modal-content {
+    background-color: #D6F8D6;
+    border: 1px solid rgba(0, 94, 40, 0.2);
+    border-radius: 1rem;
+}
+.modal-header {
+    border-bottom: 1px solid #005E28;
+    background-color: #7FC6A4;      
+}
+.modal-footer {
+    border-top: none;
+    justify-content:center;
+    padding-top:0px;
+}
+/*-----------------------------------------------------*/
+.nav-TG {
+    border-bottom: 1px solid #005E28;
+}
+
+    .nav-TG .nav-item {
+        margin-bottom: -1px;
+    }
+
+    .nav-TG .nav-link {
+        color: #7FC6A4;
+        border: 1px solid transparent;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+    }
+
+        .nav-TG .nav-link:hover, .nav-tabs .nav-link:focus {
+            border-color: #005E28 #005E28 #005E28;
+            color: #005E28;
+        }
+
+
+        .nav-TG .nav-link.active,
+        .nav-TG .nav-item.show .nav-link {
+            color: #005E28;
+            background-color: #fff;
+            border-color: #005E28 #005E28 #fff;
+        }
+
+    /*.nav-TG .dropdown-menu {
+        margin-top: -1px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }*/
 
 /* ---------------------------------------------------
     view的微調
