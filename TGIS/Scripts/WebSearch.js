@@ -1,11 +1,12 @@
-﻿
+
 //判別搜尋項目
 
 $(document).delegate('input', 'propertychange input', function () {
+
     if (this == GameSearch) {
-        SearchTG($(this).val());
+        SearchTG($(this).val().trim());
     } else {
-        SearchShop($(this).val());
+        SearchShop($(this).val().trim());
     }
 })
 
@@ -15,7 +16,7 @@ function SearchTG(keyword) {
         $('#TGResultList').empty();
         $('#TGResultList').css('z-index', '-1');
         //空值時不顯示結果
-        if (keyword == "" || keyword == " ") {
+        if (keyword == "") {
             return;
         } else if (data.length == 0) {
             $('#TGResultList').css('z-index', '10');
@@ -38,7 +39,7 @@ function SearchShop(keyword) {
         $('#ShopResultList').empty();
 
         //空值時不顯示結果
-        if (keyword == "" || keyword == " ") {
+        if (keyword == "") {
             return;
         } else if (data.length == 0) {
             $('#ShopResultList').append('<a>查無此店家</a>');
