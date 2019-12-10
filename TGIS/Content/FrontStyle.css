@@ -135,7 +135,6 @@
             color: #005E28;
         }
 
-
         .nav-TG .nav-link.active,
         .nav-TG .nav-item.show .nav-link {
             color: #005E28;
@@ -143,11 +142,24 @@
             border-color: #005E28 #005E28 #fff;
         }
 
-    /*.nav-TG .dropdown-menu {
-        margin-top: -1px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }*/
+/*-----------------------------------------------------*/
+
+.badge-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+.badge-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+.badge-outline-primary:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+.badge-outline-danger:hover {
+    color: #dc3545;
+    text-decoration: none;
+}
 
 /* ---------------------------------------------------
     view的微調
@@ -156,16 +168,18 @@
     font-size: 1.2em;
     color: #005E28;
 }
-.shopmap {
+.shopphoto {
     height: 200px;
     width: 200px;
     border: 2px solid #BFD7EA;
     box-shadow: 3px 3px 5px #84A9C0;
-    border-radius:5%;
+    border-radius: 5%;
 }
 .Frostedglass2 {
     background-color: rgba(255,255,255,0.5);
 }
+
+
 .media a {
     color: #2D739E;
     background-color: transparent;
