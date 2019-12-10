@@ -4,15 +4,22 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     Player player = (Player)ViewBag.Player ;
     List<string> teamIDs = (List<string>)ViewBag.TeamIDs;
+    TGISDBEntities db = new TGISDBEntities();
+    var teams = db.Teams;
 }
 
 <h2>測試區</h2>
-
+@* 
+        聊天室外殼需有class="chatBox"，以下兩區塊被包含在其中
+            訊息顯示區需有class="msgDisplay"
+            訊息輸入區需有class="msgInput"
+*@
 <div class="container">
     <div class="row">
-        @foreach (string s in teamIDs)
+        @foreach (string id in teamIDs)
         {
-            <div class="col-md-4 chatBox" >
+            <div class="col-md-4 bg-primary chatBox" style="border: 1px #000 solid">
+                <p>@teams.Find(id).Title</p>
                 <div class="bg-info msgDisplay" style="min-height: 300px;">
                 </div>
                 <div>

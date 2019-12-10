@@ -1,4 +1,4 @@
-﻿@model TGIS.Models.TableGame
+@model TGIS.Models.TableGame
 
 @{
     ViewBag.Title = "ShowTableGameDetail";
@@ -166,7 +166,7 @@
                 </div>
                 <!--Feature-->
                 <div>
-                    <p>@Model.Feature</p>
+                    <p>@Html.Raw(Model.Feature.Replace("\n","<br/>").Replace(" ", "&nbsp;"))</p>
                 </div>
             </div>
         </div>
@@ -175,7 +175,7 @@
         <div class="col-md-12 my-1">
             <h3>遊戲規則</h3>
             <p>
-                @Model.Rules
+                @Html.Raw(Model.Rules.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
             </p>
         </div>
 

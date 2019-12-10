@@ -93,6 +93,7 @@
           <Property Name="BeginDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Clicks" Type="int" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -100,7 +101,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="image" Nullable="false" />
-          <Property Name="SourceID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="SourceID" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="MIMEType" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Player">
@@ -752,7 +753,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SourceID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SourceID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="MIMEType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -1320,6 +1321,7 @@
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Clicks" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Shop" Relationship="TGISDBModel.Relationship16" FromRole="NormalOffer" ToRole="Shop" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="Relationship16">
           <End Type="TGISDBModel.Shop" Role="Shop" Multiplicity="1" />
@@ -1595,6 +1597,7 @@
           <EntitySetMapping Name="NormalOffers">
             <EntityTypeMapping TypeName="TGISDBModel.NormalOffer">
               <MappingFragment StoreEntitySet="NormalOffer">
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />

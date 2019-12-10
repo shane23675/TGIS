@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 @model TableGame
 
 @{
@@ -77,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Feature, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Feature, new { @class = "form-control" })
+                @Html.TextAreaFor(model => model.Feature, new { @class = "form-control", style = "resize:none", rows = "7" })
                 @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rules, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Rules, new { @class = "form-control" })
+                @Html.TextAreaFor(model => model.Rules, new { @class = "form-control", style = "resize:none", rows = "15"})
                 @Html.ValidationMessageFor(model => model.Rules, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -140,8 +140,8 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">相關教學連結</label>
-            <div class="col-md-10" id="linkInputBox" >
-                <input type="text" name="links" class="form-control" placeholder="新增一筆連結..."/>
+            <div class="col-md-10" id="linkInputBox">
+                <input type="text" name="links" class="form-control" placeholder="新增一筆連結..." />
             </div>
             <button id="moreLinkBtn" class="btn btn-link">再加一筆</button>
         </div>

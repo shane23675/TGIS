@@ -21,6 +21,7 @@ namespace TGIS.Models
         public System.DateTime BeginDate { get; set; }
         public System.DateTime EndDate { get; set; }
         public int Clicks { get; set; }
+        public bool IsHidden { get; set; }
     
         public virtual Shop Shop { get; set; }
     }
