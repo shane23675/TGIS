@@ -156,3 +156,22 @@
     font-size: 1.2em;
     color: #005E28;
 }
+.shopmap {
+    height: 200px;
+    width: 200px;
+    border: 2px solid #BFD7EA;
+    box-shadow: 3px 3px 5px #84A9C0;
+    border-radius:5%;
+}
+.Frostedglass2 {
+    background-color: rgba(255,255,255,0.5);
+}
+.media a {
+    color: #2D739E;
+    background-color: transparent;
+}
+
+    .media a:hover {
+        color: #00465E;
+        text-decoration: none;
+    }
