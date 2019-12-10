@@ -281,5 +281,12 @@ namespace TGIS.Controllers
                 return Content("true");
             return Content("false");
         }
+
+        //查看店家活動列表
+        public ActionResult MgShopOfferList(string ShopID)
+        {
+            return View(db.NormalOffers.Where(m=>m.ShopID==ShopID).ToList());
+        }
+
     }
 }
