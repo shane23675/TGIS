@@ -22,6 +22,43 @@
             box-shadow: #000000 3px 3px 5px 1px;
             border-radius: 10%;
         }
+
+        
+        #TGSearchResult,#ShopSearchResult{
+            position:relative;
+        }
+
+        #TGResultList,#ShopResultList{
+            position:absolute;
+            width:100%;     
+            overflow:auto;
+            height:20rem;
+        }
+         /*#TGResultList{
+             z-index:10;
+         }*/
+
+        #TGResultList a,#ShopResultList a{
+            display:block;
+            border:1px solid #a5a5a5;
+            padding:0.5rem;
+            background-color:#26179ed9;
+            color:#ffffff;
+            width:100%;
+        }
+
+        #TGResultList a:last-child,#ShopResultList a:last-child{
+            display:block;
+            border:1px solid #a5a5a5;
+            border-bottom-left-radius:0.25rem;
+            border-bottom-right-radius:0.25rem;
+            padding:0.5rem;
+            background-color:#26179ed9;
+            color:#ffffff;
+            width:100%;
+        }
+
+
     </style>
 </head>
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
@@ -53,12 +90,19 @@
 <div class="row">
     <div class="col-md-3 m-2 text-center">
 
-        <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
-        <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control" aria-label="search" />
-        @* 之後研究出即時搜尋的方法 *@
+        <div id="TGSearchResult">
+            <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
+            <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control" aria-label="search" />
+            @* 之後研究出即時搜尋的方法 *@
+            <div id="TGResultList"></div>
+        </div>
 
-        <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="text-info listbutton"><i class="fas fa-chess-rook "></i></a>
-        <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control" aria-label="search" />
+        <div id="ShopSearchResult">
+            <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="text-info listbutton"><i class="fas fa-chess-rook "></i></a>
+            <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control" aria-label="search" />
+            <div id="ShopResultList"></div>
+        </div>
+    
     </div>
     <div class="col-md-8 m-1">
 
@@ -71,10 +115,18 @@
 
         <hr />
         <h3>
-            <strong>@Html.ActionLink("～揪桌一起玩～", "GetTeamList", "Team", new { usage="TeamIndex"}, new { })</strong>
+            <strong>@Html.ActionLink("～揪桌一起玩～", "GetTeamList", "Team", new { usage = "TeamIndex" }, new { })</strong>
         </h3>
-        @Html.Action("GetTeamList", "Team", new { usage = "Home"})
+        @Html.Action("GetTeamList", "Team", new { usage = "Home" })
     </div>
 </div>
 
 
+@section scripts{
+
+    
+    <script src="~/Scripts/WebSearch.js"></script>
+    <script>
+
+    </script>
+}

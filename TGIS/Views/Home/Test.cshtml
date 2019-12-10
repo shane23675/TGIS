@@ -1,0 +1,69 @@
+﻿@using TGIS.Models;
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+    Player player = (Player)ViewBag.Player ;
+    List<string> teamIDs = (List<string>)ViewBag.TeamIDs;
+}
+
+<h2>測試區</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (string s in teamIDs)
+        {
+            <div class="col-md-4 chatBox" >
+                <div class="bg-info msgDisplay" style="min-height: 300px;">
+                </div>
+                <div>
+                    <input type="text" class="form-control msgInput" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        /*
+         *  作法：
+         *  登入後依據此玩家的隊伍數量建立訊息窗口
+         *  每個窗口都建立各自的websocket
+         *  每個輸入框也使用各自的websocket來使用send方法
+         */
+        var c = console.log;
+        //將此玩家的teamIDs(C#)轉換為JS陣列
+        var teamIDs = [];
+        @foreach(string id in teamIDs)
+        {
+            @: teamIDs.push("@id");
+        }
+        //取得所有
+        var boxes = $(".chatBox");
+        for (var i = 0; i < teamIDs.length; i++) {
+            //要使用let建立局部變量才不會相互衝突
+            let chatBox = boxes.eq(i);
+            let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
+            let ws = new WebSocket(url);
+            
+            ws.onopen = function () {
+                ws.send("已加入聊天室");
+            }
+            ws.onmessage = function (e) {
+                chatBox.find(".msgDisplay").append(`<p>${e.data}</p>`);
+            }
+
+            //在輸入框中按下Enter送出訊息
+            chatBox.find(".msgInput").keypress(function (e) {
+                if (e.keyCode == 13) {
+                    //送出訊息
+                    ws.send($(this).val());
+                    //清空輸入框
+                    $(this).val("");
+                }
+            });
+        }
+        
+        
+    </script>
+    
+}

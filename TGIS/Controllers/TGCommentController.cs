@@ -11,7 +11,7 @@ namespace TGIS.Controllers
     public class TGCommentController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        // GET: TGComment
+        // 玩家新增評論
         public ActionResult CreateTGComment(string tId,string comment)
         {
             if (Session["PlayerID"] != null)
@@ -35,6 +35,8 @@ namespace TGIS.Controllers
             }
             return RedirectToAction("LoginForPlayer","Login");
         }
+
+        //玩家刪除評論
         public ActionResult CommentDelete(int commentID)
         {
             var cmt = db.TableGameComments.Find(commentID);
@@ -46,6 +48,24 @@ namespace TGIS.Controllers
                 return RedirectToAction("ShowTableGameDetail", "TableGame", new { tableGameID = tld });
             }
             return Content("查無此評論");
+        }
+
+        //管理員查看評論列表
+        public ActionResult TGCommentIndexForAdmin()
+        {
+            return View(db.TableGameComments.OrderByDescending(c => c.ID).ToList());
+        }
+
+        //管理員隱藏評論
+        public ActionResult HideTGComment(int commentID)
+        {
+            //未登入則跳轉至登入頁面
+            if (Session["AdminID"] == null)
+                RedirectToAction("LoginForAdmin", "LoginForAdmin");
+
+            db.TableGameComments.Find(commentID).IsHidden = true;
+            db.SaveChanges();
+            return RedirectToAction("TGCommentIndexForAdmin");
         }
     }
 }
