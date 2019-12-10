@@ -155,6 +155,8 @@ namespace TGIS.Models
         public System.DateTime EndDate { get; set; }
         [DisplayName("被點閱數")]
         public int Clicks { get; set; }
+        [DisplayName("已隱藏")]
+        public bool IsHidden { get; set; }
     }
     //圖片
     [MetadataType(typeof(MetadataPhoto))]
