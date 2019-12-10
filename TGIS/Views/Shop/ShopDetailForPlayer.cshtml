@@ -56,11 +56,11 @@
 
                     if (Model.IsMinConsumeRequired == true)
                     {
-                        <span class="btn badge-outline-primary mr-2">無低消</span>
+                        <span class="btn badge-outline-danger mr-2">有低消</span>
                     }
                     else
                     {
-                        <span class="btn badge-outline-danger mr-2">有低消</span>
+                        <span class="btn badge-outline-primary mr-2">無低消</span>
                     }
                 }                
                     @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })

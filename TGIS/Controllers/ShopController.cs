@@ -113,18 +113,35 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //玩家看到的店家列表
-        public ActionResult ShopIndexForPlayer(int? CityID, int? DistrictID, string searchedTableGameID)
+        public ActionResult ShopIndexForPlayer(int? CityID, int? DistrictID, string searchedTableGameID, 
+            string AreaScale, string IsFoodAcceptable, string IsMinConsumeRequired)
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
-            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", -1);
+            ViewBag.AreaScale = new SelectList(new []{
+                new { Text = "大" },
+                new { Text = "中" },
+                new { Text = "小" },
+                new { Text = "不限" }
+            }, "Text", "Text", "不限");
+            ViewBag.IsFoodAcceptable = new SelectList(new[]{
+                new { Text = "可外食" },
+                new { Text = "不可外食" },
+                new { Text = "不限" }
+            }, "Text", "Text", "不限");
+            ViewBag.IsMinConsumeRequired = new SelectList(new[]{
+                new { Text = "有" },
+                new { Text = "無" },
+                new { Text = "不限" }
+            }, "Text", "Text", "不限");
             //店家查詢結果的容器
             var shops = db.Shops.ToList();
-            if (searchedTableGameID == null)
+            if (searchedTableGameID == "" || searchedTableGameID == null)
             {
                 //桌遊搜尋ID為空，啟用一般篩選功能
                 if (CityID != null)
                 {
-                    if (DistrictID != null)
+                    if (DistrictID != -1)
                     {
                         shops = db.Districts.Find(DistrictID).Shops.ToList();
                     }
@@ -154,13 +171,30 @@ namespace TGIS.Controllers
                 //地區篩選
                 if (CityID != null)
                 {
-                    if (DistrictID != null)
+                    if (DistrictID != -1)
                         shops = shops.Where(s => s.DistrictID == DistrictID).ToList();
                     else
                         shops = shops.Where(s => s.District.CityID == CityID).ToList();
                 }
             }
-            return View(shops);
+            //店家規模篩選
+            if (AreaScale != "不限" && AreaScale != null)
+            {
+                shops = shops.Where(s => s.AreaScale == AreaScale).ToList();
+            }
+            //可否外食篩選
+            if (IsFoodAcceptable != "不限" && IsFoodAcceptable != null)
+            {
+                bool acceptable = IsFoodAcceptable == "可外食";
+                shops = shops.Where(s => s.IsFoodAcceptable == acceptable).ToList();
+            }
+            //有無低消篩選
+            if (IsMinConsumeRequired != "不限" && IsMinConsumeRequired != null)
+            {
+                bool required = IsMinConsumeRequired == "有";
+                shops = shops.Where(s => s.IsMinConsumeRequired == required).ToList();
+            }
+            return View(shops.OrderByDescending(s=>s.IsVIP).ThenByDescending(s=>s.AccumulatedHours));
         }
         //玩家看到店家詳細資料
         public ActionResult ShopDetailForPlayer(string id)
