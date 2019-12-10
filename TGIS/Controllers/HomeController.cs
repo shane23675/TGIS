@@ -20,12 +20,12 @@ namespace TGIS.Controllers
         public ActionResult Test()
         {
             string playerID = Session["PlayerID"].ToString();
-            //如果尚未登入則不顯示任何東西
+            //如果尚未登入則顯示錯誤訊息
             if (playerID == null)
-                return new EmptyResult();
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
             //取得此登入玩家的資訊
-            Player player = db.Players.Find();
+            Player player = db.Players.Find(playerID);
             ViewBag.Player = player;
 
             //取得此登入玩家所有揪桌的編號
