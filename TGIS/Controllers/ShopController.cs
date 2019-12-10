@@ -203,19 +203,22 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         //店家編輯店家資料
-        public ActionResult ShopEditForStore(string id)
+        public ActionResult ShopEditForStore()
         {
-            var shop = db.Shops.Find(id);
+            string shopID = Session["ShopID"].ToString();
+            if (shopID == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            var shop = db.Shops.Find(shopID);
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", shop.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", shop.DistrictID);
-            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(id);
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(shopID);
             ViewBag.AreaScale = new SelectList(new List<SelectListItem>{
                 new SelectListItem { Text = "大", Value = "大" },
                 new SelectListItem { Text = "中", Value = "中" },
                 new SelectListItem { Text = "小", Value = "小" }
             }, "Value", "Text", shop.AreaScale);
-            TempData["Shop_ID"] = id;
-            return View(db.Shops.Find(id));
+            TempData["Shop_ID"] = shopID;
+            return View(db.Shops.Find(shopID));
         }
         [HttpPost]
         public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
@@ -268,10 +271,10 @@ namespace TGIS.Controllers
         //店家看到店家詳細資料
         public ActionResult ShopDetailForStore()
         {
-            var id = Session["ShopID"].ToString();
-            if (id == null)
-                return HttpNotFound();
-            return View(db.Shops.Find(id));
+            string shopID = Session["ShopID"].ToString();
+            if (shopID == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            return View(db.Shops.Find(shopID));
         }
  
 
