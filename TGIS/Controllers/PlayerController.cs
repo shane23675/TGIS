@@ -161,5 +161,14 @@ namespace TGIS.Controllers
             return View(ppd);
         }
 
+        //查詢玩家帳號是否重複(Ajax)
+        //$.post("/Player/PlayerAccountRepeatCheck", { account: 帳號值 }, function(data){})
+        public ActionResult PlayerAccountRepeatCheck(string account)
+        {
+            if (db.Players.Any(p => p.Account == account))
+                return Content("true");
+            return Content("false");
+        }
+
     }
 }
