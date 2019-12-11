@@ -2,29 +2,28 @@
 
 
 @{
-    ViewBag.Title = "ShopDetailForPlayer";
+    ViewBag.Title = "店家資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
 }
 
-
-
-<!--For bar-->
-<nav class="nav">
-    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
-    @Html.ActionLink("Shop", "ShopIndexForPlayer", "Shop", null, new { @class = "nav-link" })
-    <a class="nav-link">@Model.ShopName</a>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> @Html.ActionLink("首頁", "Index", "Home")</li>
+        <li class="breadcrumb-item">@Html.ActionLink("店家列表", "ShopIndexForPlayer", "Shop")</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.ShopName</li>
+    </ol>
 </nav>
-<div class="row mt-4">
-    <!--shop detail-->
+<div class="row media">
     <div class="col-md-5">
-        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+        @*有微妙偏移,後調*@
+        <div id="carouselExampleInterval" class="carousel slide shadow" data-ride="carousel">
             <div class="carousel-inner">
                 @foreach (int id in ViewBag.photoIDList)
                 {
                     string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active" style="height:50vh">
-                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="w-100 h-100" />
+                    <div class="carousel-item @active">
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })"/>
                     </div>
                     count = 1;
                 }
@@ -39,90 +38,79 @@
             </a>
         </div>
     </div>
-
-    <div class="col-md-7">
-
-        <div class="row">
-            <h3 class="col-lg-6 col-md-5">
+    <div class="col-md-7 media-body">
+        <div class="row d-flex justify-content-between">
+            <h1 class="ml-2">
                 <strong>@Model.ShopName</strong>
-            </h3>
-            <div class="row col-lg-6 col-md-auto justify-content-end">
-
+            </h1>
+            <div class=" mt-2 mr-3 h4">
                 @{
                     if (Model.IsFoodAcceptable == true)
                     {
-                        <span class="btn btn-outline-primary mr-2">可帶外食</span>
+                        <span class="btn badge-outline-primary mr-2 ">可帶外食</span>
                     }
                     else
                     {
-                        <span class="btn btn-outline-danger mr-2">禁帶外食</span>
+                        <span class="btn badge-outline-danger mr-2">禁帶外食</span>
                     }
 
                     if (Model.IsMinConsumeRequired == true)
                     {
-                        <span class="btn btn-outline-primary">無低消</span>
+                        <span class="btn badge-outline-danger mr-2">有低消</span>
                     }
                     else
                     {
-                        <span class="btn btn-outline-danger">有低消</span>
+                        <span class="btn badge-outline-primary mr-2">無低消</span>
                     }
-                }
-
+                }                
+                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })
             </div>
         </div>
+        <br />
         <p>
-            地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address
-            <a href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address">在Google 地圖中查看</a>
-        </p>
-
-        <p>信箱：@Model.Email</p>
-
-        <p>Line：@Model.Line</p>
-        <p>聯絡方式：@Model.Tel</p>
-        <p>
-            官網：
-            <a href="@Model.Website">@Model.Website</a>
+            <span>地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address</span>
+            <a class="btn btn-info btn-sm ml-1" href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address+@Model.ShopName">開啟地圖</a>
         </p>
         <p>店內規模：@Model.AreaScale</p>
+        <p>信箱：@Model.Email</p>
+        <p>Line：@Model.Line</p>
+        <p>聯絡方式：@Model.Tel</p>
+        <p>官網：<a href="@Model.Website">@Model.ShopName 粉絲專頁(判定功能?)</a></p>
         <p>營業時間：@Model.OpeningHours</p>
     </div>
-    <div class="col-12 mt-3">
-        @Model.Description
-    </div>
-    <div class="col-12 mt-3">
-        @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID}, new { @class = "btn btn-danger"})
-    </div>
+</div>
+<hr />
+<div class="m-3 p-2 Frostedglass2">
+    <p>店家介紹：@Model.Description</p>
+</div>
 
-    <div class="col-12">
-        <!-- 導航欄 -->
-        <ul class="nav nav-tabs mt-3">
-            <li class="nav-item">
-                <a class="nav-link active" href="#NormalOffer" data-toggle="tab">活動</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="#Coupons" data-toggle="tab">優惠券</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#TableGameList" data-toggle="tab">桌遊清單</a>
-            </li>
-        </ul>
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link active" href="#TableGameList" data-toggle="tab">店內桌遊清單</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="#NormalOffer" data-toggle="tab">最新活動</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="#Coupons" data-toggle="tab">有桌方遊優惠券</a>
+        </li>
 
-        <div class="tab-content">
-            <!-- 活動 -->
-            <div class="tab-pane fade active show" id="NormalOffer">
-                @Html.Action("_OfferListForPlayer", "NormalOffer", new { shopID = Model.ID })
-            </div>
+    </ul>
+    <div class="tab-content">
+        <!-- 桌遊清單 -->
+        <div class="tab-pane fade active show" id="TableGameList">
+            @Html.Action("_AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID })
+        </div>
+        <!-- 活動 -->
+        <div class="tab-pane fade " id="NormalOffer">
+            @Html.Action("_OfferListForPlayer", "NormalOffer", new { shopID = Model.ID })
+        </div>
 
-            <!-- 優惠券 -->
-            <div class="tab-pane fade" id="Coupons">
-                @Html.Action("_CouponInShopIndex", "Coupon", new { shopID = Model.ID })
-                
-            </div>
+        <!-- 優惠券 -->
+        <div class="tab-pane fade" id="Coupons">
+            @Html.Action("_CouponInShopIndex", "Coupon", new { shopID = Model.ID })
 
-            <!-- 桌遊清單 -->
-            <div class="tab-pane fade" id="TableGameList">
-                @Html.Action("_AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID })
-            </div>
         </div>
     </div>
-</div>
+
+

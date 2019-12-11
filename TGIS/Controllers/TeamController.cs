@@ -130,8 +130,12 @@ namespace TGIS.Controllers
             return HttpNotFound();
         }
 
-        void Test()
+        //管理員的揪桌管理
+        public ActionResult GetTeamListForAdmin()
         {
+            if (Session["AdminID"] == null)
+                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
+            return View(db.Teams.ToList().OrderByDescending(t => t.ID));
         }
     }
 }

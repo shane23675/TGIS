@@ -93,6 +93,7 @@
           <Property Name="BeginDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Clicks" Type="int" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -1320,6 +1321,7 @@
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Clicks" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Shop" Relationship="TGISDBModel.Relationship16" FromRole="NormalOffer" ToRole="Shop" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="Relationship16">
           <End Type="TGISDBModel.Shop" Role="Shop" Multiplicity="1" />
@@ -1595,6 +1597,7 @@
           <EntitySetMapping Name="NormalOffers">
             <EntityTypeMapping TypeName="TGISDBModel.NormalOffer">
               <MappingFragment StoreEntitySet="NormalOffer">
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
