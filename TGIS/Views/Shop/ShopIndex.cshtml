@@ -53,7 +53,7 @@
             @Html.DisplayFor(modelItem => item.IsAccountEnabled)
         </td>
         <td>
-            @Html.ActionLink("活動", "MgShopOfferList", new { id = item.ID }, new { @class = "btn btn-info" })
+            @Html.ActionLink("活動", "OfferListForAdmin", "NormalOffer", new { shopID = item.ID }, new { @class = "btn btn-info" })
             @Html.ActionLink("編輯", "MgShopEdit", new { id = item.ID }, new { @class = "btn btn-secondary" })
             @Html.ActionLink("刪除", "ShopDelete", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
         </td>

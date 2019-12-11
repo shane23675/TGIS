@@ -482,6 +482,7 @@
     <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
