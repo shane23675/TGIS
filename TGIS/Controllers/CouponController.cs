@@ -47,7 +47,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CouponCreate(Coupon coupon)
+        public ActionResult CouponCreate(Coupon coupon, HttpPostedFileBase[] photos)
         {
             //填入預設值
             coupon.ID = UsefulTools.GetNextID(db.Coupons, 1);
@@ -59,6 +59,9 @@ namespace TGIS.Controllers
             {
                 db.Coupons.Add(coupon);
                 db.SaveChanges();
+
+                //加入照片
+                PhotoManager.Create(coupon.ID, photos);
                 return RedirectToAction("CouponIndexForShop");
             }
             return View();
@@ -68,11 +71,12 @@ namespace TGIS.Controllers
         public ActionResult CouponEdit(string couponID)
         {
             Coupon c = db.Coupons.Find(couponID);
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(couponID);
             TempData["Coupon"] = c;
             return View(c);
         }
         [HttpPost]
-        public ActionResult CouponEdit(Coupon coupon)
+        public ActionResult CouponEdit(Coupon coupon, HttpPostedFileBase[] photos, int[] deletedPhotoID)
         {
             //從TempData取出原始資料並存入必要欄位
             Coupon c = (Coupon)TempData["Coupon"];
@@ -85,6 +89,10 @@ namespace TGIS.Controllers
             {
                 db.Entry(coupon).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+
+                //加入及刪除照片
+                PhotoManager.Create(coupon.ID, photos);
+                PhotoManager.Delete(deletedPhotoID);
                 return RedirectToAction("CouponIndexForShop");
             }
             return View(coupon);

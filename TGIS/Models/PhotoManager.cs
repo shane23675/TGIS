@@ -43,7 +43,18 @@ namespace TGIS.Models
                 db.Photos.Remove(p);
             db.SaveChanges();
         }
-        //多載二：以Photo.SourceID刪除
+        //多載二：以Photo.ID組成的陣列刪除
+        public static void Delete(int[] photoIDs)
+        {
+            if (photoIDs == null)
+                return;
+            //以迴圈呼叫多載一進行刪除
+            foreach (int id in photoIDs)
+            {
+                Delete(id);
+            }
+        }
+        //多載三：以Photo.SourceID刪除
         public static void Delete(string sourceID)
         {
             List<Photo> photos = db.Photos.Where(m => m.SourceID == sourceID).ToList();

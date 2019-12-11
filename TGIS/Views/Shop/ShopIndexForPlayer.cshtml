@@ -8,58 +8,98 @@
     TableGame game = (TableGame)ViewBag.SearchingTGInfo;
 }
 
-(頁面重新施工中)
-<div >
+<div class="row">
+    <aside class="border col-3">
+        <form>
+            <h3 class="text-info">快速搜尋</h3>
+            <div class="form-group">
+                <label class="col-form-label">從店家名稱搜尋：</label>
+                <input class="form-control" type="search" placeholder="輸入店家名字" aria-label="SearchShop">
+            </div>
+            <div class="form-group">
+                <label>從地點搜尋：</label>
+                <div class="row ml-1 mr-1">
+                    @Html.DropDownList("CityID", null, new { @class = "form-control col-6" })
+                    @Html.DropDownList("DistrictID", null, new { @class = "form-control col-6" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">從想玩的桌遊搜尋：</label>
+                @if (game != null)
+                {
+                    <input type="hidden" name="searchedTableGameID" value="@game.ID" />
+                    <input class="form-control" type="search" placeholder="輸入桌遊名字" value="@game.ChineseName" aria-label="SearchGame">
+                }
+                else
+                {
+                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" />
+                    <input class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
+                }
+            </div>
+            <h3 class="text-info">進階搜尋</h3>
+            <div class="form-group">
+                <label class="col-form-label">場地規模：</label>
+                @Html.DropDownList("AreaScale", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">是否有低消：</label>
+                @Html.DropDownList("IsMinConsumeRequired", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">是否可外食：</label>
+                @Html.DropDownList("IsFoodAcceptable", null, new { @class = "form-control" })
+            </div>
+            <button class="btn btn-info " type="submit">搜尋</button>
+            @Html.ActionLink("清除篩選條件", "ShopIndexForPlayer", null, new { @class="btn btn-secondary"})
+        </form>      
+    </aside>
+    <div class="col-9 p-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="" @Url.Action("Index", "Home") ">首頁</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">店家列表</li>
+            </ol>
+        </nav>
+        @*如果要顯示就要所有選項顯示，思考改版方法*@
+        @foreach (Shop shop in Model)
+        {
+            <div class="media m-2">
 
+                <div class="media-body p-2 Frostedglass2">
+                    <a href="@Url.Action("ShopDetailForPlayer", "Shop", new { id=shop.ID})">
+                        <h3>@shop.ShopName</h3>
+                        <hr />
+                        <p>地址：@shop.District.City.CityName @shop.District.DistrictName @shop.Address</p>
+                        <p>電話：@shop.Tel</p>
+                        <p>營業時間：@shop.OpeningHours</p>
+                    </a>
+                </div>
+
+                <img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="shopphoto m-1">
+            </div>
+        }
+        <div>分頁</div>
+    </div>
 </div>
 
 
 
-
-
-
-
-
-
-
-
-
-@*<form class="form-inline my-2 my-lg-0">
-        @Html.DropDownList("CityID", null, new { @class = "form-control mr-1" })
-        @Html.DropDownList("DistrictID", null, new { @class = "form-control mr-1" })
-        @if (game != null)
-        {
-            <input type="hidden" name="searchedTableGameID" value="@game.ID" />
-        }
-        <input class="form-control mr-sm-2 w-auto" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜尋</button>
-    </form>*@
-
-@*@if(game != null)
-    {
-        <p>正在搜尋包含"@game.ChineseName"的店家</p>
-    }*@
-
-<!-- 店家列表 -->
-
-@*@foreach (Shop shop in Model)
-{*@
-
-    @*<img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="card-img h-100">*@<!--Store image-->
-    @*<h3 class="card-title">@shop.ShopName</h3>
-    <a href="#">*@
-        <!--link shop detail-->
-        @*<a href="@Url.Action("ShopDetailForPlayer", "Shop", new { id=shop.ID})" class="btn btn-info" style="position:absolute;right:0;bottom:0">Details</a>
-    </a>
-
-    <p class="card-text">@shop.District.City.CityName @shop.District.DistrictName  @shop.Address</p>
-    <p class="card-text">@shop.Tel</p>
-
-    <p class="card-text text-box">@shop.Description</p>*@
-
-
-@*}*@
-
 @section scripts{
-    <script src="~/Scripts/address.js"></script>
+    <script>
+        //選取縣市時會出現行政區的ajax
+        //這裡不使用套件，因為要加入「不限」選項
+        init();
+        $("#CityID").change(init);
+        function init() {
+            CId = $("#CityID").val();
+            Did = $("#DistrictID").val();
+            $.post("/ajax/generateStateList", { CId, Did }, callback)
+        }
+        function callback(val) {
+            $("#DistrictID").html("<option value='-1'>不限</option>" + val);
+        }
+
+    </script>
 }

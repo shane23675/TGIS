@@ -263,7 +263,7 @@ namespace TGIS.Controllers
             //從中英文名稱查找桌遊(英文不分大小寫)
             var result = games.Where(g => g.ChineseName.Contains(name) || g.EnglishName.IndexOf(name, StringComparison.CurrentCultureIgnoreCase) != -1);
             //選出需要的資料
-            var data = result.Select(g => new { g.ChineseName, g.EnglishName, Link = Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = g.ID }) });
+            var data = result.Select(g => new { g.ID, g.ChineseName, g.EnglishName, Link = Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = g.ID }) });
 
             return Json(data);
         }
