@@ -13,6 +13,19 @@ namespace TGIS.Controllers
         //首頁
         public ActionResult Index()
         {
+            //找到付費店家
+            var shops = db.Shops.Where(s => s.IsVIP).ToList();
+            //找到其中的優惠券及活動
+            List<Coupon> coupons = new List<Coupon>();
+            shops.ForEach(s => coupons.AddRange(s.Coupons));
+            List<NormalOffer> offers = new List<NormalOffer>();
+            shops.ForEach(s => offers.AddRange(s.NormalOffers));
+            //找到其中包含圖片者且未過期或被隱藏者
+            coupons = coupons.Where(c => db.Photos.Any(p => p.SourceID == c.ID) && c.IsExchangable).ToList();
+            offers = offers.Where(o => db.Photos.Any(p => p.SourceID == o.ID) && o.IsAvailable).ToList();
+            //傳入ViewBag
+            ViewBag.Coupons = coupons;
+            ViewBag.Offers = offers;
             return View();
         }
         //

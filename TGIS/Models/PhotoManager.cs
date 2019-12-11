@@ -10,7 +10,7 @@ namespace TGIS.Models
     {
         static TGISDBEntities db = new TGISDBEntities();
         //新增圖片的方法
-        public static void Create(string SourceID, HttpPostedFileBase[] photos)
+        public static void Create(string sourceID, HttpPostedFileBase[] photos)
         {
             //若傳入空陣列則返回
             if (photos[0] == null)
@@ -27,7 +27,7 @@ namespace TGIS.Models
                         //將ms轉為二進位資料
                         photoBytes = ms.GetBuffer();
                     }
-                    db.Photos.Add(new Photo { SourceID = SourceID, Content = photoBytes, MIMEType = p.ContentType });
+                    db.Photos.Add(new Photo { SourceID = sourceID, Content = photoBytes, MIMEType = p.ContentType });
                     db.SaveChanges();
                 }
             }

@@ -37,7 +37,8 @@ namespace TGIS.Models
         {
             get
             {
-                return IsAvailable && DateTime.Today <= ExpireDate && ExchangedAmount < LimitedAmount;
+                return IsAvailable && DateTime.Today <= ExpireDate 
+                    && ExchangedAmount < LimitedAmount;
             }
         }
     }
@@ -138,7 +139,18 @@ namespace TGIS.Models
     }
     //一般優惠列表
     [MetadataType(typeof(MetadataNormalOffer))]
-    public partial class NormalOffer { }
+    public partial class NormalOffer
+    {
+        //以下屬性為推導出來的屬性，沒有儲存在資料庫中
+        [DisplayName("是否會展示")]
+        public bool IsAvailable
+        {
+            get
+            {
+                return !IsHidden && DateTime.Now < EndDate;
+            }
+        }
+    }
     public class MetadataNormalOffer
     {
         [DisplayName("優惠編號")]
