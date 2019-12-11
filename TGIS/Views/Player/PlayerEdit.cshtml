@@ -4,14 +4,13 @@
     ViewBag.Title = "PlayerEdit";
 }
 
-<h2>PlayerEdit</h2>
+<h2>修改玩家資料</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Player</h4>
         <hr />
 
         @Html.ValidationSummary()
@@ -96,14 +95,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="儲存" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "PlayerIndex")
+    @Html.ActionLink("回到列表", "PlayerIndex")
 </div>
 
 @section scripts{

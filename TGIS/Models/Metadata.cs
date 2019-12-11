@@ -127,7 +127,7 @@ namespace TGIS.Models
         public int ID { get; set; }
         [DisplayName("揪桌編號")]
         public string TeamID { get; set; }
-        [DisplayName("留言時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("留言時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime MessageDate { get; set; }
         [DisplayName("留言者"),StringLength(6)]
         public string Speaker { get; set; }

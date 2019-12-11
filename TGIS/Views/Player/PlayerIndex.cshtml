@@ -4,7 +4,7 @@
     ViewBag.Title = "PlayerIndex";
 }
 
-<h2>PlayerIndex</h2>
+<h2>玩家列表</h2>
 
 <table class="table">
     <tr>
@@ -41,13 +41,27 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsEmailValid)
+            @if (item.IsEmailValid)
+            {
+                @: 已驗證
+            }
+            else
+            {
+                @: 尚未驗證
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Points)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsBanned)
+            @if (item.IsBanned)
+            {
+                @: 已停權
+            }
+            else
+            {
+                @: 正常
+            }
         </td>
         <td >
             @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }, new { @class="btn btn-secondary"}) 
