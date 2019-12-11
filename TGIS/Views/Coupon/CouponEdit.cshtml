@@ -8,7 +8,7 @@
     
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CouponEdit", "Coupon", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
@@ -56,8 +56,38 @@
             </div>
         </div>
 
+        <div class="row form-group">
+            <label class="control-label col-md-2">圖片資料</label>
+            <div class="col-md-10 row">
+                @if (ViewBag.photoIDList.Count == 0)
+                {
+                    <p class="text-info">目前尚無任何圖片</p>
+                }
+                else
+                {
+                    foreach (int id in ViewBag.photoIDList)
+                    {
+                        <div class="col-md-4">
+                            <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
+                            <div>
+                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
+            <div class="col-md-10">
+                <input type="file" name="photos" multiple />
+            </div>
+        </div>
+
+
         <div class="form-group">
-        <input type="submit" value="儲存更改" class="btn btn-info" onclick="return confirm('確認更改優惠券內容?')" />
+            <input type="submit" value="儲存更改" class="btn btn-info" onclick="return confirm('確認更改優惠券內容?')" />
         </div>
     </div>
 }
