@@ -3,11 +3,11 @@
     string isContained = "", notContained = "";
     if ((bool)(ViewBag.isContained))
     {
-        isContained = "selected";
+        isContained = "checked='checked'";
     }
     else
     {
-        notContained = "selected";
+        isContained = "";
     }
 
     string isSale = "", notSale = "";
@@ -24,10 +24,8 @@
 <tr>
     <td>
         <input type="hidden" name="tableGameIDs" value="@Model.TableGameID"  />
-        <select name="isContainedFlags" class="form-control">
-            <option value="true" @isContained>是</option>
-            <option value="false" @notContained>否</option>
-        </select>
+        <input name="isContainedFlags" type="checkbox" value="true" @isContained/>
+        <input  type="hidden" name="isContainedFlags" value="false"/>
         @*把選單改成checkbox*@
     </td>
     <td>
