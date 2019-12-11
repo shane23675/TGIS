@@ -272,5 +272,14 @@ namespace TGIS.Controllers
 
             return Json(data);
         }
+
+        //查詢店家帳號是否重複(Ajax)
+        //$.post("/Shop/ShopAccountRepeatCheck", { account: 帳號值 }, function(data){})
+        public ActionResult ShopAccountRepeatCheck(string account)
+        {
+            if (db.Shops.Any(s => s.Account == account))
+                return Content("true");
+            return Content("false");
+        }
     }
 }
