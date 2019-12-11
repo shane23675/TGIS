@@ -70,7 +70,7 @@
             ws.onmessage = function (e) {
                 var msgDisplay = chatBox.find(".msgDisplay");
                 msgDisplay.append(`<p>${e.data}</p>`);
-                msgDisplay.scrollTop(msgDisplay.attr("scrollHeight"));
+                msgDisplay.scrollTop(msgDisplay.get(0).scrollHeight);
             }
 
             //在輸入框中按下Enter送出訊息
@@ -86,8 +86,10 @@
         }
 
         //剛進入頁面就將所有訊息框拉至底部
-        $(".msgDisplay").scrollTop(2000);
-        
+        for (var i = 0; i < $(".msgDisplay").length; i++) {
+            var box = $(".msgDisplay").eq(i);
+            box.scrollTop(box.get(0).scrollHeight);
+        }        
         
     </script>
     
