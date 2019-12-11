@@ -27,7 +27,7 @@
                 <label class="col-form-label">從想玩的桌遊搜尋：</label>
                 @if (game != null)
                 {
-                    <input type="hidden" name="searchedTableGameID" value="@game.ID" />
+                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="@game.ID" />
                     <input class="form-control" type="search" placeholder="輸入桌遊名字" value="@game.ChineseName" aria-label="SearchGame">
                 }
                 else

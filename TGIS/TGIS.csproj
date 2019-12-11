@@ -483,6 +483,7 @@
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
+    <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
