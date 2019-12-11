@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Web.WebSockets;
+using TGIS.Models;
 
 namespace TGIS.Controllers
 {
@@ -50,6 +51,19 @@ namespace TGIS.Controllers
             public override void OnMessage(string message)
             {
                 _chatRooms[_teamID].Broadcast(_userName + "：" + message);
+
+                //將此訊息儲存至訊息列表
+                Message m = new Message
+                {
+                    TeamID = _teamID,
+                    MessageDate = DateTime.Now,
+                    Speaker = UserID,
+                    IsPrivate = true,
+                    Content = message.Length > 300 ? message.Substring(0, 300) : message
+                };
+                var db = new TGISDBEntities();
+                db.Messages.Add(m);
+                db.SaveChanges();
             }
         }
     }
