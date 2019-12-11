@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "ShopDetailForPlayer";
+    ViewBag.Title = "店家資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
 }
@@ -98,11 +98,11 @@
     </ul>
     <div class="tab-content">
         <!-- 桌遊清單 -->
-        <div class="tab-pane fade" id="TableGameList">
+        <div class="tab-pane fade active show" id="TableGameList">
             @Html.Action("_AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID })
         </div>
         <!-- 活動 -->
-        <div class="tab-pane fade active show" id="NormalOffer">
+        <div class="tab-pane fade " id="NormalOffer">
             @Html.Action("_OfferListForPlayer", "NormalOffer", new { shopID = Model.ID })
         </div>
 

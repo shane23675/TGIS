@@ -2,7 +2,7 @@
 @model IEnumerable<Shop>
 
 @{
-    ViewBag.Title = "ShopIndexForPlayer";
+    ViewBag.Title = "店家列表";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     //搜尋某桌遊的資訊
     TableGame game = (TableGame)ViewBag.SearchingTGInfo;
@@ -27,7 +27,7 @@
                 <label class="col-form-label">從想玩的桌遊搜尋：</label>
                 @if (game != null)
                 {
-                    <input type="hidden" name="searchedTableGameID" value="@game.ID" />
+                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="@game.ID" />
                     <input class="form-control" type="search" placeholder="輸入桌遊名字" value="@game.ChineseName" aria-label="SearchGame">
                 }
                 else

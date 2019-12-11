@@ -3,16 +3,32 @@
 @{
     ViewBag.Title = "AllTableGamesInTheShop";
 }
+    <div class>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row">
 
-<table class="table">
-    <tr>
-        <th>
+        </div>
+    </div>
+
+
+
+
+
+
+
+<table class="table text-info text-center">
+    <tr c>
+        <th width="33%">
             @Html.DisplayNameFor(model => model.TableGame.ChineseName)
         </th>
-        <th>
+        <th width="33%">
             @Html.DisplayNameFor(model => model.TableGame.EnglishName)
         </th>
-        <th>
+        <th width="34%">
             @Html.DisplayNameFor(model => model.Price)
         </th>
     </tr>
@@ -20,12 +36,12 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})">
+        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})" class="btn text-info">
             @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
         </a>
     </td>
     <td>
-        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})">
+        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})" class="btn text-info">
             @Html.DisplayFor(modelItem => item.TableGame.EnglishName)
         </a>
     </td>

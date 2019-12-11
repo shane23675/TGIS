@@ -1,0 +1,112 @@
+﻿@model IEnumerable<TGIS.Models.Team>
+
+@{
+    ViewBag.Title = "GetTeamListForAdmin";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>揪桌管理</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParticipateEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayBeginTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimatedCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinPlayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxPlayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCanceled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsClosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderPlayer.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shop.Account)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParticipateEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayBeginTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimatedCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinPlayer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxPlayer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCanceled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsClosed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaderPlayer.Account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shop.Account)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

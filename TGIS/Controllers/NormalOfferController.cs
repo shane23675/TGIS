@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -115,5 +115,20 @@ namespace TGIS.Controllers
             return View(offer);
         }
 
+        //查看店家活動列表
+        public ActionResult OfferListForAdmin(string shopID)
+        {
+            var s = db.Shops.Find(shopID).NormalOffers;
+            ViewBag.Shop = db.Shops.Find(shopID).ShopName;
+            return View(s.ToList());
+        }
+
+        public ActionResult OfferListStatusChange(string normalOfferID,string shopID)
+        {
+            db.NormalOffers.Find(normalOfferID).IsHidden = !(db.NormalOffers.Find(normalOfferID).IsHidden);
+            ViewBag.Status = db.NormalOffers.Find(normalOfferID).IsHidden;
+            db.SaveChanges();
+            return RedirectToAction("OfferListForAdmin","NormalOffer",new{ shopID = shopID });
+        }
     }
 }

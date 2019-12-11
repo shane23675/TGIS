@@ -16,16 +16,26 @@
 *@
 <div class="container">
     <div class="row">
-        @foreach (string id in teamIDs)
-        {
-            <div class="col-md-4 bg-primary chatBox" style="border: 1px #000 solid">
-                <p>@teams.Find(id).Title</p>
-                <div class="bg-info msgDisplay" style="min-height: 300px;">
+        @{
+            Team team;
+            foreach (string id in teamIDs)
+            {
+                team = teams.Find(id);
+                <div class="col-md-4 bg-primary chatBox" style="border: 1px #000 solid">
+                    <p>@team.Title</p>
+                    <div class="bg-info msgDisplay" style="height: 300px; overflow-y: auto;">
+                        @* 顯示歷史訊息 *@
+                        @foreach(Message m in team.Messages)
+                        {
+                            <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
+                            <p class="mt-0">@m.Content</p>
+                        }
+                    </div>
+                    <div>
+                        <input type="text" class="form-control msgInput" />
+                    </div>
                 </div>
-                <div>
-                    <input type="text" class="form-control msgInput" />
-                </div>
-            </div>
+            }
         }
     </div>
 </div>
@@ -36,6 +46,9 @@
          *  登入後依據此玩家的隊伍數量建立訊息窗口
          *  每個窗口都建立各自的websocket
          *  每個輸入框也使用各自的websocket來使用send方法
+         *  
+         *  進入聊天室時顯示歷史訊息:
+         *  
          */
         var c = console.log;
         //將此玩家的teamIDs(C#)轉換為JS陣列
@@ -44,32 +57,39 @@
         {
             @: teamIDs.push("@id");
         }
-        //取得所有
+        //取得所有.chatBox
         var boxes = $(".chatBox");
         for (var i = 0; i < teamIDs.length; i++) {
             //要使用let建立局部變量才不會相互衝突
             let chatBox = boxes.eq(i);
             let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
             let ws = new WebSocket(url);
-            
-            ws.onopen = function () {
-                ws.send("已加入聊天室");
+
+            ws.onopen = function (e) {
             }
             ws.onmessage = function (e) {
-                chatBox.find(".msgDisplay").append(`<p>${e.data}</p>`);
+                var msgDisplay = chatBox.find(".msgDisplay");
+                msgDisplay.append(`<p>${e.data}</p>`);
+                msgDisplay.scrollTop(msgDisplay.get(0).scrollHeight);
             }
 
             //在輸入框中按下Enter送出訊息
             chatBox.find(".msgInput").keypress(function (e) {
                 if (e.keyCode == 13) {
-                    //送出訊息
-                    ws.send($(this).val());
+                    //輸入不為空白才送出訊息
+                    if ($(this).val().trim().length > 0)
+                        ws.send($(this).val());
                     //清空輸入框
                     $(this).val("");
                 }
             });
         }
-        
+
+        //剛進入頁面就將所有訊息框拉至底部
+        for (var i = 0; i < $(".msgDisplay").length; i++) {
+            var box = $(".msgDisplay").eq(i);
+            box.scrollTop(box.get(0).scrollHeight);
+        }        
         
     </script>
     

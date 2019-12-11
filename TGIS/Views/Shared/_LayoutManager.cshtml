@@ -17,7 +17,7 @@
     <aside id="sidebar">
         <div class="sidebar-header">
             @*皆連回管理中心首頁*@
-            <strong>@Html.ActionLink("有桌方遊", "ShowTableGameListForPlayer", "TableGame")</strong>
+            <strong>@Html.ActionLink("TG", "ShowTableGameListForPlayer"," TableGame")</strong>  
             <span class="h1">
                 @Html.ActionLink("有桌方遊", "Index", "Home")
             </span>
@@ -28,20 +28,11 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a href="#indexSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
-                    <i class="fas fa-home"></i>
-                    <span>&nbsp;首頁管理</span>
+                <a href="@Url.Action("AnnouncementIndexForAdmin","Announcement")">
+                    <i class="fas fa-chalkboard"></i>
+                    <span>公告管理</span>
                 </a>
-                <ul class="collapse list-unstyled" id="indexSubmenu">
-                    <li>
-                        @Html.ActionLink("公告管理", "AnnouncementIndexForAdmin", "Announcement")
-                    </li>
-                    <li>
-                        <a href="#">廣告管理</a>
-                    </li>
-                </ul>
             </li>
-
             <li>
                 <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
                     <i class="fas fa-user "></i>
@@ -82,7 +73,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="groupSubmenu">
                     <li>
-                        <a href="#">揪桌資訊</a>
+                        <a href="@Url.Action("GetTeamListForAdmin", "Team")">揪桌資訊</a>
                     </li>
                     <li>
                         <a href="#">訊息管理</a>
@@ -106,6 +97,12 @@
                 <a href="@Url.Action("CouponIndexForAdmin", "Coupon")">
                     <i class="fas fa-gift"></i>
                     <span>&nbsp;優惠券管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>&nbsp;登出</span>
                 </a>
             </li>
         </ul>
