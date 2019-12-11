@@ -171,7 +171,7 @@
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\layoutstyle-S.css" />
-    <Content Include="Content\mineCSS.css" />
+    <Content Include="Content\WebSearch.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sidebar_test.css" />
     <Content Include="Content\Site.css" />
