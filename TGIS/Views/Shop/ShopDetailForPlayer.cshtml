@@ -62,29 +62,31 @@
                     {
                         <span class="btn badge-outline-primary mr-2">無低消</span>
                     }
-                }                
-                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })
+                }
+                @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })
             </div>
         </div>
         <br />
         <p>
             <span>地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address</span>
-            <a class="btn btn-info btn-sm ml-1" href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address+@Model.ShopName">開啟地圖</a>
+            <a class="btn btn-outline-info btn-sm ml-1" href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address+@Model.ShopName" target="_blank">開啟地圖</a>
         </p>
         <p>店內規模：@Model.AreaScale</p>
         <p>信箱：@Model.Email</p>
         <p>Line：@Model.Line</p>
         <p>聯絡方式：@Model.Tel</p>
-        <p>官網：<a href="@Model.Website">@Model.ShopName 粉絲專頁(判定功能?)</a></p>
+        <p>官網：<a href="@Model.Website">@Model.ShopName 粉絲專頁</a></p>@*(判定功能?)*@
         <p>營業時間：@Model.OpeningHours</p>
     </div>
 </div>
 <hr />
+<h2 class="ml-3">店家介紹</h2>
 <div class="m-3 p-2 Frostedglass2">
-    <p>店家介紹：@Model.Description</p>
+    
+    <p>@Model.Description</p>
 </div>
 
-    <ul class="nav nav-pills nav-fill">
+    <ul class="nav nav-SD nav-fill">
         <li class="nav-item">
             <a class="nav-link active" href="#TableGameList" data-toggle="tab">店內桌遊清單</a>
         </li>
@@ -98,16 +100,16 @@
     </ul>
     <div class="tab-content">
         <!-- 桌遊清單 -->
-        <div class="tab-pane fade active show" id="TableGameList">
+        <div class="border-shop tab-pane fade active show" id="TableGameList">
             @Html.Action("_AllTableGamesInTheShop", "TableGameInShopDetail", new { shopID = Model.ID })
         </div>
         <!-- 活動 -->
-        <div class="tab-pane fade " id="NormalOffer">
+        <div class="border-shop tab-pane fade" id="NormalOffer">
             @Html.Action("_OfferListForPlayer", "NormalOffer", new { shopID = Model.ID })
         </div>
 
         <!-- 優惠券 -->
-        <div class="tab-pane fade" id="Coupons">
+        <div class="border-shop tab-pane fade" id="Coupons">
             @Html.Action("_CouponInShopIndex", "Coupon", new { shopID = Model.ID })
 
         </div>

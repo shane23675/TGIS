@@ -28,14 +28,14 @@ namespace TGIS.Controllers
             ViewBag.Offers = offers;
             return View();
         }
-        //
+
         //測試區(請勿刪除)
-        public ActionResult Test()
+        public ActionResult TeamChatBox()
         {
-            string playerID = Session["PlayerID"].ToString();
+            string playerID = (string)Session["PlayerID"];
             //如果尚未登入則顯示錯誤訊息
             if (playerID == null)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new EmptyResult();
 
             //取得此登入玩家的資訊
             Player player = db.Players.Find(playerID);
@@ -46,7 +46,8 @@ namespace TGIS.Controllers
             player.TeamsForLeader.ToList().ForEach(t => teamIDs.Add(t.ID));
             player.TeamsForOtherPlayer.ToList().ForEach(t => teamIDs.Add(t.ID));
             ViewBag.TeamIDs = teamIDs;
-            return View();
+            return PartialView();
         }
+
     }
 }

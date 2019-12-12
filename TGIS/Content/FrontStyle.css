@@ -51,6 +51,9 @@
     border-radius: 5px;
     box-shadow: #000000 3px 3px 2px;
 }
+
+.messenger {
+}
 /* ---------------------------------------------------
     導覽列小選單
 ----------------------------------------------------- */
@@ -189,3 +192,19 @@
         color: #00465E;
         text-decoration: none;
     }
+
+.nav-SD .nav-link {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+    .nav-SD .nav-link.active,
+    .nav-SD .show > .nav-link {
+        color: #208AAE;
+        background-color: #BFD7EA;
+    }
+
+.border-shop {
+    border: 2px solid #BFD7EA;
+    box-shadow:2px 2px 3px rgba(177,237,232,0.5);
+}

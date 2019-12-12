@@ -82,6 +82,9 @@
         </nav>
     </footer>
 
+    @* 渲染出訊息框 *@
+    @Html.Action("TeamChatBox", "Home")
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", false)

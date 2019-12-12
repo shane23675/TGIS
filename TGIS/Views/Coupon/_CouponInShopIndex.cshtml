@@ -1,82 +1,58 @@
 ﻿@using TGIS.Models;
 @model IEnumerable<Coupon>
-
 @{
-    ViewBag.Title = "CouponInShopIndex";
+
     Player player = new TGISDBEntities().Players.Find((string)Session["PlayerID"]);
 }
 
-@* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
-@if (player == null)
-{
-    <h3 class="text-warning">兌換優惠券前請先登入</h3>
-}
-else
-{
-    <h3>剩餘點數 : @player.Points</h3>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BeginDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpireDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PointsRequired)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LimitedAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExchangedAmount)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.BeginDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ExpireDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PointsRequired)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LimitedAmount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ExchangedAmount)
-    </td>
-    @if (player != null)
-    {
-        <td>
-            @if (player.PlayerCouponDetails.Any(m=>m.CouponID == item.ID))
+    <div class="row text-center m-3 pb-3 border-bottom">
+        <div class="col-3">@Html.DisplayNameFor(model => model.Content)</div>
+        <div class="col-3">可使用日期</div>
+        <div class="col-2">@Html.DisplayNameFor(model => model.PointsRequired)</div>
+        <div class="col-2">剩餘張數</div>
+        <div class="col-2">
+            @* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
+            @if (player == null)
             {
-                @: Exchanged
-            }
-            else if (player.Points < item.PointsRequired)
-            {
-                @: Insufficient Points
+                <span class="text-warning">請進行登入<br />以兌換優惠券</span>
             }
             else
             {
-                @Html.ActionLink("Exchange", "ExchangeCoupon", new { couponID = item.ID }, new { @class = "btn btn-primary" })
+                <span>剩餘點數: @player.Points</span>
             }
-        </td>
-    }
+        </div>
 
-</tr>
+    </div>
+@foreach (var item in Model)
+{
+<div class="row text-info text-center m-3">
+    <div class="col-3">@Html.DisplayFor(modelItem => item.Content)</div>
+    <div class="col-3">@Html.DisplayFor(modelItem => item.BeginDate)&nbsp;～&nbsp;@Html.DisplayFor(modelItem => item.ExpireDate)</div>
+    <div class="col-2">@Html.DisplayFor(modelItem => item.PointsRequired)</div>
+    <div class="col-2">@(item.LimitedAmount-item.ExchangedAmount)</div>
+    <div class="col-2">
+        @if (player != null)
+        {
+            
+                if (player.PlayerCouponDetails.Any(m => m.CouponID == item.ID))
+                {
+                    @: <span class="text-secondary">已兌換</span>
+                }
+                else if (player.Points < item.PointsRequired)
+                {
+                    @: <span class="text-danger">點數不足</span>
+                }
+                else
+                {
+                    @Html.ActionLink("兌換", "ExchangeCoupon", new { couponID = item.ID }, new { @class = "btn btn-info" })
+                }
+           
+        }
+    </div>
+</div>
 }
 
-</table>
+
+
+

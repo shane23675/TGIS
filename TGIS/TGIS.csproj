@@ -171,6 +171,7 @@
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\layoutstyle-S.css" />
+    <Content Include="Content\style3.css" />
     <Content Include="Content\WebSearch.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sidebar_test.css" />
@@ -275,6 +276,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\WebSearch.js" />
     <Content Include="Scripts\_LayoutManager.js" />
+    <Content Include="Views\Home\newTest.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -482,7 +484,7 @@
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\TeamChatBox.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <Content Include="Views\Message\MessageIndex.cshtml" />
