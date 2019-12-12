@@ -15,40 +15,56 @@
 <style>
     .chatArea {
         position: fixed;
-        bottom: 0;
-        right: 200px;
+        top: 70px;
+        right: 30px;
+        z-index: 999;
     }
 
     .chatBox {
-        min-width: 300px;
+        min-width: 150px;
         border: 1px #000 solid;
+        height: 300px;
+        
+    }
+    .msgDisplay {
+    overflow-y:scroll;
+    }
+    .msgInput {
     }
 </style>
-<div class="container">
-    <div class="row chatArea">
-        @{
-            Team team;
-            foreach (string id in teamIDs)
-            {
-                team = teams.Find(id);
-                <div class="col-md-4 bg-primary chatBox">
-                    <p>@team.Title</p>
-                    <div class="bg-info msgDisplay" style="height: 300px; overflow-y: auto;">
-                        @* 顯示歷史訊息 *@
-                        @foreach (Message m in team.Messages)
-                        {
-                            <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
-                            <p class="mt-0">@m.Content</p>
-                        }
-                    </div>
-                    <div>
-                        <input type="text" class="form-control msgInput" />
-                    </div>
+
+<div class="row chatArea">
+    @{
+        Team team;
+        foreach (string id in teamIDs)
+        {
+            team = teams.Find(id);
+            <div class="chatBox card ml-1">
+                <div class="card-header d-flex justify-content-between">
+                    <span>@team.Title</span>
+                    <span><i class="fas fa-minus"></i></span>
                 </div>
-            }
+                <div class="msgDisplay card-body">
+                    @* 顯示歷史訊息 *@
+                    @foreach (Message m in team.Messages)
+                    {
+                        <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
+                        <p class="mt-0">@m.Content</p>
+                    }
+                </div>
+                <div class="card-footer input-group">                   
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="btnGroupAddon"><i class="far fa-comment-dots"></i></div>
+                        </div>
+                        <input type="text" class="form-control msgInput" aria-describedby="btnGroupAddon">
+                    @*打字不會換行,沒有更新頁面下訊息顯示不會換行*@
+                </div>
+            </div>
         }
-    </div>
+    }
 </div>
+
+
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
