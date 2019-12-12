@@ -2,17 +2,17 @@
 @{
     ViewBag.Title = "Test";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
-    Player player = (Player)ViewBag.Player ;
+    Player player = (Player)ViewBag.Player;
     List<string> teamIDs = (List<string>)ViewBag.TeamIDs;
     TGISDBEntities db = new TGISDBEntities();
     var teams = db.Teams;
 }
 
 <h2>測試區</h2>
-@* 
-        聊天室外殼需有class="chatBox"，以下兩區塊被包含在其中
-            訊息顯示區需有class="msgDisplay"
-            訊息輸入區需有class="msgInput"
+@*
+    聊天室外殼需有class="chatBox"，以下兩區塊被包含在其中
+        訊息顯示區需有class="msgDisplay"
+        訊息輸入區需有class="msgInput"
 *@
 <div class="container">
     <div class="row">
@@ -25,7 +25,7 @@
                     <p>@team.Title</p>
                     <div class="bg-info msgDisplay" style="height: 300px; overflow-y: auto;">
                         @* 顯示歷史訊息 *@
-                        @foreach(Message m in team.Messages)
+                        @foreach (Message m in team.Messages)
                         {
                             <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
                             <p class="mt-0">@m.Content</p>
@@ -40,15 +40,15 @@
     </div>
 </div>
 @section scripts{
-    <script>
+    <script> 
         /*
          *  作法：
          *  登入後依據此玩家的隊伍數量建立訊息窗口
          *  每個窗口都建立各自的websocket
          *  每個輸入框也使用各自的websocket來使用send方法
-         *  
+         *
          *  進入聊天室時顯示歷史訊息:
-         *  
+         *
          */
         var c = console.log;
         //將此玩家的teamIDs(C#)轉換為JS陣列
@@ -89,8 +89,8 @@
         for (var i = 0; i < $(".msgDisplay").length; i++) {
             var box = $(".msgDisplay").eq(i);
             box.scrollTop(box.get(0).scrollHeight);
-        }        
-        
+        }
+
     </script>
-    
+
 }
