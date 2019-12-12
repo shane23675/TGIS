@@ -30,9 +30,7 @@
     <div class="col-3">@Html.DisplayFor(modelItem => item.Content)</div>
     <div class="col-3">@Html.DisplayFor(modelItem => item.BeginDate)&nbsp;～&nbsp;@Html.DisplayFor(modelItem => item.ExpireDate)</div>
     <div class="col-2">@Html.DisplayFor(modelItem => item.PointsRequired)</div>
-    <div class="col-2">(待補)</div>
-    @*<div class="col-1">@Html.DisplayFor(modelItem => item.LimitedAmount)</div>
-        <div class="col-2">@Html.DisplayFor(modelItem => item.ExchangedAmount)</div>*@
+    <div class="col-2">@(item.LimitedAmount-item.ExchangedAmount)</div>
     <div class="col-2">
         @if (player != null)
         {
