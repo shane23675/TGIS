@@ -214,6 +214,10 @@ namespace TGIS.Controllers
             //刪除店內桌遊明細
             List<TableGameInShopDetail> details = db.TableGameInShopDetails.Where(m => m.TableGameID == tableGameID).ToList();
             details.ForEach(m => db.TableGameInShopDetails.Remove(m));
+            //刪除桌遊評論
+            db.TableGameComments.RemoveRange(tg.TableGameComments);
+            //刪除桌遊閱覽紀錄
+            db.TableGameVisitedStatistics.RemoveRange(tg.TableGameVisitedStatistics);
             //最後再刪除桌遊本身
             db.TableGames.Remove(tg);
             db.SaveChanges();
