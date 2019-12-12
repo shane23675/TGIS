@@ -91,6 +91,9 @@
             <a class="nav-link" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
         </nav>
     </footer>
+    @* 渲染出訊息框 *@
+    @Html.Action("TeamChatBox", "Home")
+
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.js"></script>
