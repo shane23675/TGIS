@@ -12,9 +12,12 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
 
-        //取得圖片的方法
-        
-        //方法一(參數：sourceID 來源ID, index 索引值，也就是第幾張圖片)
+        /// <summary>
+        /// 以來源ID取得圖片，找不到時返回預設圖片
+        /// </summary>
+        /// <param name="sourceID">來源ID</param>
+        /// <param name="index">索引值，也就是第幾張圖片</param>
+        /// <returns>圖片檔案連結</returns>
         public ActionResult GetPhotoBySourceID(string sourceID, int index)
         {
             Photo photo;
@@ -30,7 +33,11 @@ namespace TGIS.Controllers
             MemoryStream ms = new MemoryStream(photo.Content);
             return File(ms.ToArray(), photo.MIMEType);
         }
-        //方法二(參數：photoID 圖片ID)
+        /// <summary>
+        /// 以圖片ID取得圖片
+        /// </summary>
+        /// <param name="photoID">圖片ID</param>
+        /// <returns>圖片檔案連結</returns>
         public ActionResult GetPhotoByID(int photoID)
         {
             Photo photo = db.Photos.Where(m => m.ID == photoID).FirstOrDefault();

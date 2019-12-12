@@ -9,11 +9,11 @@
 @* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
 @if (player == null)
 {
-    <h3 class="text-warning">Please log in before you exchange any coupon.</h3>
+    <h3 class="text-warning">兌換優惠券前請先登入</h3>
 }
 else
 {
-    <h3>Points Remained: @player.Points</h3>
+    <h3>剩餘點數 : @player.Points</h3>
 }
 <table class="table">
     <tr>

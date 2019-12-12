@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TGIS.Models.NormalOffer>
+
+
+@{
+    ViewBag.Title = "OfferListForAdmin";
+}
+
+    <div class="row">
+        <h2 class="col-6">@(ViewBag.Shop)活動列表</h2>
+        <div class="col-6 justify-content-end row">
+            @Html.ActionLink("返回列表", "ShopIndex", "Shop", null, new { @class = "btn btn-light align-self-end" })
+        </div>
+    </div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            隱藏狀態
+            @*@Html.DisplayNameFor(model => model.IsHidden)*@
+        </th>
+        <th>
+            
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsHidden)
+        </td>
+        <!-- input -->
+        <td>
+            @{ 
+               string status = item.IsHidden == true ? "開啟" : "隱藏";
+            }
+            @Html.ActionLink(status, "OfferListStatusChange", new { normalOfferID=item.ID,shopID = item.ShopID },new { @class="btn btn-outline-primary",id="StatusButton"}) 
+        </td>
+    </tr>
+}
+    
+</table>
+
+
+@section scripts{
+    <script>
+
+    </script>
+    }
