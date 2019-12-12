@@ -1,10 +1,10 @@
-@model IEnumerable<TGIS.Models.Shop>
+﻿@model IEnumerable<TGIS.Models.Shop>
 
 @{
     ViewBag.Title = "ShopIndex"; 
 }
 
-<h2>ShopIndex</h2>
+<h2>店家列表</h2>
 
 <p>
     @Html.ActionLink("新增一筆資料", "MgShopCreate", null, new { @class="btn btn-primary"})
@@ -41,7 +41,14 @@
             @Html.DisplayFor(modelItem => item.ShopName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsVIP)
+            @if (item.IsVIP)
+            {
+                @: 已啟用
+            }
+            else
+            {
+                @: 未啟用
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpireDate)
@@ -50,7 +57,14 @@
             @Html.DisplayFor(modelItem => item.AccumulatedHours)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAccountEnabled)
+            @if (item.IsAccountEnabled)
+            {
+                @: 已啟用
+            }
+            else
+            {
+                @: 未啟用
+            }
         </td>
         <td>
             @Html.ActionLink("活動", "OfferListForAdmin", "NormalOffer", new { shopID = item.ID }, new { @class = "btn btn-info" })
