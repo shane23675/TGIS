@@ -4,8 +4,8 @@
     ViewBag.Title = "歡迎";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     //輪播圖要用的資料
-    var coupons = (List<Coupon>) ViewBag.Coupons;
-    var offers = (List<NormalOffer>) ViewBag.Offers;
+    var coupons = (List<Coupon>)ViewBag.Coupons;
+    var offers = (List<NormalOffer>)ViewBag.Offers;
     int totalCount = coupons.Count + offers.Count;
     string firstImage = "active";
 }
@@ -27,7 +27,6 @@
             box-shadow: #000000 3px 3px 5px 1px;
             border-radius: 10%;
         }
-
     </style>
 </head>
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
@@ -86,11 +85,11 @@
             <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control" aria-label="search" />
             <div id="ShopResultList"></div>
         </div>
-    
+
     </div>
     <div class="col-md-8 m-1">
-            <h3><strong><a href="@Url.Action("AnnouncementIndexForPlayer", "Announcement")">網站公告</a></strong></h3>
-                @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
+        <h3><strong><a href="@Url.Action("AnnouncementIndexForPlayer", "Announcement")">網站公告</a></strong></h3>
+        @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
         <hr />
         <h3>
             <strong>@Html.ActionLink("～揪桌一起玩～", "GetTeamList", "Team", new { usage = "TeamIndex" }, new { })</strong>

@@ -482,7 +482,7 @@
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\TeamChatBox.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <Content Include="Views\Message\MessageIndex.cshtml" />
