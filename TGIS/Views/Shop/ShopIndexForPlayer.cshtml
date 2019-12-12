@@ -8,13 +8,21 @@
     TableGame game = (TableGame)ViewBag.SearchingTGInfo;
 }
 
+    <link href="~/Content/WebSearch.css" rel="stylesheet" />
+<style>
+    #TGResultList, #ShopResultList {
+    width: 93%;
+}
+</style>
+
 <div class="row">
     <aside class="border col-3">
         <form>
             <h3 class="text-info">快速搜尋</h3>
             <div class="form-group">
                 <label class="col-form-label">從店家名稱搜尋：</label>
-                <input class="form-control" type="search" placeholder="輸入店家名字" aria-label="SearchShop">
+                <input id="ShopSearch" class="form-control" type="search" placeholder="輸入店家名字" aria-label="SearchShop">
+                <div id="ShopResultList"></div>
             </div>
             <div class="form-group">
                 <label>從地點搜尋：</label>
@@ -32,9 +40,10 @@
                 }
                 else
                 {
-                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" />
-                    <input class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
+                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="hot"/>
+                    <input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
                 }
+                <div id="TGResultList"></div>
             </div>
             <h3 class="text-info">進階搜尋</h3>
             <div class="form-group">
@@ -87,6 +96,9 @@
 
 
 @section scripts{
+
+    <script src="~/Scripts/WebSearch.js"></script>
+
     <script>
         //選取縣市時會出現行政區的ajax
         //這裡不使用套件，因為要加入「不限」選項

@@ -101,7 +101,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="image" Nullable="false" />
-          <Property Name="SourceID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="SourceID" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="MIMEType" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Player">
@@ -753,7 +753,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SourceID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SourceID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Content" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="MIMEType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>

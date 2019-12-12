@@ -171,7 +171,7 @@
     <Content Include="Content\layoutstyle-M.css" />
     <Content Include="Content\layoutstyle-P.css" />
     <Content Include="Content\layoutstyle-S.css" />
-    <Content Include="Content\mineCSS.css" />
+    <Content Include="Content\WebSearch.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sidebar_test.css" />
     <Content Include="Content\Site.css" />
@@ -288,6 +288,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginForAdminController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NormalOfferController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
@@ -484,6 +485,7 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
+    <Content Include="Views\Message\MessageIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

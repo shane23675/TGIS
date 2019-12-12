@@ -1,12 +1,11 @@
 ﻿@model TGIS.Models.Shop
 
-
+<h2>修改店家資料</h2>
 @using (Html.BeginForm("MgShopEdit", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Shop</h4>
         <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })

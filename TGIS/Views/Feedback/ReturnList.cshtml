@@ -32,8 +32,8 @@
             @Html.DisplayFor(modelItem => item.IsRead)
         </td>
         <td>
-            @Html.ActionLink("詳細", "ReturnDetail", new { id=item.ID }) |
-            @Html.ActionLink("刪除", "ReturnDel", new { id=item.ID })
+            @Html.ActionLink("詳細", "ReturnDetail", new { id=item.ID }, new { @class="btn btn-secondary"})
+            @Html.ActionLink("刪除", "ReturnDel", new { id=item.ID }, new { @class="btn btn-danger"})
         </td>
     </tr>
 }

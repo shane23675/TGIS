@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using TGIS.Models;
 
 namespace TGIS.Controllers
@@ -21,6 +22,17 @@ namespace TGIS.Controllers
         {
             TableGame tg;
             TableGameInShopDetail detail;
+            List<bool> Contant = new List<bool>();
+            for(int i = 0; i<isContainedFlags.Length; i++)
+            {
+                if (isContainedFlags[i] == true)
+                {
+                    Contant.Add(true);
+                    i++;
+                }
+                else
+                Contant.Add(false);
+            }
             //依據索引值逐個檢查每個桌遊
             for (int i = 0; i < tableGameIDs.Length; i++)
             {
@@ -30,7 +42,7 @@ namespace TGIS.Controllers
                 //有此桌遊，進一步判斷此桌遊是否有被刪除
                 if (detail != null)
                 {
-                    if (isContainedFlags[i])
+                    if (Contant[i])
                     {
                         detail.IsSale = isSaleFlags[i];
                         detail.Price = Price[i];
@@ -41,7 +53,7 @@ namespace TGIS.Controllers
                     }
                 }
                 //無此桌遊，若後來有被新增則新增至TableGameInShopDetails
-                else if (isContainedFlags[i])
+                else if (Contant[i])
                 {
                     TableGameInShopDetail d = new TableGameInShopDetail
                     {
