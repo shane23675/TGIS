@@ -122,6 +122,13 @@
         }
         function callback(val) {
             $("#DistrictID").html("<option value='-1'>不限</option>" + val);
+            //不篩選行政區的情況下保留狀態
+            @if (((bool)ViewBag.NoDistrict))
+            {
+                //清除所有選項的selected狀態並選擇「不限」
+                @: $("#DistrictID option").prop("selected", false);
+                @: $("#DistrictID option[value='-1']").prop("selected", true);
+            }
         }
 
     </script>
