@@ -6,6 +6,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TGIS.Controllers
 {
@@ -114,7 +116,7 @@ namespace TGIS.Controllers
         }
         //玩家看到的店家列表
         public ActionResult ShopIndexForPlayer(int? CityID, int? DistrictID, string searchedTableGameID, 
-            string AreaScale, string IsFoodAcceptable, string IsMinConsumeRequired)
+            string AreaScale, string IsFoodAcceptable, string IsMinConsumeRequired, int page = 1)
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", -1);
@@ -136,7 +138,7 @@ namespace TGIS.Controllers
             }, "Text", "Text", "不限");
             //店家查詢結果的容器
             var shops = db.Shops.ToList();
-            if (searchedTableGameID == "" || searchedTableGameID == null)
+            if (searchedTableGameID == null || searchedTableGameID.Trim() == "")
             {
                 //桌遊搜尋ID為空，啟用一般篩選功能
                 if (CityID != null)
@@ -194,7 +196,7 @@ namespace TGIS.Controllers
                 bool required = IsMinConsumeRequired == "有";
                 shops = shops.Where(s => s.IsMinConsumeRequired == required).ToList();
             }
-            return View(shops.OrderByDescending(s=>s.IsVIP).ThenByDescending(s=>s.AccumulatedHours));
+            return View(shops.OrderByDescending(s=>s.IsVIP).ThenByDescending(s=>s.AccumulatedHours).ToPagedList(page, 5));
         }
         //玩家看到店家詳細資料
         public ActionResult ShopDetailForPlayer(string id)
