@@ -22,6 +22,15 @@ namespace TGIS.Controllers
             return View(db.NormalOffers.ToList());
         }
 
+        //檢查活動時間是否正確的方法
+        void OfferTimeCheck(NormalOffer normalOffer)
+        {
+            if (normalOffer.BeginDate > normalOffer.EndDate)
+                ModelState["BeginDate"].Errors.Add("開始時間必須在結束時間之前");
+            if (normalOffer.EndDate < DateTime.Now)
+                ModelState["EndDate"].Errors.Add("結束時間必須在現在時間之後");
+        }
+
         //店家新增優惠券
         public ActionResult OfferCreate()
         {
@@ -30,6 +39,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult OfferCreate(NormalOffer normalOffer, HttpPostedFileBase[] photos)
         {
+            OfferTimeCheck(normalOffer);
             if (ModelState.IsValid)
             {
                 //填入預設值
@@ -63,10 +73,11 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult OfferEdit(NormalOffer normalOffer, HttpPostedFileBase[] photos)
         {
+            OfferTimeCheck(normalOffer);
+            NormalOffer offer = (NormalOffer)TempData["Offer"];
             if (ModelState.IsValid)
             {
                 //取出原始資料並灌入必要資料
-                NormalOffer offer = (NormalOffer)TempData["Offer"];
                 normalOffer.ID = offer.ID;
                 normalOffer.ShopID = offer.ShopID;
                 normalOffer.Clicks = offer.Clicks;
@@ -77,6 +88,7 @@ namespace TGIS.Controllers
                 PhotoManager.Create(normalOffer.ID, photos);
                 return RedirectToAction("OfferList");
             }
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(offer.ID);
             TempData.Keep("Offer");
             return View();
         }
