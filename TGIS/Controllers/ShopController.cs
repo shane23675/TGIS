@@ -136,6 +136,7 @@ namespace TGIS.Controllers
                 new { Text = "無" },
                 new { Text = "不限" }
             }, "Text", "Text", "不限");
+            ViewBag.NoDistrict = DistrictID == null || DistrictID == -1;
             //店家查詢結果的容器
             var shops = db.Shops.ToList();
             if (searchedTableGameID == null || searchedTableGameID.Trim() == "")
