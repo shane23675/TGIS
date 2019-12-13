@@ -128,7 +128,7 @@ namespace TGIS.Controllers
                 db.PlayerCouponDetails.Add(couponDetail);
                 db.SaveChanges();
 
-                return RedirectToAction("CouponInShopIndex", new { shopID = c.ShopID });
+                return RedirectToAction("ShopDetailForPlayer", "Shop", new { id = c.ShopID });
                 //應該要前往店家詳細頁(shopdetailforplayer),同時更動nav的active
             }
             //優惠券已無法兌換則顯示錯誤訊息
