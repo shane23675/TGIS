@@ -75,7 +75,7 @@ namespace TGIS.Controllers
             var ann = db.Announcements.Find(id);
             db.Announcements.Remove(ann);
             db.SaveChanges();
-            return RedirectToAction("AnnouncementList");
+            return RedirectToAction("AnnouncementIndexForAdmin");
         }
 
         //管理員查看公告明細
