@@ -5,9 +5,16 @@ $(document).delegate('input', 'propertychange input', function () {
 
     if (this.id == 'GameSearch') {
         SearchTG($(this).val().trim());
-    } else {
+    } else if (this.id == 'ShopSearch') {
         SearchShop($(this).val().trim());
+    } else {
+        return;
     }
+
+    //輸入無值時，清空id not yet
+    if ($('#GameSearch').val() == "")
+        $('#searchedTableGameID').val("");
+
 })
 
 
@@ -29,7 +36,7 @@ function SearchTG(keyword) {
 
         if (location.pathname == "/Shop/ShopIndexForPlayer") {
             for (i = 0; i < data.length; i++) {
-                let result = '<a href="#" id="' + data[i].ID + '">' + data[i].ChineseName + '</a>';
+                let result = '<a javascipt:;  id="' + data[i].ID + '">' + data[i].ChineseName + '</a>';
                 $('#TGResultList').append(result);
             }
         }
@@ -54,9 +61,6 @@ $('#TGResultList').click(function (evt) {
     $('#GameSearch').val(searchTG.text);
     $('#TGResultList').empty();
 });
-
-
-
 
 
 function SearchShop(keyword) {

@@ -123,6 +123,7 @@ namespace TGIS.Controllers
             return View(s.ToList());
         }
 
+        //變更活動狀態
         public ActionResult OfferListStatusChange(string normalOfferID,string shopID)
         {
             db.NormalOffers.Find(normalOfferID).IsHidden = !(db.NormalOffers.Find(normalOfferID).IsHidden);

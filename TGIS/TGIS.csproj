@@ -283,7 +283,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -486,6 +488,10 @@
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <Content Include="Views\Message\MessageIndex.cshtml" />
+    <Content Include="Views\City\CityIndex.cshtml" />
+    <Content Include="Views\City\_CityList.cshtml" />
+    <Content Include="Views\District\DistrictIndex.cshtml" />
+    <Content Include="Views\District\_DistrictList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

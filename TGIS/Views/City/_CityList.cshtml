@@ -1,0 +1,21 @@
+@using TGIS.Models;
+@model IEnumerable<City>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.ID
+        </td>
+        <td class="OldCityName">
+            @item.CityName
+        </td>
+        <td>
+            @Html.ActionLink("行政區", "DistrictIndex", "District", new { CityID = item.ID }, new { @class = "btn btn-outline-success" })
+            <input type="button" class="btn btn-outline-info editBtn" value="編輯"  />
+            <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none"/>
+            @*@Html.ActionLink("確認", "CityEdit", new { id = item.ID }, new { @class = "btn btn-outline-info confirmBtn" })*@
+            @Html.ActionLink("刪除", "CityDelete", new { CityID = item.ID }, new { @class = "btn btn-outline-danger" })
+        </td>
+    </tr>
+}
