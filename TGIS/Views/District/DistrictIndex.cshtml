@@ -6,12 +6,7 @@
 }
 
 <h2 class="d-inline">@(ViewBag.CityName)行政區</h2>
-@Html.ActionLink("返回列表","CityIndex","City",null,new { @class="btn btn-outline-secondary btn-sm mb-3"})
-
-<div class="form-group mt-2">
-    <input type="text" id="CreateDistrict" name="CreateDistrict" placeholder="請輸入想新增的行政區" class="form-control d-inline w-25" />
-    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
-</div>
+@Html.ActionLink("返回列表", "CityIndex", "City", null, new { @class = "btn btn-outline-secondary btn-sm mb-3" })
 
 <table class="table">
     <thead>
@@ -27,6 +22,11 @@
     </thead>
     <tbody></tbody>
 </table>
+<div class="form-group mt-2">
+    <input type="text" id="CreateDistrict" name="CreateDistrict" placeholder="請輸入想新增的行政區" class="form-control d-inline w-25" />
+    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
+</div>
+
 
 @section scripts{
     <script>
@@ -65,7 +65,7 @@
             $.post("/District/DistrictEdit", { DistrictID: id, NewDistrictName: NewDistrictName, CityID:"@ViewBag.CityID" }, function (data) {
                     $('tbody').empty().append(data);
             })
-            
+
         })
     </script>
 }

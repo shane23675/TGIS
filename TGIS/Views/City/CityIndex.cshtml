@@ -9,10 +9,6 @@
 <h2>城市</h2>
 
 
-<div class="form-group">
-    <input type="text" id="CreateCity" name="CreateCity" placeholder="請輸入想新增的城市" class="form-control d-inline w-25" />
-    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
-</div>
 
 
 <table class="table">
@@ -29,6 +25,10 @@
     </thead>
     <tbody></tbody>
 </table>
+<div class="form-group">
+    <input type="text" id="CreateCity" name="CreateCity" placeholder="請輸入想新增的城市" class="form-control d-inline w-25" />
+    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
+</div>
 
 
 @section scripts{
@@ -64,10 +64,10 @@
         $('tbody').delegate('.confirmBtn', 'click', function (evt) {
             id = evt.target.id;
             NewCityName = $(evt.target).parent('td').siblings('.OldCityName').text().replace("\n", "").trim();
-            $.post("/City/CityEdit", { CityID:id, NewCityName:NewCityName }, function (data) {
-                    $('tbody').empty().append(data);
+            $.post("/City/CityEdit", { CityID: id, NewCityName: NewCityName }, function (data) {
+                $('tbody').empty().append(data);
             })
-            
+
         })
 
     </script>

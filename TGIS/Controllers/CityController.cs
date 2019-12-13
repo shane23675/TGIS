@@ -35,9 +35,16 @@ namespace TGIS.Controllers
 
         public ActionResult CityDelete(int CityID)
         {
-            var c = db.Cities.Find(CityID);
-            db.Cities.Remove(c);
-            db.SaveChanges();
+            try
+            {
+                var c = db.Cities.Find(CityID);
+                db.Cities.Remove(c);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return JavaScript("alert('此城市的相關資料尚未刪除，無法刪除此資料!!')");
+            }
             return RedirectToAction("CityIndex");
         }
 

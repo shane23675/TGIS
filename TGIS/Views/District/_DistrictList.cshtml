@@ -14,7 +14,7 @@
             @*@Html.ActionLink("編輯", "DistrictEdit", new { DistrictID = item.ID }, new { @class = "btn btn-outline-info" })*@
             <input type="button" class="btn btn-outline-info editBtn" value="編輯" />
             <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none" />
-            @Html.ActionLink("刪除", "DistrictDelete", new { DistrictID = item.ID, CityID = item.CityID }, new { @class = "btn btn-outline-danger" })
+            @Html.ActionLink("刪除", "DistrictDelete", new { DistrictID = item.ID, CityID = item.CityID }, new { @class = "btn btn-outline-danger",onclick = "return confirm('確定要刪除嗎？')" })
         </td>
     </tr>
 }
