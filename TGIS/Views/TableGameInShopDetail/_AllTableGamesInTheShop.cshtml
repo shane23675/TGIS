@@ -1,61 +1,35 @@
 ﻿@model IEnumerable<TGIS.Models.TableGameInShopDetail>
 
-@{
-    ViewBag.Title = "AllTableGamesInTheShop";
-}
-    <div class>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4"></div>
-            <div class="col-4"></div>
-        </div>
-        <div class="row">
 
-        </div>
+    <div class="row text-center m-3 pb-3 border-bottom">
+        <div class="col-4">@Html.DisplayNameFor(model => model.TableGame.ChineseName)</div>
+        <div class="col-4">@Html.DisplayNameFor(model => model.TableGame.EnglishName)</div>
+        <div class="col-4">@Html.DisplayNameFor(model => model.Price)</div>
     </div>
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})" class="row text-info text-center m-3">
+            <div class="col-4">
 
+                @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
 
+            </div>
+            <div class="col-4">
 
+                @Html.DisplayFor(modelItem => item.TableGame.EnglishName)
 
-
-
-
-<table class="table text-info text-center">
-    <tr c>
-        <th width="33%">
-            @Html.DisplayNameFor(model => model.TableGame.ChineseName)
-        </th>
-        <th width="33%">
-            @Html.DisplayNameFor(model => model.TableGame.EnglishName)
-        </th>
-        <th width="34%">
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-<tr>
-    <td>
-        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})" class="btn text-info">
-            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+            </div>
+            <div class="col-4">
+                @if (item.IsSale)
+                {
+                    @Html.DisplayFor(modelItem => item.Price)
+                }
+                else
+                {
+                    @: 無販售
+                }
+            </div>
         </a>
-    </td>
-    <td>
-        <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.TableGameID})" class="btn text-info">
-            @Html.DisplayFor(modelItem => item.TableGame.EnglishName)
-        </a>
-    </td>
-    <td>
-        @if (item.IsSale)
-        {
-            @Html.DisplayFor(modelItem => item.Price)
-        }
-        else
-        {
-            @: 無販售
-        }
-    </td>
-</tr>
-}
+    }
 
-</table>
+

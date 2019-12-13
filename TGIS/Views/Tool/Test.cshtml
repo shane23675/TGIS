@@ -1,16 +1,31 @@
-﻿
+﻿@model IEnumerable<TGIS.Models.RelevantLink>
+
 @{
     ViewBag.Title = "Test";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>Test</h2>
+    <h2>RelevantLinks</h2>
 
-@section scripts{
-    <script>
-        var c = console.log;
-        $.post("/TableGame/SearchTableGameByName", { name: "all" }, function (data) {
-            c(data)
-        })
-    </script>    
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TableGame.ChineseName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+        </td>
+    </tr>
 }
+
+</table>

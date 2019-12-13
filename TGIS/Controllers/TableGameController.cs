@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TGIS.Controllers
 {
@@ -13,16 +15,17 @@ namespace TGIS.Controllers
          TGISDBEntities db = new TGISDBEntities();
 
         //玩家看到的桌遊百科(列表形式)
-        public ActionResult ShowTableGameListForPlayer()
+        public ActionResult ShowTableGameListForPlayer(int page = 1)
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             ViewBag.difficultTagIDs = new string[0];
             ViewBag.categoryTagIDs = new string[0];
-            return View(db.TableGames.ToList());
+            ViewBag.IsFilterOn = false;
+            return View(db.TableGames.OrderBy(g => g.ID).ToPagedList(page, 12));
         }
         [HttpPost]
-        public ActionResult ShowTableGameListForPlayer(string[] difficultTagIDs, string[] categoryTagIDs)
+        public ActionResult ShowTableGameListForPlayer(string[] difficultTagIDs, string[] categoryTagIDs, int page = 1)
         {
             //目標桌遊的容器
             List<TableGame> targetTableGames = new List<TableGame>();
@@ -57,7 +60,8 @@ namespace TGIS.Controllers
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             ViewBag.difficultTagIDs = difficultTagIDs == null ? new string[0] : difficultTagIDs;
             ViewBag.categoryTagIDs = categoryTagIDs == null ? new string[0] : categoryTagIDs;
-            return View(targetTableGames);
+            ViewBag.IsFilterOn = true;
+            return View(targetTableGames.OrderBy(g => g.ID).ToPagedList(page, 12));
         }
 
         //顯示單個桌遊詳細內容
@@ -214,6 +218,10 @@ namespace TGIS.Controllers
             //刪除店內桌遊明細
             List<TableGameInShopDetail> details = db.TableGameInShopDetails.Where(m => m.TableGameID == tableGameID).ToList();
             details.ForEach(m => db.TableGameInShopDetails.Remove(m));
+            //刪除桌遊評論
+            db.TableGameComments.RemoveRange(tg.TableGameComments);
+            //刪除桌遊閱覽紀錄
+            db.TableGameVisitedStatistics.RemoveRange(tg.TableGameVisitedStatistics);
             //最後再刪除桌遊本身
             db.TableGames.Remove(tg);
             db.SaveChanges();

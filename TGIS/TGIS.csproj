@@ -265,6 +265,7 @@
     <Content Include="Scripts\mineCrop.js" />
     <Content Include="Scripts\mineJS.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pagerFix.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -484,7 +485,7 @@
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\TeamChatBox.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <Content Include="Views\Message\MessageIndex.cshtml" />
