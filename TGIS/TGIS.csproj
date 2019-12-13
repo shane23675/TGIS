@@ -265,6 +265,7 @@
     <Content Include="Scripts\mineCrop.js" />
     <Content Include="Scripts\mineJS.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pagerFix.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
