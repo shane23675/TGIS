@@ -1,23 +1,30 @@
 ﻿@using TGIS.Models
-@model IEnumerable<Shop>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Shop>
 
 @{
     ViewBag.Title = "店家列表";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     //搜尋某桌遊的資訊
-    TableGame game = (TableGame)ViewBag.SearchingTGInfo;
+    TableGame game = null;
+    if (ViewBag.SearchingTGInfo != null)
+    {
+        game = (TableGame)ViewBag.SearchingTGInfo;
+    }
+    
 }
 
-    <link href="~/Content/WebSearch.css" rel="stylesheet" />
+<link href="~/Content/WebSearch.css" rel="stylesheet" />
 <style>
     #TGResultList, #ShopResultList {
-    width: 93%;
-}
+        width: 93%;
+    }
 </style>
 
 <div class="row">
     <aside class="border col-3">
-        <form>
+        <form id="filter">
             <h3 class="text-info">快速搜尋</h3>
             <div class="form-group">
                 <label class="col-form-label">從店家名稱搜尋：</label>
@@ -40,7 +47,7 @@
                 }
                 else
                 {
-                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="hot"/>
+                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="" />
                     <input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
                 }
                 <div id="TGResultList"></div>
@@ -59,14 +66,18 @@
                 @Html.DropDownList("IsFoodAcceptable", null, new { @class = "form-control" })
             </div>
             <button class="btn btn-info " type="submit">搜尋</button>
-            @Html.ActionLink("清除篩選條件", "ShopIndexForPlayer", null, new { @class="btn btn-secondary"})
-        </form>      
+            @Html.ActionLink("清除篩選條件", "ShopIndexForPlayer", null, new { @class = "btn btn-secondary" })
+
+            @*在過濾桌遊的同時使分頁功能運作*@
+            <input type="hidden" name="page" id="page" value="" />
+
+        </form>
     </aside>
     <div class="col-9 p-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="" @Url.Action("Index", "Home") ">首頁</a>
+                    <a href="@Url.Action("Index", "Home")">首頁</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">店家列表</li>
             </ol>
@@ -89,7 +100,7 @@
                 <img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="shopphoto m-1">
             </div>
         }
-        <div>分頁</div>
+        <div>@Html.PagedListPager(Model, page => Url.Action("ShopIndexForPlayer", "Shop", new { page}))</div>
     </div>
 </div>
 
@@ -114,4 +125,8 @@
         }
 
     </script>
+
+    @* 在過濾店家的同時使分頁功能運作 *@
+    <script src="~/Scripts/pagerFix.js"></script>
+
 }
