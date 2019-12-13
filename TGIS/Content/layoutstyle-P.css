@@ -12,8 +12,11 @@ body {
     background-color: #B1EDE8;
     color: #208AAE;
 }
+#P-navbar {
+    height:54px;
+}
 
-#P-navbar a, #P-footer a{
+#P-navbar a, #P-footer a {
     color: #208AAE;
 }
     #P-navbar a:hover, #P-footer a:hover {
