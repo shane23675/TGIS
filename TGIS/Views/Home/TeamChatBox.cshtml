@@ -23,8 +23,6 @@
     .chatBox {
         min-width: 150px;
         max-width: 300px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
         border: none;
         background-color: transparent;
     }
@@ -34,13 +32,21 @@
         max-height: 300px;
         background-color: white;
     }
-
-    .msgInput {
+    .card-header {
+    box-shadow:1px 1px 3px #005E28;
+    padding: .25rem 1.00rem;
+    
     }
-
+    .card-footer {
+    box-shadow:1px 1px 3px #005E28;
+    }
     .bg-msg {
         background-color: #C9EAC9;
     }
+    .form-control:focus, .btn:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
 
     .minus {
     }
@@ -55,19 +61,19 @@
         foreach (string id in teamIDs)
         {
             team = teams.Find(id);
-            <div class="chatBox card ml-1 ">
+            <div class="chatBox card ml-2">
                 <div class="card-header d-flex justify-content-between bg-msg">
-                    <span class="">@team.Title</span>
+                    <span class="mt-1">@team.Title</span>
                     <div class="row ml-1">
-                        <a data-toggle="collapse" href="#msg_@team.ID" aria-controls="msg_@team.ID" role="button" aria-expanded="false" class="btn text-secondary">
+                        <a data-toggle="collapse" href="#msg_@team.ID" aria-controls="msg_@team.ID" role="button" aria-expanded="false" class="btn text-secondary chatbtn">
                             <div class="minus">
                                 <i class="fas fa-minus"></i>
                             </div>
                             @*<div class="plus"> <i class="fas fa-plus"></i></div>*@
                         </a>
-                        <a href="#" class="btn">
+                        @*<a href="#" class="btn text-secondary" role="button">
                             <i class="fas fa-times"></i>
-                        </a>
+                        </a>*@
 
                     </div>
                 </div>
@@ -80,7 +86,7 @@
                             <p class="mt-0">@m.Content</p>
                         }
                     </div>
-                    <div class="card-footer input-group bg-msg">
+                    <div class="card-footer input-group bg-msg ">
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon">
                                 <i class="far fa-comment-dots"></i>
@@ -141,10 +147,11 @@
         });
     }
 
-    //剛進入頁面就將所有訊息框拉至底部(要改動偵測點)
-    for (var i = 0; i < $(".msgDisplay").length; i++) {
-        var box = $(".msgDisplay").eq(i);
+    //點開訊息框時拉至底部
+    $('.chatbtn').click(function () {
+        var box = $(this).parent(".chatBox").find(".msgDisplay");
         box.scrollTop(box.get(0).scrollHeight);
-    }
+    });
+    
 
 </script>
