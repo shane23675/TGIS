@@ -95,6 +95,8 @@ namespace TGIS.Controllers
                 PhotoManager.Delete(deletedPhotoID);
                 return RedirectToAction("CouponIndexForShop");
             }
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(coupon.ID);
+            TempData.Keep();
             return View(coupon);
         }
 
