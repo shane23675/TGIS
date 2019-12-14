@@ -12,9 +12,10 @@ $(document).delegate('input', 'propertychange input', function () {
     }
 
     //輸入無值時，清空id not yet
-    if ($('#GameSearch').val() == "")
+    if ($('#GameSearch').val() == "") {
+        $('#searchedTableGameID').attr('name', '');
         $('#searchedTableGameID').val("");
-
+    }
 })
 
 
@@ -53,10 +54,13 @@ function SearchTG(keyword) {
     })
 }
 
+//點擊選擇搜尋結果
 $('#TGResultList').click(function (evt) {
+    
     let searchTG = evt.target;
     if (searchTG.id == "")
         return;
+    $('#searchedTableGameID').attr('name', 'searchedTableGameID');
     $('#searchedTableGameID').val(searchTG.id);
     $('#GameSearch').val(searchTG.text);
     $('#TGResultList').empty();
