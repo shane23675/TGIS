@@ -256,7 +256,18 @@ namespace TGIS.Models
     }
     //店家主檔
     [MetadataType(typeof(MetadataShop))]
-    public partial class Shop { }
+    public partial class Shop
+    {
+        //以下為推算出的衍生屬性，沒有儲存在資料庫中
+        [DisplayName("詳細地址")]
+        public string FullAddress
+        {
+            get
+            {
+                return District.City.CityName + District.DistrictName + Address;
+            }
+        }
+    }
     public class MetadataShop
     {
         [DisplayName("會員編號")]
