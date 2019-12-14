@@ -1,29 +1,24 @@
-﻿@model IEnumerable<TGIS.Models.RelevantLink>
+﻿@using System.Text.RegularExpressions;
+@model IEnumerable<TGIS.Models.Shop>
 
 @{
     ViewBag.Title = "Test";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-    <h2>RelevantLinks</h2>
+<h2>Test</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Url)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TableGame.ChineseName)
+            @Html.DisplayNameFor(model => model.Address)
         </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
+            @item.Address
         </td>
     </tr>
 }

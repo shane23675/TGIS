@@ -20,17 +20,20 @@ namespace TGIS.Controllers
         //測試專區
         public ActionResult Test()
         {
-            return View(db.RelevantLinks.ToList());
+            //var shops = db.Shops.ToList();
+            //shops.ForEach(s => s.Address = System.Text.RegularExpressions.Regex.Replace(s.Address, @".*區", ""));
+            //db.SaveChanges();
+            return View(db.Shops.ToList());
         }
-
+        //修正RelevantLinks網址的方法
         public ActionResult RelevantLinksReplace()
         {
-            var links = db.RelevantLinks.ToList();
-            foreach (var link in links)
-            {
-                link.Url = link.Url.Replace("watch?v=", "embed/");
-            }
-            db.SaveChanges();
+            //var links = db.RelevantLinks.ToList();
+            //foreach (var link in links)
+            //{
+            //    link.Url = link.Url.Replace("watch?v=", "embed/");
+            //}
+            //db.SaveChanges();
             return RedirectToAction("Test");
         }
     }
