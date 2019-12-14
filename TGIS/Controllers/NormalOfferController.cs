@@ -120,6 +120,9 @@ namespace TGIS.Controllers
         public ActionResult OfferDetail(string normalOfferID)
         {
             var offer = db.NormalOffers.Find(normalOfferID);
+            //增加被點擊次數
+            offer.Clicks++;
+            db.SaveChanges();
             //存入來源店家ID以便返回頁面
             ViewBag.ShopID = offer.ShopID;
             //將此活動的圖片數量傳入ViewBag
