@@ -24,27 +24,8 @@ namespace TGIS.Controllers
             TableGameInShopDetail detail;
             List<bool> contant = new List<bool>();
             List<bool> saleFlags = new List<bool>();
-            for(int i = 0; i<isContainedFlags.Length; i++)
-            {
-                if (isContainedFlags[i] == true)
-                {
-                    contant.Add(true);
-                    i++;
-                }
-                else
-                contant.Add(false);
-            }
-            for(int i = 0; i < isSaleFlags.Length; i++)
-            {
-                if (isSaleFlags[i] == true)
-                {
-                    saleFlags.Add(true);
-                    i++;
-                }
-                else
-                    saleFlags.Add(false);
-            }
-            //依據索引值逐個檢查每個桌遊
+            UsefulTools.CheckBoxArrange(isContainedFlags, contant);
+            UsefulTools.CheckBoxArrange(isContainedFlags, saleFlags);
             for (int i = 0; i < tableGameIDs.Length; i++)
             {
                 //查找此店家是否有此桌遊
