@@ -143,21 +143,5 @@ namespace TGIS.Models
             db.PlayerPointDetails.Add(ppd);
             db.SaveChanges();
         }
-        ///<summary>
-        ///CheckBox是否勾選陣列整理
-        ///</summary>
-        public static void CheckBoxArrange(bool[] oldArray,List<bool> newArray)
-        {
-            for(int i = 0; i < oldArray.Length; i++)
-            {
-                if (oldArray[i] == true)
-                {
-                    newArray.Add(true);
-                    i++;
-                }
-                else
-                    newArray.Add(false);
-            }
-        }
     }
 }

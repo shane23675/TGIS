@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     public class TableGameInShopDetailController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
+
         //更新TableGameInShopDetail
         public ActionResult UpdateTableGameInShopDetail(string shopID)
         {
@@ -20,13 +21,27 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult UpdateTableGameInShopDetail(string shopID, string[] tableGameIDs, bool[] isContainedFlags, bool[] isSaleFlags, int[] Price)
         {
+            //CheckBox陣列整理(o:舊陣列,n:新陣列)
+            Action<bool[], List<bool>> checkBoxArrange = (o, n)=>
+            {
+                for (int i = 0; i < o.Length; i++)
+                {
+                    if (o[i] == true)
+                    {
+                        n.Add(true);
+                        i++;
+                    }
+                    else
+                        n.Add(false);
+                }
+            };
             TableGame tg;
             TableGameInShopDetail detail;
             List<bool> contant = new List<bool>();
             List<bool> saleFlags = new List<bool>();
-            UsefulTools.CheckBoxArrange(isContainedFlags, contant);
-            UsefulTools.CheckBoxArrange(isSaleFlags, saleFlags);
-            for (int i = 0; i < tableGameIDs.Length; i++)
+            checkBoxArrange(isContainedFlags, contant);
+            checkBoxArrange(isSaleFlags, saleFlags);
+             for (int i = 0; i < tableGameIDs.Length; i++)
             {
                 //查找此店家是否有此桌遊
                 tg = db.TableGames.Find(tableGameIDs[i]);
