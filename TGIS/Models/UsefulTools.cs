@@ -143,6 +143,5 @@ namespace TGIS.Models
             db.PlayerPointDetails.Add(ppd);
             db.SaveChanges();
         }
-
     }
 }
