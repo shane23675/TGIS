@@ -25,7 +25,7 @@ namespace TGIS.Controllers
             List<bool> contant = new List<bool>();
             List<bool> saleFlags = new List<bool>();
             UsefulTools.CheckBoxArrange(isContainedFlags, contant);
-            UsefulTools.CheckBoxArrange(isContainedFlags, saleFlags);
+            UsefulTools.CheckBoxArrange(isSaleFlags, saleFlags);
             for (int i = 0; i < tableGameIDs.Length; i++)
             {
                 //查找此店家是否有此桌遊
