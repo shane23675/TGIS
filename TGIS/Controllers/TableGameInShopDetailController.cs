@@ -21,9 +21,12 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult UpdateTableGameInShopDetail(string shopID, string[] tableGameIDs, bool[] isContainedFlags, bool[] isSaleFlags, int[] Price)
         {
-            //CheckBox陣列整理(o:舊陣列,n:新陣列)
-            Action<bool[], List<bool>> checkBoxArrange = (o, n)=>
+            TableGame tg;
+            TableGameInShopDetail detail;
+            //CheckBox陣列整理(o:舊陣列)
+            Func<bool[], List<bool>> arrange = (o) =>
             {
+                List<bool> n = new List<bool>();
                 for (int i = 0; i < o.Length; i++)
                 {
                     if (o[i] == true)
@@ -34,13 +37,8 @@ namespace TGIS.Controllers
                     else
                         n.Add(false);
                 }
+                return n;
             };
-            TableGame tg;
-            TableGameInShopDetail detail;
-            List<bool> contant = new List<bool>();
-            List<bool> saleFlags = new List<bool>();
-            checkBoxArrange(isContainedFlags, contant);
-            checkBoxArrange(isSaleFlags, saleFlags);
              for (int i = 0; i < tableGameIDs.Length; i++)
             {
                 //查找此店家是否有此桌遊
@@ -49,9 +47,9 @@ namespace TGIS.Controllers
                 //有此桌遊，進一步判斷此桌遊是否有被刪除
                 if (detail != null)
                 {
-                    if (contant[i])
+                    if (arrange(isContainedFlags)[i])
                     {
-                        detail.IsSale = saleFlags[i];
+                        detail.IsSale = arrange(isSaleFlags)[i];
                         detail.Price = Price[i];
                     }
                     else
@@ -60,13 +58,13 @@ namespace TGIS.Controllers
                     }
                 }
                 //無此桌遊，若後來有被新增則新增至TableGameInShopDetails
-                else if (contant[i])
+                else if (arrange(isContainedFlags)[i])
                 {
                     TableGameInShopDetail d = new TableGameInShopDetail
                     {
                         ShopID = shopID,
                         TableGameID = tableGameIDs[i],
-                        IsSale = saleFlags[i],
+                        IsSale = arrange(isSaleFlags)[i],
                         Price = Price[i]
                     };
                     db.TableGameInShopDetails.Add(d);
