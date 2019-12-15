@@ -137,6 +137,7 @@ namespace TGIS.Controllers
                 return RedirectToAction("LoginForAdmin", "LoginForAdmin");
             return View(db.Teams.ToList().OrderByDescending(t => t.ID));
         }
+
         //店家的預約管理
         public ActionResult TeamReservationIndex()
         {

@@ -39,7 +39,7 @@
                     <td>
                         @Html.ActionLink("編輯", "EditAnnoun", new { id = item.ID }) |
                         @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }) |
-                        @Html.ActionLink("刪除", "AnnounDel", new { id = item.ID })
+                        @Html.ActionLink("刪除", "AnnounDel", new { id = item.ID }, new { onclick = "return confirm('確定要刪除嗎?')"})
                     </td>
                 </tr>
             }

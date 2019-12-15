@@ -37,7 +37,7 @@ namespace TGIS.Controllers
                 db.Announcements.Add(ann);
                 db.SaveChanges();
             }
-            return RedirectToAction("AnnouncementList");
+            return RedirectToAction("AnnouncementIndexForAdmin");
         }
 
         //管理員修改公告
@@ -63,7 +63,7 @@ namespace TGIS.Controllers
                 announcement.Content = ann.Content;
 
                 db.SaveChanges();
-                return RedirectToAction("AnnouncementList");
+                return RedirectToAction("AnnouncementIndexForAdmin");
             }
             TempData.Keep("AnnouncementID");
             return View(ann);

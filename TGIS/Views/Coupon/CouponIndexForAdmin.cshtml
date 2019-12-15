@@ -28,12 +28,11 @@
             @Html.DisplayNameFor(model => model.ExchangedAmount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Shop.ShopName)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -55,9 +54,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExchangedAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAvailable)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Shop.ShopName)

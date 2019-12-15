@@ -58,7 +58,7 @@ namespace TGIS.Models
         public int PointsRequired { get; set; }
         [DisplayName("可換張數"), Range(0, int.MaxValue)]
         public Nullable<int> LimitedAmount { get; set; }
-        [DisplayName("已啟用")]
+        [DisplayName("啟用確認")]
         public bool IsAvailable { get; set; }
     }
     //縣市列表

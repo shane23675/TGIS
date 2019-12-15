@@ -29,7 +29,7 @@ namespace TGIS.Controllers
             return View();
         }
 
-        //測試區(請勿刪除)
+        //取得訊息框(PartialView)
         public ActionResult TeamChatBox()
         {
             string playerID = (string)Session["PlayerID"];
