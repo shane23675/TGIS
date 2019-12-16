@@ -20,8 +20,6 @@
     <div class="container form-horizontal">
         <h2>新開一桌</h2>
         <hr />
-        <input type="hidden" name="ID" value="@ViewBag.teamID" />
-        <input type="hidden" name="LeaderPlayerID" value="@((string)Session["PlayerID"])" />
 
         <div class="row form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-2" })

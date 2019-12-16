@@ -26,6 +26,7 @@ namespace TGIS.Controllers
         }
 
         //店家查看自己的優惠券列表
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult CouponIndexForShop()
         {
             Shop s = db.Shops.Find((string)Session["ShopID"]);
@@ -42,11 +43,12 @@ namespace TGIS.Controllers
                 ModelState["ExpireDate"].Errors.Add("到期日期必須在今天之後");
         }
         //店家新增優惠券
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult CouponCreate()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult CouponCreate(Coupon coupon, HttpPostedFileBase[] photos)
         {
             //填入預設值
@@ -68,6 +70,7 @@ namespace TGIS.Controllers
         }
 
         //店家修改優惠券
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult CouponEdit(string couponID)
         {
             Coupon c = db.Coupons.Find(couponID);
@@ -75,7 +78,7 @@ namespace TGIS.Controllers
             TempData["Coupon"] = c;
             return View(c);
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult CouponEdit(Coupon coupon, HttpPostedFileBase[] photos, int[] deletedPhotoID)
         {
             //從TempData取出原始資料並存入必要欄位
@@ -138,6 +141,7 @@ namespace TGIS.Controllers
         }
 
         //玩家使用優惠券
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult UseCoupon(string couponID)
         {
             Player p = db.Players.Find((string)Session["PlayerID"]);

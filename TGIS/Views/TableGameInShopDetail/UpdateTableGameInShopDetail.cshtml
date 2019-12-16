@@ -23,7 +23,7 @@
             <tbody>
                 @foreach (TableGame item in Model)
                 {
-                    @Html.Action("_GetOneDetail", new { tableGameID = item.ID, shopID = ViewBag.shopID })
+                    @Html.Action("_GetOneDetail", new { tableGameID = item.ID })
                 }
             </tbody>
         </table>

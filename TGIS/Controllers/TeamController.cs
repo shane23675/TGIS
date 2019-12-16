@@ -16,12 +16,12 @@ namespace TGIS.Controllers
         {
             return View(db.Teams.Find(teamID));
         }
-        [HttpPost]
-        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action, bool fromMyTeam=false)
+        [HttpPost, CenterLogin(CenterLogin.UserType.Player)]
+        public ActionResult TeamDetailForPlayer(string teamID, string action, bool fromMyTeam=false)
         {
             //先找到對應的team、player
             Team t = db.Teams.Find(teamID);
-            Player p = db.Players.Find(playerID);
+            Player p = db.Players.Find(Session["PlayerID"].ToString());
             //通過action判斷要參加、退出、取消出團或提前截止
             switch (action)
             {
@@ -47,13 +47,9 @@ namespace TGIS.Controllers
         }
 
         //新開一桌(玩家用)
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult TeamCreate()
         {
-            //若尚未登入則重新導向至登入頁
-            if (Session["PlayerID"] == null)
-                return RedirectToAction("LoginForPlayer", "Login");
-
-            ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             //這裡不傳PlayerID，直接在View中通過Session取得
@@ -61,13 +57,9 @@ namespace TGIS.Controllers
             //若傳入team表示要重開之前流團的揪桌
             return View();
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult TeamCreate(Team team, int CityID, int DistrictID)
         {
-            //若登入已超時導致無法取得玩家ID則重新導向至登入頁
-            if (Session["PlayerID"] == null)
-                return RedirectToAction("LoginForPlayer", "Login");
-
             //檢查報名截止日期是否在現在時間之後
             if (team.ParticipateEndDate <= DateTime.Now)
                 ModelState["ParticipateEndDate"].Errors.Add("報名截止日期必須在現在時間之後");
@@ -84,6 +76,9 @@ namespace TGIS.Controllers
             //驗證主體
             if (ModelState.IsValid)
             {
+                //填入必要資料後存入
+                team.ID = UsefulTools.GetNextID(db.Teams, 1);
+                team.LeaderPlayerID = Session["PlayerID"].ToString();
                 db.Teams.Add(team);
                 db.SaveChanges();
                 return RedirectToAction("GetTeamList", new { usage = "TeamIndex"});
@@ -139,6 +134,7 @@ namespace TGIS.Controllers
         }
 
         //店家的預約管理
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult TeamReservationIndex()
         {
             Shop s = db.Shops.Find(Session["ShopID"].ToString());

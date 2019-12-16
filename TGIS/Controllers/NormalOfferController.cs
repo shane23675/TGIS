@@ -11,15 +11,12 @@ namespace TGIS.Controllers
     public class NormalOfferController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        //查看活動列表
-        public ActionResult OfferList()
+        //店家查看活動列表
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult OfferListForShop()
         {
-            //若有店家ID則顯示店家活動列表
             Shop s = db.Shops.Find((string)Session["ShopID"]);
-            if (s != null)
-                return View("OfferList", "_LayoutShoperCenter", s.NormalOffers.ToList());
-            //否則顯示全部活動列表(管理員用)
-            return View(db.NormalOffers.ToList());
+            return View(s.NormalOffers.ToList());
         }
 
         //檢查活動時間是否正確的方法
@@ -130,7 +127,7 @@ namespace TGIS.Controllers
             return View(offer);
         }
 
-        //查看店家活動列表
+        //管理員查看店家活動列表
         public ActionResult OfferListForAdmin(string shopID)
         {
             var s = db.Shops.Find(shopID).NormalOffers;
