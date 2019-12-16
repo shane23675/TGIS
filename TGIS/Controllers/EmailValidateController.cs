@@ -13,7 +13,7 @@ namespace TGIS.Controllers
         // GET: Default
         public ActionResult EmailValidate(string Email,string id)
         {
-            var content = $"您好，感謝您註冊成為有桌方遊的會員。\n請點擊網址進行信箱驗證：http://localhost:55525/EmailValidate/EmailRepeat?id={id} ，祝您找到同遊好夥伴～\n\n有桌方遊官方";
+            var content = $"您好，感謝您註冊成為有桌方遊的會員。\n請點擊網址進行信箱驗證：http://localhost:55525/EmailValidate/EmailRepeat?id={id} ，祝您找到同遊好夥伴～\n\n有桌方遊資訊網";
             AutoEmail.AutoEmailSend(Email, "有桌方遊－註冊驗證信",content);
             return View();
         }

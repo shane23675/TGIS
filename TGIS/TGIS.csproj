@@ -496,6 +496,7 @@
     <Content Include="Views\District\DistrictIndex.cshtml" />
     <Content Include="Views\District\_DistrictList.cshtml" />
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
+    <Content Include="Views\Login\ForgetPwdsend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
