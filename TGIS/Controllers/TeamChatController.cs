@@ -15,7 +15,7 @@ namespace TGIS.Controllers
     {
         public HttpResponseMessage Get(string userName, string teamID, string userID)
         {
-            HttpContext.Current.AcceptWebSocketRequest(new ChatWebSocketHandler(userName, teamID));
+            HttpContext.Current.AcceptWebSocketRequest(new ChatWebSocketHandler(userName, teamID, userID));
             return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
         //WebSocket處理器
@@ -23,15 +23,15 @@ namespace TGIS.Controllers
         {
             string _userName;
             string _teamID;
-            //用來辨認一個房間內是否有重複的使用者
-            public string UserID;
+            string _userID;
             //字典: key為揪桌ID，value為WebSocketCollection
             static Dictionary<string, WebSocketCollection> _chatRooms = new Dictionary<string, WebSocketCollection>();
             //構造器
-            public ChatWebSocketHandler(string userName, string teamID)
+            public ChatWebSocketHandler(string userName, string teamID, string userID)
             {
                 _userName = userName;
                 _teamID = teamID;
+                _userID = userID;
             }
             //覆寫OnOpen事件，鑄造新的ChatWebSocketHandler時觸發
             public override void OnOpen()
@@ -54,7 +54,7 @@ namespace TGIS.Controllers
                 {
                     TeamID = _teamID,
                     MessageDate = DateTime.Now,
-                    Speaker = UserID,
+                    Speaker = _userID,
                     IsPrivate = true,
                     Content = message.Length > 300 ? message.Substring(0, 300) : message
                 };
