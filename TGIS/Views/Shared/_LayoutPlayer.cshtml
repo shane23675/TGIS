@@ -1,4 +1,4 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>有桌方遊 - @ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link href="~/Content/FrontStyle.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
@@ -43,7 +44,7 @@
                 {
                     <div>
                         <a class="btn btn-outline-info" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal" id="loginBtn">
                             登入
                         </button>
                     </div>
@@ -67,7 +68,7 @@
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
                     </li>          
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Login", new { sessionName = "PlayerID" })">登出</a>
+                        <a class="nav-link" href="javascript:;" id="logoutBtn">登出</a>
                     </li>
                 </ul>
             </div>
@@ -182,6 +183,14 @@
                     }
                 }
             )
+        })
+
+        //點擊登出鈕
+        $("#logoutBtn").click(function () {
+            $.post("/Login/LogoutWithoutRedirect", null, function () {
+                //重新整理頁面
+                location.reload();
+            })
         })
     </script>
     @RenderSection("scripts", false)

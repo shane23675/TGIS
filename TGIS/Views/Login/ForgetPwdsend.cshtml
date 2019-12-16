@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "忘記密碼";
+    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+}
+
+
+@*圖片來源:<a href='https://pngtree.com/so/信封'>信封 png from pngtree.com</a>*@
+<div class="row">
+    <div class="col-6 ">
+        <img src="~/images/envelope letter.png" class="img-fluid p-5" />
+    </div>
+    <div class="col-6 remind">
+        <h1 class="display-4">發送成功</h1>
+        <h4><small class="text-muted">請至信箱收取新密碼</small></h4>
+        @Html.ActionLink("返回首頁", "Index", "Home", null, new { @class = "btn btn-outline-success mt-2" })
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>ForgetPwd</h2>
+    <form method="post" action="~/Login/ForgetPwd" class="container">
+        <h2>忘記密碼</h2>
+        <div class="form-group">
+            <span>帳號:</span>
+        </div>
+        <div>
+            <input id="ac" type="text" name="account" class="form-control w-25" />
+        </div>
+        <div class="form-group">
+            <span>電子信箱:</span>
+        </div>
+        <div>
+            <input id="pwd" type="text" name="Email" class="form-control w-25" />
+        </div>
+        <input id="Submit1" type="submit" value="submit" />
+        <div class="alert-danger w-25">@ViewBag.Error</div>
+    </form>*@

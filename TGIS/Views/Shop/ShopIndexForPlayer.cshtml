@@ -81,8 +81,7 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">店家列表</li>
             </ol>
-        </nav>
-        @*如果要顯示就要所有選項顯示，思考改版方法*@
+        </nav>   
         @foreach (Shop shop in Model)
         {
             <div class="media m-2">
@@ -100,7 +99,7 @@
                 <img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="shopphoto m-1">
             </div>
         }
-        <div>@Html.PagedListPager(Model, page => Url.Action("ShopIndexForPlayer", "Shop", new { page}))</div>
+        <div class="d-flex justify-content-center">@Html.PagedListPager(Model, page => Url.Action("ShopIndexForPlayer", "Shop", new { page}))</div>
     </div>
 </div>
 

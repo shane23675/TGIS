@@ -205,3 +205,25 @@
     border: 2px solid #BFD7EA;
     box-shadow:2px 2px 3px rgba(177,237,232,0.5);
 }
+
+.remind {
+    padding-top:13%;
+    padding-left:40px;    
+}
+
+.gameName {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    background-color: rgba(0,0,0,.6);
+    color: #ffffff;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity .3s;
+}
+.card-body:hover .gameName {
+    opacity: 1;
+}

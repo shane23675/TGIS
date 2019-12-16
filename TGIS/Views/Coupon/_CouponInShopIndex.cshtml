@@ -15,7 +15,7 @@
             @* 尚未登入則提示訊息，已經登入則顯示剩餘點數 *@
             @if (player == null)
             {
-                <span class="text-warning">請進行登入<br />以兌換優惠券</span>
+                <span class="text-warning">請進行<a href="javascript: document.getElementById('loginBtn').click();">登入</a><br />以兌換優惠券</span>
             }
             else
             {

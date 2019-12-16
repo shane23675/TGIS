@@ -209,6 +209,7 @@
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
     <Content Include="images\email_check.jpg" />
+    <Content Include="images\envelope letter.png" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -500,6 +501,8 @@
     <Content Include="Views\District\DistrictIndex.cshtml" />
     <Content Include="Views\District\_DistrictList.cshtml" />
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
+    <Content Include="Views\Login\ForgetPwdsend.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
