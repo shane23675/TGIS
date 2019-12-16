@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TGIS.Models.City>
+
+@{
+    ViewBag.Title = "城市";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    var c = new TGIS.Models.City();
+}
+
+<h2>城市</h2>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div class="form-group">
+    <input type="text" id="CreateCity" name="CreateCity" placeholder="請輸入想新增的城市" class="form-control d-inline w-25" />
+    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
+</div>
+
+
+@section scripts{
+    <script>
+        $('#CreateCity').keyup(function (evt) {
+            if (evt.keyCode == 13)
+                city();
+        });
+        $('#CreateBtn').click(city);
+        function city() {
+            $.post("/City/CityCreate", { CityName: $('#CreateCity').val() }, function (data) {
+                $('#CreateCity').val("");
+                $('tbody').empty().append(data);
+            })
+        }
+        $(document).ready(function () {
+            $.get("/City/_CityList", null, function (data) {
+                $('tbody').empty().append(data);
+
+
+            })
+        })
+
+
+        //編輯
+
+        $('tbody').delegate('.editBtn', 'click', function (evt) {
+            $(evt.target).parent('td').siblings('.OldCityName').attr('contenteditable', 'true').focus();
+            $(evt.target).hide();
+            $(evt.target).siblings('.confirmBtn').show();
+        })
+
+        $('tbody').delegate('.confirmBtn', 'click', function (evt) {
+            id = evt.target.id;
+            NewCityName = $(evt.target).parent('td').siblings('.OldCityName').text().replace("\n", "").trim();
+            $.post("/City/CityEdit", { CityID: id, NewCityName: NewCityName }, function (data) {
+                $('tbody').empty().append(data);
+            })
+
+        })
+
+    </script>
+}

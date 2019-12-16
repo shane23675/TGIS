@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TGIS.Models.Team>
+
+@{
+    ViewBag.Title = "TeamReservationIndex";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+
+<h2>預約管理</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayBeginTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayEndTime)
+        </th>
+        <th>
+            預約人數
+        </th>
+        <th>
+            主揪暱稱
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayBeginTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPlayers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
+        </td>
+    </tr>
+}
+
+</table>

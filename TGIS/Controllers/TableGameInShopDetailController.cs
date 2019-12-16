@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     public class TableGameInShopDetailController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
+
         //更新TableGameInShopDetail
         public ActionResult UpdateTableGameInShopDetail(string shopID)
         {
@@ -22,19 +23,23 @@ namespace TGIS.Controllers
         {
             TableGame tg;
             TableGameInShopDetail detail;
-            List<bool> Contant = new List<bool>();
-            for(int i = 0; i<isContainedFlags.Length; i++)
+            //CheckBox陣列整理(o:舊陣列)
+            Func<bool[], List<bool>> arrange = (o) =>
             {
-                if (isContainedFlags[i] == true)
+                List<bool> n = new List<bool>();
+                for (int i = 0; i < o.Length; i++)
                 {
-                    Contant.Add(true);
-                    i++;
+                    if (o[i] == true)
+                    {
+                        n.Add(true);
+                        i++;
+                    }
+                    else
+                        n.Add(false);
                 }
-                else
-                Contant.Add(false);
-            }
-            //依據索引值逐個檢查每個桌遊
-            for (int i = 0; i < tableGameIDs.Length; i++)
+                return n;
+            };
+             for (int i = 0; i < tableGameIDs.Length; i++)
             {
                 //查找此店家是否有此桌遊
                 tg = db.TableGames.Find(tableGameIDs[i]);
@@ -42,9 +47,9 @@ namespace TGIS.Controllers
                 //有此桌遊，進一步判斷此桌遊是否有被刪除
                 if (detail != null)
                 {
-                    if (Contant[i])
+                    if (arrange(isContainedFlags)[i])
                     {
-                        detail.IsSale = isSaleFlags[i];
+                        detail.IsSale = arrange(isSaleFlags)[i];
                         detail.Price = Price[i];
                     }
                     else
@@ -53,13 +58,13 @@ namespace TGIS.Controllers
                     }
                 }
                 //無此桌遊，若後來有被新增則新增至TableGameInShopDetails
-                else if (Contant[i])
+                else if (arrange(isContainedFlags)[i])
                 {
                     TableGameInShopDetail d = new TableGameInShopDetail
                     {
                         ShopID = shopID,
                         TableGameID = tableGameIDs[i],
-                        IsSale = isSaleFlags[i],
+                        IsSale = arrange(isSaleFlags)[i],
                         Price = Price[i]
                     };
                     db.TableGameInShopDetails.Add(d);

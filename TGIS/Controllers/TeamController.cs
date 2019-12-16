@@ -137,5 +137,14 @@ namespace TGIS.Controllers
                 return RedirectToAction("LoginForAdmin", "LoginForAdmin");
             return View(db.Teams.ToList().OrderByDescending(t => t.ID));
         }
+
+        //店家的預約管理
+        public ActionResult TeamReservationIndex()
+        {
+            Shop s = db.Shops.Find(Session["ShopID"].ToString());
+            //找出已成團且未過期的Team
+            var teams = s.Teams.Where(t => t.Status == "已成團" && t.PlayDate > DateTime.Today).ToList();
+            return View(teams);
+        }
     }
 }

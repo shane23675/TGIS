@@ -124,7 +124,7 @@
     for (var i = 0; i < teamIDs.length; i++) {
         //要使用let建立局部變量才不會相互衝突
         let chatBox = boxes.eq(i);
-        let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
+        let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}`;
         let ws = new WebSocket(url);
 
         ws.onopen = function (e) {
@@ -149,8 +149,11 @@
 
     //點開訊息框時拉至底部
     $('.chatbtn').click(function () {
-        var box = $(this).parent(".chatBox").find(".msgDisplay");
-        box.scrollTop(box.get(0).scrollHeight);
+        var box = $(this).parents(".chatBox").find(".msgDisplay");
+        //需要有50毫秒的延遲再下拉才有用
+        setTimeout(function () {
+            box.scrollTop(box.get(0).scrollHeight);
+        }, 50)
     });
     
 

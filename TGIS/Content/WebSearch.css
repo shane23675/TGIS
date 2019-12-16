@@ -18,6 +18,7 @@
         background-color: #26179ed9;
         color: #ffffff;
         width: 100%;
+        cursor:pointer;
     }
 
         #TGResultList a:last-child, #ShopResultList a:last-child {

@@ -61,24 +61,16 @@
                         <a href="@Url.Action("ShowTableGameListForAdmin","TableGame")">桌遊資訊</a>
                     </li>
                     <li>
-                        <a href="#">標籤列表</a>
+                        <a href="@Url.Action("CityIndex", "City")">標籤列表</a>
                     </li>
                 </ul>
             </li>
 
             <li>
-                <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                <a href="@Url.Action("GetTeamListForAdmin", "Team")" >
                     <i class="fas fa-users"></i>
                     <span>揪桌管理</span>
                 </a>
-                <ul class="collapse list-unstyled" id="groupSubmenu">
-                    <li>
-                        <a href="@Url.Action("GetTeamListForAdmin", "Team")">揪桌資訊</a>
-                    </li>
-                    <li>
-                        <a href="#">訊息管理</a>
-                    </li>
-                </ul>
             </li>
 
             <li>
