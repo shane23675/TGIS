@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +16,7 @@ namespace TGIS.Controllers
         {
             if (Session["PlayerID"] != null)
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && comment.Trim() != "")
                 {
                     var pId = Session["PlayerID"].ToString();
                     TableGameComment tgc = new TableGameComment();

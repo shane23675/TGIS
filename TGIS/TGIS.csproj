@@ -166,6 +166,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chart\Chart.css" />
+    <Content Include="Content\chart\Chart.min.css" />
     <Content Include="Content\EntryStyle.css" />
     <Content Include="Content\FrontStyle.css" />
     <Content Include="Content\layoutstyle-M.css" />
@@ -176,6 +178,7 @@
     <Content Include="Content\Sidebar_test.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Html\chart.html" />
     <Content Include="Html\dwarves.html" />
     <Content Include="Html\images\01.jpg" />
     <Content Include="Html\images\10_dwarves.jpg" />
@@ -217,6 +220,8 @@
       <DependentUpon>TGISDB.edmx</DependentUpon>
       <LastGenOutput>TGISDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\chart\Chart.js" />
+    <Content Include="Scripts\chart\Chart.min.js" />
     <Content Include="Scripts\date_convert.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
