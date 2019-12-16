@@ -123,9 +123,7 @@ else if (isInTeam)
         {
             using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
             {
-                @Html.Hidden("ID", UsefulTools.GetNextID(new TGISDBEntities().Teams, 1))
                 @Html.Hidden("CityID", Model.Shop.District.CityID)
-                @Html.Hidden("LeaderPlayerID", Model.LeaderPlayerID)
                 @Html.Hidden("DistrictID", Model.Shop.DistrictID)
                 @Html.Hidden("ShopID", Model.ShopID)
                 @Html.Hidden("Title", Model.Title)
@@ -165,7 +163,6 @@ else if (isInTeam)
         {
             <input type="hidden" name="teamID" value="@Model.ID" />
             <input type="hidden" name="action" id="action" value="@action" />
-            <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
             <button class="btn btn-primary" type="submit" @disabled onclick="return confirm('你確定要 @action 此團嗎??')">@btnInfo</button>
             if (isLeader && Model.OtherPlayers.Count + 1 >= Model.MinPlayer)
             {

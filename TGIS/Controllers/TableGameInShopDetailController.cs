@@ -13,14 +13,15 @@ namespace TGIS.Controllers
         TGISDBEntities db = new TGISDBEntities();
 
         //更新TableGameInShopDetail
-        public ActionResult UpdateTableGameInShopDetail(string shopID)
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult UpdateTableGameInShopDetail()
         {
-            ViewBag.shopID = shopID;
             return View(db.TableGames.ToList());
         }
-        [HttpPost]
-        public ActionResult UpdateTableGameInShopDetail(string shopID, string[] tableGameIDs, bool[] isContainedFlags, bool[] isSaleFlags, int[] Price)
+        [HttpPost, CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult UpdateTableGameInShopDetail(string[] tableGameIDs, bool[] isContainedFlags, bool[] isSaleFlags, int[] Price)
         {
+            string shopID = Session["ShopID"].ToString();
             TableGame tg;
             TableGameInShopDetail detail;
             //CheckBox陣列整理(o:舊陣列)
@@ -71,13 +72,14 @@ namespace TGIS.Controllers
                 }
                 db.SaveChanges();
             }
-            return RedirectToAction("UpdateTableGameInShopDetail", new { shopID = shopID });
+            return RedirectToAction("UpdateTableGameInShopDetail");
         }
 
         //取得店內桌遊明細的partialView(店家編輯用)
-        [ChildActionOnly]
-        public ActionResult _GetOneDetail(string tableGameID, string shopID)
+        [ChildActionOnly, CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult _GetOneDetail(string tableGameID)
         {
+            string shopID = Session["ShopID"].ToString();
             TableGame tg = db.TableGames.Find(tableGameID);
             //從傳入的桌遊，找到店家ID為shopID的店內桌遊明細
             TableGameInShopDetail detail = tg.TableGameInShopDetails.Where(m => m.ShopID == shopID).FirstOrDefault();

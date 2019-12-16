@@ -52,6 +52,7 @@ namespace TGIS.Controllers
             return View(player);
         }
         //玩家詳細資料(玩家會員中心)
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult PlayerDetail()
         {
             Player p = db.Players.Find((string)Session["playerID"]);
@@ -59,6 +60,7 @@ namespace TGIS.Controllers
             return View(p);
         }
         //玩家變更暱稱(Ajax)
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult ChangeNickName(string nickname)
         {
             Player p = db.Players.Find((string)Session["playerID"]);
@@ -72,6 +74,7 @@ namespace TGIS.Controllers
         }
         //玩家變更圖片
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult ChangePlayerPhoto(HttpPostedFileBase[] photo)
         {
             string playerID = (string)Session["PlayerID"];

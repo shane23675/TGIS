@@ -321,6 +321,7 @@
     <Compile Include="Models\Coupon.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomFilterAttribute.cs" />
     <Compile Include="Models\CustomValidationAttributes.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
@@ -471,7 +472,7 @@
     <Content Include="Views\Player\PointRecord.cshtml" />
     <Content Include="Views\Coupon\_CouponInShopIndex.cshtml" />
     <Content Include="Views\NormalOffer\OfferCreate.cshtml" />
-    <Content Include="Views\NormalOffer\OfferList.cshtml" />
+    <Content Include="Views\NormalOffer\OfferListForShop.cshtml" />
     <Content Include="Views\NormalOffer\OfferDetail.cshtml" />
     <Content Include="Views\PlayerPointDetail\MyPoints.cshtml" />
     <Content Include="Views\PlayerCouponDetail\MyCoupons.cshtml" />

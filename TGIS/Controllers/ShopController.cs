@@ -272,11 +272,10 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //店家看到店家詳細資料
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopDetailForStore()
         {
             string shopID = Session["ShopID"].ToString();
-            if (shopID == null)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             return View(db.Shops.Find(shopID));
         }
  
