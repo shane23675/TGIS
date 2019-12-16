@@ -1,4 +1,4 @@
-﻿@using TGIS.Models
+@using TGIS.Models
 @model TGIS.Models.Shop
 
 @{
@@ -28,7 +28,8 @@
     <div class="row">
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.OpeningHours)：</dt>
-            <dd>@Html.DisplayFor(model => model.OpeningHours)</dd>
+            @*<dd>@Html.DisplayFor(model => model.OpeningHours)</dd>*@
+            <dd>@Html.Raw(Model.OpeningHours.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</dd>
         </dl>
         <dl class="row ml-1 col-8">
             <dt>
@@ -116,7 +117,8 @@
     <div class="row">
         <dl class="row ml-1 col-12">
             <dt>@Html.DisplayNameFor(model => model.Description)：</dt>
-            <dd>@Html.DisplayFor(model => model.Description)</dd>
+            @*<dd>@Html.DisplayFor(model => model.Description)</dd>*@
+            <dd>@Html.Raw(Model.Description.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</dd>
         </dl>
     </div>
     <div>
