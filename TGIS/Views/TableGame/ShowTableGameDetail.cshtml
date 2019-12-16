@@ -1,4 +1,4 @@
-﻿@model TGIS.Models.TableGame
+@model TGIS.Models.TableGame
 
 @{
     ViewBag.Title = "ShowTableGameDetail";
@@ -105,13 +105,30 @@
                 @Html.Action("_GetTableGameCards", new { tableGame = Model })
             </div>
 
-            @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
-            {
-                <h3>桌遊評價</h3>
-                <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-                <textarea id="commentText" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
-                <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info my-1" />
+            <h3>桌遊評價</h3>
+
+            <!--CHeck~~~~~~~~~~~~~~~~-->
+            @{
+                if (Session["PlayerID"] == null)
+                {
+                    <p>欲留言請<a href="javascript:document.getElementById('loginBtn').click()">登入會員</a></p>
+                }
+                else
+                {
+                    using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+                    {
+
+                        <div id="TGcomment">
+                            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+                            <textarea id="commentText" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+                            <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info my-1" disabled=true />
+                        </div>
+                    }
+                }
             }
+
+
+
 
         </div>
         <!--Comments-->
@@ -156,8 +173,13 @@
 
 @section scripts{
     <script>
-        $('textarea').delegate("#commentText", "change", function () {
-            console.log(this.value);
+        //空值時不可送出評論
+        $('textarea').keyup(function () {
+            if (this.value == "") {
+                $('#commentBtn').attr('disabled', true);
+            } else {
+                $('#commentBtn').attr('disabled', false);
+            }
         })
     </script>
 }
