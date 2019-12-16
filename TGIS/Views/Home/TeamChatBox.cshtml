@@ -124,7 +124,7 @@
     for (var i = 0; i < teamIDs.length; i++) {
         //要使用let建立局部變量才不會相互衝突
         let chatBox = boxes.eq(i);
-        let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
+        let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}`;
         let ws = new WebSocket(url);
 
         ws.onopen = function (e) {

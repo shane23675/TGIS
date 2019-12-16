@@ -15,7 +15,7 @@ namespace TGIS.Controllers
     {
         public HttpResponseMessage Get(string userName, string teamID, string userID)
         {
-            HttpContext.Current.AcceptWebSocketRequest(new ChatWebSocketHandler(userName, teamID, userID));
+            HttpContext.Current.AcceptWebSocketRequest(new ChatWebSocketHandler(userName, teamID));
             return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
         //WebSocket處理器
@@ -28,11 +28,10 @@ namespace TGIS.Controllers
             //字典: key為揪桌ID，value為WebSocketCollection
             static Dictionary<string, WebSocketCollection> _chatRooms = new Dictionary<string, WebSocketCollection>();
             //構造器
-            public ChatWebSocketHandler(string userName, string teamID, string userID)
+            public ChatWebSocketHandler(string userName, string teamID)
             {
                 _userName = userName;
                 _teamID = teamID;
-                UserID = userID;
             }
             //覆寫OnOpen事件，鑄造新的ChatWebSocketHandler時觸發
             public override void OnOpen()
@@ -40,9 +39,7 @@ namespace TGIS.Controllers
                 //如果從teamID能找到對應的WebSocketCollection(也就是房間)則加入，否則新開一間房
                 if (_chatRooms.ContainsKey(_teamID))
                 {
-                    //自己目前不在這間房間中才加入
-                    if (!_chatRooms[_teamID].Any(ws => ((ChatWebSocketHandler)ws).UserID == UserID))
-                        _chatRooms[_teamID].Add(this);
+                     _chatRooms[_teamID].Add(this);
                 }
                 else
                     _chatRooms[_teamID] = new WebSocketCollection() { this };
