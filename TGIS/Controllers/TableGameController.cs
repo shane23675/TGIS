@@ -71,8 +71,8 @@ namespace TGIS.Controllers
             ViewBag.relevantLinks = db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList();
             //將此桌遊的圖片數量傳入ViewBag
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
-            //新增一筆桌遊閱覽紀錄
-            var statistic = db.TableGameVisitedStatistics.Find(DateTime.Today);
+            //新增一筆桌遊閱覽紀錄(每月至多紀錄一筆)
+            var statistic = db.TableGameVisitedStatistics.ToList().Where(s => s.VisitedDate.ToString("yyyy/MM") == DateTime.Today.ToString("yyyy/MM")).FirstOrDefault();
             if (statistic == null)
             {
                 db.TableGameVisitedStatistics.Add(new TableGameVisitedStatistic
