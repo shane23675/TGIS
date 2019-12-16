@@ -13,10 +13,18 @@
 @if (usage == "TeamIndex")
 {
     <h2>揪桌一起玩</h2>
-    @Html.ActionLink("新開一桌", "TeamCreate")
+    //尚未登入時，點擊開桌會叫出登入Modal
+    if (Session["PlayerID"] == null)
+    {
+        <a href="javascript: document.getElementById('loginBtn').click();">新開一桌</a>
+    }
+    else
+    {
+        @Html.ActionLink("新開一桌", "TeamCreate")
+    }
 }
 <table class="table table-bordered text-center">
-    <thead >
+    <thead>
         <tr class="table-success">
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -98,7 +106,7 @@
                                     <input type="hidden" name="action" value="close" />
                                     <input type="hidden" name="playerID" value="@playerID" />
                                     <input type="hidden" name="fromMyTeam" value="true" />
-                                    <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')"/>
+                                    <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')" />
                                 </form>
                             }
                             //取消出團按鈕
@@ -107,7 +115,7 @@
                                 <input type="hidden" name="action" value="cancel" />
                                 <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')"　/>
+                                <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')" 　 />
 
                             </form>
                         }
@@ -119,13 +127,14 @@
                                 <input type="hidden" name="action" value="exit" />
                                 <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')"/>
+                                <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')" />
                             </form>
                         }
                     }
-                    @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID },new {@class="btn btn-info"})
+                    @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID }, new { @class = "btn btn-info" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

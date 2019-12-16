@@ -45,13 +45,20 @@ namespace TGIS.Controllers
             }
             return Content("1");
         }
-        //登出
-        //Session["sessionName"]
+        //從玩家中心或店家中心登出(導向首頁)
         public ActionResult Logout(string sessionName)
         {
             Session.Contents.Remove(sessionName);
             return RedirectToAction("Index","Home");
         }
+
+        //玩家從前台登出(不導向首頁)
+        [HttpPost]
+        public void LogoutWithoutRedirect()
+        {
+            Session.Contents.Remove("PlayerID");
+        }
+
         //忘記密碼（寄信）
         public ActionResult ForgetPwd()
         {
