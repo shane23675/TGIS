@@ -205,3 +205,8 @@
     border: 2px solid #BFD7EA;
     box-shadow:2px 2px 3px rgba(177,237,232,0.5);
 }
+
+.remind {
+    padding-top:13%;
+    padding-left:40px;    
+}

@@ -29,7 +29,7 @@
 
     .msgDisplay {
         overflow-y: scroll;
-        max-height: 300px;
+        height: 300px;
         background-color: white;
     }
     .card-header {
@@ -66,14 +66,10 @@
                     <span class="mt-1">@team.Title</span>
                     <div class="row ml-1">
                         <a data-toggle="collapse" href="#msg_@team.ID" aria-controls="msg_@team.ID" role="button" aria-expanded="false" class="btn text-secondary chatbtn">
-                            <div class="minus">
+                            <div class="btncollapse ">
                                 <i class="fas fa-minus"></i>
-                            </div>
-                            @*<div class="plus"> <i class="fas fa-plus"></i></div>*@
-                        </a>
-                        @*<a href="#" class="btn text-secondary" role="button">
-                            <i class="fas fa-times"></i>
-                        </a>*@
+                            </div>                     
+                        </a>    
 
                     </div>
                 </div>
@@ -148,13 +144,12 @@
     }
 
     //點開訊息框時拉至底部
+    
     $('.chatbtn').click(function () {
         var box = $(this).parents(".chatBox").find(".msgDisplay");
         //需要有50毫秒的延遲再下拉才有用
         setTimeout(function () {
             box.scrollTop(box.get(0).scrollHeight);
         }, 50)
-    });
-    
-
+    });  
 </script>

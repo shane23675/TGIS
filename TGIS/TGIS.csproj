@@ -206,6 +206,7 @@
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
     <Content Include="images\email_check.jpg" />
+    <Content Include="images\envelope letter.png" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
