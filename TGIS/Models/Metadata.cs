@@ -32,6 +32,14 @@ namespace TGIS.Models
                 return PlayerCouponDetails.Count;
             }
         }
+        [DisplayName("已使用人數")]
+        public int UsedAmount
+        {
+            get
+            {
+                return PlayerCouponDetails.Count(d => d.IsUsed);
+            }
+        }
         [DisplayName("是否可兌換")]
         public bool IsExchangable
         {
