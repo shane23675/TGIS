@@ -1,4 +1,4 @@
-﻿@model TGIS.Models.TableGame
+@model TGIS.Models.TableGame
 
 @{
     ViewBag.Title = "桌遊資訊";
@@ -59,7 +59,12 @@
             <p class="col-6">遊玩花費時間：@Model.DetailGamePeroid 分鐘</p>
         </div>
         <br />
+        <p>遊玩花費時間：@Model.DetailGamePeroid 分鐘</p>
+        <p>建議遊玩人數：@Model.MinPlayer～@Model.MaxPlayer 人</p>
+        <hr />
         <p>@Html.Raw(Model.Feature.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
+
+
     </div>
 </div>
 <hr />
@@ -131,10 +136,113 @@
 
 
 
+
+
+
+
+        <!--Relavent Links-->
+        <div class="col-12 my-1">
+            <h3>教學連結</h3>
+            <div class="card-deck">
+                @foreach (var item in Model.RelevantLinks)
+                {
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                @*<div class="embed-responsive embed-responsive-16by9">*@
+                                <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
+                                @*</div>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!--Suggestions-->
+        <div class="col-12 my-1">
+            <h3>想玩更多?我們推薦你：</h3>
+            <div class="card-deck">
+                @Html.Action("_GetTableGameCards", new { tableGame = Model })
+            </div>
+
+            <h3>桌遊評價</h3>
+
+            <!--CHeck~~~~~~~~~~~~~~~~-->
+            @{
+                if (Session["PlayerID"] == null)
+                {
+                    <p>欲留言請<a href="javascript:document.getElementById('loginBtn').click()">登入會員</a></p>
+                }
+                else
+                {
+                    using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+                    {
+
+                        <div id="TGcomment">
+                            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+                            <textarea id="commentText" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+                            <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info my-1" disabled=true />
+                        </div>
+                    }
+                }
+            }
+
+
+
+
+        </div>
+        <!--Comments-->
+
+        <h3 class="col-12 my-1">大家的評價</h3>
+        <div class="row">
+            @foreach (var comment in Model.TableGameComments)
+            {
+                <div class="col-md-2 my-2">
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
+                </div>
+
+                <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
+                    <div class="card-header tgcHeader">
+                        <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
+                        @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
+                        {
+                            <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                        }
+                    </div>
+                    <div class="card-body tgcBody">
+
+                        @if (comment.IsHidden)
+                        {
+                            <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
+                        }
+                        else
+                        {
+                            <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
+                        }
+                    </div>
+                    <div class="card-footer tgcFooter">
+                        <span>@comment.CommentDate.ToString("yyyy年MM月dd日")</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+
+
+
 @section scripts{
     <script>
-        $('textarea').delegate("#commentText", "change", function () {
-            console.log(this.value);
+        //空值時不可送出評論
+        $('textarea').keyup(function () {
+            if (this.value == "") {
+                $('#commentBtn').attr('disabled', true);
+            } else {
+                $('#commentBtn').attr('disabled', false);
+            }
         })
 
     </script>

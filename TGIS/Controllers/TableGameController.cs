@@ -19,49 +19,41 @@ namespace TGIS.Controllers
         {
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            ViewBag.BrandTagList = db.Tags.ToList().Where(m => m.ID[0] == 'B');
             ViewBag.difficultTagIDs = new string[0];
             ViewBag.categoryTagIDs = new string[0];
+            ViewBag.brandTagIDs = new string[0];
             ViewBag.IsFilterOn = false;
             return View(db.TableGames.OrderBy(g => g.ID).ToPagedList(page, 12));
         }
         [HttpPost]
-        public ActionResult ShowTableGameListForPlayer(string[] difficultTagIDs, string[] categoryTagIDs, int page = 1)
+        public ActionResult ShowTableGameListForPlayer(int? minPlayer, int? maxPlayer, string[] difficultTagIDs, string[] categoryTagIDs, string[] brandTagIDs, int page = 1, bool notExtended = false)
         {
-            //目標桌遊的容器
-            List<TableGame> targetTableGames = new List<TableGame>();
-            //將含有categoryTags中任何一個標籤的桌遊加入targetTableGames
-            foreach (TableGame item in db.TableGames.ToList())
-            {
-                //先判斷difficultTagIDs和categoryTagIDs是否為空，如果是則視同全選
-                bool isDifficultTagIDsEmpty = difficultTagIDs == null;
-                bool isCategoryTagIDsEmpty = categoryTagIDs == null;
-                //若兩者都沒選則回原頁面(全部顯示)
-                if (isDifficultTagIDsEmpty && isCategoryTagIDsEmpty)
-                    return RedirectToAction("ShowTableGameListForPlayer");
-                if (isDifficultTagIDsEmpty || difficultTagIDs.Contains(item.DifficultyTagID))
-                {
-                    if (isCategoryTagIDsEmpty)
-                    {
-                        targetTableGames.Add(item);
-                        continue;
-                    }
-                    foreach (string id in categoryTagIDs)
-                    {
-                        if (item.GameCategoryTags.Contains(db.Tags.Find(id)))
-                        {
-                            targetTableGames.Add(item);
-                            break;
-                        }
-                    }
-                }
-            }
+            //進行篩選
+            var games = db.TableGames.ToList();
+            if (minPlayer != null)
+                games = games.Where(g => g.MinPlayer <= minPlayer).ToList();
+            if (maxPlayer != null)
+                games = games.Where(g => g.MaxPlayer >= maxPlayer).ToList();
+            if (difficultTagIDs != null)
+                games = games.Where(g => difficultTagIDs.Contains(g.DifficultyTagID)).ToList();
+            if (categoryTagIDs != null)
+                games = games.Where(g => g.GameCategoryTags.Any(t => categoryTagIDs.Contains(t.ID))).ToList();
+            if (brandTagIDs != null)
+                games = games.Where(g => brandTagIDs.Contains(g.BrandTagID)).ToList();
+            if (notExtended)
+                games = games.Where(g => !g.IsExtended).ToList();
+           
+
             //一樣的操作
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
+            ViewBag.BrandTagList = db.Tags.ToList().Where(m => m.ID[0] == 'B');
             ViewBag.difficultTagIDs = difficultTagIDs == null ? new string[0] : difficultTagIDs;
             ViewBag.categoryTagIDs = categoryTagIDs == null ? new string[0] : categoryTagIDs;
+            ViewBag.brandTagIDs = brandTagIDs == null ? new string[0] : brandTagIDs;
             ViewBag.IsFilterOn = true;
-            return View(targetTableGames.OrderBy(g => g.ID).ToPagedList(page, 12));
+            return View(games.OrderBy(g => g.ID).ToPagedList(page, 12));
         }
 
         //顯示單個桌遊詳細內容
@@ -71,8 +63,8 @@ namespace TGIS.Controllers
             ViewBag.relevantLinks = db.RelevantLinks.Where(m => m.TableGameID == tableGameID).ToList();
             //將此桌遊的圖片數量傳入ViewBag
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(tableGameID);
-            //新增一筆桌遊閱覽紀錄
-            var statistic = db.TableGameVisitedStatistics.Find(DateTime.Today);
+            //新增一筆桌遊閱覽紀錄(每月至多紀錄一筆)
+            var statistic = db.TableGameVisitedStatistics.ToList().Where(s => s.VisitedDate.ToString("yyyy/MM") == DateTime.Today.ToString("yyyy/MM")).FirstOrDefault();
             if (statistic == null)
             {
                 db.TableGameVisitedStatistics.Add(new TableGameVisitedStatistic

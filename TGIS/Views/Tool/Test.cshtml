@@ -1,26 +1,8 @@
-﻿@using System.Text.RegularExpressions;
-@model IEnumerable<TGIS.Models.Shop>
-
-@{
-    ViewBag.Title = "Test";
-    Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
+﻿<h1>Test</h1>
+@section scripts{
+    <script>
+        $.post("/Analysis/TableGameTrend", {tableGameIDs : ["T00005", "T00006"]}, function (data) {
+            console.log(data);
+        })
+    </script>
 }
-
-<h2>Test</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Address
-        </td>
-    </tr>
-}
-
-</table>

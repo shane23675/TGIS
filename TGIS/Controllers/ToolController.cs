@@ -20,10 +20,7 @@ namespace TGIS.Controllers
         //測試專區
         public ActionResult Test()
         {
-            //var shops = db.Shops.ToList();
-            //shops.ForEach(s => s.Address = System.Text.RegularExpressions.Regex.Replace(s.Address, @".*區", ""));
-            //db.SaveChanges();
-            return View(db.Shops.ToList());
+            return View();
         }
         //修正RelevantLinks網址的方法
         public ActionResult RelevantLinksReplace()
