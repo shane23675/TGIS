@@ -1,10 +1,13 @@
 ﻿<h1>Test</h1>
+@{ 
+    Session["ShopID"] = "S00014";
+}
 @section scripts{
     <script>
         //$.post("/Analysis/TableGameTrend", {tableGameIDs : ["T00005", "T00006"]}, function (data) {
         //    console.log(data);
         //})
-        $.post("/Analysis/CouponUsage", null, function (data) {
+        $.post("/Analysis/TeamStatistic", {moonsFromNow : 0}, function (data) {
             console.log(data);
         })
     </script>

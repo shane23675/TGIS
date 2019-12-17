@@ -192,7 +192,17 @@ namespace TGIS.Models
     }
     //玩家主檔
     [MetadataType(typeof(MetadataPlayer))]
-    public partial class Player { }
+    public partial class Player 
+    {
+        [DisplayName("年齡")]
+        public int Age
+        {
+            get
+            {
+                return DateTime.Now.Subtract(Birthday).Days / 365;
+            }
+        }
+    }
     public class MetadataPlayer
     {
         [DisplayName("會員編號")]
