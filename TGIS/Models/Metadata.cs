@@ -504,6 +504,10 @@ namespace TGIS.Models
         public bool IsCanceled { get; set; }
         [DisplayName("是否已提前截止")]
         public bool IsClosed { get; set; }
+        [DisplayName("是否送出訂位請求")]
+        public bool IsRequestSent { get; set; }
+        [DisplayName("是否訂位成功")]
+        public bool IsBookingSuccessful { get; set; }
 
 
     }

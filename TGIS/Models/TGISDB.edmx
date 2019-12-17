@@ -245,6 +245,8 @@
           <Property Name="MaxPlayer" Type="int" Nullable="false" />
           <Property Name="IsCanceled" Type="bit" Nullable="false" />
           <Property Name="IsClosed" Type="bit" Nullable="false" />
+          <Property Name="IsRequestSent" Type="bit" Nullable="false" />
+          <Property Name="IsConfirmedByShop" Type="bit" />
         </EntityType>
         <EntityType Name="TeamDetail">
           <Key>
@@ -933,6 +935,8 @@
           <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
           <Property Name="IsClosed" Type="Boolean" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IsRequestSent" Type="Boolean" Nullable="false" />
+          <Property Name="IsConfirmedByShop" Type="Boolean" />
         </EntityType>
         <Association Name="Relationship24">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -1547,6 +1551,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="TGISDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="IsConfirmedByShop" ColumnName="IsConfirmedByShop" />
+                <ScalarProperty Name="IsRequestSent" ColumnName="IsRequestSent" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
