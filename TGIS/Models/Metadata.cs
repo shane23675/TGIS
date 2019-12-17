@@ -58,7 +58,7 @@ namespace TGIS.Models
         public int PointsRequired { get; set; }
         [DisplayName("可換張數"), Range(0, int.MaxValue)]
         public Nullable<int> LimitedAmount { get; set; }
-        [DisplayName("已啟用")]
+        [DisplayName("啟用確認")]
         public bool IsAvailable { get; set; }
     }
     //縣市列表
@@ -256,7 +256,18 @@ namespace TGIS.Models
     }
     //店家主檔
     [MetadataType(typeof(MetadataShop))]
-    public partial class Shop { }
+    public partial class Shop
+    {
+        //以下為推算出的衍生屬性，沒有儲存在資料庫中
+        [DisplayName("詳細地址")]
+        public string FullAddress
+        {
+            get
+            {
+                return District.City.CityName + District.DistrictName + Address;
+            }
+        }
+    }
     public class MetadataShop
     {
         [DisplayName("會員編號")]
@@ -422,7 +433,7 @@ namespace TGIS.Models
                 if (MaxPlayer == MinPlayer)
                     return $"正好{MaxPlayer}人";
                 else
-                    return $"{MinPlayer} ~ {MaxPlayer}";
+                    return $"{MinPlayer} ~ {MaxPlayer} 人";
             }
         }
         [DisplayName("遊戲時間")]

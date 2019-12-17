@@ -3,21 +3,21 @@
     string isContained = "";
     if ((bool)(ViewBag.isContained))
     {
-        isContained = "checked='checked'";
+        isContained = "checked";
     }
     else
     {
         isContained = "";
     }
 
-    string isSale = "", notSale = "";
+    string isSale = "";
     if (Model.IsSale)
     {
-        isSale = "selected";
+        isSale = "checked";
     }
     else
     {
-        notSale = "selected";
+        isSale = "";
     }
 }
 
@@ -32,10 +32,8 @@
         <span class="h4">@Model.TableGame.ChineseName</span><span class="h6">@Model.TableGame.EnglishName</span>
     </td>
     <td>
-        <select name="isSaleFlags" class="form-control">
-            <option value="true" @isSale>是</option>
-            <option value="false" @notSale>否</option>
-        </select>
+        <input id="Checkbox1" type="checkbox" name="isSaleFlags" value="true" @isSale/>
+        <input id="Hidden1" type="hidden" name="isSaleFlags" value="false"/>
         @*把選單改成checkbox*@
     </td>
     <td>

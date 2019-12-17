@@ -1,62 +1,41 @@
 ﻿@model TGIS.Models.NormalOffer
 
 @{
-    ViewBag.Title = "OfferDetail";
+    ViewBag.Title = "活動資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
 }
-
-    <h2>@Html.DisplayFor(model => model.Title)</h2>
-    <h5>@Html.DisplayFor(model => model.Shop.ShopName)</h5>
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BeginDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BeginDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Clicks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clicks)
-        </dd>
-
-    </dl>
-
-    <div>
-        <p>活動圖片</p>
-        @* active是方便做成跑馬燈 *@
-        @foreach (int id in ViewBag.photoIDList)
-        {
-            string active = count == 0 ? "active" : "";
-            <div class="carousel-item @active">
-                <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })"  />
-            </div>
-            count = 1;
-        }
+    <div class="d-flex justify-content-sm-between ">
+        <div>
+            <span class="h1">@Html.DisplayFor(model => model.Title)</span>
+            <span class="text-muted">@Html.DisplayFor(model => model.Shop.ShopName)</span>
+        </div>
+        @Html.ActionLink("返回店家資訊", "ShopDetailForPlayer", "Shop", new { id = (string)ViewBag.ShopID }, new { @class = "mt-4 text-info" })
     </div>
-</div>
-<p>
-    @Html.ActionLink("返回", "ShopDetailForPlayer", "Shop", new { id = (string)ViewBag.ShopID }, null)
-</p>
+<hr />
+
+    <dl class="row">
+        <dt class="col-1">優惠內容</dt>
+        <dd class="col-6">@Html.DisplayFor(model => model.Content)</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-1">優惠期間</dt>
+        <dd class="col-6">@Html.DisplayFor(model => model.BeginDate) &nbsp;～&nbsp;@Html.DisplayFor(model => model.EndDate)</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-1">活動圖片</dt>
+        <dd class="col-6">
+            @* active是方便做成跑馬燈,應該要張數限制取消跑馬燈 *@
+                @foreach (int id in ViewBag.photoIDList)
+                {
+                    string active = count == 0 ? "active" : "";
+                    <div class="carousel-item w-100 @active">
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="img-fluid" />
+                    </div>
+                    count = 1;
+                }
+            </dd>
+    </dl>
+    
+
+

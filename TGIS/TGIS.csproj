@@ -166,6 +166,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chart\Chart.css" />
+    <Content Include="Content\chart\Chart.min.css" />
     <Content Include="Content\EntryStyle.css" />
     <Content Include="Content\FrontStyle.css" />
     <Content Include="Content\layoutstyle-M.css" />
@@ -176,6 +178,7 @@
     <Content Include="Content\Sidebar_test.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Html\chart.html" />
     <Content Include="Html\dwarves.html" />
     <Content Include="Html\images\01.jpg" />
     <Content Include="Html\images\10_dwarves.jpg" />
@@ -206,6 +209,7 @@
     <Content Include="images\dec.png" />
     <Content Include="images\dog.jpg" />
     <Content Include="images\email_check.jpg" />
+    <Content Include="images\envelope letter.png" />
     <Content Include="images\user.png" />
     <Content Include="Models\TGISDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -217,6 +221,8 @@
       <DependentUpon>TGISDB.edmx</DependentUpon>
       <LastGenOutput>TGISDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\chart\Chart.js" />
+    <Content Include="Scripts\chart\Chart.min.js" />
     <Content Include="Scripts\date_convert.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -283,8 +289,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\EmailValidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -319,6 +328,7 @@
     <Compile Include="Models\Coupon.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomFilterAttribute.cs" />
     <Compile Include="Models\CustomValidationAttributes.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>TGISDB.tt</DependentUpon>
@@ -469,7 +479,7 @@
     <Content Include="Views\Player\PointRecord.cshtml" />
     <Content Include="Views\Coupon\_CouponInShopIndex.cshtml" />
     <Content Include="Views\NormalOffer\OfferCreate.cshtml" />
-    <Content Include="Views\NormalOffer\OfferList.cshtml" />
+    <Content Include="Views\NormalOffer\OfferListForShop.cshtml" />
     <Content Include="Views\NormalOffer\OfferDetail.cshtml" />
     <Content Include="Views\PlayerPointDetail\MyPoints.cshtml" />
     <Content Include="Views\PlayerCouponDetail\MyCoupons.cshtml" />
@@ -487,6 +497,13 @@
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
     <Content Include="Views\NormalOffer\OfferListForAdmin.cshtml" />
     <Content Include="Views\Message\MessageIndex.cshtml" />
+    <Content Include="Views\City\CityIndex.cshtml" />
+    <Content Include="Views\City\_CityList.cshtml" />
+    <Content Include="Views\District\DistrictIndex.cshtml" />
+    <Content Include="Views\District\_DistrictList.cshtml" />
+    <Content Include="Views\Team\TeamReservationIndex.cshtml" />
+    <Content Include="Views\Login\ForgetPwdsend.cshtml" />
+    <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -494,7 +511,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Analysis\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

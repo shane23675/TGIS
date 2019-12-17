@@ -69,21 +69,22 @@
         <br />
         <p>
             <span>地址：@Model.District.City.CityName@Model.District.DistrictName@Model.Address</span>
-            <a class="btn btn-outline-info btn-sm ml-1" href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address+@Model.ShopName" target="_blank">開啟地圖</a>
+            <a class="btn btn-outline-info btn-sm ml-1" href="https://www.google.com/maps/place/@Model.District.City.CityName@Model.District.DistrictName@Model.Address" target="_blank">開啟地圖</a>
         </p>
         <p>店內規模：@Model.AreaScale</p>
         <p>信箱：@Model.Email</p>
         <p>Line：@Model.Line</p>
         <p>聯絡方式：@Model.Tel</p>
-        <p>官網：<a href="@Model.Website">@Model.ShopName 粉絲專頁</a></p>@*(判定功能?)*@
-        <p>營業時間：@Model.OpeningHours</p>
+        <p>官網：<a href="@Model.Website">@Model.ShopName 粉絲專頁</a></p>
+        <p>營業時間：@Html.Raw(Model.OpeningHours.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
     </div>
 </div>
 <hr />
 <h2 class="ml-3">店家介紹</h2>
 <div class="m-3 p-2 Frostedglass2">
     
-    <p>@Model.Description</p>
+    <p>@Html.Raw(Model.Description.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
+
 </div>
 
     <ul class="nav nav-SD nav-fill">

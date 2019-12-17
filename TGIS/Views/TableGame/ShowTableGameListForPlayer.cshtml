@@ -4,142 +4,97 @@
 @model IPagedList<TableGame>
 
 @{
-    ViewBag.Title = "ShowTableGameList";
+    ViewBag.Title = "桌遊百科";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<style>
-    .card-body {
-        padding: 0.1rem;
-    }
-
-    .card-deck .card {
-        margin-right: 2px;
-        margin-left: 2px;
-    }
-
-    .custom-control {
-        position: relative;
-        min-height: 1.5rem;
-        padding-left: 0rem;
-    }
-
-    .custom-control-inline {
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        margin-right: 0rem;
-    }
-
-    .gameName {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        padding: 10px;
-        background-color: rgba(0,0,0,.6);
-        color: #ffffff;
-        font-size: 1.2rem;
-        opacity: 0;
-        transition: opacity .3s;
-    }
-
-    .card-body:hover .gameName {
-        opacity: 1;
-    }
-
-    @@media (min-width:576px) {
-        .card-body {
-            height: 474px;
-        }
-    }
-
-    @@media (min-width:768px) {
-        .card-body {
-            height: 107.75px;
-        }
-    }
-
-    @@media (min-width:992px) {
-        .card-body {
-            height: 157.75px;
-        }
-    }
-
-    @@media (min-width: 1200px) {
-        .card-body {
-            height: 192.25px;
-        }
-    }
-
-    btn input {
-        -webkit-appearance: none;
-    }
-</style>
-
-
-
-
-
 <div class="row">
-    <div class="col-md-2">
-        <nav class="text-center">
-            @using (Html.BeginForm("ShowTableGameListForPlayer", "TableGame", FormMethod.Post, new { id = "filter" }))
-            {
-                <div class="form-group">
-                    <h3><label class="control-label"><strong>進階搜尋</strong></label></h3>
-                    <p class="col-12 mt-3">遊戲難度</p>
-                    @foreach (Tag t in ViewBag.DifficultyTagList)
-                    {
-                        string isChecked = ((string[])(ViewBag.difficultTagIDs)).Contains(t.ID) ? "checked" : "";
-                        <div class="custom-control custom-checkbox custom-control-inline col-md-6 text-nowrap">
-                            <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagIDs" value="@t.ID" @isChecked>
-                            <label class="custom-control-label" for="defaultInline-@t.ID">@t.TagName</label>
-                        </div>
-                    }
-                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                    <p class="col-12 mt-3">遊戲種類</p>
-                    @foreach (Tag t in ViewBag.CategoryTagList)
-                    {
-                        string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
-                        <div class="custom-control custom-checkbox custom-control-inline col-md-6">
-                            <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID" @isChecked>
-                            <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
-                        </div>
-                    }
-                </div>
-                <input type="submit" class="btn btn-warning" value="搜尋">
-                //在過濾桌遊的同時使分頁功能運作 
-                if (((bool)ViewBag.IsFilterOn))
+    <aside class="border col-3">
+        <form id="filter" action="@Url.Action("ShowTableGameListForPlayer", "TableGame")" method="post">
+            <h3 class="text-info">桌遊搜尋</h3>
+            <div class="form-group">
+                <label class="col-form-label">從想玩的桌遊搜尋：</label>
+                <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="" />
+                <input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
+                <div id="TGResultList"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label">遊玩人數：</label>
+                @Html.Editor("minPlayer", new { htmlAttributes = new { @class = "form-control", min = "2", max = "10", @type = "number" } })
+                <span>人～</span>
+                @Html.Editor("maxPlayer", new { htmlAttributes = new { @class = "form-control", min = "2", max = "20", @type = "number" } })
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">平均遊玩時間：</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">不要出現擴充：</label>
+                @Html.CheckBox("notExtended", new { @class = "form-check", value = "true"})
+            </div>
+            <div class="form-group">
+                <h3 class="text-info">分類搜尋</h3>
+                <p class="col-12 mt-3">遊戲難度</p>
+                @foreach (Tag t in ViewBag.DifficultyTagList)
                 {
-                    <input type="hidden" name="page" id="page" value="" />
+                    string isChecked = ((string[])(ViewBag.difficultTagIDs)).Contains(t.ID) ? "checked" : "";
+                    <div class="custom-control custom-checkbox custom-control-inline col-md-6 text-nowrap">
+                        <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="difficultTagIDs" value="@t.ID" @isChecked>
+                        <label class="custom-control-label" for="defaultInline-@t.ID">@t.TagName</label>
+                    </div>
                 }
-            }
+                <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                <p class="col-12 mt-3">遊戲種類</p>
+                @foreach (Tag t in ViewBag.CategoryTagList)
+                {
+                    string isChecked = ((string[])(ViewBag.categoryTagIDs)).Contains(t.ID) ? "checked" : "";
+                    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                        <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="categoryTagIDs" value="@t.ID" @isChecked>
+                        <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">品牌(請比照分類做,理論上標籤表裡會存品牌表)</label>
+                @foreach (Tag t in ViewBag.BrandTagList)
+                {
+                    string isChecked = ((string[])(ViewBag.brandTagIDs)).Contains(t.ID) ? "checked" : "";
+                    <div class="custom-control custom-checkbox custom-control-inline col-md-6">
+                        <input type="checkbox" class="custom-control-input" id="defaultInline-@t.ID" name="brandTagIDs" value="@t.ID" @isChecked>
+                        <label class="custom-control-label text-nowrap" for="defaultInline-@t.ID">@t.TagName</label>
+                    </div>
+                }
+            </div>
+            <button class="btn btn-info " type="submit">搜尋</button>
+            @Html.ActionLink("清除篩選條件", "ShowTableGameListForPlayer", null, new { @class = "btn btn-secondary" })
+
+            @*在過濾桌遊的同時使分頁功能運作*@
+            <input type="hidden" name="page" id="page" value="" />
+
+        </form>
+    </aside>
+    <div class="col-9 p-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Index", "Home")">首頁</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">桌遊百科列表</li>
+            </ol>
         </nav>
-    </div>
-
-
-
-    <div class="col-md-10">
-
-
-        <nav class="nav">
-            <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
-            <a class="nav-link" href="#">桌遊列表</a>
-        </nav>
-
-
-        <div class="card-deck">
+        <div class="row">
 
             @foreach (TableGame tg in Model)
             {
-                <div class="col-lg-2 col-md-3 col-sm-12 px-1">
-                    <div class="card mt-4">
+                <div class="col-3">
+                    <div class="card mt-4 ">
                         <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
                             <div class="card-body">
                                 <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="w-100 h-100" />
-                                <div class="gameName ">
-                                    @tg.ChineseName<br />
+                                <div class="gameName">
+                                    @tg.ChineseName
+                                    <br />
                                     @tg.EnglishName
                                 </div>
                             </div>
@@ -149,9 +104,28 @@
             }
 
         </div>
+        <div class="d-flex justify-content-center">@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))</div>
     </div>
 </div>
-@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @section scripts{
     @* 在過濾桌遊的同時使分頁功能運作 *@
     @if (((bool)ViewBag.IsFilterOn))

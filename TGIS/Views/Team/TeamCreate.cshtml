@@ -20,8 +20,6 @@
     <div class="container form-horizontal">
         <h2>新開一桌</h2>
         <hr />
-        <input type="hidden" name="ID" value="@ViewBag.teamID" />
-        <input type="hidden" name="LeaderPlayerID" value="@((string)Session["PlayerID"])" />
 
         <div class="row form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-2" })
@@ -158,12 +156,6 @@
 
     //從輸入框搜尋桌遊
     $("#searchBtn").click(function () {
-        //*******暫時停用，但在新的程式碼寫好前請勿刪除******
-        //var tgName = $("#searchInput").val(); 抓資料
-        //$.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
-        //    $("#Preference").html(data);
-        //})
-
         var tgName = $("#searchInput").val();
 
         if (tgName != null) {

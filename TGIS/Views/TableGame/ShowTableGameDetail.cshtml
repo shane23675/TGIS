@@ -1,4 +1,4 @@
-﻿@model TGIS.Models.TableGame
+@model TGIS.Models.TableGame
 
 @{
     ViewBag.Title = "ShowTableGameDetail";
@@ -6,178 +6,78 @@
     int count = 0;
 }
 
-<style>
-
-    .gameName {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        padding: 10px;
-        background-color: rgba(0,0,0,.6);
-        color: #ffffff;
-        font-size: 1.2rem;
-        opacity: 0;
-        transition: opacity .3s;
-    }
-
-    .gameName:hover {
-        opacity: 1;
-    }
-
-    .card-body {
-        position: relative;
-    }
-
-    @@media (min-width:576px) {
-        .card-body {
-            height: 389px;
-        }
-    }
-
-    @@media (min-width:768px) {
-        .card-body {
-            height: 118px;
-        }
-    }
-
-    @@media (min-width:992px) {
-        .card-body {
-            height: 178px;
-        }
-    }
-
-    @@media (min-width: 1200px) {
-        .card-body {
-            height: 223px;
-        }
-    }
-
-    .dropdown {
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    .btn_store_sel {
-        position: absolute;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-    }
-
-        .btn_store_sel select {
-            -webkit-appearance: none;
-            display: none;
-        }
-
-    #tgStore_left {
-        border-right: 7px solid #1a459c;
-        border-radius: 10px 0 0 10px;
-        background-color: #75c383;
-        color: #0d2149;
-        margin-right: -10px;
-        padding: 5px;
-    }
-
-    #tgStore_right {
-        border-radius: 0 10px 10px 0;
-        background-color: #75c383;
-        color: #0d2149;
-        padding: 5px;
-    }
-
-    .tgcHeader {
-        padding: 1rem 1.25rem .3rem 1.25rem;
-        background-color: white;
-        border-bottom: none;
-    }
-
-        .tgcHeader span {
-            position: absolute;
-            right: 1.25rem;
-            top: 1rem;
-        }
-
-    .tgcBody {
-        padding: 0.3rem 1.25rem;
-        height: 50%;
-    }
-
-    .tgcFooter {
-        padding: 0rem 1.25rem 0.5rem 1.25rem;
-        background-color: white;
-        border-top: none;
-    }
-</style>
-<div class="row">
-
-    <!--Right Column-->
-
-    <div class="col-12">
-
-        <!--Top Select Column>-->
-
-        <nav class="nav">
-            @Html.ActionLink("首頁", "Index", "Home", null, new { @class = "nav-link" })
-            @Html.ActionLink("桌遊列表", "ShowTableGameListForPlayer", "TableGame", null, new { @class = "nav-link" })
-            <a class="nav-link">@Model.ChineseName</a>
-        </nav>
-        <div class="row">
-            <!--Pictures-->
-            <div class="col-md-5">
-                <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        @foreach (int id in ViewBag.photoIDList)
-                        {
-                            string active = count == 0 ? "active" : "";
-                            <div class="carousel-item @active">
-                                <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" class="d-block w-100" />
-                            </div>
-                            count = 1;
-                        }
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">@Html.ActionLink("首頁", "Index", "Home")</li>
+        <li class="breadcrumb-item">@Html.ActionLink("桌遊列表", "ShowTableGameListForPlayer", "TableGame")</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.ChineseName</li>
+    </ol>
+</nav>
+<div class="row media">
+    <div class="col-md-5">
+        @*有微妙偏移,後調*@
+        <div id="carouselExampleInterval" class="carousel slide shadow" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach (int id in ViewBag.photoIDList)
+                {
+                    string active = count == 0 ? "active" : "";
+                    <div class="carousel-item @active">
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" />
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
+                    count = 1;
+                }
             </div>
-            <!--Chinese Name-->
-            <div class="col-md-7">
-                <div>
-                    <span>@Model.ChineseName</span>
-
-
-                    <!--select store-->
-                    @Html.ActionLink("在哪裡可以玩到它?", "ShopIndexForPlayer", "Shop", new { searchedTableGameID=Model.ID}, new { @class="btn btn-primary dropdown-toggle"})
-                    <!--select store-->
-
-                </div>
-                <!--English Name-->
-                <div>
-                    <p>@Model.EnglishName</p>
-                </div>
-                <!--Feature-->
-                <div>
-                    <p>@Html.Raw(Model.Feature.Replace("\n","<br/>").Replace(" ", "&nbsp;"))</p>
-                </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-7 media-body">
+        <div class="row d-flex justify-content-between">
+            <h1 class="ml-2">
+                <strong>@Model.ChineseName</strong>
+                <small class="text-muted">@Model.EnglishName</small>
+                @{
+                    if (Model.IsExtended == true)
+                    {
+                        <span class="btn badge-outline-primary mr-2 ">擴充</span>
+                    }
+                }
+            </h1>
+            <div class=" mt-2 mr-3 h4">  
+                @Html.ActionLink("在哪裡可以玩到它?", "ShopIndexForPlayer", "Shop", new { searchedTableGameID = Model.ID }, new { @class = "btn btn-primary dropdown-toggle" })
             </div>
         </div>
+        <br />
+        <p>遊玩花費時間：@Model.DetailGamePeroid 分鐘</p>
+        <p>建議遊玩人數：@Model.MinPlayer～@Model.MaxPlayer 人</p>
+        <hr />
+        <p>@Html.Raw(Model.Feature.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
 
-        <!--Rules-->
-        <div class="col-md-12 my-1">
-            <h3>遊戲規則</h3>
-            <p>
-                @Html.Raw(Model.Rules.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
-            </p>
-        </div>
+
+    </div>
+</div>
+<hr />
+<h2 class="ml-3">遊戲規則</h2>
+<div class="m-3 p-2 Frostedglass2">
+
+    <p>@Html.Raw(Model.Rules.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
+
+</div>
+
+
+
+
+
+
+
+
+
 
         <!--Relavent Links-->
         <div class="col-12 my-1">
@@ -205,13 +105,30 @@
                 @Html.Action("_GetTableGameCards", new { tableGame = Model })
             </div>
 
-            @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
-            {
-                <h3>桌遊評價</h3>
-                <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-                <textarea id="TextArea1" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
-                <input id="Submit1" type="submit" value="送出評論" class="btn btn-info my-1" />
+            <h3>桌遊評價</h3>
+
+            <!--CHeck~~~~~~~~~~~~~~~~-->
+            @{
+                if (Session["PlayerID"] == null)
+                {
+                    <p>欲留言請<a href="javascript:document.getElementById('loginBtn').click()">登入會員</a></p>
+                }
+                else
+                {
+                    using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+                    {
+
+                        <div id="TGcomment">
+                            <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
+                            <textarea id="commentText" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
+                            <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info my-1" disabled=true />
+                        </div>
+                    }
+                }
             }
+
+
+
 
         </div>
         <!--Comments-->
@@ -220,35 +137,49 @@
         <div class="row">
             @foreach (var comment in Model.TableGameComments)
             {
-                    <div class="col-md-2 my-2">
-                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
-                    </div>
+                <div class="col-md-2 my-2">
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
+                </div>
 
-                    <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
-                        <div class="card-header tgcHeader">
-                            <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
-                            @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
-                            {
-                                <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
-                            }
-                        </div>
-                        <div class="card-body tgcBody">
-                            
-                                @if (comment.IsHidden)
-                                {
-                                    <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
-                                }
-                                else
-                                {
-                                    <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
-                                }
-                        </div>
-                        <div class="card-footer tgcFooter">
-                            <span>@comment.CommentDate.ToString("yyyy年MM月dd日")</span>
-                        </div>
+                <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
+                    <div class="card-header tgcHeader">
+                        <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
+                        @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
+                        {
+                            <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                        }
                     </div>
-                }
+                    <div class="card-body tgcBody">
+
+                        @if (comment.IsHidden)
+                        {
+                            <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
+                        }
+                        else
+                        {
+                            <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
+                        }
+                    </div>
+                    <div class="card-footer tgcFooter">
+                        <span>@comment.CommentDate.ToString("yyyy年MM月dd日")</span>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 
 </div>
+
+
+@section scripts{
+    <script>
+        //空值時不可送出評論
+        $('textarea').keyup(function () {
+            if (this.value == "") {
+                $('#commentBtn').attr('disabled', true);
+            } else {
+                $('#commentBtn').attr('disabled', false);
+            }
+        })
+    </script>
+}

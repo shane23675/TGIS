@@ -71,9 +71,9 @@ namespace TGIS.Controllers
             foreach(Team t in s.Teams)
             {
                 t.OtherPlayers.Clear();
-                t.Messages.Clear();
-                db.Teams.Remove(t);
+                db.Messages.RemoveRange(t.Messages);
             }
+            db.Teams.RemoveRange(s.Teams);
             //最後再刪除店家本身
             db.Shops.Remove(s);
             db.SaveChanges();
@@ -136,6 +136,7 @@ namespace TGIS.Controllers
                 new { Text = "無" },
                 new { Text = "不限" }
             }, "Text", "Text", "不限");
+            ViewBag.NoDistrict = DistrictID == null || DistrictID == -1;
             //店家查詢結果的容器
             var shops = db.Shops.ToList();
             if (searchedTableGameID == null || searchedTableGameID.Trim() == "")
@@ -271,11 +272,10 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //店家看到店家詳細資料
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopDetailForStore()
         {
             string shopID = Session["ShopID"].ToString();
-            if (shopID == null)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             return View(db.Shops.Find(shopID));
         }
  
@@ -284,6 +284,8 @@ namespace TGIS.Controllers
         public ActionResult GetShopSelectList(int districtID, string shopID)
         {
             Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
+            //進行VIP優先排序
+            shops = shops.OrderByDescending(s => s.IsVIP).ThenByDescending(s => s.AccumulatedHours).ToArray();
             //找不到任何店家則返回錯誤選項
             if (shops.Length == 0)
                 return Content("<option value=\"ErrorMessage\">此地區無任何店家</option>");

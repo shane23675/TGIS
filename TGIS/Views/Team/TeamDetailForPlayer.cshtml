@@ -38,9 +38,8 @@
             <dt>遊玩地點：</dt>
             <dd>
                 @{ Shop s = Model.Shop;}
-                @Html.ActionLink(s.ShopName, "ShopDetailForPlayer", "Shop", new { id = s.ID }, new { @class = "" })
-                <a tabindex="0" id="shopinfo" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus"  data-html="true"  
-                   title="地點資訊" data-content="<img src='~/images/B02.jpg' /><br />地圖,地址,'了解更多'的超連結按鈕">店家名稱</a>
+                <a tabindex="0" id="shopinfo" class="btn btn-outline-info" role="button" data-toggle="popover" data-trigger="focus"  data-html="true"  title="地點資訊" 
+                   data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = s.ID, index = 0})'><br />@s.FullAddress<br /><a href='@Url.Action("ShopDetailForPlayer", "Shop", new { id = s.ID })'>了解更多</a>">@s.ShopName</a>
             </dd>
         </dl>
     </div>
@@ -52,19 +51,20 @@
                     TableGame tg = db.TableGames.Find(Model.Preference);
                     if (tg == null)
                     {
-                        @: Unlimited
+                        @: 不限制
                     }
                     else
                     {
-                        @Html.ActionLink(tg.ChineseName, "ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID }, new { @class = "" })
+                        <a tabindex="1" id="tableGameInfo" class="btn btn-outline-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="關於此桌遊"
+                           data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = tg.ID, index = 0})'><br /><a href='@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID })'>了解更多</a>">@tg.ChineseName</a>
                     }
                 }
-                <a tabindex="0" id="shopinfo" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus" title="關於此桌遊" data-content="首圖,'了解更多'的超連結按鈕">桌遊名稱</a>
             </dd>
         </dl>
         <dl class="row col-6">
             <dt>@Html.DisplayNameFor(m => m.PlayerLimit)：</dt>
-            <dd>@Html.DisplayFor(m => m.PlayerLimit)<span>人</span></dd>
+            @* PlayerLimit已經自帶中文 不必在後面加「人」 *@
+            <dd>@Html.DisplayFor(m => m.PlayerLimit)</dd>
         </dl>
     </div>
     <dl class="row">
@@ -123,9 +123,7 @@ else if (isInTeam)
         {
             using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
             {
-                @Html.Hidden("ID", UsefulTools.GetNextID(new TGISDBEntities().Teams, 1))
                 @Html.Hidden("CityID", Model.Shop.District.CityID)
-                @Html.Hidden("LeaderPlayerID", Model.LeaderPlayerID)
                 @Html.Hidden("DistrictID", Model.Shop.DistrictID)
                 @Html.Hidden("ShopID", Model.ShopID)
                 @Html.Hidden("Title", Model.Title)
@@ -165,7 +163,6 @@ else if (isInTeam)
         {
             <input type="hidden" name="teamID" value="@Model.ID" />
             <input type="hidden" name="action" id="action" value="@action" />
-            <input type="hidden" name="playerID" value="@Session["PlayerID"]" />
             <button class="btn btn-primary" type="submit" @disabled onclick="return confirm('你確定要 @action 此團嗎??')">@btnInfo</button>
             if (isLeader && Model.OtherPlayers.Count + 1 >= Model.MinPlayer)
             {

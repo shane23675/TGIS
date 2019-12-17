@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
@@ -45,13 +46,20 @@ namespace TGIS.Controllers
             }
             return Content("1");
         }
-        //登出
-        //Session["sessionName"]
+        //從玩家中心或店家中心登出(導向首頁)
         public ActionResult Logout(string sessionName)
         {
             Session.Contents.Remove(sessionName);
             return RedirectToAction("Index","Home");
         }
+
+        //玩家從前台登出(不導向首頁)
+        [HttpPost]
+        public void LogoutWithoutRedirect()
+        {
+            Session.Contents.Remove("PlayerID");
+        }
+
         //忘記密碼（寄信）
         public ActionResult ForgetPwd()
         {
@@ -65,9 +73,12 @@ namespace TGIS.Controllers
             {
                 if (Email == user.Email)
                 {
+                    string newPwd = UsefulTools.CreateNewPwd();
                     var id = Hash.PwdHash(user.ID);
-                    var content = $"http://localhost:55525/Login/ForgetPwdChange?fdew={account}&aswe={id}";
-                    AutoEmail.AutoEmailSend(Email, "有桌方遊:忘記密碼", content);
+                    user.Password = Hash.PwdHash(newPwd);
+                    db.SaveChanges();
+                    var content = $"您好，已為您重設密碼，您的新密碼如下：\n密碼：{newPwd}\n請以此密碼重新登入，並建議再次變更密碼確保資訊安全，謝謝您\n有桌方遊資訊網";
+                    AutoEmail.AutoEmailSend(Email, "有桌方遊:密碼重設", content);
                     return RedirectToAction("LoginForPlayer");
                 }
                 ViewBag.Error = "信箱錯誤";

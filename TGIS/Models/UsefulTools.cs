@@ -144,5 +144,20 @@ namespace TGIS.Models
             db.SaveChanges();
         }
 
+        //忘記密碼時的臨時密碼
+        public static string CreateNewPwd() 
+        {
+            string refWord = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+            string refNumber = "123456789";
+            char[] newPwd= new char[8];
+            Random r = new Random();
+            for(int i = 0; i < 4; i++)
+            {
+                newPwd[i] = refWord[r.Next(0, refWord.Length - 1)];
+                newPwd[i+4] = refNumber[r.Next(0, refNumber.Length - 1)];
+            }
+            string pwd = new string(newPwd);
+            return pwd;
+        }
     }
 }

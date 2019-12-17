@@ -11,15 +11,21 @@ namespace TGIS.Controllers
     public class NormalOfferController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        //查看活動列表
-        public ActionResult OfferList()
+        //店家查看活動列表
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult OfferListForShop()
         {
-            //若有店家ID則顯示店家活動列表
             Shop s = db.Shops.Find((string)Session["ShopID"]);
-            if (s != null)
-                return View("OfferList", "_LayoutShoperCenter", s.NormalOffers.ToList());
-            //否則顯示全部活動列表(管理員用)
-            return View(db.NormalOffers.ToList());
+            return View(s.NormalOffers.ToList());
+        }
+
+        //檢查活動時間是否正確的方法
+        void OfferTimeCheck(NormalOffer normalOffer)
+        {
+            if (normalOffer.BeginDate > normalOffer.EndDate)
+                ModelState["BeginDate"].Errors.Add("開始時間必須在結束時間之前");
+            if (normalOffer.EndDate < DateTime.Now)
+                ModelState["EndDate"].Errors.Add("結束時間必須在現在時間之後");
         }
 
         //店家新增優惠券
@@ -30,6 +36,7 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult OfferCreate(NormalOffer normalOffer, HttpPostedFileBase[] photos)
         {
+            OfferTimeCheck(normalOffer);
             if (ModelState.IsValid)
             {
                 //填入預設值
@@ -63,10 +70,11 @@ namespace TGIS.Controllers
         [HttpPost]
         public ActionResult OfferEdit(NormalOffer normalOffer, HttpPostedFileBase[] photos)
         {
+            OfferTimeCheck(normalOffer);
+            NormalOffer offer = (NormalOffer)TempData["Offer"];
             if (ModelState.IsValid)
             {
                 //取出原始資料並灌入必要資料
-                NormalOffer offer = (NormalOffer)TempData["Offer"];
                 normalOffer.ID = offer.ID;
                 normalOffer.ShopID = offer.ShopID;
                 normalOffer.Clicks = offer.Clicks;
@@ -77,6 +85,7 @@ namespace TGIS.Controllers
                 PhotoManager.Create(normalOffer.ID, photos);
                 return RedirectToAction("OfferList");
             }
+            ViewBag.photoIDList = PhotoManager.GetPhotoIDList(offer.ID);
             TempData.Keep("Offer");
             return View();
         }
@@ -108,6 +117,9 @@ namespace TGIS.Controllers
         public ActionResult OfferDetail(string normalOfferID)
         {
             var offer = db.NormalOffers.Find(normalOfferID);
+            //增加被點擊次數
+            offer.Clicks++;
+            db.SaveChanges();
             //存入來源店家ID以便返回頁面
             ViewBag.ShopID = offer.ShopID;
             //將此活動的圖片數量傳入ViewBag
@@ -115,7 +127,7 @@ namespace TGIS.Controllers
             return View(offer);
         }
 
-        //查看店家活動列表
+        //管理員查看店家活動列表
         public ActionResult OfferListForAdmin(string shopID)
         {
             var s = db.Shops.Find(shopID).NormalOffers;
@@ -123,6 +135,7 @@ namespace TGIS.Controllers
             return View(s.ToList());
         }
 
+        //變更活動狀態
         public ActionResult OfferListStatusChange(string normalOfferID,string shopID)
         {
             db.NormalOffers.Find(normalOfferID).IsHidden = !(db.NormalOffers.Find(normalOfferID).IsHidden);

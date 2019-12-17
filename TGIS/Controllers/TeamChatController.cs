@@ -23,8 +23,7 @@ namespace TGIS.Controllers
         {
             string _userName;
             string _teamID;
-            //用來辨認一個房間內是否有重複的使用者
-            public string UserID;
+            string _userID;
             //字典: key為揪桌ID，value為WebSocketCollection
             static Dictionary<string, WebSocketCollection> _chatRooms = new Dictionary<string, WebSocketCollection>();
             //構造器
@@ -32,7 +31,7 @@ namespace TGIS.Controllers
             {
                 _userName = userName;
                 _teamID = teamID;
-                UserID = userID;
+                _userID = userID;
             }
             //覆寫OnOpen事件，鑄造新的ChatWebSocketHandler時觸發
             public override void OnOpen()
@@ -40,9 +39,7 @@ namespace TGIS.Controllers
                 //如果從teamID能找到對應的WebSocketCollection(也就是房間)則加入，否則新開一間房
                 if (_chatRooms.ContainsKey(_teamID))
                 {
-                    //自己目前不在這間房間中才加入
-                    if (!_chatRooms[_teamID].Any(ws => ((ChatWebSocketHandler)ws).UserID == UserID))
-                        _chatRooms[_teamID].Add(this);
+                     _chatRooms[_teamID].Add(this);
                 }
                 else
                     _chatRooms[_teamID] = new WebSocketCollection() { this };
@@ -57,7 +54,7 @@ namespace TGIS.Controllers
                 {
                     TeamID = _teamID,
                     MessageDate = DateTime.Now,
-                    Speaker = UserID,
+                    Speaker = _userID,
                     IsPrivate = true,
                     Content = message.Length > 300 ? message.Substring(0, 300) : message
                 };
