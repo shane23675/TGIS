@@ -48,5 +48,15 @@ namespace TGIS.Controllers
             }
             return Json(data);
         }
+
+        //優惠券行銷分析(Ajax)
+        [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult CouponUsage()
+        {
+            var coupons = db.Shops.Find(Session["ShopID"].ToString()).Coupons.ToList();
+            var data = coupons.Select(c => new { c.Content, c.LimitedAmount, c.ExchangedAmount, c.UsedAmount });
+            return Json(data);
+        }
     }
 }
