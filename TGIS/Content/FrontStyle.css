@@ -234,3 +234,6 @@ height:200px;
 .comm-img {
     border-radius: calc(.25rem - 1px);
 }
+.comm-text {
+overflow:auto;
+}
