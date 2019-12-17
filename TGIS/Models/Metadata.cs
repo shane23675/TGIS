@@ -410,13 +410,26 @@ namespace TGIS.Models
     public partial class Team
     {
         //以下是資料庫中沒有儲存，僅是推算出來的屬性
+        /// <summary>
+        /// 該團的目前狀態
+        /// </summary>
         [DisplayName("狀態")]
         public string Status
         {
             get
             {
-               if (IsCanceled)
+                if (DateTime.Today > PlayDate)
+                    return "已過期";
+                else if (IsCanceled)
                     return "已取消出團";
+                else if (IsConfirmedByShop != null)
+                {
+                    if ((bool)IsConfirmedByShop)
+                        return "訂位成功";
+                    return "訂位失敗";
+                }
+                else if (IsRequestSent)
+                    return "已送出訂位請求";
                 else if (IsClosed)
                     return "已成團";
                 else if (DateTime.Now > ParticipateEndDate)
@@ -461,8 +474,10 @@ namespace TGIS.Models
                 return OtherPlayers.Count + 1;
             }
         }
-        [DisplayName("是否已截止報名")]
-        public bool IsExpired
+        /// <summary>
+        /// 是否已經截止報名
+        /// </summary>
+        public bool IsParticipateEnded
         {
             get
             {
@@ -507,7 +522,7 @@ namespace TGIS.Models
         [DisplayName("是否送出訂位請求")]
         public bool IsRequestSent { get; set; }
         [DisplayName("是否訂位成功")]
-        public bool IsBookingSuccessful { get; set; }
+        public bool IsConfirmedByShop { get; set; }
 
 
     }

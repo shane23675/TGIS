@@ -10,6 +10,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
@@ -27,10 +30,17 @@
         <th>
             主揪暱稱
         </th>
+        <th>
+            訂位確認
+        </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
@@ -48,6 +58,21 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
+        </td>
+        <td>
+            @if (item.IsConfirmedByShop == null)
+            {
+                @Html.ActionLink("接受", "TeamReservationReply", new { isAccepted = true, teamID = item.ID }, new { @class = "btn btn-success", onclick = "return confirm('確定要接受此訂位嗎？')" })
+                @Html.ActionLink("拒絕", "TeamReservationReply", new { isAccepted = false, teamID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要拒絕此訂位嗎？')" })
+            }
+            else if ((bool)item.IsConfirmedByShop)
+            {
+                @: 已接受訂位
+            }
+            else
+            {
+                @: 已拒絕訂位
+            }
         </td>
     </tr>
 }
