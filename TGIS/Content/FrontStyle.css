@@ -153,6 +153,7 @@
     color: #dc3545;
     border-color: #dc3545;
 }
+
 .badge-outline-primary:hover {
     color: #007bff;
     text-decoration: none;
@@ -182,11 +183,11 @@
 
 .media a {
     color: #2D739E;
-    background-color: transparent;
+    /*background-color: transparent;*/
 }
 
     .media a:hover {
-        color: #00465E;
+        color: #60D2FF;
         text-decoration: none;
     }
 
@@ -226,4 +227,10 @@
 }
 .card-body:hover .gameName {
     opacity: 1;
+}
+.comm {
+height:200px;
+}
+.comm-img {
+    border-radius: calc(.25rem - 1px);
 }

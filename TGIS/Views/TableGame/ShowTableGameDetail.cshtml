@@ -1,7 +1,7 @@
 ﻿@model TGIS.Models.TableGame
 
 @{
-    ViewBag.Title = "ShowTableGameDetail";
+    ViewBag.Title = "桌遊資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
 }
@@ -38,120 +38,97 @@
         </div>
     </div>
     <div class="col-md-7 media-body">
-        <div class="row d-flex justify-content-between">
-            <h1 class="ml-2">
-                <strong>@Model.ChineseName</strong>
-                <small class="text-muted">@Model.EnglishName</small>
-                @{
-                    if (Model.IsExtended == true)
-                    {
-                        <span class="btn badge-outline-primary mr-2 ">擴充</span>
-                    }
+        <h1 class="ml-2">
+            <strong>@Model.ChineseName</strong>
+            <small class="text-muted ml-2">@Model.EnglishName</small>
+        </h1>
+        <br />
+        <div class="row d-flex justify-content-end">
+            @{
+                if (Model.IsExtended == true)
+                {
+                    <p class="btn badge-outline-primary mr-2 ">擴充</p>
                 }
-            </h1>
-            <div class=" mt-2 mr-3 h4">  
-                @Html.ActionLink("在哪裡可以玩到它?", "ShopIndexForPlayer", "Shop", new { searchedTableGameID = Model.ID }, new { @class = "btn btn-primary dropdown-toggle" })
-            </div>
+            }
+            <a href="@Url.Action("ShopIndexForPlayer", "Shop", new { searchedTableGameID = Model.ID })" class="btn btn-outline-info mb-3">找找有此款遊戲的店舖<i class="fas fa-search"></i></a>
+
         </div>
         <br />
-        <p>遊玩花費時間：@Model.DetailGamePeroid 分鐘</p>
-        <p>建議遊玩人數：@Model.MinPlayer～@Model.MaxPlayer 人</p>
-        <hr />
+        <div class="row">
+            <p class="col-6">建議遊玩人數：@Model.MinPlayer～@Model.MaxPlayer 人</p>
+            <p class="col-6">遊玩花費時間：@Model.DetailGamePeroid 分鐘</p>
+        </div>
+        <br />
         <p>@Html.Raw(Model.Feature.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
-
-
     </div>
 </div>
 <hr />
 <h2 class="ml-3">遊戲規則</h2>
-<div class="m-3 p-2 Frostedglass2">
-
-    <p>@Html.Raw(Model.Rules.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
-
+<div class="m-3 p-3 Frostedglass2">
+    @Html.Raw(Model.Rules.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))
+</div>
+<br />
+<h2 class="ml-3">教學連結</h2>
+<div class="row m-1">
+    @*之後用js調自適應高度*@
+    @foreach (var item in Model.RelevantLinks)
+    {
+        <div class="col-3">
+            <div class="card bg-info mb-3">
+                <iframe src="@item.Url" frameborder="0" class="card-img" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
+            </div>
+        </div>
+    }
+</div>
+<br />
+<h2 class="ml-3">想玩更多？我們推薦你：</h2>
+<div class="row m-1">
+    @Html.Action("_GetTableGameCards", new { tableGame = Model })
+</div>
+<br />
+<h2 class="ml-3">桌遊評價</h2>
+<div class="m-3">
+    @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
+    {
+        <input id="tId" type="hidden" name="tId" value="@Model.ID" />
+        <textarea id="commentText" rows="4" name="comment" class="form-control"></textarea>
+        <div class="d-flex justify-content-end">
+            <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info mt-2" />
+        </div>
+    }
+</div>
+<div class="m-3">
+    @foreach (var comment in Model.TableGameComments)
+    {
+        <div class="media mb-3">          
+            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="align-self-start comm-img" alt="..." height="200" width="200">
+            <div class="media-body card comm">
+                <h5 class="card-header">
+                    @comment.Player.NickName
+                    @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
+                    {
+                        <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
+                    }
+                </h5>
+                <div class="card-body">
+                    @if (comment.IsHidden)
+                    {
+                        <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
+                    }
+                    else
+                    {
+                        <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
+                    }
+                </div>
+                <div class="card-footer">@comment.CommentDate.ToString("yyyy年MM月dd日")</div>
+            </div>
+        </div>
+    }
 </div>
 
 
 
 
-
-
-
-
-
-
-        <!--Relavent Links-->
-        <div class="col-12 my-1">
-            <h3>教學連結</h3>
-            <div class="card-deck">
-                @foreach (var item in Model.RelevantLinks)
-                {
-                    <div class="col-md-3">
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                @*<div class="embed-responsive embed-responsive-16by9">*@
-                                <iframe width="100%" height="100%" src="@item.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allow="fullscreen"></iframe>
-                                @*</div>*@
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!--Suggestions-->
-        <div class="col-12 my-1">
-            <h3>想玩更多?我們推薦你：</h3>
-            <div class="card-deck">
-                @Html.Action("_GetTableGameCards", new { tableGame = Model })
-            </div>
-
-            @using (Html.BeginForm("CreateTGComment", "TGComment", FormMethod.Post))
-            {
-                <h3>桌遊評價</h3>
-                <input id="Text1" type="hidden" name="tId" value="@Model.ID" />
-                <textarea id="commentText" rows="4" cols="30" name="comment" class="col-12 form-control"></textarea>
-                <input id="commentBtn" type="submit" value="送出評論" class="btn btn-info my-1" />
-            }
-
-        </div>
-        <!--Comments-->
-
-        <h3 class="col-12 my-1">大家的評價</h3>
-        <div class="row">
-            @foreach (var comment in Model.TableGameComments)
-            {
-                <div class="col-md-2 my-2">
-                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="img-fluid rounded" />
-                </div>
-
-                <div class="card col-md-10 no-gutters px-0 my-2" style="position:relative">
-                    <div class="card-header tgcHeader">
-                        <h3 class="font-weight-bold d-inline">@comment.Player.NickName</h3>
-                        @if (Session["PlayerID"]?.ToString() == comment.PlayerID)
-                        {
-                            <span data-togggle="tooltip" data-placement="bottom" title="Delete Comment">@Html.ActionLink("x", "CommentDelete", "TGComment", new { commentID = comment.ID }, new { })</span>
-                        }
-                    </div>
-                    <div class="card-body tgcBody">
-
-                        @if (comment.IsHidden)
-                        {
-                            <span class="text-info">此留言已經被管理員隱藏，因為內容包含不當言論</span>
-                        }
-                        else
-                        {
-                            <span>@Html.Raw(comment.Content.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</span>
-                        }
-                    </div>
-                    <div class="card-footer tgcFooter">
-                        <span>@comment.CommentDate.ToString("yyyy年MM月dd日")</span>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-
-</div>
 
 
 @section scripts{
@@ -159,5 +136,6 @@
         $('textarea').delegate("#commentText", "change", function () {
             console.log(this.value);
         })
+
     </script>
 }
