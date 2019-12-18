@@ -23,18 +23,21 @@
 
 <tr>
     <td>
-        <input type="hidden" name="tableGameIDs" value="@Model.TableGameID"  />
-        <input name="isContainedFlags" type="checkbox" value="true" @isContained/>
-        <input  type="hidden" name="isContainedFlags" value="false"/>
-        @*把選單改成checkbox*@
+        <div class="d-flex justify-content-center m-3">
+           
+            <input name="isContainedFlags" type="checkbox" value="true" @isContained />
+            <input type="hidden" name="isContainedFlags" value="false" />
+        </div>
     </td>
-    <td>
+    <td class="align-middle">
         <span class="h4">@Model.TableGame.ChineseName</span><span class="h6">@Model.TableGame.EnglishName</span>
+        <input type="hidden" name="tableGameIDs" value="@Model.TableGameID" />
     </td>
     <td>
-        <input id="Checkbox1" type="checkbox" name="isSaleFlags" value="true" @isSale/>
-        <input id="Hidden1" type="hidden" name="isSaleFlags" value="false"/>
-        @*把選單改成checkbox*@
+        <div class="d-flex justify-content-center m-3">
+            <input id="Checkbox1" type="checkbox" name="isSaleFlags" value="true" @isSale />
+            <input id="Hidden1" type="hidden" name="isSaleFlags" value="false" />
+        </div>
     </td>
     <td>
         @Html.TextBoxFor(m=>m.Price, new { @class="form-control"})
