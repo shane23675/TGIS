@@ -513,6 +513,9 @@
     <Content Include="Views\Feedback\AboutUs.cshtml" />
     <Content Include="Views\Analysis\TableGameTrend.cshtml" />
     <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
+    <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
+    <Content Include="Views\Analysis\TableGameTrend.cshtml" />
+    <Content Include="Views\Analysis\TeamStatistic.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
