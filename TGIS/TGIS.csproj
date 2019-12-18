@@ -509,6 +509,7 @@
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <Content Include="Views\Shop\ShopDAnalysis.cshtml" />
+    <Content Include="Views\Analysis\TableGameTrend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -516,9 +517,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Analysis\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
