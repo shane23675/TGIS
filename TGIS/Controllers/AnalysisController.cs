@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -105,6 +105,28 @@ namespace TGIS.Controllers
             var coupons = db.Shops.Find(Session["ShopID"].ToString()).Coupons.ToList();
             var data = coupons.Select(c => new { c.Content, c.LimitedAmount, c.ExchangedAmount, c.UsedAmount });
             return Json(data);
+        }
+
+        //優惠券分析測試
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult CouponUsageDisplay()
+        {
+            string shopID = Session["ShopID"].ToString();
+            return View();
+        }
+
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult TeamStatisticDisplay()
+        {
+            string shopID = Session["ShopID"].ToString();
+            return View();
+        }
+
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult TableGameTrendDisplay()
+        {
+            string shopID = Session["ShopID"].ToString();
+            return View();
         }
     }
 }

@@ -323,13 +323,5 @@ namespace TGIS.Controllers
             return Content("false");
         }
 
-        //分析測試
-        [CenterLogin(CenterLogin.UserType.Shop)]
-        public ActionResult ShopDAnalysis()
-        {
-            string shopID = Session["ShopID"].ToString();
-            return View();
-        }
-
     }
 }
