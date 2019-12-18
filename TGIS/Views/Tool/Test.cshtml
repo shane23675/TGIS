@@ -4,11 +4,11 @@
 }
 @section scripts{
     <script>
-        //$.post("/Analysis/TableGameTrend", {tableGameIDs : ["T00005", "T00006"]}, function (data) {
-        //    console.log(data);
-        //})
-        $.post("/Analysis/TeamStatistic", {moonsFromNow : 0}, function (data) {
+        $.post("/Analysis/TableGameTrend", {tableGameIDs : ["T00005", "T00006"]}, function (data) {
             console.log(data);
         })
+        //$.post("/Analysis/TeamStatistic", {moonsFromNow : 0}, function (data) {
+        //    console.log(data);
+        //})
     </script>
 }

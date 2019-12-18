@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "TableGameTrend";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+
+<h2>桌遊趨勢分析</h2>
+
+@using (Html.BeginForm())
+{
+    /*
+     *  這裡麻煩幫我做出這樣的介面：
+     *  有個輸入框可以輸入桌遊名稱，輸入後會出現下拉式選單
+     *  點擊選單的內容會添加一個<input name="tableGameIDs" type="hidden" value="該桌遊ID" />
+     *  還會出現一個框提示現在有被選取這個桌遊
+     *  有餘裕的話，讓用戶點擊那個框可以取消選取這個桌遊
+     */
+    <input name="tableGameIDs" type="text" value="T00005" />
+    <input name="tableGameIDs" type="text" value="T00005" />
+    <input type="submit" value="提交" />
+}
+@* 
+    取得資料的流程：
+    --用戶選取桌遊
+    --用戶點擊提交
+    --Post至後端取得下方ViewBag.Months、ViewBag.Data
+    --重新導向回到此頁面，渲染出分析圖
+*@
+<script>
+    @Html.Raw(ViewBag.Months)
+    var data = @Html.Raw(ViewBag.Data)
+        data[0].Name
+        data[0].Clicks
+
+</script>
