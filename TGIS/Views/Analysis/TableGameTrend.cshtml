@@ -3,8 +3,17 @@
     ViewBag.Title = "TableGameTrend";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
+<link href="~/Content/WebSearch.css" rel="stylesheet" />
+<link href="~/Content/Chart.min.css" rel="stylesheet" />
+<style>
+    #TGResultList {
+        position: absolute;
+        width: 50%;
+    }
+</style>
 
-<h2>桌遊趨勢分析</h2>
+
+
 
 @using (Html.BeginForm())
 {
@@ -15,21 +24,139 @@
      *  還會出現一個框提示現在有被選取這個桌遊
      *  有餘裕的話，讓用戶點擊那個框可以取消選取這個桌遊
      */
-    <input name="tableGameIDs" type="text" value="T00005" />
-    <input name="tableGameIDs" type="text" value="T00005" />
-    <input type="submit" value="提交" />
+
+    <div class="row justify-content-between mx-0 mb-2">
+        <h2>桌遊趨勢分析</h2>
+        <input type="submit" value="提交" class="btn btn-outline-info" />
+    </div>
+
+    <div class="mb-2">
+        <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
+        <div id="TGResultList"></div>
+    </div>
+    <div id="TGSearchForShop"></div>
+
+    @*<input name="tableGameIDs" type="text" value="T00005" />*@
+
 }
-@* 
+@*
     取得資料的流程：
     --用戶選取桌遊
     --用戶點擊提交
     --Post至後端取得下方ViewBag.Months、ViewBag.Data
     --重新導向回到此頁面，渲染出分析圖
 *@
-<script>
-    @Html.Raw(ViewBag.Months)
-    var data = @Html.Raw(ViewBag.Data)
-        data[0].Name
-        data[0].Clicks
 
-</script>
+<div class="row justify-content-center">
+
+    <canvas id="myChart"></canvas>
+
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/WebSearch.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+                var data = @Html.Raw(ViewBag.Data)
+        @*@Html.Raw(ViewBag.Months)
+
+            data[0].Name
+            data[0].Clicks*@
+
+        $('input [type="submit"]').click(function () {
+            console.log('done');
+        })
+
+        if (data != 0) {
+
+            var dataInfo = [];
+            for (i = 0; i < data.length; i++) {
+                dataInfo[i] ='{label: "'+ data[i].Name+'",data: ['+data[i].Clicks+'],fill: false,backgroundColor: "rgba(0,255,0,0.3)",borderColor: "rgb(0,255,0)",pointerStyle: "circle", pointBackgroundColor: "rgb(0,0,0)",pointRadius: 5,pointHoverRadius: 10}'
+            }
+
+            console.log(dataInfo.toString());
+
+        var ctx = document.getElementById('myChart');
+        var myChart2 = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels:@Html.Raw(ViewBag.Months),
+                datasets:
+                    [
+                    {
+                    label: data[0].Name,
+                    data: data[0].Clicks,
+                    fill: false,
+                    backgroundColor: 'rgba(255,156,0,0.3)',
+                    borderColor: 'rgb(255,156,0)',
+                    pointerStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,255,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10
+                },
+                {
+                    label: data[1].Name,
+                    data: data[1].Clicks,
+                    fill: false,
+                    backgroundColor: 'rgba(0,255,0,0.3)',
+                    borderColor: 'rgb(0,255,0)',
+                    pointerStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,0,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10
+                },
+                {
+                    label: data[2].Name,
+                    data: data[2].Clicks,
+                    fill: false,
+                    backgroundColor: 'rgba(0,0,255,0.3)',
+                    borderColor: 'rgb(0,0,255)',
+                    pointerStyle: "circle",
+                    pointBackgroundColor: 'rgb(0,152,0)',
+                    pointRadius: 5,
+                    pointHoverRadius: 10
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'point',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '月份',
+                            fontsize: 20,
+                            
+                        },
+                        tucks: {
+                            fontsize: 15
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '點擊量',
+                            fontsize: 20,
+                            
+                        },
+                        tucks: {
+                            fontsize: 15
+                        }
+                    }]
+                },
+                animation: {
+                    duration: 3000
+                }
+            }
+        });
+
+            }
+    </script>
+}

@@ -69,6 +69,8 @@ namespace TGIS.Controllers
         //桌遊趨勢分析
         public ActionResult TableGameTrend()
         {
+            ViewBag.Months = "0";
+            ViewBag.Data = "0";
             return View();
         }
         [HttpPost]

@@ -35,7 +35,7 @@ function SearchTG(keyword) {
         //顯示搜尋結果
         $('#TGResultList').css('z-index', '10');
 
-        if (location.pathname == "/Shop/ShopIndexForPlayer") {
+        if (location.pathname == "/Shop/ShopIndexForPlayer" || location.pathname == "/Analysis/TableGameTrend") {
             for (i = 0; i < data.length; i++) {
                 let result = '<a javascipt:;  id="' + data[i].ID + '">' + data[i].ChineseName + '</a>';
                 $('#TGResultList').append(result);
@@ -56,14 +56,22 @@ function SearchTG(keyword) {
 
 //點擊選擇搜尋結果
 $('#TGResultList').click(function (evt) {
-    
     let searchTG = evt.target;
-    if (searchTG.id == "")
-        return;
-    $('#searchedTableGameID').attr('name', 'searchedTableGameID');
-    $('#searchedTableGameID').val(searchTG.id);
-    $('#GameSearch').val(searchTG.text);
-    $('#TGResultList').empty();
+    if (location.pathname == "/Shop/ShopIndexForPlayer") {
+        if (searchTG.id == "")
+            return;
+        $('#searchedTableGameID').attr('name', 'searchedTableGameID');
+        $('#searchedTableGameID').val(searchTG.id);
+        $('#GameSearch').val(searchTG.text);
+        $('#TGResultList').empty();
+    } else {
+        console.log(searchTG);
+        //$('#TGSearchForShop').append("<input name=" + searchTG.id + " id=" + searchTG.id + " type='button' value=" + searchTG.text + " class='btn btn-success p-1 mr-1 mb-1' />");
+        $('#TGSearchForShop').append("<input name='tableGameIDs' id=" + searchTG.id + " type='hidden' value=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' />");
+        $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "</span>");
+        $('#TGResultList').empty();
+        $('#GameSearch').val("");
+    }
 });
 
 
@@ -88,3 +96,10 @@ function SearchShop(keyword) {
     })
 }
 
+
+//店家查看桌遊點擊，取消以選取桌遊
+$('#TGSearchForShop').click(function (evt) {
+    let searchTG = evt.target.id;
+    $('#TGSearchForShop>input[value="' + searchTG + '"]').remove();
+    $('#TGSearchForShop>span[id="' + searchTG + '"]').remove();
+})

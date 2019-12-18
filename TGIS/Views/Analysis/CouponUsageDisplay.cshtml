@@ -1,11 +1,11 @@
-
+﻿
 @{
     ViewBag.Title = "CouponUsageDisplay";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
 <link href="~/Content/Chart.min.css" rel="stylesheet" />
-<h2>優惠券行銷分析</h2>
+<h2> 優惠券行銷分析 </h2>
 
 
 <div class="col-md-8 col-md-offset-2">
@@ -36,7 +36,7 @@
                         labels:name,
                         datasets: [
                             {
-                                label: '最大兌換數',
+                                label: ' 最大兌換數 ',
                                 //data: [10, data[1].LimitedAmount,8,5],
                                 data:limit,
                                 backgroundColor: [
@@ -48,7 +48,7 @@
                                 borderWidth: 1
                             },
                             {
-                                label: '已兌換量',
+                                label: ' 已兌換量 ',
                                 //data: [data[0].ExchangedAmount, data[1].ExchangedAmount, data[2].ExchangedAmount],
                                 data:change,
                                 backgroundColor: [
@@ -60,7 +60,7 @@
                                 borderWidth: 1
                             },
                             {
-                                label: '已使用數',
+                                label: ' 已使用數 ',
                                 //data: [data[0].UsedAmount, data[1].UsedAmount, data[1].UsedAmount],
                                 data: amount,
                                 backgroundColor: [
