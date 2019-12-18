@@ -509,6 +509,8 @@
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <Content Include="Views\Shop\ShopDAnalysis.cshtml" />
+    <Content Include="Views\Shop\EnhancedService.cshtml" />
+    <Content Include="Views\Feedback\AboutUs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

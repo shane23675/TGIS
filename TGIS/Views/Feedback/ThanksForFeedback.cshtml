@@ -4,8 +4,14 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>感謝您的寶貴意見!</h2>
-<p>我們將盡快處理您的問題</p>
-<p>
-    @Html.ActionLink("回首頁", "Index", "Home", null, new { @class="btn btn-info"})
-</p>
+@*圖片來源:<a href='https://pngtree.com/so/信封'>信封 png from pngtree.com</a>*@
+<div class="row">
+    <div class="col-6 ">
+        <img src="~/images/envelope letter.png" class="img-fluid p-5" />
+    </div>
+    <div class="col-6 remind">
+        <h1 class="display-4">感謝您的寶貴意見!</h1>
+        <h4><small>我們將盡快處理您的問題</small></h4>
+        @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-info" })
+    </div>
+</div>

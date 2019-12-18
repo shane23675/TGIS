@@ -48,6 +48,6 @@ namespace TGIS.Controllers
             ViewBag.TeamIDs = teamIDs;
             return PartialView();
         }
-
+        
     }
 }

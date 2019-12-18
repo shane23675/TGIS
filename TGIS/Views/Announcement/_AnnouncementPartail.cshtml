@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<TGIS.Models.Announcement>
 
 
-<table class="table table-bordered text-center">
+<table class="table table-bordered text-center mb-4">
     <tr class="table-primary">
-        <th>
+        <th width="17%">
             @Html.DisplayNameFor(model => model.AnnouncedDate)
         </th>
-        <th>
+        <th width="71%">
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th></th>
+        <th width="12%"></th>
     </tr>
 
     @foreach (var item in Model)

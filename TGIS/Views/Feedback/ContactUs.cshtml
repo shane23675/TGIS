@@ -1,45 +1,43 @@
 ﻿@model TGIS.Models.Feedback
 
 @{
-    ViewBag.Title = "ReturnProblem";
+    ViewBag.Title = "聯絡我們";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
-
-<h2>聯絡我們</h2>
-<p>
-    遇到了什麼問題嗎?<br />
-    請在下方描述您遇到的問題<br />
-    或是任何我們需要改善的地方<br />
-    反正我們積極受理，消極處理<br />
-    非常感謝您的意見，大概吧
-</p>
-
+    <div class="ml-3 mr-3">
+        <h1>聯絡我們</h1>
+        <br />
+        <p class="h4">
+            操作網站上遇到了什麼問題嗎？<br />
+            <br />
+            請在下方描述您遇到的問題或是任何我們需要改善的地方。(`・ω・´)<br />
+            我們會積極受理<s>但消極處理</s>。_(¦3」∠)_<br />
+            <br />
+            總之，非常感謝您的意見～ &nbsp; (ゝ∀･)
+        </p>
+        <hr />
+    </div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-
+    <div class="form-horizontal">      
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+            <p class="ml-3">你的問題：</p>
+            <div class="col-12">
+                @Html.TextAreaFor(model => model.Content, 3, 100, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="送出" class="btn btn-primary" />
-            </div>
+        <div class="d-flex justify-content-between">
+            <a href="javascript: history.back();" class="ml-3 btn btn-secondary ">回上一頁</a>
+            <input type="submit" value="送出" class="btn btn-info mr-3" />
         </div>
     </div>
 }
 
-<div>
-    <a href="javascript: history.back();">回上一頁</a>
-</div>
+
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>

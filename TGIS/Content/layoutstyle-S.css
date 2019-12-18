@@ -221,7 +221,7 @@ ul ul a {
 #content {
     width: 100%;
     padding: 20px 30px 70px 30px;
-    min-height: 100vh;
+    min-height: 80vh;
     transition: all 0.3s;
 }
 

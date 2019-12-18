@@ -2,7 +2,7 @@
 @model Team
 
 @{
-    ViewBag.Title = "TeamDetailForPlayer";
+    ViewBag.Title = "揪桌資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     //判斷進入此頁面的玩家是否為隊長或其他玩家
     bool isLeader = Model.LeaderPlayerID == (string)Session["playerID"];
@@ -11,8 +11,17 @@
 }
 
 
-
-<span class="h1">@Html.DisplayFor(model => model.Title)</span><span class="h6">@Model.Status</span>
+    <div class="row d-flex justify-content-between">
+        <h1 class="ml-3">@Html.DisplayFor(model => model.Title)<small class="text-muted h4">@Model.Status</small></h1>
+        @if (isLeader)
+        {
+            <h3 class="mr-3 mt-3 text-info">你是開團者</h3>
+        }
+        else if (isInTeam)
+        {
+            <h3 class="mr-3 mt-3 text-success">你已經參加此團</h3>
+        }
+    </div>
 <hr />
 <div class="info ml-3">
 
@@ -38,8 +47,8 @@
             <dt>遊玩地點：</dt>
             <dd>
                 @{ Shop s = Model.Shop;}
-                <a tabindex="0" id="shopinfo" class="btn btn-outline-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="地點資訊"
-                   data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = s.ID, index = 0 })'><br />@s.FullAddress<br /><a href='@Url.Action("ShopDetailForPlayer", "Shop", new { id = s.ID })'>了解更多</a>">@s.ShopName</a>
+                <a tabindex="0" id="shopinfo" class="btn btn-success" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="地點資訊"
+                   data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = s.ID, index = 0 })'><br /><br /><p>@s.FullAddress</p><a href='@Url.Action("ShopDetailForPlayer", "Shop", new { id = s.ID })'>了解更多...</a>">@s.ShopName</a>
             </dd>
         </dl>
     </div>
@@ -55,35 +64,36 @@
                     }
                     else
                     {
-                        <a tabindex="1" id="tableGameInfo" class="btn btn-outline-info" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="關於此桌遊"
-                           data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = tg.ID, index = 0 })'><br /><a href='@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID })'>了解更多</a>">@tg.ChineseName</a>
+                        <a tabindex="1" id="tableGameInfo" class="btn btn-success" role="button" data-toggle="popover" data-trigger="hover" data-html="true" title="關於此桌遊"
+                           data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = tg.ID, index = 0 })'><br /><a href='@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID })'>了解更多...</a>">@tg.ChineseName</a>
                     }
                 }
             </dd>
         </dl>
         <dl class="row col-6">
             <dt>@Html.DisplayNameFor(m => m.PlayerLimit)：</dt>
-            @* PlayerLimit已經自帶中文 不必在後面加「人」 *@
+
             <dd>@Html.DisplayFor(m => m.PlayerLimit)</dd>
         </dl>
     </div>
     <dl class="row">
         <dt>@Html.DisplayNameFor(model => model.EstimatedCost)：</dt>
-        <dd>@Html.DisplayFor(model => model.EstimatedCost)</dd>
+        <dd>@Html.DisplayFor(model => model.EstimatedCost) 元</dd>
     </dl>
     <dl class="row">
         <dt>@Html.DisplayNameFor(model => model.Notes)：</dt>
         <dd>@Html.DisplayFor(model => model.Notes)</dd>
     </dl>
-    <dl class="row">
-        <dt>目前參團名單：</dt>
-        <dd>
+    <dl>
+        <dt class="row">目前參團名單：</dt>
+        
+        <dd >
             @foreach (Player p in Model.OtherPlayers)
             {
-                <p>
-                    @p.NickName
-                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = p.ID }, new { @class = "btn btn-danger" })
-                </p>
+                <div class="row mt-2">
+                    <span class="mt-1">@p.NickName</span>
+                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = p.ID }, new { @class = "btn btn-secondary ml-2" })
+                </div>
             }
             @if (Model.CurrentPlayers == 1)
             {
@@ -95,96 +105,89 @@
 
 
 </div>
-@if (isLeader)
-{
-    <h3 class="text-warning">你是開團者</h3>
-}
-else if (isInTeam)
-{
-    <h3 class="text-warning">你已經參加此團</h3>
-}
 
 
-@{
-    string action = "";
-    //尚未登入
-    if (Session["PlayerID"] == null)
-    {
-        <a href="javascript: document.getElementById('loginBtn').click()" class="btn btn-primary">登入</a>
-    }
-    //送出訂位請求後則什麼功能都不顯示
-    else if (Model.IsRequestSent){}
-    //隊長確認訂位
-    else if (isLeader && Model.Status == "已成團" && DateTime.Now < Model.PlayDate)
-    {
-        <form method="post" action="@Url.Action("TeamDetailForPlayer", "Team")" id="teamForm">
-            <input type="hidden" name="teamID" value="@Model.ID" />
-            <input type="hidden" name="action" value="sendRequest" />
-            <button type="submit" class="btn btn-primary">進行訂位</button>
-        </form>
-    }
-    //已取消或已提早成團、超過截止日期
-    else if (Model.IsParticipateEnded && !Model.IsClosed)
-    {
-        //隊長可以重開此團
-        if (isLeader)
+<div class="row ml-1">
+    @{
+        string action = "";
+        //尚未登入
+        if (Session["PlayerID"] == null)
         {
-            using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
-            {
-                @Html.Hidden("CityID", Model.Shop.District.CityID)
-                @Html.Hidden("DistrictID", Model.Shop.DistrictID)
-                @Html.Hidden("ShopID", Model.ShopID)
-                @Html.Hidden("Title", Model.Title)
-                @Html.Hidden("ParticipateEndDate", DateTime.Parse("2000-01-01"))
-                @Html.Hidden("PlayDate", Model.PlayDate)
-                @Html.Hidden("PlayBeginTime", Model.PlayBeginTime)
-                @Html.Hidden("PlayEndTime", Model.PlayEndTime)
-                @Html.Hidden("EstimatedCost", Model.EstimatedCost)
-                @Html.Hidden("Preference", Model.Preference)
-                @Html.Hidden("MinPlayer", Model.MinPlayer)
-                @Html.Hidden("MaxPlayer", Model.MaxPlayer)
-                @Html.Hidden("Notes", Model.Notes)
-                <input type="submit" class="btn btn-danger" value="重開此團" />
-            }
+            <a href="javascript: document.getElementById('loginBtn').click()" class="btn btn-primary mr-2">登入</a>
         }
-    }
-    else
-    {
-        <form method="post" action="@Url.Action("TeamDetailForPlayer", "Team")" id="teamForm">
-            @if (isLeader)
+        //送出訂位請求後則什麼功能都不顯示
+        else if (Model.IsRequestSent) { }
+        //隊長確認訂位
+        else if (isLeader && Model.Status == "已成團" && DateTime.Now < Model.PlayDate)
+        {
+            <form method="post" action="@Url.Action("TeamDetailForPlayer", "Team")" id="teamForm">
+                <input type="hidden" name="teamID" value="@Model.ID" />
+                <input type="hidden" name="action" value="sendRequest" />
+                <button type="submit" class="btn btn-primary mr-2">進行訂位</button>
+            </form>
+        }
+        //已取消或已提早成團、超過截止日期
+        else if (Model.IsParticipateEnded && !Model.IsClosed)
+        {
+            //隊長可以重開此團
+            if (isLeader)
             {
-                <button class="btn btn-primary" onclick="return confirm('你確定要取消此團嗎??')">取消</button>
-                action = "cancel";
-                if (Model.CurrentPlayers >= Model.MinPlayer)
+                using (Html.BeginForm("TeamCreate", "Team", FormMethod.Post))
                 {
-                    <!-- 提前截止的按鈕，按下同時會讓發出的action變為close -->
-                    <button class="btn btn-success" type="submit" onclick="$('#action').val('close'); return confirm('你確定要提早截止此團嗎?')">提早結團</button>
+                    @Html.Hidden("CityID", Model.Shop.District.CityID)
+                    @Html.Hidden("DistrictID", Model.Shop.DistrictID)
+                    @Html.Hidden("ShopID", Model.ShopID)
+                    @Html.Hidden("Title", Model.Title)
+                    @Html.Hidden("ParticipateEndDate", DateTime.Parse("2000-01-01"))
+                    @Html.Hidden("PlayDate", Model.PlayDate)
+                    @Html.Hidden("PlayBeginTime", Model.PlayBeginTime)
+                    @Html.Hidden("PlayEndTime", Model.PlayEndTime)
+                    @Html.Hidden("EstimatedCost", Model.EstimatedCost)
+                    @Html.Hidden("Preference", Model.Preference)
+                    @Html.Hidden("MinPlayer", Model.MinPlayer)
+                    @Html.Hidden("MaxPlayer", Model.MaxPlayer)
+                    @Html.Hidden("Notes", Model.Notes)
+                    <input type="submit" class="btn btn-danger mr-2" value="重開此團" />
                 }
             }
-            else if (isInTeam)
-            {
-                <button class="btn btn-primary" onclick="return confirm('你確定要退出此團嗎??')">退出</button>
-                action = "exit";
-            }
-            else if (Model.CurrentPlayers < Model.MaxPlayer)
-            {
-                <button class="btn btn-primary" onclick="return confirm('你確定要加入此團嗎??')">加入</button>
-                action = "join";
-            }
-            <input type="hidden" name="teamID" value="@Model.ID" />
-            <input type="hidden" name="action" value="@action" />
-        </form>
+        }
+        else
+        {
+            <form method="post" action="@Url.Action("TeamDetailForPlayer", "Team")" id="teamForm">
+                @if (isLeader)
+                {
+                    <button class="btn btn-danger mr-2" onclick="return confirm('你確定要取消此團嗎??')">取消</button>
+                    action = "cancel";
+                    if (Model.CurrentPlayers >= Model.MinPlayer)
+                    {
+                        <!-- 提前截止的按鈕，按下同時會讓發出的action變為close -->
+                        <button class="btn btn-primary mr-2" type="submit" onclick="$('#action').val('close'); return confirm('你確定要提早截止此團嗎?')">提早結團</button>
+                    }
+                }
+                else if (isInTeam)
+                {
+                    <button class="btn btn-danger mr-2" onclick="return confirm('你確定要退出此團嗎??')">退出</button>
+                    action = "exit";
+                }
+                else if (Model.CurrentPlayers < Model.MaxPlayer)
+                {
+                    <button class="btn btn-outline-success mr-2" onclick="return confirm('你確定要加入此團嗎??')">加入</button>
+                    action = "join";
+                }
+                <input type="hidden" name="teamID" value="@Model.ID" />
+                <input type="hidden" name="action" value="@action" />
+            </form>
+        }
     }
+    @Html.ActionLink("回到揪桌列表", "GetTeamList", new { usage = "TeamIndex" }, new { @class = "btn btn-success" })
+</div>
+
+@section scripts{
+    <script>
+        //店家的彈出框
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+    </script>
 }
-    <span class="btn btn-info text-white">@Html.ActionLink("回到揪桌列表", "GetTeamList", new { usage = "TeamIndex" })</span>
-
-
-    @section scripts{
-        <script>
-            //店家的彈出框
-            $(function () {
-                $('[data-toggle="popover"]').popover()
-            });
-        </script>
-    }
 

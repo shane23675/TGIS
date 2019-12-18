@@ -110,5 +110,11 @@ namespace TGIS.Controllers
             db.SaveChanges();
             return View(f);
         }
+
+        //關於我們
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
     }
 }

@@ -1,17 +1,22 @@
 ﻿@model TGIS.Models.Feedback
 
 @{
-    ViewBag.Title = "ReturnProblem";
+    ViewBag.Title = "不當檢舉";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-<h2>檢舉</h2>
-<p>檢舉對象：@ViewBag.PlaintiffName</p>
-<p>
-    注意：<br />
-    不要給我亂檢舉喔<br />
-    我們沒那麼閒聽你抱怨那些五四三的
-</p>
+    <div class="ml-3 mr-3">
+        <h1>
+            不當檢舉
+            <small class="text-muted h5">檢舉對象：@ViewBag.PlaintiffName</small>
+        </h1>       
+        <br />
+        <p class="h4">
+            請詳細描述你遇到的事件以及對方的不當行為。<br />
+            我們進行調查與處理<s>如果我們有閒</s>。_(¦3」∠)_<br />
+        </p>
+        <hr />
+    </div>
 
 @using (Html.BeginForm())
 {
@@ -21,24 +26,19 @@
         <hr />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+            <p class="ml-3">你遇到的狀況描述：</p>
+            <div class="col-12">
+                @Html.TextAreaFor(model => model.Content, 3, 100, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="送出" class="btn btn-primary" />
-            </div>
+        <div class="d-flex justify-content-between">
+            <a href="javascript: history.back();" class="ml-3 btn btn-secondary ">回上一頁</a>
+            <input type="submit" value="送出" class="btn btn-info mr-3" />
         </div>
     </div>
 }
-
-<div>
-    <a href="javascript: history.back();">回上一頁</a>
-</div>
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>

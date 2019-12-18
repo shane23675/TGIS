@@ -5,48 +5,53 @@
     string playerID = (string)Session["PlayerID"];
     if (usage == "TeamIndex")
     {
-        ViewBag.Title = "TeamIndex";
+        ViewBag.Title = "揪桌列表";
         Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     }
 }
 
-@if (usage == "TeamIndex")
-{
-    <h2>揪桌一起玩</h2>
-    //尚未登入時，點擊開桌會叫出登入Modal
-    if (Session["PlayerID"] == null)
-    {
-        <a href="javascript: document.getElementById('loginBtn').click();">新開一桌</a>
-    }
-    else
-    {
-        @Html.ActionLink("新開一桌", "TeamCreate")
-    }
-}
+
+    <div class="row d-flex justify-content-between">
+        @*尚未登入時，點擊開桌會叫出登入Modal*@
+        @if (usage == "TeamIndex")
+        {
+            <h2 class="ml-3">揪桌一起玩</h2>
+
+            if (Session["PlayerID"] == null)
+            {
+                <a href="javascript: document.getElementById('loginBtn').click();" class="btn btn-primary mb-1 mr-3">新開一桌</a>
+            }
+            else
+            {
+                @Html.ActionLink("新開一桌", "TeamCreate", null, new { @class = "btn btn-primary mb-1 mr-3" })
+            }
+        }
+    </div>
+<br />
 <table class="table table-bordered text-center">
     <thead>
-        <tr class="table-success">
-            <th>
+        <tr class="table-success h5">
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+            <th width="20%">
                 @Html.DisplayNameFor(model => model.PlayPeriod)
             </th>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.Shop.ShopName)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             @if (usage == "TeamIndex" || usage == "Home")
             {
-                <th>
+                <th width="15%">
                     @Html.DisplayNameFor(model => model.ParticipateEndDate)
                 </th>
             }
             @if (usage == "TeamIndex" || usage == "Other")
             {
-                <th>
+                <th width="15%">
                     開團者
                 </th>
             }
@@ -56,44 +61,44 @@
                     @Html.DisplayNameFor(model => model.CurrentPlayers) / @Html.DisplayNameFor(m => m.PlayerLimit)
                 </th>
             }
-            <th></th>
+            <th width="10%"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.Raw(item.PlayPeriod)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Shop.ShopName)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 @if (usage == "TeamIndex" || usage == "Home")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.ParticipateEndDate)
                     </td>
                 }
                 @if (usage == "TeamIndex" || usage == "Other")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
                     </td>
                 }
                 @if (usage == "Leader")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.CurrentPlayers) / @item.PlayerLimit
                     </td>
                 }
-                <td>
+                <td class="align-middle">
                     @if (!item.IsParticipateEnded)
                     {
                         if (usage == "Leader")

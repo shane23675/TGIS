@@ -331,5 +331,12 @@ namespace TGIS.Controllers
             return View();
         }
 
+        //加值服務管理的暫用頁面
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult EnhancedService()
+        {
+            return View();
+        }
+
     }
 }
