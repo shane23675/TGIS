@@ -36,6 +36,8 @@ namespace TGIS.Models
         public bool IsCanceled { get; set; }
         public bool IsClosed { get; set; }
         public string Title { get; set; }
+        public bool IsRequestSent { get; set; }
+        public Nullable<bool> IsConfirmedByShop { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }

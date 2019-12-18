@@ -41,10 +41,10 @@ namespace TGIS.Controllers
             Player player = db.Players.Find(playerID);
             ViewBag.Player = player;
 
-            //取得此登入玩家所有揪桌的編號
+            //取得此登入玩家所有尚未到達遊玩時間的揪桌的編號
             List<string> teamIDs = new List<string>();
-            player.TeamsForLeader.ToList().ForEach(t => teamIDs.Add(t.ID));
-            player.TeamsForOtherPlayer.ToList().ForEach(t => teamIDs.Add(t.ID));
+            player.TeamsForLeader.Where(t => t.PlayDate >= DateTime.Today).ToList().ForEach(t => teamIDs.Add(t.ID));
+            player.TeamsForOtherPlayer.Where(t => t.PlayDate >= DateTime.Today).ToList().ForEach(t => teamIDs.Add(t.ID));
             ViewBag.TeamIDs = teamIDs;
             return PartialView();
         }

@@ -166,6 +166,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\chart\Chart.css" />
     <Content Include="Content\chart\Chart.min.css" />
     <Content Include="Content\EntryStyle.css" />
@@ -221,6 +223,8 @@
       <DependentUpon>TGISDB.edmx</DependentUpon>
       <LastGenOutput>TGISDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\chart\Chart.js" />
     <Content Include="Scripts\chart\Chart.min.js" />
     <Content Include="Scripts\date_convert.js" />
@@ -504,6 +508,7 @@
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
+    <Content Include="Views\Shop\ShopDAnalysis.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
