@@ -40,10 +40,10 @@ namespace TGIS.Models
         public virtual DbSet<TableGame> TableGames { get; set; }
         public virtual DbSet<TableGameComment> TableGameComments { get; set; }
         public virtual DbSet<TableGameInShopDetail> TableGameInShopDetails { get; set; }
-        public virtual DbSet<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<NormalOffer> NormalOffers { get; set; }
+        public virtual DbSet<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
     }
 }
