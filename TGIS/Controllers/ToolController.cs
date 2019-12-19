@@ -29,7 +29,7 @@ namespace TGIS.Controllers
         }
 
         //新增揪桌測試資料的
-        public string CreateTeamTestData(int n)
+        public string CreateTeamTestData(string shopID, int n)
         {
             Random r = new Random();
             var players = db.Players.ToList();
@@ -39,12 +39,12 @@ namespace TGIS.Controllers
                 //將玩家集合打亂
                 players = players.OrderBy(p => Guid.NewGuid()).ToList();
                 string teamID = UsefulTools.GetNextID(db.Teams, 1);
-                int playerAmount = r.Next(2, 6);
+                int playerAmount = r.Next(2, 11);
                 DateTime playDate = DateTime.Today.AddDays(r.Next(-90, -1)).Date;
                 Team team = new Team
                 {
                     ID = teamID,
-                    ShopID = "S00014",
+                    ShopID = shopID,
                     Title = "測試用資料",
                     MinPlayer = playerAmount,
                     MaxPlayer = playerAmount,
@@ -75,7 +75,7 @@ namespace TGIS.Controllers
         }
 
         //新增優惠券測試資料
-        public string CreateCouponTestData(int n)
+        public string CreateCouponTestData(string shopID, int n)
         {
             var players = db.Players.ToList();
             Random r = new Random();
@@ -90,7 +90,7 @@ namespace TGIS.Controllers
                     ID = UsefulTools.GetNextID(db.Coupons, 1),
                     BeginDate = DateTime.Parse("2010-10-10"),
                     ExpireDate = DateTime.Parse("2010-10-11"),
-                    ShopID = "S00014",
+                    ShopID = shopID,
                     Content = "測試用資料",
                     IsAvailable = false,
                     PointsRequired = 1,
@@ -147,7 +147,7 @@ namespace TGIS.Controllers
             return "Success";
         }
 
-        //新增桌遊閱覽紀錄
+        //新增桌遊閱覽紀錄測試資料
         public string CreateTGVisitedStatisticData()
         {
             DateTime today = DateTime.Today;
