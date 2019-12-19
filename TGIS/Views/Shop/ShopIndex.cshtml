@@ -1,77 +1,79 @@
 ﻿@model IEnumerable<TGIS.Models.Shop>
 
 @{
-    ViewBag.Title = "ShopIndex"; 
+    ViewBag.Title = "帳密管理"; 
 }
+    <div class="mr-3">
+        <div class="row d-flex justify-content-between ml-3 ">
+            <h2>店家列表</h2>
+            @Html.ActionLink("新增一筆資料", "MgShopCreate", null, new { @class = "btn btn-info mt-1 mb-1" })
+        </div>
+        <br />
+        <table class="table text-center table-hover ml-3 ">
+            <tr class="table-manager border-0">
+                <th width="10%">
+                    @Html.DisplayNameFor(model => model.Account)
+                </th>
+                <th width="30%">
+                    @Html.DisplayNameFor(model => model.ShopName)
+                </th>
+                <th width="10%">
+                    @Html.DisplayNameFor(model => model.IsVIP)
+                </th>
+                <th width="15%">
+                    @Html.DisplayNameFor(model => model.ExpireDate)
+                </th>
+                <th width="10%">
+                    @Html.DisplayNameFor(model => model.AccumulatedHours)
+                </th>
+                <th width="10%">
+                    @Html.DisplayNameFor(model => model.IsAccountEnabled)
+                </th>
+                <th width="15%"></th>
+            </tr>
 
-<h2>店家列表</h2>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShopName)
+                    </td>
+                    <td>
+                        @if (item.IsVIP)
+                        {
+                            @: 已啟用
+                        }
+                        else
+                        {
+                            @: 未啟用
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpireDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccumulatedHours)
+                    </td>
+                    <td>
+                        @if (item.IsAccountEnabled)
+                        {
+                            @: 已啟用
+                        }
+                        else
+                        {
+                            @: 未啟用
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("活動", "OfferListForAdmin", "NormalOffer", new { shopID = item.ID }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("編輯", "MgShopEdit", new { id = item.ID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("刪除", "ShopDelete", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
+                    </td>
+                </tr>
+            }
 
-<p>
-    @Html.ActionLink("新增一筆資料", "MgShopCreate", null, new { @class="btn btn-primary"})
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShopName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsVIP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpireDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccumulatedHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAccountEnabled)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShopName)
-        </td>
-        <td>
-            @if (item.IsVIP)
-            {
-                @: 已啟用
-            }
-            else
-            {
-                @: 未啟用
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpireDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccumulatedHours)
-        </td>
-        <td>
-            @if (item.IsAccountEnabled)
-            {
-                @: 已啟用
-            }
-            else
-            {
-                @: 未啟用
-            }
-        </td>
-        <td>
-            @Html.ActionLink("活動", "OfferListForAdmin", "NormalOffer", new { shopID = item.ID }, new { @class = "btn btn-info" })
-            @Html.ActionLink("編輯", "MgShopEdit", new { id = item.ID }, new { @class = "btn btn-secondary" })
-            @Html.ActionLink("刪除", "ShopDelete", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+    </div>
