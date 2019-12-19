@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TGIS.Models.Player>
 
 @{
-    ViewBag.Title = "PlayerIndex";
+    ViewBag.Title = "帳密管理";
 }
     <div class="mr-3">
         <h2 class="ml-3">玩家列表</h2>
@@ -65,7 +65,7 @@
                         }
                     </td>
                     <td>
-                        @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }, new { @class = "btn btn-secondary" })
+                        @Html.ActionLink("編輯", "PlayerEdit", new { playerID = item.ID }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
                     </td>
                 </tr>

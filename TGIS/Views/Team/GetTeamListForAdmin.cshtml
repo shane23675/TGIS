@@ -1,55 +1,47 @@
 ﻿@model IEnumerable<TGIS.Models.Team>
 
 @{
-    ViewBag.Title = "GetTeamListForAdmin";
+    ViewBag.Title = "揪桌管理";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>揪桌管理</h2>
-
-<table class="table">
-    <tr>
+<h2>揪桌列表</h2>
+<br />
+<table class="table text-center table-hover ml-3 ">
+    <tr class="table-manager border-0">
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.ParticipateEndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayBeginTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayEndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstimatedCost)
+            活動時間
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Preference)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MinPlayer)
+            成團人數
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaxPlayer)
+            @Html.DisplayNameFor(model => model.EstimatedCost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsCanceled)
+            取消
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsClosed)
+            提早結團
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.LeaderPlayer.Account)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Shop.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
         </th>
         <th></th>
     </tr>
@@ -63,13 +55,8 @@
             @Html.DisplayFor(modelItem => item.Notes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PlayDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayBeginTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayEndTime)
+            @Html.DisplayFor(modelItem => item.PlayDate)<br />   
+            @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EstimatedCost)
@@ -78,10 +65,7 @@
             @Html.DisplayFor(modelItem => item.Preference)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MinPlayer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxPlayer)
+            @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsCanceled)
