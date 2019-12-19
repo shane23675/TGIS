@@ -12,20 +12,21 @@ namespace TGIS.Controllers
     public class AnalysisController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        //揪桌客群分析(Ajax)
-        [HttpPost]
+        //揪桌客群分析
         [CenterLogin(CenterLogin.UserType.Shop)]
-        public ActionResult TeamStatistic(int monthsFromNow)
+        public ActionResult TeamStatistic(int monthsFromNow = 0)
         {
-            Shop s = db.Shops.Find(Session["ShopID"].ToString());
+            Shop shop = db.Shops.Find(Session["ShopID"].ToString());
             //只取有被接受訂位的團
-            var teams = s.Teams.Where(t => t.IsConfirmedByShop != null && (bool)t.IsConfirmedByShop).ToList();
+            var teams = shop.Teams.Where(t => t.IsConfirmedByShop != null && (bool)t.IsConfirmedByShop).ToList();
             //篩選出距今指定月數的資料(0表示30天內，1表示31~60天...)
             teams = teams.Where(t => DateTime.Now.Subtract(t.PlayDate).Days / 30 == monthsFromNow).ToList();
-            /*
-             *  將過去一個月的揪桌資料統計出來：
-             *  需要性別、年齡層、行政區
-             */
+            //如果都沒有人就直接導向View
+            if (teams.Count == 0)
+            {
+                ViewBag.NoTeam = true;
+                return View();
+            }
             //先取出所有的玩家
             List<Player> players = new List<Player>();
             foreach(Team t in teams)
@@ -33,31 +34,59 @@ namespace TGIS.Controllers
                 players.AddRange(t.OtherPlayers);
                 players.Add(t.LeaderPlayer);
             }
-            //取得行政區資料
-            Dictionary<string, int> district = new Dictionary<string, int>();
-            foreach(District d in s.District.City.Districts)
-            {
-                district[d.DistrictName] = players.Count(p => p.DistrictID == d.ID);
-            }
-            district["外縣市"] = players.Count(p => p.District.CityID != s.District.CityID);
 
-            //最終資料
-            var data = new
+            //資料淨化器(可以去除資料中為0的部分)
+            void DataCleaner(ref List<string> labels, ref List<int> data)
             {
-                Total = players.Count,
-                Male = players.Count(p => p.Gender),
-                Female = players.Count(p => !p.Gender),
-                Age0_10 = players.Count(p => p.Age <= 10),
-                Age11_15 = players.Count(p => p.Age > 10 && p.Age <= 15),
-                Age16_20 = players.Count(p => p.Age > 15 && p.Age <= 20),
-                Age21_25 = players.Count(p => p.Age > 20 && p.Age <= 25),
-                Age26_30 = players.Count(p => p.Age > 25 && p.Age <= 30),
-                Age31_35 = players.Count(p => p.Age > 30 && p.Age <= 35),
-                Age36_40 = players.Count(p => p.Age > 35 && p.Age <= 40),
-                Age40Up = players.Count(p => p.Age > 40),
-                District = district
-            };
-            return Json(data);
+                for (int i = 0; i < data.Count; i++)
+                {
+                    if (data[i] == 0)
+                    {
+                        labels.RemoveAt(i);
+                        data.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+
+            //性別比資料
+            List<string> genderLabels = new List<string> { "男", "女" };
+            List<int> genderData = new List<int>{ players.Count(p => p.Gender), players.Count(p => !p.Gender) };
+            DataCleaner(ref genderLabels, ref genderData);
+            ViewBag.GenderLabels = JsonConvert.SerializeObject(genderLabels);
+            ViewBag.GenderData = JsonConvert.SerializeObject(genderData);
+            //年齡資料
+            List<string> ageLabels = new List<string> { "10歲以下", "11-15歲", "16-20歲", "21-25歲", "26-30歲", "31-35歲", "36-40歲", "41歲以上" };
+            List<int> ageData = new List<int>{ 0, 0, 0, 0, 0, 0, 0, 0 };
+            foreach(Player p in players)
+            {
+                int age = p.Age;
+                if (age <= 10)
+                    ageData[0]++;
+                else if (age <= 40)
+                    ageData[(age - 11) / 5 + 1]++;
+                else
+                    ageData[7]++;
+            }
+            DataCleaner(ref ageLabels, ref ageData);
+            ViewBag.AgeLabels = JsonConvert.SerializeObject(ageLabels);
+            ViewBag.AgeData = JsonConvert.SerializeObject(ageData);
+
+            //行政區資料
+            List<string> districtLabels = new List<string>();
+            List<int> districtData = new List<int>();
+            foreach(District d in shop.District.City.Districts)
+            {
+                districtLabels.Add(d.DistrictName);
+                districtData.Add(players.Count(p => p.DistrictID == d.ID));
+            }
+            districtLabels.Add("外縣市");
+            districtData.Add(players.Count(p => p.District.CityID != shop.District.CityID));
+            DataCleaner(ref districtLabels, ref districtData);
+            ViewBag.DistrictLabels = JsonConvert.SerializeObject(districtLabels);
+            ViewBag.DistrictData = JsonConvert.SerializeObject(districtData);
+
+            return View();
         }
 
         //桌遊趨勢分析需要的類別
@@ -69,6 +98,8 @@ namespace TGIS.Controllers
         //桌遊趨勢分析
         public ActionResult TableGameTrend()
         {
+            ViewBag.Months = "0";
+            ViewBag.Data = "0";
             return View();
         }
         [HttpPost]
@@ -124,18 +155,5 @@ namespace TGIS.Controllers
             return View();
         }
 
-        [CenterLogin(CenterLogin.UserType.Shop)]
-        public ActionResult TeamStatisticDisplay()
-        {
-            string shopID = Session["ShopID"].ToString();
-            return View();
-        }
-
-        [CenterLogin(CenterLogin.UserType.Shop)]
-        public ActionResult TableGameTrendDisplay()
-        {
-            string shopID = Session["ShopID"].ToString();
-            return View();
-        }
     }
 }

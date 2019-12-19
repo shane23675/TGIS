@@ -170,6 +170,7 @@
     <Content Include="Content\Chart.min.css" />
     <Content Include="Content\chart\Chart.css" />
     <Content Include="Content\chart\Chart.min.css" />
+    <Content Include="Content\croppie.css" />
     <Content Include="Content\EntryStyle.css" />
     <Content Include="Content\FrontStyle.css" />
     <Content Include="Content\layoutstyle-M.css" />
@@ -472,6 +473,7 @@
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
+    <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <Content Include="Views\Team\MyTeam.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
     <Content Include="Views\Team\GetTeamList.cshtml" />
@@ -507,10 +509,13 @@
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
-    <Content Include="Views\Shop\ShopDAnalysis.cshtml" />
     <Content Include="Views\Shop\EnhancedService.cshtml" />
     <Content Include="Views\Feedback\AboutUs.cshtml" />
-    <Content Include="Views\Home\TeamChatBox%28FBver%29.cshtml" />
+    <Content Include="Views\Analysis\TableGameTrend.cshtml" />
+    <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
+    <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
+    <Content Include="Views\Analysis\TableGameTrend.cshtml" />
+    <Content Include="Views\Analysis\TeamStatistic.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -518,9 +523,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Analysis\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
