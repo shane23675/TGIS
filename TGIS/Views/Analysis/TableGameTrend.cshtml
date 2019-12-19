@@ -1,17 +1,21 @@
-﻿
+
 @{
     ViewBag.Title = "TableGameTrend";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 <link href="~/Content/WebSearch.css" rel="stylesheet" />
 <link href="~/Content/Chart.min.css" rel="stylesheet" />
-<style>
-    #TGResultList {
-        position: absolute;
-        width: 50%;
-    }
-</style>
-
+@section CSS{
+    <style>
+        #TGResultList {
+            position: absolute;
+            width: 20%;
+            overflow: auto;
+            height: auto;
+            max-height: 50vh;
+        }
+    </style>
+}
 
 
 
@@ -49,7 +53,7 @@
 
 <div class="row justify-content-center">
 
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" class="col-10"></canvas>
 
 </div>
 
@@ -58,21 +62,24 @@
     <script src="~/Scripts/WebSearch.js"></script>
     <script src="~/Scripts/Chart.min.js"></script>
     <script>
-                var data = @Html.Raw(ViewBag.Data)
-        @*@Html.Raw(ViewBag.Months)
-
-            data[0].Name
-            data[0].Clicks*@
-
-        $('input [type="submit"]').click(function () {
-            console.log('done');
-        })
+        var data = @Html.Raw(ViewBag.Data);
+        var color = ['#c9d3a8', '#e67399', '#f2a640', '#e0c240', '#59bfb3'];
 
         if (data != 0) {
 
             var dataInfo = [];
             for (i = 0; i < data.length; i++) {
-                dataInfo[i] ='{label: "'+ data[i].Name+'",data: ['+data[i].Clicks+'],fill: false,backgroundColor: "rgba(0,255,0,0.3)",borderColor: "rgb(0,255,0)",pointerStyle: "circle", pointBackgroundColor: "rgb(0,0,0)",pointRadius: 5,pointHoverRadius: 10}'
+                dataInfo.push({
+                    label: data[i].Name,
+                    data: data[i].Clicks,
+                    fill: false,
+                    backgroundColor: 'red',
+                    borderColor: color[i],
+                    pointerStyle: "circle",
+                    pointBackgroundColor: color[i],
+                    pointRadius: 5,
+                    pointHoverRadius: 10
+                })
             }
 
             console.log(dataInfo.toString());
@@ -82,42 +89,7 @@
             type: "line",
             data: {
                 labels:@Html.Raw(ViewBag.Months),
-                datasets:
-                    [
-                    {
-                    label: data[0].Name,
-                    data: data[0].Clicks,
-                    fill: false,
-                    backgroundColor: 'rgba(255,156,0,0.3)',
-                    borderColor: 'rgb(255,156,0)',
-                    pointerStyle: "circle",
-                    pointBackgroundColor: 'rgb(0,255,0)',
-                    pointRadius: 5,
-                    pointHoverRadius: 10
-                },
-                {
-                    label: data[1].Name,
-                    data: data[1].Clicks,
-                    fill: false,
-                    backgroundColor: 'rgba(0,255,0,0.3)',
-                    borderColor: 'rgb(0,255,0)',
-                    pointerStyle: "circle",
-                    pointBackgroundColor: 'rgb(0,0,0)',
-                    pointRadius: 5,
-                    pointHoverRadius: 10
-                },
-                {
-                    label: data[2].Name,
-                    data: data[2].Clicks,
-                    fill: false,
-                    backgroundColor: 'rgba(0,0,255,0.3)',
-                    borderColor: 'rgb(0,0,255)',
-                    pointerStyle: "circle",
-                    pointBackgroundColor: 'rgb(0,152,0)',
-                    pointRadius: 5,
-                    pointHoverRadius: 10
-                }
-                ]
+                datasets: dataInfo
             },
             options: {
                 responsive: true,
@@ -132,9 +104,9 @@
                             display: true,
                             labelString: '月份',
                             fontsize: 20,
-                            
+
                         },
-                        tucks: {
+                        ticks: {
                             fontsize: 15
                         }
                     }],
@@ -144,10 +116,12 @@
                             display: true,
                             labelString: '點擊量',
                             fontsize: 20,
-                            
+
                         },
-                        tucks: {
-                            fontsize: 15
+                        ticks: {
+                            fontsize: 15,
+                            beginAtZero: true,
+                            precision: 0
                         }
                     }]
                 },

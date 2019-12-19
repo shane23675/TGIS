@@ -44,7 +44,6 @@ function SearchTG(keyword) {
         else {
             for (i = 0; i < data.length; i++) {
                 let result = '<a href="' + data[i].Link + '">' + data[i].ChineseName + '</a>';
-
                 $('#TGResultList').append(result);
             }
         }
@@ -54,7 +53,8 @@ function SearchTG(keyword) {
     })
 }
 
-//點擊選擇搜尋結果
+//點擊選擇搜尋結果(店家頁面&店家桌遊分析)
+var TGIdList = [];
 $('#TGResultList').click(function (evt) {
     let searchTG = evt.target;
     if (location.pathname == "/Shop/ShopIndexForPlayer") {
@@ -65,14 +65,28 @@ $('#TGResultList').click(function (evt) {
         $('#GameSearch').val(searchTG.text);
         $('#TGResultList').empty();
     } else {
-        console.log(searchTG);
-        //$('#TGSearchForShop').append("<input name=" + searchTG.id + " id=" + searchTG.id + " type='button' value=" + searchTG.text + " class='btn btn-success p-1 mr-1 mb-1' />");
-        $('#TGSearchForShop').append("<input name='tableGameIDs' id=" + searchTG.id + " type='hidden' value=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' />");
-        $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "</span>");
-        $('#TGResultList').empty();
-        $('#GameSearch').val("");
+        let addCheck = TGSelect(searchTG.id);
+        if (addCheck == 'ok') {
+            $('#TGSearchForShop').append("<input name='tableGameIDs' id=" + searchTG.id + " type='hidden' value=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' />");
+            $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "</span>");
+            $('#TGResultList').empty();
+            $('#GameSearch').val("");
+        } else {
+            return alert(addCheck);
+        }
     }
 });
+
+//店家桌遊分析判斷桌遊是否重複選取&超出選取上限
+function TGSelect(tgid) {
+    if (TGIdList.indexOf(tgid) == -1 && TGIdList.length < 5) {
+        TGIdList.push(tgid);
+        return 'ok';
+    } else {
+        return '新增失敗!\n提醒：\n1.桌遊不可重複新增\n2.一次最多只可查詢5筆桌遊';
+    }
+}
+
 
 
 function SearchShop(keyword) {
@@ -90,14 +104,13 @@ function SearchShop(keyword) {
         //顯示搜尋結果
         for (i = 0; i < data.length; i++) {
             let result = '<a href="' + data[i].Link + '">' + data[i].ShopName + '</a>';
-            console.log(result);
             $('#ShopResultList').append(result);
         }
     })
 }
 
 
-//店家查看桌遊點擊，取消以選取桌遊
+//店家查看桌遊點擊，取消已選取桌遊
 $('#TGSearchForShop').click(function (evt) {
     let searchTG = evt.target.id;
     $('#TGSearchForShop>input[value="' + searchTG + '"]').remove();
