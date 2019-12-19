@@ -19,6 +19,12 @@
             活動時間
         </th>
         <th>
+            開團者
+        </th>
+        <th>
+            遊玩店家
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Preference)
         </th>
         <th>
@@ -33,13 +39,6 @@
         <th>
             提早結團
         </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.LeaderPlayer.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop.Account)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
@@ -47,45 +46,45 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParticipateEndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayDate)<br />   
-            @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstimatedCost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preference)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsCanceled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsClosed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LeaderPlayer.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shop.Account)
-        </td>
-        <td>
-            @Html.ActionLink("訊息", "MessageIndex", "Message", new { teamID=item.ID }, new { @class="btn btn-success"}) 
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParticipateEndDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PlayDate)<br />
+        @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LeaderPlayer.Account)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Shop.Account)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Preference)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EstimatedCost)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsCanceled)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsClosed)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Notes)
+    </td>
+    <td>
+        @Html.ActionLink("訊息", "MessageIndex", "Message", new { teamID = item.ID }, new { @class = "btn btn-success" })
+    </td>
+</tr>
 }
 
 </table>
