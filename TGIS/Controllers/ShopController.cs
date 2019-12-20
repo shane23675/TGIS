@@ -338,5 +338,11 @@ namespace TGIS.Controllers
             return View();
         }
 
+        //需要開啟VIP功能的提示
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult NoVIPHint()
+        {
+            return View();
+        }
     }
 }

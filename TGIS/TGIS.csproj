@@ -515,6 +515,7 @@
     <Content Include="Views\Analysis\TeamStatistic.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Admin\AdminChangePassword.cshtml" />
+    <Content Include="Views\Shop\NoVIPHint.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

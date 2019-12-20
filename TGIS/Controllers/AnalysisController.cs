@@ -13,7 +13,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //揪桌客群分析
-        [CenterLogin(CenterLogin.UserType.Shop)]
+        [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult TeamStatistic(int monthsFromNow = 0)
         {
             Shop shop = db.Shops.Find(Session["ShopID"].ToString());
@@ -96,6 +96,7 @@ namespace TGIS.Controllers
             public int[] Clicks { get; set; } = new int[12];
         }
         //桌遊趨勢分析
+        [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult TableGameTrend()
         {
             ViewBag.Months = "0";
@@ -103,7 +104,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        [CenterLogin(CenterLogin.UserType.Shop)]
+        [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult TableGameTrend(string[] tableGameIDs)
         {
             //取得一年內的月份資料(如果現在是6月，則輸出為[7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6] )
@@ -139,7 +140,7 @@ namespace TGIS.Controllers
 
         //優惠券行銷分析(Ajax)
         [HttpPost]
-        [CenterLogin(CenterLogin.UserType.Shop)]
+        [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult CouponUsage()
         {
             var coupons = db.Shops.Find(Session["ShopID"].ToString()).Coupons.ToList();
@@ -148,10 +149,9 @@ namespace TGIS.Controllers
         }
 
         //優惠券分析測試
-        [CenterLogin(CenterLogin.UserType.Shop)]
+        [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult CouponUsageDisplay()
         {
-            string shopID = Session["ShopID"].ToString();
             return View();
         }
 
