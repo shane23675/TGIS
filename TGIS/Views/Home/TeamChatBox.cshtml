@@ -15,9 +15,10 @@
 <style>
     .chatArea {
         position: fixed;
-        top: 70px;
-        right: 30px;
+        bottom: 0px;
+        right: 50px;
         z-index: 999;
+        box-shadow:1px 1px 3px #005E28;
     }
 
     .msgDisplay {
@@ -50,28 +51,23 @@
     .title-msg {
         color: #7FC6A4;     
     }
-    .title{
-    margin:3px 0px;
-        border-bottom-left-radius:5%;
-        border-bottom-right-radius:5%
-    }
 
         .title-msg:hover {
             text-decoration: none;
             color: #005E28;
         }
 </style>
-<div class="bg-tab chatArea pl-3 pr-3 title">
-    <div id="title-clo" >
+<div class="bg-tab chatArea pl-3 pr-3">
+    <div id="title-clo" class="mt-2 mb-2">
         <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg">
-            <sapn>糾桌訊息</sapn>
+            <i class="far fa-comment-alt"></i><sapn class="ml-1">揪桌訊息</sapn>
         </a>
     </div>
     @{
         Team team;
         <div class="row collapse" id="msg">
-            <div class="col-12 d-flex justify-content-between">
-                <sapn>糾桌訊息</sapn>
+            <div class="col-12 d-flex justify-content-between mt-2 mb-2">
+                    <sapn>揪桌訊息</sapn>
                 <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg" id="title-opn">
                     <i class="fas fa-minus"></i>
                 </a>
