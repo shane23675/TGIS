@@ -79,7 +79,7 @@ namespace TGIS.Controllers
                     db.SaveChanges();
                     var content = $"您好，已為您重設密碼，您的新密碼如下：\n密碼：{newPwd}\n請以此密碼重新登入，並建議再次變更密碼確保資訊安全，謝謝您\n有桌方遊資訊網";
                     AutoEmail.AutoEmailSend(Email, "有桌方遊:密碼重設", content);
-                    return RedirectToAction("LoginForPlayer");
+                    return RedirectToAction("Index", "Home");
                 }
                 ViewBag.Error = "信箱錯誤";
                 return View();
