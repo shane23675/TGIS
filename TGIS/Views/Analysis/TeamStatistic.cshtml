@@ -1,28 +1,47 @@
 ﻿@{
-    ViewBag.Title = "TeamStatistic";
+    ViewBag.Title = "統計資料查看";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 <link href="~/Content/Chart.min.css" rel="stylesheet" />
 
+<div class="row justify-content-between">
+    <h2>揪桌客群分析</h2>
+    <ul class="nav nav-pills">
+        <li class="nav-item mr-2">
+            @Html.ActionLink("一個月內", "TeamStatistic", new { monthsFromNow = 0 }, new { @class = "nav-link active" })
+        </li>
+        <li class="nav-item mr-2">
+            @Html.ActionLink("一個月前~兩個月內", "TeamStatistic", new { monthsFromNow = 1 }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item mr-2">
+            @Html.ActionLink("兩個月前~三個月內", "TeamStatistic", new { monthsFromNow = 2 }, new { @class = "nav-link" })
+        </li>
+    </ul>
+</div>
+<br />
+@*之後進行active跟disabled的調整*@
 
-<h2>揪桌客群分析</h2>
-@Html.ActionLink("30天內", "TeamStatistic", new { monthsFromNow = 0}, new { @class="btn btn-success"})
-@Html.ActionLink("30天前 ~ 60天前", "TeamStatistic", new { monthsFromNow = 1}, new { @class="btn btn-success"})
-@Html.ActionLink("60天前 ~ 90天前", "TeamStatistic", new { monthsFromNow = 2}, new { @class="btn btn-success"})
+
+
 @if (ViewBag.NoTeam != null)
 {
     <h3 class="text-info">此期間沒有任何紀錄</h3>
 }
 else
-{
-    <div class="col-md-8 col-md-offset-2">
-        <canvas id="genderChart"></canvas>
+{<div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="genderChart"></canvas>
+        </div>
     </div>
-    <div class="col-md-8 col-md-offset-2">
-        <canvas id="ageChart"></canvas>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="ageChart"></canvas>
+        </div>
     </div>
-    <div class="col-md-8 col-md-offset-2">
-        <canvas id="districtChart"></canvas>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="districtChart"></canvas>
+        </div>
     </div>
 }
 
@@ -33,7 +52,7 @@ else
         var ageColor = [];
         for (var i = 0; i < 8; i++) {
             ageColor.push(`hsl(120, 100%, ${80 - 10 * i}%)`)
-        } 
+        }
         //區域分布圖的顏色
         var districtColor = [];
         for (var i = 0; i < 6; i++) {

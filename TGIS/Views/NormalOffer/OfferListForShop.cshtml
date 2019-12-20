@@ -12,22 +12,22 @@
 <table class="table table-sm table-bordered table-hover shadow ">
     <thead>
         <tr class="table-primary">
-            <th>
+            <th width="20%">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Content)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.BeginDate)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-            <th>
+            <th width="8%">
                 @Html.DisplayNameFor(model => model.Clicks)
             </th>
-            <th></th>
+            <th width="8%"></th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,7 @@
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td class="align-middle w-50">
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td class="align-middle">
@@ -50,9 +50,8 @@
                     @Html.DisplayFor(modelItem => item.Clicks)
                 </td>
                 <td class="text-center">
-                    @Html.ActionLink("編輯", "OfferEdit", new { normalOfferID = item.ID }, new { @class = "btn btn-primary" })
-                    @*@Html.ActionLink("刪除", "OfferDel", new { normalOfferID = item.ID }, new { @class = "btn btn-danger" onclick="return confirm('確定要刪除嗎?')" })*@
-                </td>
+                    @Html.ActionLink("編輯", "OfferEdit", new { normalOfferID = item.ID }, new { @class = "btn btn-info btn-block" })
+                  </td>
             </tr>
         }
     </tbody>
