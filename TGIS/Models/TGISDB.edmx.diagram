@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="TGISDBModel.TableGame" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.TableGameComment" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.TableGameInShopDetail" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TGISDBModel.TableGameVisitedStatistic" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Tag" Width="2.25" PointX="0.5" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TGISDBModel.Team" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
         <AssociationConnector Association="TGISDBModel.Relationship24" ManuallyRouted="false" />
@@ -40,7 +39,6 @@
         <AssociationConnector Association="TGISDBModel.Relationship14" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship26" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship27" ManuallyRouted="false" />
-        <AssociationConnector Association="TGISDBModel.Relationship28" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.Relationship42" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.GameCategoryDetail" ManuallyRouted="false" />
         <AssociationConnector Association="TGISDBModel.TeamDetail" ManuallyRouted="false" />
@@ -48,6 +46,8 @@
         <AssociationConnector Association="TGISDBModel.Relationship41" />
         <EntityTypeShape EntityType="TGISDBModel.NormalOffer" Width="1.5" PointX="8.25" PointY="0.75" />
         <AssociationConnector Association="TGISDBModel.Relationship16" />
+        <EntityTypeShape EntityType="TGISDBModel.TableGameVisitedStatistic" Width="1.5" PointX="5.25" PointY="7.625" />
+        <AssociationConnector Association="TGISDBModel.Relationship28" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

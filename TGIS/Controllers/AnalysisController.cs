@@ -103,7 +103,7 @@ namespace TGIS.Controllers
             return View();
         }
         [HttpPost]
-        //[CenterLogin(CenterLogin.UserType.Shop)]
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult TableGameTrend(string[] tableGameIDs)
         {
             //取得一年內的月份資料(如果現在是6月，則輸出為[7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6] )

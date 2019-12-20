@@ -19,9 +19,9 @@ namespace TGIS.Models
         {
             this.RelevantLinks = new HashSet<RelevantLink>();
             this.TableGameInShopDetails = new HashSet<TableGameInShopDetail>();
-            this.TableGameVisitedStatistics = new HashSet<TableGameVisitedStatistic>();
             this.TableGameComments = new HashSet<TableGameComment>();
             this.GameCategoryTags = new HashSet<Tag>();
+            this.TableGameVisitedStatistics = new HashSet<TableGameVisitedStatistic>();
         }
     
         public string ID { get; set; }
@@ -45,10 +45,10 @@ namespace TGIS.Models
         public virtual Tag DifficultyTag { get; set; }
         public virtual Tag BrandTag { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TableGameComment> TableGameComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> GameCategoryTags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TableGameVisitedStatistic> TableGameVisitedStatistics { get; set; }
     }
 }
