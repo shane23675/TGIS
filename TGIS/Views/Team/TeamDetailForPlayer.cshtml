@@ -64,7 +64,7 @@
                     }
                     else
                     {
-                        <a tabindex="1" id="tableGameInfo" class="btn btn-success" role="button" data-toggle="popover" data-trigger="hover" data-html="true" title="關於此桌遊"
+                        <a tabindex="1" id="tableGameInfo" class="btn btn-success" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="關於此桌遊"
                            data-content="<img class='img-fluid' src='@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID = tg.ID, index = 0 })'><br /><a href='@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID = tg.ID })'>了解更多...</a>">@tg.ChineseName</a>
                     }
                 }
