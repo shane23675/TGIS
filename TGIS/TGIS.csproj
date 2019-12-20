@@ -446,7 +446,7 @@
     <Content Include="Views\Shared\_LayoutEntry.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
-    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\AdminCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutShoperCenter.cshtml" />
     <Content Include="Views\Shop\ShopPasswordChange.cshtml" />
     <Content Include="Views\TableGame\_GetTableGameCards.cshtml" />
@@ -456,7 +456,6 @@
     <Content Include="Views\Login\LoginForPlayer.cshtml" />
     <Content Include="Views\Login\ForgetPwd.cshtml" />
     <Content Include="Views\Login\ForgetPwdChange.cshtml" />
-    <Content Include="Views\Tool\_GetTimeInput.cshtml" />
     <Content Include="Views\Team\TeamCreate.cshtml" />
     <Content Include="Views\Team\TeamDetailForPlayer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -514,6 +513,8 @@
     <Content Include="Views\Feedback\AboutUs.cshtml" />
     <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
     <Content Include="Views\Analysis\TeamStatistic.cshtml" />
+    <Content Include="Views\Admin\AdminIndex.cshtml" />
+    <Content Include="Views\Admin\AdminChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

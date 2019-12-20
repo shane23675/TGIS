@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TGIS.Models.Administrator>
+
+@{
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>管理員列表</h2>
+
+<p>
+    @Html.ActionLink("新增一位管理員", "AdminCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.ActionLink("更改密碼", "AdminChangePassword", new { adminID=item.ID }, new { @class="btn btn-secondary"}) 
+            @Html.ActionLink("刪除", "AdminDelete", new { adminID=item.ID }, new { @class="btn btn-danger", onclick="return confirm('確定要刪除該管理員嗎？')"})
+        </td>
+    </tr>
+}
+
+</table>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        alert("@TempData["ErrorMessage"]");
+    </script>
+}

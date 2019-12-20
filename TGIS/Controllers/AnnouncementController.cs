@@ -19,10 +19,6 @@ namespace TGIS.Controllers
         //管理員新增公告
         public ActionResult CreateAnnoun()
         {
-            if (Session["AdminID"] == null)
-            {
-                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
-            }
             return View();
         }
         [HttpPost]
@@ -43,10 +39,6 @@ namespace TGIS.Controllers
         //管理員修改公告
         public ActionResult EditAnnoun(string id)
         {
-            if (Session["AdminID"] == null)
-            {
-                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
-            }
             TempData["AnnouncementID"] = id;
             return View(db.Announcements.Find(id));
         }

@@ -59,10 +59,6 @@ namespace TGIS.Controllers
         //管理員隱藏評論
         public ActionResult HideTGComment(int commentID)
         {
-            //未登入則跳轉至登入頁面
-            if (Session["AdminID"] == null)
-                RedirectToAction("LoginForAdmin", "LoginForAdmin");
-
             db.TableGameComments.Find(commentID).IsHidden = true;
             db.SaveChanges();
             return RedirectToAction("TGCommentIndexForAdmin");

@@ -7,6 +7,15 @@
     ViewBag.Title = "桌遊百科";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
+@section CSS{
+    <link href="~/Content/WebSearch.css" rel="stylesheet" />
+    <style>
+        #TGResultList {
+            width: 80%;
+        }
+    </style>
+}
+
 
 <div class="row">
     <aside class="border col-3">
@@ -14,10 +23,13 @@
             <h3 class="text-info">桌遊搜尋</h3>
             <div class="form-group">
                 <label class="col-form-label">從想玩的桌遊搜尋：</label>
-                <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="" />
-                <input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
+                @*<input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="" />*@
+                @*<input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">*@
+                <input id="GameSearch" type="search" placeholder="輸入桌遊名字" class="form-control" aria-label="search" />
                 <div id="TGResultList"></div>
             </div>
+
+
 
             <div class="form-group">
                 <label class="col-form-label">遊玩人數：</label>
@@ -27,11 +39,11 @@
             </div>
             <div class="form-group">
                 <label class="col-form-label">平均遊玩時間：</label>
-                <input type="text" class="form-control" />
+                @Html.DropDownList("AverageGamePeroid", null, new { @class="form-control"})
             </div>
             <div class="form-group">
                 <label class="col-form-label">不要出現擴充：</label>
-                @Html.CheckBox("notExtended", new { @class = "form-check", value = "true"})
+                @Html.CheckBox("notExtended", new { @class = "form-check", value = "true" })
             </div>
             <div class="form-group">
                 <h3 class="text-info">分類搜尋</h3>
@@ -84,6 +96,10 @@
             </ol>
         </nav>
         <div class="row">
+            @if (Model.Count == 0)
+            {
+                <h2>找不到任何相符的項目</h2>
+            }
 
             @foreach (TableGame tg in Model)
             {
@@ -127,6 +143,8 @@
 
 
 @section scripts{
+    <script src="~/Scripts/WebSearch.js"></script>
+
     @* 在過濾桌遊的同時使分頁功能運作 *@
     @if (((bool)ViewBag.IsFilterOn))
     {

@@ -214,6 +214,7 @@
         <EntityType Name="TableGameVisitedStatistic">
           <Key>
             <PropertyRef Name="VisitedDate" />
+            <PropertyRef Name="TableGameID" />
           </Key>
           <Property Name="VisitedDate" Type="date" Nullable="false" />
           <Property Name="Clicks" Type="int" Nullable="false" />
@@ -863,9 +864,9 @@
           <NavigationProperty Name="TableGameInShopDetails" Relationship="Self.Relationship14" FromRole="TableGame" ToRole="TableGameInShopDetail" />
           <NavigationProperty Name="DifficultyTag" Relationship="Self.Relationship26" FromRole="TableGame" ToRole="Tag" />
           <NavigationProperty Name="BrandTag" Relationship="Self.Relationship27" FromRole="TableGame" ToRole="Tag" />
-          <NavigationProperty Name="TableGameVisitedStatistics" Relationship="Self.Relationship28" FromRole="TableGame" ToRole="TableGameVisitedStatistic" />
           <NavigationProperty Name="TableGameComments" Relationship="Self.Relationship42" FromRole="TableGame" ToRole="TableGameComment" />
           <NavigationProperty Name="GameCategoryTags" Relationship="Self.GameCategoryDetail" FromRole="TableGame" ToRole="Tag" />
+          <NavigationProperty Name="TableGameVisitedStatistics" Relationship="TGISDBModel.Relationship28" FromRole="TableGame" ToRole="TableGameVisitedStatistic" />
         </EntityType>
         <EntityType Name="TableGameComment">
           <Key>
@@ -891,15 +892,6 @@
           <NavigationProperty Name="Shop" Relationship="Self.Relationship15" FromRole="TableGameInShopDetail" ToRole="Shop" />
           <NavigationProperty Name="TableGame" Relationship="Self.Relationship14" FromRole="TableGameInShopDetail" ToRole="TableGame" />
           <Property Name="Price" Type="Int32" />
-        </EntityType>
-        <EntityType Name="TableGameVisitedStatistic">
-          <Key>
-            <PropertyRef Name="VisitedDate" />
-          </Key>
-          <Property Name="VisitedDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Clicks" Type="Int32" Nullable="false" />
-          <Property Name="TableGameID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TableGame" Relationship="Self.Relationship28" FromRole="TableGameVisitedStatistic" ToRole="TableGame" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -1142,18 +1134,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Relationship28">
-          <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
-          <End Role="TableGameVisitedStatistic" Type="Self.TableGameVisitedStatistic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TableGame">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TableGameVisitedStatistic">
-              <PropertyRef Name="TableGameID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Relationship42">
           <End Role="TableGame" Type="Self.TableGame" Multiplicity="1" />
           <End Role="TableGameComment" Type="Self.TableGameComment" Multiplicity="*" />
@@ -1190,7 +1170,6 @@
           <EntitySet Name="TableGames" EntityType="Self.TableGame" />
           <EntitySet Name="TableGameComments" EntityType="Self.TableGameComment" />
           <EntitySet Name="TableGameInShopDetails" EntityType="Self.TableGameInShopDetail" />
-          <EntitySet Name="TableGameVisitedStatistics" EntityType="Self.TableGameVisitedStatistic" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Teams" EntityType="Self.Team" />
           <AssociationSet Name="Relationship24" Association="Self.Relationship24">
@@ -1261,10 +1240,6 @@
             <End Role="Tag" EntitySet="Tags" />
             <End Role="TableGame" EntitySet="TableGames" />
           </AssociationSet>
-          <AssociationSet Name="Relationship28" Association="Self.Relationship28">
-            <End Role="TableGame" EntitySet="TableGames" />
-            <End Role="TableGameVisitedStatistic" EntitySet="TableGameVisitedStatistics" />
-          </AssociationSet>
           <AssociationSet Name="Relationship42" Association="Self.Relationship42">
             <End Role="TableGame" EntitySet="TableGames" />
             <End Role="TableGameComment" EntitySet="TableGameComments" />
@@ -1286,6 +1261,11 @@
           <AssociationSet Name="Relationship16" Association="TGISDBModel.Relationship16">
             <End Role="Shop" EntitySet="Shops" />
             <End Role="NormalOffer" EntitySet="NormalOffers" />
+          </AssociationSet>
+          <EntitySet Name="TableGameVisitedStatistics" EntityType="TGISDBModel.TableGameVisitedStatistic" />
+          <AssociationSet Name="Relationship28" Association="TGISDBModel.Relationship28">
+            <End Role="TableGame" EntitySet="TableGames" />
+            <End Role="TableGameVisitedStatistic" EntitySet="TableGameVisitedStatistics" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Feedback">
@@ -1336,6 +1316,28 @@
             </Principal>
             <Dependent Role="NormalOffer">
               <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TableGameVisitedStatistic">
+          <Key>
+            <PropertyRef Name="VisitedDate" />
+            <PropertyRef Name="TableGameID" />
+          </Key>
+          <Property Name="VisitedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Clicks" Type="Int32" Nullable="false" />
+          <Property Name="TableGameID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="TableGame" Relationship="TGISDBModel.Relationship28" FromRole="TableGameVisitedStatistic" ToRole="TableGame" />
+        </EntityType>
+        <Association Name="Relationship28">
+          <End Type="TGISDBModel.TableGame" Role="TableGame" Multiplicity="1" />
+          <End Type="TGISDBModel.TableGameVisitedStatistic" Role="TableGameVisitedStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGame">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TableGameVisitedStatistic">
+              <PropertyRef Name="TableGameID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1531,15 +1533,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TableGameVisitedStatistics">
-            <EntityTypeMapping TypeName="TGISDBModel.TableGameVisitedStatistic">
-              <MappingFragment StoreEntitySet="TableGameVisitedStatistic">
-                <ScalarProperty Name="VisitedDate" ColumnName="VisitedDate" />
-                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
-                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tags">
             <EntityTypeMapping TypeName="TGISDBModel.Tag">
               <MappingFragment StoreEntitySet="Tag">
@@ -1611,6 +1604,15 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGameVisitedStatistics">
+            <EntityTypeMapping TypeName="TGISDBModel.TableGameVisitedStatistic">
+              <MappingFragment StoreEntitySet="TableGameVisitedStatistic">
+                <ScalarProperty Name="TableGameID" ColumnName="TableGameID" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="VisitedDate" ColumnName="VisitedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
