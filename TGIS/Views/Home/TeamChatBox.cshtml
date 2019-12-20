@@ -156,7 +156,7 @@
 
         ws.onmessage = function (e) {
             var msgDisplay = chatBox.find(".msgDisplay");
-            //取得Json資料
+            //取得Json資料     
             var jsonData = JSON.parse(e.data);
             //判斷是否為自己的訊息
             if (jsonData.UserID == "@player.ID") {
@@ -189,13 +189,6 @@
             }
         });
     }
-    //按完標題切換聊天內容
-    $('.chatbtn').click(function () {
-        $('.chatbtn').RemoveClass("active");
-        $(this).AddClass("active");
-        $('.chatBox').toggleClass("show active");
-
-    });
         //摺疊鈕變化
     $('#title-clo').click(function () {
         $(this).css("display", "none");

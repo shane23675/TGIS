@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<TGIS.Models.TableGameComment>
 
 @{
-    ViewBag.Title = "TGCommentForAdmin";
+    ViewBag.Title = "評論管理";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>評論管理</h2>
+<h2 class="ml-1">評論管理</h2>
 
-<table class="table">
-    <tr>
+<table class="table text-center table-hover  mr-3">
+    <tr class="table-manager border-0">
         <th>
             @Html.DisplayNameFor(model => model.CommentDate)
         </th>
