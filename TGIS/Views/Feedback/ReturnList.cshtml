@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TGIS.Models.Feedback>
 
 @{
-    ViewBag.Title = "ReturnList";
+    ViewBag.Title = "回報列表";
 }
 
 <h2>回報列表</h2>
 
-<table class="table">
-    <tr>
+<table class="table text-center table-hover ml-3">
+    <tr class="table-manager border-0">
         <th>
             @Html.DisplayNameFor(model => model.ReceivedDate)
         </th>
@@ -32,8 +32,8 @@
             @Html.DisplayFor(modelItem => item.IsRead)
         </td>
         <td>
-            @Html.ActionLink("詳細", "ReturnDetail", new { id=item.ID }, new { @class="btn btn-secondary"})
-            @Html.ActionLink("刪除", "ReturnDel", new { id=item.ID }, new { @class="btn btn-danger"})
+            @Html.ActionLink("詳細", "ReturnDetail", new { id=item.ID }, new { @class="btn btn-info"})
+            @Html.ActionLink("刪除", "ReturnDel", new { id=item.ID }, new { @class="btn btn-danger" ,onclick = "return confirm('確定要刪除嗎？')"})
         </td>
     </tr>
 }
