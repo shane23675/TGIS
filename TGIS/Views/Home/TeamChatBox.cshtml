@@ -19,43 +19,93 @@
         right: 30px;
         z-index: 999;
     }
-     .msgDisplay {
+
+    .msgDisplay {
         overflow-y: auto;
-        height: 100px;
+        height: 300px;
         background-color: white;
     }
-</style>
 
-<div class="row bg-white chatArea">
+    .bg-msg {
+        background-color: #C9EAC9;
+    }
+
+    .bg-tab {
+        background-color: #D6F8D6;
+    }
+
+    .bg-gray {
+        background-color: #E1EAE3;
+    }
+
+    .list-group-item-action:focus, .list-group-item-action:hover {
+        background-color: #E8F7E8;
+    }
+
+    .list-group-item.active {
+        background-color: #7FC6A4;
+        border-color: #7FC6A4;
+    }
+
+    .title-msg {
+        color: #7FC6A4;     
+    }
+    .title{
+    margin:3px 0px;
+        border-bottom-left-radius:5%;
+        border-bottom-right-radius:5%
+    }
+
+        .title-msg:hover {
+            text-decoration: none;
+            color: #005E28;
+        }
+</style>
+<div class="bg-tab chatArea pl-3 pr-3 title">
+    <div id="title-clo" >
+        <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg">
+            <sapn>糾桌訊息</sapn>
+        </a>
+    </div>
     @{
         Team team;
-        foreach (string id in teamIDs)
-        {
-            team = teams.Find(id);
-            <div class="col-4 p-0">
+        <div class="row collapse" id="msg">
+            <div class="col-12 d-flex justify-content-between">
+                <sapn>糾桌訊息</sapn>
+                <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg" id="title-opn">
+                    <i class="fas fa-minus"></i>
+                </a>
+            </div>
+            <div class="col-4 p-0 bg-gray">
                 <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action chatbtn" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                    @{ string active = "active";}
+                    @foreach (string id in teamIDs)
+                    {
+                        team = teams.Find(id);
+                        <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                        active = "";
+                    }
                 </div>
             </div>
             <div class="col-8 p-0">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="card ">
-                        <div class="chatBox">
-                            <div class="card-header">
-                                <div class="tab-pane fade" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">@team.Title</div>
+                <div class="tab-content card" id="nav-tabContent">
+                    @{ active = "show active";}
+                    @foreach (string id in teamIDs)
+                    {
+                        team = teams.Find(id);
+                        <div class="chatBox tab-pane fade @active" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">
+                            <div class="card-header bg-msg">
+                                <div class="">@team.Title</div>
                             </div>
-                            <div class="card-body">
-                                <div class="tab-pane fade msgDisplay" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">
-                                    @* 顯示歷史訊息 *@
-                                    @foreach (Message m in team.Messages)
-                                    {
-                                        <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
-                                        <p class="mt-0">@m.Content</p>
-                                    }
-                                </div>
-
+                            <div class="card-body msgDisplay">
+                                @* 顯示歷史訊息 *@
+                                @foreach (Message m in team.Messages)
+                                {
+                                    <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
+                                    <p class="mt-0">@m.Content</p>
+                                }
                             </div>
-                            <div class="card-footer input-group">
+                            <div class="card-footer input-group bg-msg">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text" id="btnGroupAddon">
                                         <i class="far fa-comment-dots"></i>
@@ -64,10 +114,12 @@
                                 <input type="text" class="form-control msgInput" aria-describedby="btnGroupAddon">
                             </div>
                         </div>
-                    </div>
+                        active = "";
+                    }
                 </div>
             </div>
-        }
+        </div>
+
     }
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -111,10 +163,20 @@
                 $(this).val("");
             }
         });
-    }  
+    }
     //按完標題切換聊天內容
     $('.chatbtn').click(function () {
-        $('.chatbtn').toggleClass("active");
-         $('.msgDisplay').toggleClass("show active");
-    });  
+        $('.chatbtn').RemoveClass("active");
+        $(this).AddClass("active");
+        $('.chatBox').toggleClass("show active");
+
+    });
+        //摺疊鈕變化
+    $('#title-clo').click(function () {
+        $(this).css("display", "none");
+    });
+    $('#title-opn').click(function () {
+        $('#title-clo').css("display", "block");
+    });
+
 </script>
