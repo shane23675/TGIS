@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Web.WebSockets;
+using Newtonsoft.Json;
 using TGIS.Models;
 
 namespace TGIS.Controllers
@@ -47,7 +48,15 @@ namespace TGIS.Controllers
             //覆寫OnMessage事件，前端send時觸發，被觸發後會回頭觸發前端的onmessage事件
             public override void OnMessage(string message)
             {
-                _chatRooms[_teamID].Broadcast(_userName + "：" + message);
+                //將訊息的相關資訊製成Json檔後傳出
+                _chatRooms[_teamID].Broadcast(
+                    JsonConvert.SerializeObject(new {
+                        Message = message,
+                        Time = DateTime.Now.ToString("MM/dd hh:mm"),
+                        UserID = _userID,
+                        UserName = _userName
+                    })
+                );
 
                 //將此訊息儲存至訊息列表
                 Message m = new Message
