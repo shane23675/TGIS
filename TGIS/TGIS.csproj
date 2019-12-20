@@ -473,7 +473,6 @@
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
-    <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <Content Include="Views\Team\MyTeam.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
     <Content Include="Views\Team\GetTeamList.cshtml" />
@@ -496,7 +495,6 @@
     <Content Include="Views\Tool\Test.cshtml" />
     <Content Include="Views\Announcement\AnnouncementIndexForPlayer.cshtml" />
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
     <Content Include="Views\Home\TeamChatBox.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
@@ -508,7 +506,6 @@
     <Content Include="Views\District\_DistrictList.cshtml" />
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <Content Include="Views\Shop\EnhancedService.cshtml" />
     <Content Include="Views\Feedback\AboutUs.cshtml" />
     <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />

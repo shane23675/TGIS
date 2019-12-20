@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<TGIS.Models.Coupon>
 
 @{
-    ViewBag.Title = "CouponIndexForAdmin";
+    ViewBag.Title = "優惠券管理";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>優惠券列表</h2>
-
-<table class="table">
-    <tr>
+<h2 class="ml-1">優惠券列表</h2>
+<br />
+<table class="table text-center table-hover  mr-3">
+    <tr class="table-manager border-0">
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
@@ -61,7 +61,7 @@
         <td>
             @if (!item.IsAvailable)
             {
-                @Html.ActionLink("啟用", "CouponActivate", new { couponID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Activate This Coupon?')" })
+                @Html.ActionLink("啟用", "CouponActivate", new { couponID = item.ID }, new { @class = "btn btn-info", onclick = "return confirm('啟用此優惠券?')" })
             }
             else
             {

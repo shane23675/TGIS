@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>揪桌列表</h2>
+<h2 class="ml-1">揪桌列表</h2>
 <br />
-<table class="table text-center table-hover ml-3 ">
+<table class="table text-center table-hover mr-3">
     <tr class="table-manager border-0">
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -82,7 +82,7 @@
         @Html.DisplayFor(modelItem => item.Notes)
     </td>
     <td>
-        @Html.ActionLink("訊息", "MessageIndex", "Message", new { teamID = item.ID }, new { @class = "btn btn-success" })
+        @Html.ActionLink("訊息", "MessageIndex", "Message", new { teamID = item.ID }, new { @class = "btn btn-info" })
     </td>
 </tr>
 }
