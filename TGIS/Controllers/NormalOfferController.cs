@@ -68,7 +68,7 @@ namespace TGIS.Controllers
             return View(offer);
         }
         [HttpPost]
-        public ActionResult OfferEdit(NormalOffer normalOffer, HttpPostedFileBase[] photos)
+        public ActionResult OfferEdit(NormalOffer normalOffer, HttpPostedFileBase[] photos, int[] deletedPhotoID)
         {
             OfferTimeCheck(normalOffer);
             NormalOffer offer = (NormalOffer)TempData["Offer"];
@@ -83,7 +83,9 @@ namespace TGIS.Controllers
                 db.SaveChanges();
                 //存入圖片
                 PhotoManager.Create(normalOffer.ID, photos);
-                return RedirectToAction("OfferList");
+                //刪除圖片
+                PhotoManager.Delete(deletedPhotoID);
+                return RedirectToAction("OfferListForShop");
             }
             ViewBag.photoIDList = PhotoManager.GetPhotoIDList(offer.ID);
             TempData.Keep("Offer");
