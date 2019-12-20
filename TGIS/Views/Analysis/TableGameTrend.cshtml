@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "TableGameTrend";
+    ViewBag.Title = "統計資料查看";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 <link href="~/Content/WebSearch.css" rel="stylesheet" />
@@ -29,39 +29,46 @@
      *  有餘裕的話，讓用戶點擊那個框可以取消選取這個桌遊
      */
 
-    <div class="row justify-content-between mx-0 mb-2">
-        <h2>桌遊趨勢分析</h2>
-        <input type="submit" value="提交" class="btn btn-outline-info" />
+
+    <h2>桌遊趨勢分析</h2>
+    <br />
+    <div>
+        說明：<br />
+        此頁提供自本月起1年內桌遊點擊量的曲線圖，請選擇欲觀察的桌遊進行查看。<br />
+        您最多可以選擇五項桌遊進行分析。<br />
     </div>
-
-    <div class="mb-2">
-        <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
-        <div id="TGResultList"></div>
+    <hr />
+    <div class="row mx-0">
+        <div class="col-8">
+            <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
+            <div id="TGResultList"></div>
+        </div>
+        <input type="submit" value="觀察趨勢" class="btn btn-outline-info" />
     </div>
-    <div id="TGSearchForShop"></div>
+        <div id="TGSearchForShop" class="mt-2 ml-3"></div>
 
-    @*<input name="tableGameIDs" type="text" value="T00005" />*@
+        @*<input name="tableGameIDs" type="text" value="T00005" />*@
 
-}
-@*
-    取得資料的流程：
-    --用戶選取桌遊
-    --用戶點擊提交
-    --Post至後端取得下方ViewBag.Months、ViewBag.Data
-    --重新導向回到此頁面，渲染出分析圖
-*@
+        }
+        @*
+            取得資料的流程：
+            --用戶選取桌遊
+            --用戶點擊提交
+            --Post至後端取得下方ViewBag.Months、ViewBag.Data
+            --重新導向回到此頁面，渲染出分析圖
+        *@
 
-<div class="row justify-content-center">
+        <div class="row justify-content-center">
 
-    <canvas id="myChart" class="col-10"></canvas>
+            <canvas id="myChart" class="col-10"></canvas>
 
-</div>
+        </div>
 
 
-@section scripts{
-    <script src="~/Scripts/WebSearch.js"></script>
-    <script src="~/Scripts/Chart.min.js"></script>
-    <script>
+        @section scripts{
+            <script src="~/Scripts/WebSearch.js"></script>
+            <script src="~/Scripts/Chart.min.js"></script>
+            <script>
         var data = @Html.Raw(ViewBag.Data);
         var color = ['#c9d3a8', '#e67399', '#f2a640', '#e0c240', '#59bfb3'];
 
@@ -132,5 +139,5 @@
         });
 
             }
-    </script>
-}
+            </script>
+        }
