@@ -20,6 +20,13 @@ namespace TGIS.Controllers
             ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             ViewBag.BrandTagList = db.Tags.ToList().Where(m => m.ID[0] == 'B');
+            ViewBag.AverageGamePeroid = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Value = "30", Text = "30分鐘以內"},
+                new SelectListItem { Value = "60", Text = "30分鐘 ~ 1小時"},
+                new SelectListItem { Value = "90", Text = "1小時 ~ 1.5小時"},
+                new SelectListItem { Value = "120", Text = "1.5小時以上"}
+            }, "Value", "Text");
             ViewBag.difficultTagIDs = new string[0];
             ViewBag.categoryTagIDs = new string[0];
             ViewBag.brandTagIDs = new string[0];
@@ -27,7 +34,7 @@ namespace TGIS.Controllers
             return View(db.TableGames.OrderBy(g => g.ID).ToPagedList(page, 12));
         }
         [HttpPost]
-        public ActionResult ShowTableGameListForPlayer(int? minPlayer, int? maxPlayer, string[] difficultTagIDs, string[] categoryTagIDs, string[] brandTagIDs, int page = 1, bool notExtended = false)
+        public ActionResult ShowTableGameListForPlayer(int? minPlayer, int? maxPlayer, short? AverageGamePeroid, string[] difficultTagIDs, string[] categoryTagIDs, string[] brandTagIDs, int page = 1, bool notExtended = false)
         {
             //進行篩選
             var games = db.TableGames.ToList();
@@ -43,12 +50,26 @@ namespace TGIS.Controllers
                 games = games.Where(g => brandTagIDs.Contains(g.BrandTagID)).ToList();
             if (notExtended)
                 games = games.Where(g => !g.IsExtended).ToList();
-           
+            if (AverageGamePeroid != null)
+            {
+                if (AverageGamePeroid < 91)
+                    games = games.Where(g => g.AverageGamePeroid <= AverageGamePeroid && g.AverageGamePeroid > AverageGamePeroid - 29).ToList();
+                else
+                    games = games.Where(g => g.AverageGamePeroid >= 91).ToList();
+            }
 
-            //一樣的操作
-            ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
+
+                //一樣的操作
+                ViewBag.DifficultyTagList = db.Tags.ToList().Where(m => m.ID[0] == 'D');
             ViewBag.CategoryTagList = db.Tags.ToList().Where(m => m.ID[0] == 'C');
             ViewBag.BrandTagList = db.Tags.ToList().Where(m => m.ID[0] == 'B');
+            ViewBag.AverageGamePeroid = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Value = "30", Text = "30分鐘以內"},
+                new SelectListItem { Value = "60", Text = "30分鐘 ~ 1小時"},
+                new SelectListItem { Value = "90", Text = "1小時 ~ 1.5小時"},
+                new SelectListItem { Value = "120", Text = "1.5小時以上"}
+            }, "Value", "Text");
             ViewBag.difficultTagIDs = difficultTagIDs == null ? new string[0] : difficultTagIDs;
             ViewBag.categoryTagIDs = categoryTagIDs == null ? new string[0] : categoryTagIDs;
             ViewBag.brandTagIDs = brandTagIDs == null ? new string[0] : brandTagIDs;

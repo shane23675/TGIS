@@ -36,9 +36,11 @@ else
         } 
         //區域分布圖的顏色
         var districtColor = [];
-        for (var i = 0; i < 11; i++) {
-            for (var j = 0; j < 5; j++) {
-                districtColor.push(`hsl(${30 * i}, 100%, ${90 - 20 * j}%)`);
+        for (var i = 0; i < 6; i++) {
+            for (var j = 0; j < 3; j++) {
+                for (var k = 0; k < 3; k++) {
+                    districtColor.push(`hsl(${60 * i}, ${30 + 20 * k}%, ${50 + 20 * j}%)`);
+                }
             }
         }
 
