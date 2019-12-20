@@ -97,8 +97,21 @@
                                 @* 顯示歷史訊息 *@
                                 @foreach (Message m in team.Messages)
                                 {
-                                    <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
-                                    <p class="mt-0">@m.Content</p>
+                                    Player p = db.Players.Find(m.Speaker);
+                                    //如果是自己的訊息
+                                    if (p.ID == player.ID)
+                                    {
+                                        <p class="mt-0">@m.Content</p> //發言內容
+                                        <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
+                                    }
+                                    //別人的訊息
+                                    else
+                                    {
+                                        <p class="small mb-0">@p.NickName：</p> //發言人暱稱
+                                        @*<img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID, index=0})" />*@ //圖片反註釋後調整一下就能用
+                                        <p class="mt-0">@m.Content</p>  //發言內容
+                                        <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
+                                    }
                                 }
                             </div>
                             <div class="card-footer input-group bg-msg">
@@ -141,11 +154,27 @@
         let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
         let ws = new WebSocket(url);
 
-        ws.onopen = function (e) {
-        }
         ws.onmessage = function (e) {
             var msgDisplay = chatBox.find(".msgDisplay");
-            msgDisplay.append(`<p>${e.data}</p>`);
+            //取得Json資料
+            var jsonData = JSON.parse(e.data);
+            //判斷是否為自己的訊息
+            if (jsonData.UserID == "@player.ID") {
+                //如果是自己的訊息...
+            } else {
+                //如果是別人的訊息...
+            }
+            //填入發言人名稱
+            msgDisplay.append(`<p>${jsonData.UserName}</p>`);
+            //填入訊息
+            msgDisplay.append(`<p>${jsonData.Message}</p>`);
+            //填入發送時間
+            msgDisplay.append(`<p>${jsonData.Time}</p>`);
+            //填入發言人圖片
+            msgDisplay.append(`<img src="@Url.Action("GetPhotoBySourceID", "Photo")?sourceID=${jsonData.UserID}&index=0" class="img-fluid" />`);
+
+
+            //將訊息框拉至底部
             msgDisplay.scrollTop(msgDisplay.get(0).scrollHeight);
         }
 
