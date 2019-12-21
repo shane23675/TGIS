@@ -99,6 +99,7 @@
                     </td>
                 }
                 <td class="align-middle">
+                    @* 揪桌尚未截止時 *@
                     @if (!item.IsParticipateEnded)
                     {
                         if (usage == "Leader")
@@ -109,7 +110,6 @@
                                 <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                     <input type="hidden" name="teamID" value="@item.ID" />
                                     <input type="hidden" name="action" value="close" />
-                                    <input type="hidden" name="playerID" value="@playerID" />
                                     <input type="hidden" name="fromMyTeam" value="true" />
                                     <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')" />
                                 </form>
@@ -118,7 +118,6 @@
                             <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                 <input type="hidden" name="teamID" value="@item.ID" />
                                 <input type="hidden" name="action" value="cancel" />
-                                <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
                                 <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')" 　 />
 
@@ -130,11 +129,20 @@
                             <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                 <input type="hidden" name="teamID" value="@item.ID" />
                                 <input type="hidden" name="action" value="exit" />
-                                <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
                                 <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')" />
                             </form>
                         }
+                    }
+                    @*已經成團且尚未送出*@
+                    else if (usage == "Leader" && item.Status == "已成團")
+                    {
+                        <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                            <input type="hidden" name="teamID" value="@item.ID" />
+                            <input type="hidden" name="action" value="sendRequest" />
+                            <input type="hidden" name="fromMyTeam" value="true" />
+                            <input type="submit" class="btn btn-success mb-1" value="確認訂位" onclick="return confirm('確定要進行訂位嗎?')" />
+                        </form>
                     }
                     @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID }, new { @class = "btn btn-info" })
                 </td>

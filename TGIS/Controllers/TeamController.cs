@@ -14,32 +14,38 @@ namespace TGIS.Controllers
         //揪桌詳細內容(玩家用)
         public ActionResult TeamDetailForPlayer(string teamID)
         {
-            TempData["TeamID"] = teamID;
             return View(db.Teams.Find(teamID));
         }
         [HttpPost, CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult TeamDetailForPlayer(string teamID, string action, bool fromMyTeam=false)
         {
             //先找到對應的team、player
-            Player p = db.Players.Find(Session["PlayerID"].ToString());
-            Team t = db.Teams.Find(teamID);
+            Player player = db.Players.Find(Session["PlayerID"].ToString());
+            Team team = db.Teams.Find(teamID);
             //通過action判斷要參加、退出、取消出團或提前截止
             switch (action)
             {
+                //送出訂位請求(若無法在該玩家為隊長的團中找到指定ID的團則返回錯誤頁面
                 case "sendRequest":
-                    t.IsRequestSent = true;
+                    if (!player.TeamsForLeader.Any(t => t.ID == teamID))
+                        return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                    team.IsRequestSent = true;
                     break;
+                //退出
                 case "exit":
-                    t.OtherPlayers.Remove(p);
+                    team.OtherPlayers.Remove(player);
                     break;
+                //參加
                 case "join":
-                    t.OtherPlayers.Add(p);
+                    team.OtherPlayers.Add(player);
                     break;
+                //取消
                 case "cancel":
-                    t.IsCanceled = true;
+                    team.IsCanceled = true;
                     break;
+                //提前截止報名
                 case "close":
-                    t.IsClosed = true;
+                    team.IsClosed = true;
                     break;
             }
             db.SaveChanges();
@@ -47,7 +53,7 @@ namespace TGIS.Controllers
             //若此請求來自「我的揪桌」則導回
             if (fromMyTeam)
                 return RedirectToAction("MyTeam");
-            return View(t);
+            return View(team);
         }
 
         //新開一桌(玩家用)
