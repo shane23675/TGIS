@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: District
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult DistrictIndex(int CityID)
         {
             ViewBag.CityID = CityID;
@@ -18,6 +19,7 @@ namespace TGIS.Controllers
             return View(db.Districts.Where(m=>m.CityID==CityID).ToList());
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult DistrictCreate(string DistrictName,int CityID)
         {
             var d = new District();
@@ -28,6 +30,7 @@ namespace TGIS.Controllers
             return RedirectToAction("_DistrictList",new { CityID= CityID });
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult DistrictEdit(int CityID, string NewDistrictName,int DistrictID)
         {
             db.Districts.Find(DistrictID).DistrictName = NewDistrictName;
@@ -35,6 +38,7 @@ namespace TGIS.Controllers
             return RedirectToAction("_DistrictList", new { CityID = CityID });
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult DistrictDelete(int DistrictID,int CityID) {
             var d = db.Districts.Find(DistrictID);
             db.Districts.Remove(d);

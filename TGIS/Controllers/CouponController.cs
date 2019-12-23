@@ -11,12 +11,14 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //管理員查看優惠券列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CouponIndexForAdmin()
         {
             return View(db.Coupons.ToList());
         }
-        
+
         //管理員啟用優惠券
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CouponActivate(string couponID)
         {
             Coupon c = db.Coupons.Find(couponID);
@@ -111,6 +113,7 @@ namespace TGIS.Controllers
         }
 
         //玩家兌換優惠券
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult ExchangeCoupon(string couponID)
         {
             Coupon c = db.Coupons.Find(couponID);

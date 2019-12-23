@@ -11,11 +11,13 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: Tag
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TagIndex()
         {
             return View();
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TagCreate(string TagName,string TagID)
         {
             var tag = new Tag
@@ -37,6 +39,7 @@ namespace TGIS.Controllers
             return PartialView();
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TagDelete(string TagID)
         {
             var t = db.Tags.Find(TagID);
@@ -45,6 +48,7 @@ namespace TGIS.Controllers
             return RedirectToAction("_TagList");
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TagEdit(string TagID,string NewTagName)
         {
             var t = db.Tags.Find(TagID);

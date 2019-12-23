@@ -51,7 +51,7 @@
                 <span class="text-danger h3">*</span>
             </div>
             <div class="col-md-8">
-                @Html.TextAreaFor(model => model.OpeningHours, 5, 145, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.OpeningHours, 5, 145, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -79,8 +79,7 @@
                 <span class="text-danger h3">*</span>
             </div>
             <div class="col-md-2">
-                @Html.EditorFor(model => model.AreaScale, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AreaScale, "", new { @class = "text-danger" })
+                @Html.DropDownList("AreaScale", null, new { @class="form-control"})
             </div>
             @Html.LabelFor(model => model.IsMinConsumeRequired, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
@@ -100,7 +99,7 @@
         <div class="form-group row">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-9">
-                @Html.TextAreaFor(model => model.Description, 5, 145, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Description, 5, 145,  new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -166,7 +165,7 @@
         <div class="form-group row">
             @Html.LabelFor(model => model.AccumulatedHours, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.AccumulatedHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.AccumulatedHours, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.AccumulatedHours, "", new { @class = "text-danger" })
             </div>
 

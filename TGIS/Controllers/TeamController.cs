@@ -133,6 +133,7 @@ namespace TGIS.Controllers
         }
 
         //管理員的揪桌管理
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult GetTeamListForAdmin()
         {
             return View(db.Teams.ToList().OrderByDescending(t => t.ID));

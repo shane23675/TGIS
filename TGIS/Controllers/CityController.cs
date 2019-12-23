@@ -11,12 +11,14 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         // GET: City
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CityIndex()
         {
             return View(db.Cities.ToList());
         }
 
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CityCreate(string CityName)
         {
             var c = new City();
@@ -26,6 +28,7 @@ namespace TGIS.Controllers
             return RedirectToAction("_CityList");
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CityEdit(int CityID,string NewCityName)
         {
             db.Cities.Find(CityID).CityName= NewCityName;
@@ -33,6 +36,7 @@ namespace TGIS.Controllers
             return RedirectToAction("_CityList");
         }
 
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CityDelete(int CityID)
         {
             try

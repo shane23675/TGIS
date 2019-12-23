@@ -1,4 +1,6 @@
-﻿@model IEnumerable<TGIS.Models.TableGame>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<TGIS.Models.TableGame>
 
 @{
     ViewBag.Title = "桌遊管理";
@@ -14,16 +16,16 @@
         <table class="table text-center table-hover ml-3">
             <tr class="table-manager border-0">
                 <th width="10%">
-                    @Html.DisplayNameFor(model => model.ID)
+                    @Html.DisplayNameFor(model => model[0].ID)
                 </th>
                 <th width="25%">
-                    @Html.DisplayNameFor(model => model.ChineseName)
+                    @Html.DisplayNameFor(model => model[0].ChineseName)
                 </th>
                 <th width="45%">
-                    @Html.DisplayNameFor(model => model.EnglishName)
+                    @Html.DisplayNameFor(model => model[0].EnglishName)
                 </th>
                 <th width="10%">
-                    @Html.DisplayNameFor(model => model.IsShown)
+                    @Html.DisplayNameFor(model => model[0].IsShown)
                 </th>
                 <th width="10%"></th>
             </tr>
@@ -50,3 +52,5 @@
             }
         </table>
     </div>
+
+@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForAdmin", "TableGame", new { page}))

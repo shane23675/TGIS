@@ -130,6 +130,7 @@ namespace TGIS.Controllers
         }
 
         //管理員查看店家活動列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult OfferListForAdmin(string shopID)
         {
             var s = db.Shops.Find(shopID).NormalOffers;
@@ -137,7 +138,8 @@ namespace TGIS.Controllers
             return View(s.ToList());
         }
 
-        //變更活動狀態
+        //管理員變更活動狀態
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult OfferListStatusChange(string normalOfferID,string shopID)
         {
             db.NormalOffers.Find(normalOfferID).IsHidden = !(db.NormalOffers.Find(normalOfferID).IsHidden);

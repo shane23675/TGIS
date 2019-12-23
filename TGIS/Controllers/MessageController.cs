@@ -10,12 +10,13 @@ namespace TGIS.Controllers
     public class MessageController : Controller
     {
         TGISDBEntities db = new TGISDBEntities();
-        //管理員查看某揪桌訊息
-        public ActionResult MessageIndex(string teamID)
+        //管理員查看某揪桌訊息(需指定是否為私人訊息)
+        [CenterLogin(CenterLogin.UserType.Admin)]
+        public ActionResult MessageIndex(string teamID, bool isPrivate)
         {
             Team t = db.Teams.Find(teamID);
             ViewBag.TeamTitle = t.Title;
-            return View(t.Messages.ToList().OrderByDescending(m=>m.ID));
+            return View(t.Messages.Where(m => m.IsPrivate == isPrivate).ToList().OrderByDescending(m=>m.ID));
         }
     }
 }

@@ -15,19 +15,28 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //管理員查看店家列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ShopIndex()
         {
             return View(db.Shops.ToList());
         }
 
         //管理員創建店家會員
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopCreate()
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.AreaScale = new SelectList(new[]
+            {
+                new { Option = "大"},
+                new { Option = "中"},
+                new { Option = "小"}
+            }, "Option", "Option");
             return View();
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
             //檢查帳號是否重複
@@ -36,11 +45,13 @@ namespace TGIS.Controllers
             //驗證帳號密碼是否符合規則
             UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
-            //填入自動生成的ID
-            shop.ID = UsefulTools.GetNextID(db.Shops, 1);
+            
             if (ModelState.IsValid)
             {
+                //填入必要資料
+                shop.ID = UsefulTools.GetNextID(db.Shops, 1);
                 shop.Password = Hash.PwdHash(shop.Password);
+                shop.AccumulatedHours = 0;
                 db.Shops.Add(shop);
                 db.SaveChanges();
 
@@ -51,10 +62,17 @@ namespace TGIS.Controllers
             }
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", db.Districts.Find(shop.DistrictID).CityID);
+            ViewBag.AreaScale = new SelectList(new[]
+            {
+                new { Option = "大"},
+                new { Option = "中"},
+                new { Option = "小"}
+            }, "Option", "Option");
             return View(shop);
         }
 
-        //刪除店家資料
+        //管理員刪除店家資料
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ShopDelete(string id)
         {
             Shop s = db.Shops.Find(id);
@@ -82,6 +100,7 @@ namespace TGIS.Controllers
         }
 
         //管理員編輯店家
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopEdit(string id)
         {
             var shop = db.Shops.Find(id);
@@ -92,6 +111,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopEdit(Shop shop)
         {
             //移除不能修改部分的ModelState錯誤
@@ -206,6 +226,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         //店家編輯店家資料
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopEditForStore()
         {
             string shopID = Session["ShopID"].ToString();
@@ -224,6 +245,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(shopID));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             Shop s = db.Shops.Find((string)TempData["Shop_ID"]);

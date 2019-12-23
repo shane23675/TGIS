@@ -51,12 +51,14 @@ namespace TGIS.Controllers
         }
 
         //管理員查看評論列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TGCommentIndexForAdmin()
         {
             return View(db.TableGameComments.OrderByDescending(c => c.ID).ToList());
         }
 
         //管理員隱藏評論
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult HideTGComment(int commentID)
         {
             db.TableGameComments.Find(commentID).IsHidden = true;

@@ -116,7 +116,7 @@
     }
 </div>
 <div class="m-3">
-    @foreach (var comment in Model.TableGameComments)
+    @foreach (var comment in Model.TableGameComments.OrderByDescending(c => c.ID))
     {
         <div class="media mb-3">          
             <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=comment.PlayerID,index=0 })" class="align-self-start comm-img" alt="..." height="200" width="200">

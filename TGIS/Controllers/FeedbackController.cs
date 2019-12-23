@@ -88,12 +88,14 @@ namespace TGIS.Controllers
         }
 
         //管理員查看回報列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ReturnList()
         {
             return View(db.Feedbacks.ToList());
         }
-        
+
         //管理員刪除回報
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ReturnDel(int id)
         {
             var fd = db.Feedbacks.Find(id);
@@ -103,6 +105,7 @@ namespace TGIS.Controllers
         }
 
         //管理員查看回報詳細
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ReturnDetail(int id)
         {
             Feedback f = db.Feedbacks.Find(id);
