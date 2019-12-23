@@ -16,17 +16,6 @@
         .listbutton {
             font-size: 80px;
         }
-
-        .three-d {
-            padding: 10px;
-            box-shadow: inset #000000 3px 3px 15px 3px;
-            border-radius: 40%;
-        }
-
-        .abc {
-            box-shadow: #000000 3px 3px 5px 1px;
-            border-radius: 10%;
-        }
     </style>
 </head>
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
@@ -78,11 +67,14 @@
                     <i class="fas fa-dice-five"></i>
                 </div>
             </a>
-            <div class="row">
-                <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
-                <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control col-10" aria-label="search" />
-            </div>
-            <div id="TGResultList"></div>
+            
+                <div class="row">
+                    <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
+                    <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control col-10" aria-label="search" />
+                    <div id="TGResultList" class="col-12 ml-3 list-group"></div>
+                </div>
+                
+            
         </div>
 
         <div id="ShopSearchResult">
@@ -94,8 +86,9 @@
             <div class="row">
                 <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
                 <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control col-10" aria-label="search" />
+                <div id="ShopResultList"  class="col-12 ml-3 list-group"></div>
             </div>
-            <div id="ShopResultList"></div>
+           
         </div>
     </div>
     <div class="col-md-8 m-1">

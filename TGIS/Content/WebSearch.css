@@ -8,26 +8,27 @@
     width: 100%;
     overflow: auto;
     z-index : 10;
+    margin-top:38px;
     /*height: 20rem;*/
 }
 
     #TGResultList a, #ShopResultList a {
         display: block;
-        border: 1px solid #a5a5a5;
+        border: 1px solid #84A9C0;
         padding: 0.5rem;
-        background-color: #26179ed9;
-        color: #ffffff;
+        background-color: #BFD7EA;
+        color: #208AAE;
         width: 100%;
         cursor: pointer;
     }
 
         #TGResultList a:last-child, #ShopResultList a:last-child {
             display: block;
-            border: 1px solid #a5a5a5;
+            border: 1px solid #84A9C0;
             border-bottom-left-radius: 0.25rem;
             border-bottom-right-radius: 0.25rem;
             padding: 0.5rem;
-            background-color: #26179ed9;
-            color: #ffffff;
+            background-color: #BFD7EA;
+            color: #208AAE;
             width: 100%;
         }
