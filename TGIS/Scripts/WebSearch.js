@@ -28,7 +28,7 @@ function SearchTG(keyword) {
             return;
         } else if (data.length == 0) {
             $('#TGResultList').css('z-index', '10');
-            $('#TGResultList').append('<a>查無此桌遊</a>');
+            $('#TGResultList').append('<a class="text-secondary">查無此桌遊</a>');
             return;
         }
 
@@ -37,13 +37,13 @@ function SearchTG(keyword) {
 
         if (location.pathname == "/Shop/ShopIndexForPlayer" || location.pathname == "/Analysis/TableGameTrend") {
             for (i = 0; i < data.length; i++) {
-                let result = '<a javascipt:;  id="' + data[i].ID + '">' + data[i].ChineseName + '</a>';
+                let result = '<a javascipt:;  id="' + data[i].ID + '" class="list-group-item">' + data[i].ChineseName + '</a>';
                 $('#TGResultList').append(result);
             }
         }
         else {
             for (i = 0; i < data.length; i++) {
-                let result = '<a href="' + data[i].Link + '">' + data[i].ChineseName + '</a>';
+                let result = '<a class="list-group-item" href="' + data[i].Link + '">' + data[i].ChineseName + '</a>';
                 $('#TGResultList').append(result);
             }
         }
@@ -68,7 +68,7 @@ $('#TGResultList').click(function (evt) {
         let addCheck = TGSelect(searchTG.id);
         if (addCheck == 'ok') {
             $('#TGSearchForShop').append("<input name='tableGameIDs' id=" + searchTG.id + " type='hidden' value=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' />");
-            $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "</span>");
+            $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "&nbsp;<i class='fas fa-times'></i></span>");
             $('#TGResultList').empty();
             $('#GameSearch').val("");
         } else {
@@ -97,12 +97,12 @@ function SearchShop(keyword) {
         if (keyword == "") {
             return;
         } else if (data.length == 0) {
-            $('#ShopResultList').append('<a>查無此店家</a>');
+            $('#ShopResultList').append('<a class="text-secondary">查無此店家</a>');
             return;
         }
         //顯示搜尋結果
         for (i = 0; i < data.length; i++) {
-            let result = '<a href="' + data[i].Link + '">' + data[i].ShopName + '</a>';
+            let result = '<a class="list-group-item" href="' + data[i].Link + '">' + data[i].ShopName + '</a>';
             $('#ShopResultList').append(result);
         }
     })
