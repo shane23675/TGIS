@@ -1,0 +1,139 @@
+@model IEnumerable<TGIS.Models.Tag>
+
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade" id="nav-brand" role="tabpanel" aria-labelledby="nav-brand-tab">
+        <table class="table" id="B">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TagName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.brand)
+                {
+                    <tr>
+                        <td class="tagId">
+                            @item.ID
+                        </td>
+                        <td class="oldTagName">
+                            @item.TagName
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-outline-info editBtn" value="編輯" />
+                            <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none" />
+                            <input type="button" class="btn btn-outline-danger deleteBtn" value="刪除" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
+        <table class="table" id="C">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TagName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.category)
+                {
+                    <tr>
+                        <td class="tagId">
+                            @item.ID
+                        </td>
+                        <td class="oldTagName">
+                            @item.TagName
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-outline-info editBtn" value="編輯" />
+                            <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none" />
+                            <input type="button" class="btn btn-outline-danger deleteBtn" value="刪除" />
+                            @*@Html.ActionLink("刪除", "TagDelete", new { TagID = item.ID }, new { @class = "btn btn-outline-danger", onclick = "return confirm('確定要刪除嗎？')" })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="nav-difficulty" role="tabpanel" aria-labelledby="nav-difficulty-tab">
+        <table class="table" id="D">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TagName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.difficulty)
+                {
+                    <tr>
+                        <td class="tagId">
+                            @item.ID
+                        </td>
+                        <td class="oldTagName">
+                            @item.TagName
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-outline-info editBtn" value="編輯" />
+                            <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none" />
+                            <input type="button" class="btn btn-outline-danger deleteBtn" value="刪除" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
+        <table class="table" id="R">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TagName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.report)
+                {
+                    <tr>
+                        <td class="tagId">
+                            @item.ID
+                        </td>
+                        <td class="oldTagName">
+                            @item.TagName
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-outline-info editBtn" value="編輯" />
+                            <input type="button" class="btn btn-outline-primary  confirmBtn" value="確認" id="@item.ID" style="display:none" />
+                            <input type="button" class="btn btn-outline-danger deleteBtn" value="刪除" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

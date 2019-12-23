@@ -1,16 +1,25 @@
 ﻿@using TGIS.Models;
 @{
     ViewBag.Title = "Test";
-    Player player = (Player)ViewBag.Player;
+    string userID = ViewBag.UserID.ToString();
     List<string> teamIDs = (List<string>)ViewBag.TeamIDs;
+    List<bool> isTeamPrivateFlags = (List<bool>)ViewBag.IsTeamPrivateFlags;
     TGISDBEntities db = new TGISDBEntities();
     var teams = db.Teams;
+    string shopMark = "";
+    int count = 0;
 }
 @*
     包含所有聊天室的容器是class = "chatArea"
         單個聊天室外殼需有class="chatBox"，以下兩區塊被包含在其中
             訊息顯示區需有class="msgDisplay"
             訊息輸入區需有class="msgInput"
+
+    區分玩家訊息和店家訊息的邏輯：
+    由於同一個團是用IsPrivate這個屬性來判斷是否為跟店家連絡的訊息
+    所以除了傳入teamIDs這個陣列外
+    還要傳入isTeamPrivateFlags這個陣列來得到對應的IsPrivate狀態
+    在後端也會依據IsPrivate來創立獨立的房間
 *@
 <style>
     .chatArea {
@@ -74,32 +83,44 @@
             </div>
             <div class="col-4 p-0 bg-gray">
                 <div class="list-group" id="list-tab" role="tablist">
-                    @{ string active = "active";}
+                    @{ 
+                        string active = "active";
+                    }
                     @foreach (string id in teamIDs)
                     {
                         team = teams.Find(id);
-                        <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                        if (isTeamPrivateFlags[count])
+                        {
+                            string displayTitle = Session["PlayerID"] == null ? team.LeaderPlayer.NickName : team.Shop.ShopName;
+                            <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_shop_@team.ID-list" data-toggle="list" href="#msg_shop_@team.ID" role="tab" aria-controls="msg_shop_@team.ID">@displayTitle</a>
+                        }
+                        else 
+                        {
+                            <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                        }
                         active = "";
+                        count++;
                     }
                 </div>
             </div>
             <div class="col-8 p-0">
                 <div class="tab-content card" id="nav-tabContent">
-                    @{ active = "show active";}
+                    @{ active = "show active"; count = 0;}
                     @foreach (string id in teamIDs)
                     {
                         team = teams.Find(id);
-                        <div class="chatBox tab-pane fade @active" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">
+                        shopMark = isTeamPrivateFlags[count] ? "shop_" : "";
+                        <div class="chatBox tab-pane fade @active" id="msg_@shopMark@team.ID" role="tabpanel" aria-labelledby="msg_@shopMark@team.ID-list">
                             <div class="card-header bg-msg">
                                 <div class="">@team.Title</div>
                             </div>
                             <div class="card-body msgDisplay">
                                 @* 顯示歷史訊息 *@
-                                @foreach (Message m in team.Messages)
+                                @{ var message = isTeamPrivateFlags[count] ? team.Messages.Where(m => m.IsPrivate) : team.Messages.Where(m => !m.IsPrivate);}
+                                @foreach (Message m in message)
                                 {
-                                    Player p = db.Players.Find(m.Speaker);
                                     //如果是自己的訊息
-                                    if (p.ID == player.ID)
+                                    if (m.Speaker == userID)
                                     {
                                         <p class="mt-0">@m.Content</p> //發言內容
                                         <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
@@ -107,8 +128,8 @@
                                     //別人的訊息
                                     else
                                     {
-                                        <p class="small mb-0">@p.NickName：</p> //發言人暱稱
-                                        @*<img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID, index=0})" />*@ //圖片反註釋後調整一下就能用
+                                        <p class="mb-0">@UsefulTools.GetUserNameByID(userID)：</p> //發言人暱稱
+                                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=userID, index=0})" /> //發言人圖片
                                         <p class="mt-0">@m.Content</p>  //發言內容
                                         <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
                                     }
@@ -124,6 +145,7 @@
                             </div>
                         </div>
                         active = "";
+                        count++;
                     }
                 </div>
             </div>
@@ -146,12 +168,17 @@
     {
         @: teamIDs.push("@id");
     }
+    var isTeamPrivateFlags = [];
+    @foreach(bool f in isTeamPrivateFlags)
+    {
+        @: isTeamPrivateFlags.push(@f.ToString().ToLower());
+    }
     //取得所有.chatBox
     var boxes = $(".chatBox");
     for (var i = 0; i < teamIDs.length; i++) {
         //要使用let建立局部變量才不會相互衝突
         let chatBox = boxes.eq(i);
-        let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
+        let url = `ws://localhost:55525/api/TeamChat?userName=@UsefulTools.GetUserNameByID(userID)&teamID=${teamIDs[i]}&userID=@userID&isPrivate=${isTeamPrivateFlags[i]}`;
         let ws = new WebSocket(url);
 
         ws.onmessage = function (e) {
@@ -159,7 +186,7 @@
             //取得Json資料     
             var jsonData = JSON.parse(e.data);
             //判斷是否為自己的訊息
-            if (jsonData.UserID == "@player.ID") {
+            if (jsonData.UserID == "@userID") {
                 //如果是自己的訊息...
             } else {
                 //如果是別人的訊息...
