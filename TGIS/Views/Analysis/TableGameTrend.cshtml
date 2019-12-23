@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "統計資料查看";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
@@ -43,11 +43,9 @@
             <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
             <div id="TGResultList"></div>
         </div>
-        <input type="submit" value="觀察趨勢" class="btn btn-outline-info" />
+        <input type="submit" value="觀察趨勢" class="btn btn-outline-info" id="con"/>
     </div>
         <div id="TGSearchForShop" class="mt-2 ml-3"></div>
-
-        @*<input name="tableGameIDs" type="text" value="T00005" />*@
 
         }
         @*
@@ -65,10 +63,19 @@
         </div>
 
 
-        @section scripts{
-            <script src="~/Scripts/WebSearch.js"></script>
-            <script src="~/Scripts/Chart.min.js"></script>
-            <script>
+@section scripts{
+    <script src="~/Scripts/WebSearch.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+        //無輸入桌遊下不可送出
+        $('#con').click(function () {
+            if ($('#TGSearchForShop').children('span').length == 0) {
+                alert('請選擇至少一個桌遊');
+                return false;
+            }
+        })
+
+        //繪製趨勢圖
         var data = @Html.Raw(ViewBag.Data);
         var color = ['#c9d3a8', '#e67399', '#f2a640', '#e0c240', '#59bfb3'];
 
@@ -89,55 +96,52 @@
                 })
             }
 
-            console.log(dataInfo.toString());
-
-        var ctx = document.getElementById('myChart');
-        var myChart2 = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels:@Html.Raw(ViewBag.Months),
-                datasets: dataInfo
-            },
-            options: {
-                responsive: true,
-                tooltips: {
-                    mode: 'point',
-                    intersect: true
+            var ctx = document.getElementById('myChart');
+            var myChart2 = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels:@Html.Raw(ViewBag.Months),
+                    datasets: dataInfo
                 },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'point',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
                             display: true,
-                            labelString: '月份',
-                            fontsize: 20,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '月份',
+                                fontsize: 20,
 
-                        },
-                        ticks: {
-                            fontsize: 15
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
+                            },
+                            ticks: {
+                                fontsize: 15
+                            }
+                        }],
+                        yAxes: [{
                             display: true,
-                            labelString: '點擊量',
-                            fontsize: 20,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '點擊量',
+                                fontsize: 20,
 
-                        },
-                        ticks: {
-                            fontsize: 15,
-                            beginAtZero: true,
-                            precision: 0
-                        }
-                    }]
-                },
-                animation: {
-                    duration: 3000
+                            },
+                            ticks: {
+                                fontsize: 15,
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 3000
+                    }
                 }
-            }
-        });
-
-            }
-            </script>
+            });
         }
+    </script>
+}

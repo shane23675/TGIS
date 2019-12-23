@@ -57,9 +57,9 @@ function SearchTG(keyword) {
 var TGIdList = [];
 $('#TGResultList').click(function (evt) {
     let searchTG = evt.target;
-    if (location.pathname == "/Shop/ShopIndexForPlayer") {
-        if (searchTG.id == "")
-            return;
+    if (searchTG.id == "")
+        return;
+    if (location.pathname == "/Shop/ShopIndexForPlayer") {     
         $('#searchedTableGameID').attr('name', 'searchedTableGameID');
         $('#searchedTableGameID').val(searchTG.id);
         $('#GameSearch').val(searchTG.text);
@@ -100,7 +100,6 @@ function SearchShop(keyword) {
             $('#ShopResultList').append('<a>查無此店家</a>');
             return;
         }
-
         //顯示搜尋結果
         for (i = 0; i < data.length; i++) {
             let result = '<a href="' + data[i].Link + '">' + data[i].ShopName + '</a>';
@@ -113,6 +112,9 @@ function SearchShop(keyword) {
 //店家查看桌遊點擊，取消已選取桌遊
 $('#TGSearchForShop').click(function (evt) {
     let searchTG = evt.target.id;
+    let tgRepeat = TGIdList.indexOf(searchTG);
+    if (tgRepeat != -1) 
+        TGIdList.splice(tgRepeat,1);
     $('#TGSearchForShop>input[value="' + searchTG + '"]').remove();
     $('#TGSearchForShop>span[id="' + searchTG + '"]').remove();
 })
