@@ -1,4 +1,4 @@
-
+﻿
 @{
     ViewBag.Title = "統計資料查看";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
@@ -39,11 +39,11 @@
     </div>
     <hr />
     <div class="row mx-0">
-        <div class="col-8">
+        <div class="col-8 row">
             <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
-            <div id="TGResultList"></div>
+            <div id="TGResultList" class="col-6"></div>
         </div>
-        <input type="submit" value="觀察趨勢" class="btn btn-outline-info" id="con"/>
+        <input type="submit" value="觀察趨勢" class="btn btn-outline-info ml-2" id="con"/>
     </div>
         <div id="TGSearchForShop" class="mt-2 ml-3"></div>
 

@@ -68,7 +68,7 @@ $('#TGResultList').click(function (evt) {
         let addCheck = TGSelect(searchTG.id);
         if (addCheck == 'ok') {
             $('#TGSearchForShop').append("<input name='tableGameIDs' id=" + searchTG.id + " type='hidden' value=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' />");
-            $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "<i class='fas fa - times'></i></span>");
+            $('#TGSearchForShop').append(" <span id=" + searchTG.id + " class='btn btn-success p-1 mr-1 mb-1' style='cursor:pointer'>" + searchTG.text + "&nbsp;<i class='fas fa-times'></i></span>");
             $('#TGResultList').empty();
             $('#GameSearch').val("");
         } else {
