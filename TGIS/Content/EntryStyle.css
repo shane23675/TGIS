@@ -3,10 +3,11 @@
     background-size: cover;
 }
 .dec {
-    width:1600px;
-    height:800px;
+    height: 800px;
     background-image: url('../images/dec.png');
     background-size: contain;
-    background-repeat:no-repeat;
-    /*padding: 40px 390px 300px 90px;*/
+    background-repeat: no-repeat;
+    margin: 40px 160px;
+    padding: 140px 600px 480px 190px;
+    color: #208AAE;
 }

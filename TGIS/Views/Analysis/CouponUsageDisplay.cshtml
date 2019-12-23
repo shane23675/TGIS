@@ -1,17 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "CouponUsageDisplay";
+    ViewBag.Title = "統計資料查看";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
 <link href="~/Content/Chart.min.css" rel="stylesheet" />
 <h2> 優惠券行銷分析 </h2>
-
-
-<div class="col-md-8 col-md-offset-2">
+<br />
+<div>
+    此頁提供所有您建立的優惠券，發出與被使用比率的長條圖。<br />
+</div>
+<div class="col-11">
     <canvas id="myChart"></canvas>
 </div>
-<canvas id="myChart"></canvas>
 
 @section scripts{
 
@@ -25,9 +26,9 @@
                     limit[i] = data[i].LimitedAmount;
                     change[i] = data[i].ExchangedAmount;
                     amount[i] = data[i].UsedAmount;
-                    limitColor.push('#acba9d');
-                    changeColor.push('#eed19c');
-                    amountColor.push('#e8837e');
+                    limitColor.push('#005E28');
+                    changeColor.push('#7FC6A4');
+                    amountColor.push('#D6F8D6');
                 }
                 console.log(data);
 
@@ -75,11 +76,6 @@
                     }
                 })
             })
-
-
-
-
-
     </script>
 
 }

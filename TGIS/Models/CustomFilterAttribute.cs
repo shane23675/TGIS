@@ -47,4 +47,22 @@ namespace TGIS.Models
             Shop, Player
         }
     }
+
+    //VIP權限檢查
+    public class VIPOnly : ActionFilterAttribute
+    {
+        TGISDBEntities db = new TGISDBEntities();
+        //主檢查程序
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var context = HttpContext.Current;
+            Shop shop = db.Shops.Find((string)context.Session["ShopID"]);
+            //尚未登入則跳過
+            if (shop == null)
+                return;
+
+            if (!shop.IsVIP)
+                context.Response.Redirect("/Shop/NoVIPHint");
+        }
+    }
 }

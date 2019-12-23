@@ -15,47 +15,106 @@
 <style>
     .chatArea {
         position: fixed;
-        top: 70px;
-        right: 30px;
+        bottom: 0px;
+        right: 50px;
         z-index: 999;
+        box-shadow:1px 1px 3px #005E28;
     }
-     .msgDisplay {
+
+    .msgDisplay {
         overflow-y: auto;
-        height: 100px;
+        height: 300px;
         background-color: white;
     }
-</style>
 
-<div class="row bg-white chatArea">
+    .bg-msg {
+        background-color: #C9EAC9;
+    }
+
+    .bg-tab {
+        background-color: #D6F8D6;
+    }
+
+    .bg-gray {
+        background-color: #E1EAE3;
+    }
+
+    .list-group-item-action:focus, .list-group-item-action:hover {
+        background-color: #E8F7E8;
+    }
+
+    .list-group-item.active {
+        background-color: #7FC6A4;
+        border-color: #7FC6A4;
+    }
+
+    .title-msg {
+        color: #7FC6A4;     
+    }
+
+        .title-msg:hover {
+            text-decoration: none;
+            color: #005E28;
+        }
+</style>
+<div class="bg-tab chatArea pl-3 pr-3">
+    <div id="title-clo" class="mt-2 mb-2">
+        <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg">
+            <i class="far fa-comment-alt"></i><sapn class="ml-1">揪桌訊息</sapn>
+        </a>
+    </div>
     @{
         Team team;
-        foreach (string id in teamIDs)
-        {
-            team = teams.Find(id);
-            <div class="col-4 p-0">
+        <div class="row collapse" id="msg">
+            <div class="col-12 d-flex justify-content-between mt-2 mb-2">
+                    <sapn>揪桌訊息</sapn>
+                <a data-toggle="collapse" href="#msg" aria-controls="msg" role="button" aria-expanded="false" class="title-msg" id="title-opn">
+                    <i class="fas fa-minus"></i>
+                </a>
+            </div>
+            <div class="col-4 p-0 bg-gray">
                 <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action chatbtn" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                    @{ string active = "active";}
+                    @foreach (string id in teamIDs)
+                    {
+                        team = teams.Find(id);
+                        <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                        active = "";
+                    }
                 </div>
             </div>
             <div class="col-8 p-0">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="card ">
-                        <div class="chatBox">
-                            <div class="card-header">
-                                <div class="tab-pane fade" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">@team.Title</div>
+                <div class="tab-content card" id="nav-tabContent">
+                    @{ active = "show active";}
+                    @foreach (string id in teamIDs)
+                    {
+                        team = teams.Find(id);
+                        <div class="chatBox tab-pane fade @active" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">
+                            <div class="card-header bg-msg">
+                                <div class="">@team.Title</div>
                             </div>
-                            <div class="card-body">
-                                <div class="tab-pane fade msgDisplay" id="msg_@team.ID" role="tabpanel" aria-labelledby="msg_@team.ID-list">
-                                    @* 顯示歷史訊息 *@
-                                    @foreach (Message m in team.Messages)
+                            <div class="card-body msgDisplay">
+                                @* 顯示歷史訊息 *@
+                                @foreach (Message m in team.Messages)
+                                {
+                                    Player p = db.Players.Find(m.Speaker);
+                                    //如果是自己的訊息
+                                    if (p.ID == player.ID)
                                     {
-                                        <p class="small mb-0">@db.Players.Find(m.Speaker).NickName：</p>
-                                        <p class="mt-0">@m.Content</p>
+                                        <p class="mt-0">@m.Content</p> //發言內容
+                                        <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
                                     }
-                                </div>
-
+                                    //別人的訊息
+                                    else
+                                    {
+                                        <p class="small mb-0">@p.NickName：</p> //發言人暱稱
+                                        @*<img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=p.ID, index=0})" />*@ //圖片反註釋後調整一下就能用
+                                        <p class="mt-0">@m.Content</p>  //發言內容
+                                        <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
+                                    }
+                                }
                             </div>
-                            <div class="card-footer input-group">
+                            <div class="card-footer input-group bg-msg">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text" id="btnGroupAddon">
                                         <i class="far fa-comment-dots"></i>
@@ -64,10 +123,12 @@
                                 <input type="text" class="form-control msgInput" aria-describedby="btnGroupAddon">
                             </div>
                         </div>
-                    </div>
+                        active = "";
+                    }
                 </div>
             </div>
-        }
+        </div>
+
     }
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -93,11 +154,27 @@
         let url = `ws://localhost:55525/api/TeamChat?userName=@player.NickName&teamID=${teamIDs[i]}&userID=@player.ID`;
         let ws = new WebSocket(url);
 
-        ws.onopen = function (e) {
-        }
         ws.onmessage = function (e) {
             var msgDisplay = chatBox.find(".msgDisplay");
-            msgDisplay.append(`<p>${e.data}</p>`);
+            //取得Json資料     
+            var jsonData = JSON.parse(e.data);
+            //判斷是否為自己的訊息
+            if (jsonData.UserID == "@player.ID") {
+                //如果是自己的訊息...
+            } else {
+                //如果是別人的訊息...
+            }
+            //填入發言人名稱
+            msgDisplay.append(`<p>${jsonData.UserName}</p>`);
+            //填入訊息
+            msgDisplay.append(`<p>${jsonData.Message}</p>`);
+            //填入發送時間
+            msgDisplay.append(`<p>${jsonData.Time}</p>`);
+            //填入發言人圖片
+            msgDisplay.append(`<img src="@Url.Action("GetPhotoBySourceID", "Photo")?sourceID=${jsonData.UserID}&index=0" class="img-fluid" />`);
+
+
+            //將訊息框拉至底部
             msgDisplay.scrollTop(msgDisplay.get(0).scrollHeight);
         }
 
@@ -111,10 +188,13 @@
                 $(this).val("");
             }
         });
-    }  
-    //按完標題切換聊天內容
-    $('.chatbtn').click(function () {
-        $('.chatbtn').toggleClass("active");
-         $('.msgDisplay').toggleClass("show active");
-    });  
+    }
+        //摺疊鈕變化
+    $('#title-clo').click(function () {
+        $(this).css("display", "none");
+    });
+    $('#title-opn').click(function () {
+        $('#title-clo').css("display", "block");
+    });
+
 </script>

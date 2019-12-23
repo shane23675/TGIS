@@ -1,34 +1,34 @@
 ﻿@model IEnumerable<TGIS.Models.City>
 
 @{
-    ViewBag.Title = "城市";
+    ViewBag.Title = "行政區資料";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var c = new TGIS.Models.City();
 }
+<div class="row d-flex justify-content-between ml-3 mr-3">
+    <h2 >行政區資料</h2>
+    <div class="form-group row">
+        <input type="text" id="CreateCity" name="CreateCity" placeholder="請輸入想新增的城市" class="form-control d-inline col-8" />
+        <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1 col-3">新增</button>
+    </div>
+</div>
 
-<h2>城市</h2>
-
-
-
-
-<table class="table">
+<br />
+<table class="table text-center table-hover mr-3 ml-3">
     <thead>
-        <tr>
-            <th>
+        <tr class="table-manager border-0">
+            <th width="30%">
                 @Html.DisplayNameFor(model => model.ID)
             </th>
-            <th>
+            <th width="30%">
                 @Html.DisplayNameFor(model => model.CityName)
             </th>
-            <th></th>
+            <th width="40%"></th>
         </tr>
     </thead>
     <tbody></tbody>
 </table>
-<div class="form-group">
-    <input type="text" id="CreateCity" name="CreateCity" placeholder="請輸入想新增的城市" class="form-control d-inline w-25" />
-    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
-</div>
+
 
 
 @section scripts{

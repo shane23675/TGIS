@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -474,7 +474,6 @@
     <Content Include="Views\Photo\CreateDefaultPhoto.cshtml" />
     <Content Include="Views\Announcement\_AnnouncementPartail.cshtml" />
     <Content Include="Views\Shared\_LayoutPlayer.cshtml" />
-    <Content Include="Views\Shop\ShopEditForStore%28old%29.cshtml" />
     <Content Include="Views\Team\MyTeam.cshtml" />
     <Content Include="Views\Coupon\CouponIndexForAdmin.cshtml" />
     <Content Include="Views\Team\GetTeamList.cshtml" />
@@ -497,7 +496,6 @@
     <Content Include="Views\Tool\Test.cshtml" />
     <Content Include="Views\Announcement\AnnouncementIndexForPlayer.cshtml" />
     <Content Include="Views\Announcement\AnnouncementDetailForPlayer.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameListForPlayer%28old%29.cshtml" />
     <Content Include="Views\TGComment\TGCommentIndexForAdmin.cshtml" />
     <Content Include="Views\Home\TeamChatBox.cshtml" />
     <Content Include="Views\Team\GetTeamListForAdmin.cshtml" />
@@ -509,13 +507,13 @@
     <Content Include="Views\District\_DistrictList.cshtml" />
     <Content Include="Views\Team\TeamReservationIndex.cshtml" />
     <Content Include="Views\Login\ForgetPwdsend.cshtml" />
-    <Content Include="Views\TableGame\ShowTableGameDetail %28old%29.cshtml" />
     <Content Include="Views\Shop\EnhancedService.cshtml" />
     <Content Include="Views\Feedback\AboutUs.cshtml" />
     <Content Include="Views\Analysis\CouponUsageDisplay.cshtml" />
     <Content Include="Views\Analysis\TeamStatistic.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Admin\AdminChangePassword.cshtml" />
+    <Content Include="Views\Shop\NoVIPHint.cshtml" />
     <Content Include="Views\Tag\TagIndex.cshtml" />
     <Content Include="Views\Tag\_TagList.cshtml" />
     <None Include="Web.Debug.config">
