@@ -1,182 +1,130 @@
 ﻿@model TGIS.Models.Shop
 
-<h2>修改店家資料</h2>
+@{
+    ViewBag.Title = "帳密管理";
+}
+<h2>店家資料編輯</h2>
 @using (Html.BeginForm("MgShopEdit", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.ID)
-            </div>
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.ID)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Account)
-            </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.Account)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.ShopName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OpeningHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.OpeningHours)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.District.City.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.District.City.CityName)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.District.DistrictName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.District.DistrictName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Address)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsMinConsumeRequired, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.DisplayFor(model => model.IsMinConsumeRequired)
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsFoodAcceptable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.DisplayFor(model => model.IsFoodAcceptable)
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AreaScale, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.AreaScale)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Tel)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Email)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Line, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Line)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Website)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsVIP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsVIP)
-                    @Html.ValidationMessageFor(model => model.IsVIP, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccumulatedHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AccumulatedHours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AccumulatedHours, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsAccountEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAccountEnabled)
-                    @Html.ValidationMessageFor(model => model.IsAccountEnabled, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.Description)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">圖片資料</label>
-            <div class="col-md-10 row">
-                @if (ViewBag.photoIDList.Count == 0)
-                {
-                    <p class="text-info">目前尚無任何圖片</p>
-                }
-                else
-                {
-                    foreach (int id in ViewBag.photoIDList)
-                    {
-                        <div class="col-md-4">
-                            <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="儲存" class="btn btn-primary" />
-                @Html.ActionLink("返回", "ShopIndex", null, new { @class = "btn btn-light ml-4" })
-            </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.ShopName)
         </div>
     </div>
+
+    <div class="form-group control-label">
+        @Html.LabelFor(model => model.OpeningHours, htmlAttributes: new { @class = "control-label" })：
+        @Html.DisplayFor(model => model.OpeningHours)
+    </div>
+    <div class="form-group control-label">
+        @Html.LabelFor(model => model.Address)：
+        @Html.DisplayFor(model => model.District.City.CityName)
+        @Html.DisplayFor(model => model.District.DistrictName)
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.IsMinConsumeRequired, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.IsMinConsumeRequired, new { @class = "checkbox" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.IsFoodAcceptable, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.IsFoodAcceptable, new { @class = "checkbox" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.AreaScale, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.AreaScale)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })：
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-1">圖片資料：</label>
+        <div class="col-md-9 row">
+            @if (ViewBag.photoIDList.Count == 0)
+            {
+                <p class="text-info">目前尚無任何圖片</p>
+            }
+            else
+            {
+                foreach (int id in ViewBag.photoIDList)
+                {
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <h3>聯絡資訊</h3>
+    <br />
+    <div class="form-group row">
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.Tel)
+        </div>
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.Email)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.Line, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.Line)
+        </div>
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label" })：
+            @Html.DisplayFor(model => model.Website)
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.IsAccountEnabled, htmlAttributes: new { @class = "control-label" })：
+            @Html.EditorFor(model => model.IsAccountEnabled, new { @class = "checkbox" })
+            @Html.ValidationMessageFor(model => model.IsAccountEnabled, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-5">
+            @Html.LabelFor(model => model.IsVIP, htmlAttributes: new { @class = "control-label" })：
+            @Html.EditorFor(model => model.IsVIP, new { @class = "checkbox mt-1" })
+            @Html.ValidationMessageFor(model => model.IsVIP, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.ExpireDate, htmlAttributes: new { @class = "control-label col-md-1" })：
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ExpireDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ExpireDate, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.AccumulatedHours, htmlAttributes: new { @class = "control-label col-md-2" })：
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.AccumulatedHours, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AccumulatedHours, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">      
+            <input type="submit" value="儲存" class="btn btn-primary" />
+            @Html.ActionLink("返回", "ShopIndex", null, new { @class = "btn btn-secondary ml-4" })  
+    </div>
+</div>
 }
 
 @section scripts{

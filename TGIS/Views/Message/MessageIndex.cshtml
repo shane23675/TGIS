@@ -1,24 +1,25 @@
 ﻿@model IEnumerable<TGIS.Models.Message>
 
 @{
-    ViewBag.Title = "MessageIndex";
+    ViewBag.Title = "揪桌訊息";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
 <h2>@ViewBag.TeamTitle</h2>
-<h3>訊息總覽</h3>
-<table class="table">
-    <tr>
-        <th>
+<h3>對話訊息紀錄</h3>
+<br />
+<table class="table text-center table-hover mr-3">
+    <tr class="table-manager border-0">
+        <th width="10%">
             @Html.DisplayNameFor(model => model.MessageDate)
         </th>
-        <th>
+        <th width="5%">
             @Html.DisplayNameFor(model => model.Speaker)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
-        <th>
+        <th width="10%">
             @Html.DisplayNameFor(model => model.IsPrivate)
         </th>
     </tr>
