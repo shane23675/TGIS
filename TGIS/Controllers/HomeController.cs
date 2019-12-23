@@ -29,7 +29,7 @@ namespace TGIS.Controllers
             return View();
         }
 
-        //取得訊息框(PartialView)
+        //玩家取得訊息框(PartialView)
         public ActionResult TeamChatBox()
         {
             string playerID = (string)Session["PlayerID"];
@@ -39,15 +39,51 @@ namespace TGIS.Controllers
 
             //取得此登入玩家的資訊
             Player player = db.Players.Find(playerID);
-            ViewBag.Player = player;
+            ViewBag.UserID = player.ID;
 
             //取得此登入玩家所有尚未到達遊玩時間的揪桌的編號
             List<string> teamIDs = new List<string>();
-            player.TeamsForLeader.Where(t => t.PlayDate >= DateTime.Today).ToList().ForEach(t => teamIDs.Add(t.ID));
-            player.TeamsForOtherPlayer.Where(t => t.PlayDate >= DateTime.Today).ToList().ForEach(t => teamIDs.Add(t.ID));
+            List<bool> isTeamPrivateFlags = new List<bool>();
+            foreach(Team t in player.TeamsForLeader.Where(t => t.PlayDate >= DateTime.Today).ToList())
+            {
+                teamIDs.Add(t.ID);
+                teamIDs.Add(t.ID);
+                isTeamPrivateFlags.Add(false);
+                isTeamPrivateFlags.Add(true);
+            }
+            foreach(Team t in player.TeamsForOtherPlayer.Where(t => t.PlayDate >= DateTime.Today).ToList())
+            {
+                teamIDs.Add(t.ID);
+                isTeamPrivateFlags.Add(false);
+            }
+
             ViewBag.TeamIDs = teamIDs;
+            ViewBag.IsTeamPrivateFlags = isTeamPrivateFlags;
             return PartialView();
         }
-        
+
+        //店家取得訊息框(PartialView，和玩家訊息框的邏輯相同)
+        public ActionResult TeamChatBoxForShop()
+        {
+            string shopID = (string)Session["ShopID"];
+            if (shopID == null)
+                return new EmptyResult();
+
+            ViewBag.UserID = shopID;
+
+            Shop shop = db.Shops.Find(shopID);
+            List<string> teamIDs = new List<string>();
+            List<bool> isTeamPrivateFlags = new List<bool>();
+            foreach(Team t in shop.Teams.Where(t => t.PlayDate > DateTime.Today))
+            {
+                teamIDs.Add(t.ID);
+                isTeamPrivateFlags.Add(true);
+            }
+            ViewBag.TeamIDs = teamIDs;
+            ViewBag.IsTeamPrivateFlags = isTeamPrivateFlags;
+            //跟玩家使用同一個PartialView
+            return PartialView("TeamChatBox");
+        }
+
     }
 }
