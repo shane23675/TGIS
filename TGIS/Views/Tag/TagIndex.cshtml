@@ -1,0 +1,91 @@
+@model IEnumerable<TGIS.Models.Tag>
+
+@{
+    ViewBag.Title = "TagIndex";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>標籤列表</h2>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-brand-tab" data-toggle="tab" href="#nav-brand" role="tab" aria-controls="nav-brand" aria-selected="true">桌遊品牌</a>
+        <a class="nav-item nav-link" id="nav-category-tab" data-toggle="tab" href="#nav-category" role="tab" aria-controls="nav-category" aria-selected="false">桌遊種類</a>
+        <a class="nav-item nav-link" id="nav-difficulty-tab" data-toggle="tab" href="#nav-difficulty" role="tab" aria-controls="nav-difficulty" aria-selected="false">桌遊難度</a>
+        <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false">問題回報</a>
+    </div>
+</nav>
+<div id="tagList"></div>
+
+
+<div class="form-group mt-2">
+    <input type="text" id="CreateTag" name="CreateTag" placeholder="請輸入想新增的標籤" class="form-control d-inline w-25" />
+    <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1">新增</button>
+</div>
+
+@section scripts{
+    <script>
+
+        //第一次進入畫面，載入資料
+       $(document).ready(function () {
+           $.get("/Tag/_TagList", null, function (data) {
+               $('#tagList').empty().append(data);
+               $('#nav-brand').addClass('active show');
+            })
+        })
+
+
+        //新增tag
+        $('#CreateTag').keyup(function (evt) {
+            if (evt.keyCode == 13 && $('#CreateTag').val().trim() != "")
+                tag();
+        });
+
+        $('#CreateBtn').click(tag);
+
+        function tag() {
+            if ($('#CreateTag').val().trim() == "")
+                return alert('請輸入欲新增標籤名稱');
+            let pageid = $('.tab-content .active').attr('id');
+            var tagid = $('.tab-content .active').children("table").attr("id");
+            $.post("/Tag/TagCreate", { TagName: $('#CreateTag').val(), TagID: tagid }, function (data) {
+                $('#CreateTag').val("");
+                $('#tagList').empty().append(data);
+                $('#' + pageid).addClass('active show');
+            })
+        }
+
+        //編輯tag
+        $('#tagList').delegate('.editBtn', 'click', function (evt) {
+            $(evt.target).parent('td').siblings('.oldTagName').attr('contenteditable', 'true').focus();
+            $(evt.target).hide();
+            $(evt.target).siblings('.confirmBtn').show();
+        })
+
+        $('#tagList').delegate('.confirmBtn', 'click', function (evt) {
+            let pageid = $(evt.target).parents('.active').attr('id');
+            var id = evt.target.id;
+            var NewTagName = $(evt.target).parent('td').siblings('.oldTagName').text().replace("\n", "").trim();
+            $.post("/Tag/TagEdit", { TagID: id, NewTagName: NewTagName }, function (data) {
+                $('#tagList').empty().append(data);
+                $('#' + pageid).addClass('active show');
+            })
+        })
+
+        //刪除tag
+        $('#tagList').delegate('.deleteBtn', 'click', function (evt) {        
+            let pageid = $(evt.target).parents('.active').attr('id');
+            var id = $(evt.target).parent('td').siblings('.tagId').text().trim();
+            if (window.confirm("確定要刪除喵？")) {
+                $.post("/Tag/TagDelete", { TagID: id}, function (data) {
+                    $('#tagList').empty().append(data);
+                    $('#' + pageid).addClass('active show');
+                })
+            }
+        })
+    </script>
+    }
+
+
+
+

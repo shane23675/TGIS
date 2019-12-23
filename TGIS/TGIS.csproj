@@ -314,6 +314,7 @@
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TableGameController.cs" />
     <Compile Include="Controllers\TableGameInShopDetailController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TeamChatController.cs" />
     <Compile Include="Controllers\TGCommentController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
@@ -515,6 +516,8 @@
     <Content Include="Views\Analysis\TeamStatistic.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Admin\AdminChangePassword.cshtml" />
+    <Content Include="Views\Tag\TagIndex.cshtml" />
+    <Content Include="Views\Tag\_TagList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
