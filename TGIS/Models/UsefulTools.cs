@@ -159,5 +159,24 @@ namespace TGIS.Models
             string pwd = new string(newPwd);
             return pwd;
         }
+
+        /// <summary>
+        /// 從使用者ID取得使用者名稱
+        /// </summary>
+        /// <param name="ID">使用者ID</param>
+        /// <returns>使用者名稱</returns>
+        public static string GetUserNameByID(string ID)
+        {
+            Player p = db.Players.Find(ID);
+            Shop s;
+            if (p == null)
+                s = db.Shops.Find(ID);
+            else
+                return p.NickName;
+            if (s == null)
+                return "未知使用者";
+            else
+                return s.ShopName;
+        }
     }
 }
