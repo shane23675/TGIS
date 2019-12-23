@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 有桌方遊</title>
+    <title>@ViewBag.Title - 有桌方遊店家中心</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
@@ -90,8 +90,8 @@
     </div>
     <footer class="fixed-bottom bg-player">
         <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
-            <a class="nav-link" href="#">關於我們</a>
-            <a class="nav-link" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
+            <a class="nav-link text-info" href="@Url.Action("AboutUs", "Feedback")">關於我們</a>
+            <a class="nav-link text-info" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
         </nav>
     </footer>
     @* 渲染出訊息框 *@
