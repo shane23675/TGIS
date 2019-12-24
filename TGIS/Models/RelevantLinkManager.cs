@@ -12,6 +12,8 @@ namespace TGIS.Models
         //新增連結的方法
         public static void Create(string tableGameID, string[] links)
         {
+            if (links == null)
+                return;
             foreach (string url in links)
             {
                 if (url != "")

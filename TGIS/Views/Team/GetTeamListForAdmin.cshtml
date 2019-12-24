@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TGIS.Models.Team>
+﻿@using TGIS.Models;
+@model IEnumerable<TGIS.Models.Team>
 
 @{
     ViewBag.Title = "揪桌管理";
@@ -58,13 +59,21 @@
         @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.LeaderPlayer.Account)
+        @Html.ActionLink(item.LeaderPlayer.NickName, "PlayerEdit", "Player", new { playerID = item.LeaderPlayerID }, new { @class = "text-info"})
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Shop.Account)
+        @Html.ActionLink(item.Shop.ShopName, "MgShopEdit", "Shop", new { id = item.ShopID }, new { @class = "text-info"})
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Preference)
+        @if (item.Preference != null)
+        {
+            var game = new TGISDBEntities().TableGames.Find(item.Preference);
+            @Html.ActionLink(game.ChineseName, "EditTableGame", "TableGame", new { tableGameID = game.ID}, null)
+        }
+        else
+        {
+            @: 不限
+        }
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
@@ -73,10 +82,24 @@
         @Html.DisplayFor(modelItem => item.EstimatedCost)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.IsCanceled)
+        @if (item.IsCanceled)
+        {
+            @: 是
+        }
+        else
+        {
+            @: 否
+        }
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.IsClosed)
+        @if (item.IsClosed)
+        {
+            @: 是
+        }
+        else
+        {
+            @: 否
+        }
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Notes)

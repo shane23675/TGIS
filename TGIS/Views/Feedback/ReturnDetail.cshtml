@@ -18,7 +18,7 @@
     <dl class="row">
         <dt>@Html.DisplayNameFor(model => model.Plaintiff)：</dt>
         <dd>
-            @if (Model.TypeTagID == "R03")
+            @if (Model.TypeTagID == "R03" || Model.TypeTagID == "R04")
             {
                 @: 匿名檢舉
             }
