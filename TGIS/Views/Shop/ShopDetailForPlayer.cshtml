@@ -1,4 +1,4 @@
-﻿@model TGIS.Models.Shop
+@model TGIS.Models.Shop
 
 
 @{
@@ -18,12 +18,12 @@
     <div class="col-md-5">
         @*有微妙偏移,後調*@
         <div id="carouselExampleInterval" class="carousel slide shadow" data-ride="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="height:471px">
                 @foreach (int id in ViewBag.photoIDList)
                 {
                     string active = count == 0 ? "active" : "";
-                    <div class="carousel-item @active">
-                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })"/>
+                    <div class="carousel-item @active h-100">
+                        <img src="@Url.Action("GetPhotoByID", "Photo", new { photoID=id })" style="height:100%;width:100%;"/>
                     </div>
                     count = 1;
                 }
