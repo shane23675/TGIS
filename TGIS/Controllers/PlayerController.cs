@@ -91,21 +91,29 @@ namespace TGIS.Controllers
         }
 
         //管理員查看玩家列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult PlayerIndex()
         {
             return View(db.Players.ToList());
         }
 
         //管理員編輯玩家
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult PlayerEdit(string playerID)
         {
             Player p = db.Players.Find(playerID);
             TempData["Player"] = p;
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", p.District.CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", p.DistrictID);
+            ViewBag.Gender = new SelectList(new SelectListItem[]
+            {
+                new SelectListItem{ Text = "男", Value = "true"},
+                new SelectListItem{ Text = "女", Value = "false"}
+            }, "Value", "Text", p.Gender.ToString().ToLower());
             return View(p);
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult PlayerEdit(Player player, int CityID, int DistrictID)
         {
             //從TempData中取出原始資料並存入
@@ -127,10 +135,16 @@ namespace TGIS.Controllers
             }
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", CityID);
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", DistrictID);
+            ViewBag.Gender = new SelectList(new SelectListItem[]
+            {
+                new SelectListItem{ Text = "男", Value = "true"},
+                new SelectListItem{ Text = "女", Value = "false"}
+            }, "Value", "Text");
             TempData.Keep("Player_ID");
             return View(player);
         }
         //管理員刪除玩家資料
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult PlayerDelete(string playerID)
         {
             Player p = db.Players.Find(playerID);

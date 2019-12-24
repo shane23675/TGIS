@@ -103,9 +103,7 @@ namespace TGIS.Controllers
             return View(db.TableGames.Find(tableGameID));
         }
 
-        ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
-        ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
-        ////////////////////////////分隔線：此處以下是只有管理員或店家等編輯人員才能看到的內容///////////////////////////////
+
         //更新前的準備
         private void UpdateTableGamePreparaion()
         {
@@ -117,17 +115,20 @@ namespace TGIS.Controllers
         }
 
         //管理員看到的桌遊列表
-        public ActionResult ShowTableGameListForAdmin()
+        [CenterLogin(CenterLogin.UserType.Admin)]
+        public ActionResult ShowTableGameListForAdmin(int page = 1)
         {
-            return View(db.TableGames.ToList());
+            return View(db.TableGames.OrderBy(t => t.ID).ToPagedList(page, 20));
         }
-        //新增桌遊
+        //管理員新增桌遊
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateTableGame()
         {
             UpdateTableGamePreparaion();
             return View();
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateTableGame(TableGame newTableGame, string[] selectedCategories, HttpPostedFileBase[] photos, string[] links)
         {
             //無法通過驗證則顯示錯誤訊息
@@ -153,7 +154,8 @@ namespace TGIS.Controllers
             return RedirectToAction("ShowTableGameListForAdmin");
         }
 
-        //編輯桌遊
+        //管理員編輯桌遊
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditTableGame(string tableGameID)
         {
             UpdateTableGamePreparaion();
@@ -163,6 +165,7 @@ namespace TGIS.Controllers
             return View(db.TableGames.Find(tableGameID));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditTableGame(TableGame tableGame, string[] selectedCategories, 
             int[] deletedPhotoID, HttpPostedFileBase[] newPhoto, int[] deletedLinkIDs, string[] links)
         {
@@ -234,7 +237,8 @@ namespace TGIS.Controllers
             return RedirectToAction("ShowTableGameListForAdmin");
         }
 
-        //刪除桌遊
+        //管理員刪除桌遊
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult DeleteTableGame(string tableGameID)
         {
             TableGame tg = db.TableGames.Find(tableGameID);

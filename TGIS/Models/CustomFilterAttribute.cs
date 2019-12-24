@@ -13,6 +13,8 @@ namespace TGIS.Models
     public class CenterLogin : ActionFilterAttribute
     {
         private UserType _userType;
+        //導向網址預設為首頁
+        private string _redirectURL = "/Home/Index";
         public CenterLogin(UserType t)
         {
             _userType = t;
@@ -31,9 +33,13 @@ namespace TGIS.Models
                 case UserType.Shop:
                     target = "ShopID";
                     break;
+                case UserType.Admin:
+                    target = "AdminID";
+                    _redirectURL = "/LoginForAdmin/LoginForAdmin";
+                    break;
             }
             if (context.Session[target] == null)
-                context.Response.Redirect("/Home/Index");
+                context.Response.Redirect(_redirectURL);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -44,7 +50,7 @@ namespace TGIS.Models
         //判斷使用者類型的列舉
         public enum UserType
         {
-            Shop, Player
+            Shop, Player, Admin
         }
     }
 

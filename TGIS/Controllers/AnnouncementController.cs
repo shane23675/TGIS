@@ -12,16 +12,19 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //管理員查看公告列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnouncementIndexForAdmin()
         {
             return View(db.Announcements.ToList());
         }
         //管理員新增公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateAnnoun()
         {
             return View();
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateAnnoun(Announcement ann)
         {
             if (ModelState.IsValid)
@@ -37,12 +40,14 @@ namespace TGIS.Controllers
         }
 
         //管理員修改公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditAnnoun(string id)
         {
             TempData["AnnouncementID"] = id;
             return View(db.Announcements.Find(id));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditAnnoun(Announcement ann)
         {
             if (ModelState.IsValid)
@@ -62,6 +67,7 @@ namespace TGIS.Controllers
         }
 
         //管理員刪除公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnounDel(string id)
         {
             var ann = db.Announcements.Find(id);
@@ -71,6 +77,7 @@ namespace TGIS.Controllers
         }
 
         //管理員查看公告明細
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnounDetail(string id)
         {
             return View(db.Announcements.Find(id));

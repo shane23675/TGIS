@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TGIS.Models.Message>
+﻿@using TGIS.Models;
+@model IEnumerable<TGIS.Models.Message>
 
 @{
     ViewBag.Title = "揪桌訊息";
@@ -19,9 +20,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
-        <th width="10%">
-            @Html.DisplayNameFor(model => model.IsPrivate)
-        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,25 +30,15 @@
         <td>
             @if (item.Speaker.StartsWith("TP"))
             {
-                @Html.ActionLink(item.Speaker, "PlayerEdit", "Player", new { playerID = item.Speaker }, new { @class = "text-info" })
+                @Html.ActionLink(UsefulTools.GetUserNameByID(item.Speaker), "PlayerEdit", "Player", new { playerID = item.Speaker }, new { @class = "text-info" })
             }
             else
             {
-                @Html.ActionLink(item.Speaker, "MgShopEdit", "Shop", new { id = item.Speaker }, new { @class = "text-info" })
+                @Html.ActionLink(UsefulTools.GetUserNameByID(item.Speaker), "MgShopEdit", "Shop", new { id = item.Speaker }, new { @class = "text-info" })
             }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @if (item.IsPrivate)
-            {
-                @: 私人
-            }
-            else
-            {
-                @: 公開
-            }
         </td>
     </tr>
 }

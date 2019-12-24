@@ -143,7 +143,7 @@ namespace TGIS.Controllers
         [CenterLogin(CenterLogin.UserType.Shop), VIPOnly]
         public ActionResult CouponUsage()
         {
-            var coupons = db.Shops.Find(Session["ShopID"].ToString()).Coupons.ToList();
+            var coupons = db.Shops.Find(Session["ShopID"].ToString()).Coupons.Where(c => c.IsAvailable).ToList();
             var data = coupons.Select(c => new { c.Content, c.LimitedAmount, c.ExchangedAmount, c.UsedAmount });
             return Json(data);
         }
