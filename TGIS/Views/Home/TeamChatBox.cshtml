@@ -117,21 +117,26 @@ else
                                 @{ var message = isTeamPrivateFlags[count] ? team.Messages.Where(m => m.IsPrivate) : team.Messages.Where(m => !m.IsPrivate);}
                                 @foreach (Message m in message)
                                 {
-                                    //如果是自己的訊息
+                                    //自己的訊息
                                     if (m.Speaker == userID)
                                     {
                                         <div class="alert alert-info">
-                                            <p class="mt-0">@m.Content</p> //發言內容
-                                            <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p> //發言時間
+                                            <p class="mt-0">
+                                                @m.Content
+                                                <small class="text-muted">@m.MessageDate.ToString("MM/dd hh:mm")</small>
+                                            </p>
+
                                         </div>
                                     }
                                     //別人的訊息
                                     else
                                     {
-                                        <p class="mb-0">@UsefulTools.GetUserNameByID(userID)：</p> //發言人暱稱
-                                        <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=userID, index=0})" /> //發言人圖片
-                                        <p class="mt-0">@m.Content</p> //發言內容
-                                        <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p>//發言時間
+                                        <div class="alert alert-success">
+                                            <p class="mb-0">@UsefulTools.GetUserNameByID(userID)：</p> 
+                                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=userID, index=0})" width="60" height="60"/> //發言人圖片
+                                            <p class="mt-0">@m.Content</p> 
+                                            <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p>
+                                        </div>
                                     }
                                 }
                             </div>
