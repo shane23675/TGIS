@@ -5,6 +5,7 @@
     z-index: 999;
     box-shadow: -1px 1px 3px #005E28;
     border-radius: 0.75rem 0 0 0.75rem;
+    
 }
 
 .msgDisplay {
@@ -51,7 +52,16 @@ overflow-y:auto;
     background-color: #D3F8E2;
     border: 2px solid #5DD892;
     margin-right: 0px;
+    width: 600px;
 }
-.nav-item .active {
+.nav-chat {
     background-color: #A6D8B1;
+}
+
+    .nav-item .active {
+        background-color: #D6F8D6;
+    }
+.alert {   
+    padding: 0.25rem 0.5rem;
+    margin-bottom:0px; 
 }

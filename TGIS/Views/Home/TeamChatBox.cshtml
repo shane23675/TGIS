@@ -46,8 +46,7 @@ else
                 </a>
             </div>
             <div class="col-4 p-0 bg-gray">
-                @*店家帳號時<ul>不用出現*@
-                <ul class="nav nav-fill bg-tab text-info">
+                <ul class="nav nav-fill nav-chat text-info" id="chatTabs">
                     <li class="nav-item border border-light">
                         <a class="nav-link active" href="#list-tabP" data-toggle="list" role="tab">團訊</a>
                     </li>
@@ -64,23 +63,21 @@ else
                             @foreach (string id in teamIDs)
                             {
                                 team = teams.Find(id);
-                                if (isTeamPrivateFlags[count])
-                                {
-                                    string displayTitle = Session["PlayerID"] == null ? team.LeaderPlayer.NickName : team.Shop.ShopName;
-                                    <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_shop_@team.ID-list" data-toggle="list" href="#msg_shop_@team.ID" role="tab" aria-controls="msg_shop_@team.ID">@displayTitle</a>
-                                }
-                                else
+                                if (!isTeamPrivateFlags[count])
                                 {
                                     <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
+                                    active = "";
+
                                 }
-                                active = "";
                                 count++;
                             }
                         </div>
                     </div>
                     <div class="tab-pane" id="list-tabS" role="tabpanel">
-                        @*@{
+                        <div class="list-group" role="tablist">
+                            @{
                                 active = "active";
+                                count = 0;
                             }
                             @foreach (string id in teamIDs)
                             {
@@ -88,16 +85,13 @@ else
                                 if (isTeamPrivateFlags[count])
                                 {
                                     string displayTitle = Session["PlayerID"] == null ? team.LeaderPlayer.NickName : team.Shop.ShopName;
-                                    <a class="list-group-item list-group-item-action chatbtn bg-tabS @active" id="msg_shop_@team.ID-list" data-toggle="list" href="#msg_shop_@team.ID" role="tab" aria-controls="msg_shop_@team.ID">@displayTitle</a>
+                                    <a class="list-group-item list-group-item-action chatbtn bg-tab @active" id="msg_shop_@team.ID-list" data-toggle="list" href="#msg_shop_@team.ID" role="tab" aria-controls="msg_shop_@team.ID">@displayTitle</a>
+                                    active = "";
+
                                 }
-                                else
-                                {
-                                    <a class="list-group-item list-group-item-action chatbtn bg-tabP @active" id="msg_@team.ID-list" data-toggle="list" href="#msg_@team.ID" role="tab" aria-controls="msg_@team.ID">@team.Title</a>
-                                }
-                                active = "";
                                 count++;
-                            }*@
-                        測試
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,22 +114,26 @@ else
                                     //自己的訊息
                                     if (m.Speaker == userID)
                                     {
-                                        <div class="alert alert-info">
-                                            <p class="mt-0">
-                                                @m.Content
-                                                <small class="text-muted">@m.MessageDate.ToString("MM/dd hh:mm")</small>
-                                            </p>
-
+                                        <div class="text-right mt-1">
+                                            <div class="d-flex justify-content-end" >
+                                                <div class="alert alert-info" style="max-width:80%">@m.Content</div>
+                                            </div>
+                                            <small class="text-muted align-top"><small>@m.MessageDate.ToString("MM/dd hh:mm")</small></small>
                                         </div>
                                     }
                                     //別人的訊息
                                     else
                                     {
-                                        <div class="alert alert-success">
-                                            <p class="mb-0">@UsefulTools.GetUserNameByID(userID)：</p> 
-                                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=userID, index=0})" width="60" height="60"/> //發言人圖片
-                                            <p class="mt-0">@m.Content</p> 
-                                            <p class="mt-0">@m.MessageDate.ToString("MM/dd hh:mm")</p>
+                                        <div class="row">
+                                            <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=m.Speaker, index=0})" width="60" height="60" class="playericon" />
+                                            <div class="col-9">
+                                                @UsefulTools.GetUserNameByID(m.Speaker)
+                                                <div class="alert alert-success" style="max-width:80%">@m.Content</div>
+                                                <small class="text-muted align-top"><small>@m.MessageDate.ToString("MM/dd hh:mm")</small></small>
+                                            </div>
+
+                                            
+
                                         </div>
                                     }
                                 }
@@ -228,5 +226,11 @@ else
     $('#title-opn').click(function () {
         $('#title-clo').css("display", "block");
     });
+    //店家帳號時<ul>不用出現
+    @if (Session["ShopID"]!=null) {
+        @: $('#chatTabs').css("display", "none");
+        @: $('#list-tabP').css("display", "none");
+        @:$('#list-tabS').addClass("active");
 
+     }
 </script>

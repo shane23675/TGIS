@@ -53,9 +53,14 @@ a[aria-expanded="true"] {
 #msg {
     background-color: #BCDBF4;
     border: 2px solid #A7D5F2;
-    margin-right:0px;
+    margin-right: 0px;
+    width: 600px;
 }
 
 .nav-item .active {
     background-color: #84A9C0;
+}
+.alert {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0px;
 }
