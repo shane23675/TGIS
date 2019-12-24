@@ -113,8 +113,8 @@
                 <div class="col-3">
                     <div class="card mt-4 ">
                         <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=tg.ID})">
-                            <div class="card-body">
-                                <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="w-100 h-100" />
+                            <div class="card-body imgcard">
+                                <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=tg.ID, index=0})" class="w-100" />
                                 <div class="gameName">
                                     @tg.ChineseName
                                     <br />
@@ -127,24 +127,11 @@
             }
 
         </div>
-        <div class="d-flex justify-content-center">@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))</div>
+        <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))
+        </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
