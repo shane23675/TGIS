@@ -135,24 +135,11 @@
             }
 
         </div>
-        <div class="d-flex justify-content-center">@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))</div>
+        <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForPlayer", "TableGame", new { page }))
+        </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

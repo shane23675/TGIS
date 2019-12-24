@@ -90,10 +90,21 @@
         <dd >
             @foreach (Player p in Model.OtherPlayers)
             {
-                <div class="row mt-2">
-                    <span class="mt-1">@p.NickName</span>
-                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = p.ID }, new { @class = "btn btn-secondary ml-2" })
-                </div>
+            <div class="row mt-2">
+                <span class="mt-1">@p.NickName</span>
+                @if (Session["PlayerID"] != null)
+                {
+                    if (p.ID != Session["PlayerID"].ToString())
+                    {
+                        @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = p.ID }, new { @class = "btn btn-secondary ml-2" })
+                    }
+                }
+                else
+                {
+                    //尚未登入時，雖然一樣看到檢舉鈕，但點擊後是觸發登入框
+                    <a href="javascript: document.getElementById('loginBtn').click()" class="btn btn-secondary ml-2">檢舉</a>
+                }
+            </div>
             }
             @if (Model.CurrentPlayers == 1)
             {

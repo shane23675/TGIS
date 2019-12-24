@@ -51,6 +51,9 @@
                 </tr>
             }
         </table>
+        <div class="d-flex justify-content-center text-info">
+            @Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForAdmin", "TableGame", new { page }))
+        </div>
     </div>
 
-@Html.PagedListPager(Model, page => Url.Action("ShowTableGameListForAdmin", "TableGame", new { page}))
+

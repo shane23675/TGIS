@@ -22,7 +22,6 @@ namespace TGIS.Controllers
             feedback.Plaintiff = "";
             feedback.Defendent = "";
             feedback.ReceivedDate = DateTime.Now;
-            feedback.TypeTagID = "R03";
             feedback.IsRead = false;
             db.Feedbacks.Add(feedback);
             db.SaveChanges();
