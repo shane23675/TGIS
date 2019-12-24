@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TGIS.Models.Team>
 
 @{
-    ViewBag.Title = "TeamReservationIndex";
+    ViewBag.Title = "預約管理";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
@@ -9,28 +9,28 @@
 
 <table class="table table-sm table-bordered table-hover shadow ">
     <tr class="table-primary">
-        <th>
+        <th width="10%">
             @Html.DisplayNameFor(model => model.ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th>
+        <th width="10%">
             @Html.DisplayNameFor(model => model.PlayDate)
         </th>
-        <th>
+        <th width="5%">
             @Html.DisplayNameFor(model => model.PlayBeginTime)
         </th>
-        <th>
+        <th width="5%">
             @Html.DisplayNameFor(model => model.PlayEndTime)
         </th>
-        <th>
+        <th width="5%">
             預約人數
         </th>
-        <th>
+        <th width="15%">
             主揪暱稱
         </th>
-        <th>
+        <th width="10%">
             訂位確認
         </th>
     </tr>

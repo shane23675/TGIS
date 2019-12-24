@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -170,6 +170,8 @@
     <Content Include="Content\Chart.min.css" />
     <Content Include="Content\chart\Chart.css" />
     <Content Include="Content\chart\Chart.min.css" />
+    <Content Include="Content\ChatBoxStyle-S.css" />
+    <Content Include="Content\ChatBoxStyle-P.css" />
     <Content Include="Content\croppie.css" />
     <Content Include="Content\EntryStyle.css" />
     <Content Include="Content\FrontStyle.css" />
@@ -444,7 +446,6 @@
     <Content Include="Views\Shop\ShopEditForStore.cshtml" />
     <Content Include="Views\Shop\ShopDetailForStore.cshtml" />
     <Content Include="Views\LoginForAdmin\LoginForAdmin.cshtml" />
-    <Content Include="Views\Shared\_LayoutEntry.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameListForPlayer.cshtml" />
     <Content Include="Views\TableGame\ShowTableGameDetail.cshtml" />
     <Content Include="Views\Admin\AdminCreate.cshtml" />
