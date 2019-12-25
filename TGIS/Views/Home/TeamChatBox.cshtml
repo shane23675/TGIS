@@ -131,9 +131,6 @@ else
                                                 <div class="alert alert-success" style="max-width:80%">@m.Content</div>
                                                 <small class="text-muted align-top"><small>@m.MessageDate.ToString("MM/dd hh:mm")</small></small>
                                             </div>
-
-                                            
-
                                         </div>
                                     }
                                 }
@@ -191,19 +188,26 @@ else
             //判斷是否為自己的訊息
             if (jsonData.UserID == "@userID") {
                 //如果是自己的訊息...
+                msgDisplay.append(`
+                                    <div class="text-right mt-1">
+                                            <div class="d-flex justify-content-end" >
+                                                <div class="alert alert-info" style="max-width:80%">${jsonData.Message}</div>
+                                            </div>
+                                        <small class="text-muted align-top"><small>${jsonData.Time}</small></small>
+                                    </div>`)
             } else {
                 //如果是別人的訊息...
+                msgDisplay.append(`
+                                        <div class="row">
+                                            <img src="/Photo/GetPhotoBySourceID?sourceID=${jsonData.UserID}&index=0" width="60" height="60" class="playericon" />
+                                            <div class="col-9">
+                                                ${jsonData.UserName}
+                                                <div class="alert alert-success" style="max-width:80%">${jsonData.Message}</div>
+                                                <small class="text-muted align-top"><small>${jsonData.Time}</small></small>
+                                            </div>
+                                        </div>
+                `)
             }
-            //填入發言人名稱
-            msgDisplay.append(`<p>${jsonData.UserName}</p>`);
-            //填入訊息
-            msgDisplay.append(`<p>${jsonData.Message}</p>`);
-            //填入發送時間
-            msgDisplay.append(`<p>${jsonData.Time}</p>`);
-            //填入發言人圖片
-            msgDisplay.append(`<img src="@Url.Action("GetPhotoBySourceID", "Photo")?sourceID=${jsonData.UserID}&index=0" class="img-fluid" />`);
-
-
             //將訊息框拉至底部
             msgDisplay.scrollTop(msgDisplay.get(0).scrollHeight);
         }
@@ -227,7 +231,7 @@ else
         $('#title-clo').css("display", "block");
     });
     //店家帳號時<ul>不用出現
-    @if (Session["ShopID"]!=null) {
+    @if (Session["ShopID"]!=null && Session["PlayerID"] == null) {
         @: $('#chatTabs').css("display", "none");
         @: $('#list-tabP').css("display", "none");
         @:$('#list-tabS').addClass("active");
