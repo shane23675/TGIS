@@ -2,7 +2,7 @@
 @model TGIS.Models.Shop
 
 @{
-    ViewBag.Title = "ShopDetailForShop";
+    ViewBag.Title = "店家資訊管理";
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 <div class="pl-4">
@@ -28,7 +28,8 @@
     <div class="row">
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.OpeningHours)：</dt>
-            <dd>@Html.DisplayFor(model => model.OpeningHours)</dd>
+            @*<dd>@Html.DisplayFor(model => model.OpeningHours)</dd>*@
+            <dd>@Html.Raw(Model.OpeningHours.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</dd>
         </dl>
         <dl class="row ml-1 col-8">
             <dt>
@@ -48,11 +49,29 @@
         </dl>
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.IsMinConsumeRequired)：</dt>
-            <dd>@Html.DisplayFor(model => model.IsMinConsumeRequired)</dd>
+            <dd>
+                @if (Model.IsMinConsumeRequired)
+                {
+                    @: 有
+                }
+                else
+                {
+                    @: 無
+                }
+            </dd>
         </dl>
         <dl class="row ml-1 col-4">
             <dt>@Html.DisplayNameFor(model => model.IsFoodAcceptable)：</dt>
-            <dd>@Html.DisplayFor(model => model.IsFoodAcceptable)</dd>
+            <dd>
+                @if (Model.IsFoodAcceptable)
+                {
+                    @: 可以
+                }
+                else
+                {
+                    @: 不可以
+                }
+            </dd>
         </dl>
     </div>
     <div class="row">
@@ -116,7 +135,8 @@
     <div class="row">
         <dl class="row ml-1 col-12">
             <dt>@Html.DisplayNameFor(model => model.Description)：</dt>
-            <dd>@Html.DisplayFor(model => model.Description)</dd>
+            @*<dd>@Html.DisplayFor(model => model.Description)</dd>*@
+            <dd>@Html.Raw(Model.Description.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</dd>
         </dl>
     </div>
     <div>

@@ -1,19 +1,19 @@
 @model IEnumerable<TGIS.Models.TableGame>
-
 @foreach (var item in Model)
 {
-    <div class="col-lg-2 col-md-3">
-        <div class="card mt-4">
+    <div class="col-3">
+        <div class="card mt-4 ">
             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.ID})">
-                <div class="card-body">
-                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="img-fluid h-100" />
-                </div>
-                <div class="gameName">
-                    @item.ChineseName<br />
-                    @item.EnglishName
+                <div class="card-body  img-fix row justify-content-center align-content-center ml-0">
+                    <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="w-100 h-100" />
+                    <div class="gameName">
+                        @item.ChineseName
+                        <br />
+                        @item.EnglishName
+                    </div>
                 </div>
             </a>
         </div>
     </div>
 }
-
+    

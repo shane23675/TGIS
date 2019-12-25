@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 有桌方遊</title>
+    <title>@ViewBag.Title - 有桌方遊管理員中心</title>
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <link href="~/Content/layoutstyle-M.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -17,7 +18,7 @@
     <aside id="sidebar">
         <div class="sidebar-header">
             @*皆連回管理中心首頁*@
-            <strong>@Html.ActionLink("TG", "ShowTableGameListForPlayer"," TableGame")</strong>  
+            <strong>@Html.ActionLink("TG", "ShowTableGameListForPlayer", " TableGame")</strong>
             <span class="h1">
                 @Html.ActionLink("有桌方遊", "Index", "Home")
             </span>
@@ -27,6 +28,12 @@
         </div>
 
         <ul class="list-unstyled components">
+            <li>
+                <a href="@Url.Action("ReturnList","Feedback")">
+                    <i class="fas fa-envelope"></i>
+                    <span>&nbsp;回報管理</span>
+                </a>
+            </li>
             <li>
                 <a href="@Url.Action("AnnouncementIndexForAdmin","Announcement")">
                     <i class="fas fa-chalkboard"></i>
@@ -46,11 +53,13 @@
                         <a href="@Url.Action("ShopIndex","Shop")">店家</a>
                     </li>
                     <li>
-                        <a href="#">管理員</a>
+                        <a href="@Url.Action("AdminIndex", "Admin")">管理員</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("CityIndex", "City")">行政區資料管理</a>
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="#gameSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
                     <i class="fas fa-dice"></i>
@@ -61,32 +70,19 @@
                         <a href="@Url.Action("ShowTableGameListForAdmin","TableGame")">桌遊資訊</a>
                     </li>
                     <li>
-                        <a href="#">標籤列表</a>
+                        <a href="@Url.Action("TagIndex","Tag")">標籤列表</a>
                     </li>
                 </ul>
             </li>
 
             <li>
-                <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false" class="toggle dropdown-toggle">
+                <a href="@Url.Action("GetTeamListForAdmin", "Team")">
                     <i class="fas fa-users"></i>
                     <span>揪桌管理</span>
                 </a>
-                <ul class="collapse list-unstyled" id="groupSubmenu">
-                    <li>
-                        <a href="@Url.Action("GetTeamListForAdmin", "Team")">揪桌資訊</a>
-                    </li>
-                    <li>
-                        <a href="#">訊息管理</a>
-                    </li>
-                </ul>
             </li>
 
-            <li>
-                <a href="@Url.Action("ReturnList","Feedback")">
-                    <i class="fas fa-envelope"></i>
-                    <span>&nbsp;回報管理</span>
-                </a>
-            </li>
+
             <li>
                 <a href="@Url.Action("TGCommentIndexForAdmin", "TGComment")">
                     <i class="fas fa-comment-alt"></i>
@@ -100,7 +96,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="@Url.Action("Logout", "Login", new { sessionName = "AdminID"})">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>&nbsp;登出</span>
                 </a>
@@ -113,7 +109,6 @@
         </nav>
         @RenderBody()
     </div>
-
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

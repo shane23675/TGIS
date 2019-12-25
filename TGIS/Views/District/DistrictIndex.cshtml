@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TGIS.Models.District>
+
+@{
+    ViewBag.Title = "行政區列表";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+
+<div class="row d-flex justify-content-between ml-3 mr-3">
+    <h2 class="d-inline">@(ViewBag.CityName)行政區</h2>
+    <div class="form-group row">
+        <input type="text" id="CreateDistrict" name="CreateDistrict" placeholder="請輸入想新增的行政區" class="form-control d-inline col-8" />
+        <button type="button" id="CreateBtn" class="btn btn-info mb-2 ml-1  col-3">新增</button>
+    </div>
+</div>
+@Html.ActionLink("返回列表", "CityIndex", "City", null, new { @class = "btn btn-outline-secondary btn-sm mb-3 ml-3" })
+
+<table class="table text-center table-hover mr-3 ml-3">
+    <thead>
+        <tr class="table-manager border-0">
+            <th width="30%">
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th width="30%">
+                @Html.DisplayNameFor(model => model.DistrictName)
+            </th>
+            <th width="40%"></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $.get("/District/_DistrictList", { CityID:"@ViewBag.CityID"}, function (data) {
+                $('tbody').empty().append(data);
+            })
+        })
+
+        $('#CreateDistrict').keyup(function (evt) {
+            if (evt.keyCode == 13)
+                district();
+        });
+
+        $('#CreateBtn').click(district);
+
+        function district() {
+            $.post("/District/DistrictCreate", { DistrictName: $('#CreateDistrict').val() ,CityID:"@ViewBag.CityID"}, function (data) {
+                $('#CreateDistrict').val("");
+                $('tbody').empty().append(data);
+            })
+        }
+
+        //編輯
+
+        $('tbody').delegate('.editBtn', 'click', function (evt) {
+            $(evt.target).parent('td').siblings('.OldCityName').attr('contenteditable', 'true').focus();
+            $(evt.target).hide();
+            $(evt.target).siblings('.confirmBtn').show();
+        })
+
+        $('tbody').delegate('.confirmBtn', 'click', function (evt) {
+            id = evt.target.id;
+            NewDistrictName = $(evt.target).parent('td').siblings('.OldCityName').text().replace("\n", "").trim();
+
+            $.post("/District/DistrictEdit", { DistrictID: id, NewDistrictName: NewDistrictName, CityID:"@ViewBag.CityID" }, function (data) {
+                    $('tbody').empty().append(data);
+            })
+
+        })
+    </script>
+}

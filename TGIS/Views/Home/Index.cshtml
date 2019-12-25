@@ -13,20 +13,11 @@
     <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
     <link href="~/Content/WebSearch.css" rel="stylesheet" />
     <style>
+        @@media (min-width:576px){ 
         .listbutton {
             font-size: 80px;
         }
-
-        .three-d {
-            padding: 10px;
-            box-shadow: inset #000000 3px 3px 15px 3px;
-            border-radius: 40%;
-        }
-
-        .abc {
-            box-shadow: #000000 3px 3px 5px 1px;
-            border-radius: 10%;
-        }
+                    }
     </style>
 </head>
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
@@ -72,25 +63,42 @@
 </div>
 <div class="row">
     <div class="col-md-3 m-2 text-center">
-
         <div id="TGSearchResult">
-            <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="text-info listbutton"><i class="fas fa-dice-five"></i></a>
-            <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control" aria-label="search" />
-            @* 之後研究出即時搜尋的方法 *@
-            <div id="TGResultList"></div>
+            <a href="@Url.Action("ShowTableGameListForPlayer", "TableGame")" class="listbutton">
+                <div class="objectbutton ">
+                    <i class="fas fa-dice-five"></i>
+                </div>
+            </a>
+            
+                <div class="row">
+                    <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
+                    <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control col-sm-10 col-md-8 col-lg-9 col-xl-10" aria-label="search" />
+                    <div id="TGResultList" class="col-12 ml-3 list-group"></div>
+                </div>
+                
+            
         </div>
 
         <div id="ShopSearchResult">
-            <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="text-info listbutton"><i class="fas fa-chess-rook "></i></a>
-            <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control" aria-label="search" />
-            <div id="ShopResultList"></div>
+            <a href="@Url.Action("ShopIndexForPlayer", "Shop")" class="listbutton">
+                <div class="objectbutton">
+                    <i class="fas fa-chess-rook "></i>
+                </div>
+            </a>
+            <div class="row">
+                <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
+                <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control  col-sm-10 col-md-8 col-lg-9 col-xl-10" aria-label="search" />
+                <div id="ShopResultList"  class="col-12 ml-3 list-group"></div>
+            </div>
+           
         </div>
-
     </div>
     <div class="col-md-8 m-1">
-        <h3><strong><a href="@Url.Action("AnnouncementIndexForPlayer", "Announcement")">網站公告</a></strong></h3>
+        <h3>
+            <strong><a href="@Url.Action("AnnouncementIndexForPlayer", "Announcement")">＊網站公告＊</a></strong>
+        </h3>
+        <br />
         @Html.Action("_AnnouncementPartail", "Announcement", new { number = 5 })
-        <hr />
         <h3>
             <strong>@Html.ActionLink("～揪桌一起玩～", "GetTeamList", "Team", new { usage = "TeamIndex" }, new { })</strong>
         </h3>

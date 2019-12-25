@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 有桌方遊</title>
+    <title>@ViewBag.Title - 有桌方遊店家中心</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link href="~/Content/layoutstyle-S.css" rel="stylesheet" />
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
     @RenderSection("CSS", false)
 </head>
 <body class="wrapper">
@@ -28,7 +27,7 @@
     <aside id="sidebar">
         <ul class="list-unstyled components">
             <li>
-                <a href="#">
+                <a href="@Url.Action("TeamReservationIndex", "Team")">
                     &nbsp;<i class="fas fa-calendar-check"></i>
                     <span>&nbsp;預約管理</span>
                 </a>
@@ -48,7 +47,7 @@
                 </ul>
             </li>
             <li>
-                <a href="@Url.Action("OfferList", "NormalOffer")">
+                <a href="@Url.Action("OfferListForShop", "NormalOffer")">
                     <i class="fas fa-store-alt"></i>
                     <span>活動廣告管理</span>
                     @*因為有圖標所以跟上面不同,要改用Url.Actin設定連結*@
@@ -61,7 +60,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="@Url.Action("EnhancedService", "Shop")">
                     <i class="fas fa-money-check-alt"></i>
                     <span>加值服務管理</span>
                 </a>
@@ -73,26 +72,29 @@
                 </a>
                 <ul class="collapse list-unstyled" id="gameSubmenu">
                     <li>
-                        <a href="#">分析表1</a>
+                        <a href="@Url.Action("TeamStatistic", "Analysis")">揪桌客群分析</a>
                     </li>
                     <li>
-                        <a href="#">分析表2</a>
+                        <a href="@Url.Action("TableGameTrend", "Analysis")">桌遊趨勢分析</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("CouponUsageDisplay", "Analysis")">優惠券行銷分析</a>
                     </li>
                 </ul>
             </li>
         </ul>
     </aside>
-    <div id="content" class="body-content">
+    <div id="content" >
         @RenderBody()
     </div>
     <footer class="fixed-bottom bg-player">
         <nav class="navbar navbar-expand-md justify-content-end" id="P-footer">
-            <a class="nav-link" href="#">關於我們</a>
-            <a class="nav-link" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
+            <a class="nav-link text-info" href="@Url.Action("AboutUs", "Feedback")">關於我們</a>
+            <a class="nav-link text-info" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
         </nav>
     </footer>
     @* 渲染出訊息框 *@
-    @Html.Action("TeamChatBox", "Home")
+    @Html.Action("TeamChatBoxForShop", "Home")
 
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>

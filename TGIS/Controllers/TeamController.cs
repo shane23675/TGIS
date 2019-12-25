@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TGIS.Controllers
 {
@@ -16,26 +18,36 @@ namespace TGIS.Controllers
         {
             return View(db.Teams.Find(teamID));
         }
-        [HttpPost]
-        public ActionResult TeamDetailForPlayer(string teamID, string playerID, string action, bool fromMyTeam=false)
+        [HttpPost, CenterLogin(CenterLogin.UserType.Player)]
+        public ActionResult TeamDetailForPlayer(string teamID, string action, bool fromMyTeam=false)
         {
             //先找到對應的team、player
-            Team t = db.Teams.Find(teamID);
-            Player p = db.Players.Find(playerID);
+            Player player = db.Players.Find(Session["PlayerID"].ToString());
+            Team team = db.Teams.Find(teamID);
             //通過action判斷要參加、退出、取消出團或提前截止
             switch (action)
             {
+                //送出訂位請求(若無法在該玩家為隊長的團中找到指定ID的團則返回錯誤頁面
+                case "sendRequest":
+                    if (!player.TeamsForLeader.Any(t => t.ID == teamID))
+                        return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                    team.IsRequestSent = true;
+                    break;
+                //退出
                 case "exit":
-                    t.OtherPlayers.Remove(p);
+                    team.OtherPlayers.Remove(player);
                     break;
+                //參加
                 case "join":
-                    t.OtherPlayers.Add(p);
+                    team.OtherPlayers.Add(player);
                     break;
+                //取消
                 case "cancel":
-                    t.IsCanceled = true;
+                    team.IsCanceled = true;
                     break;
+                //提前截止報名
                 case "close":
-                    t.IsClosed = true;
+                    team.IsClosed = true;
                     break;
             }
             db.SaveChanges();
@@ -43,17 +55,13 @@ namespace TGIS.Controllers
             //若此請求來自「我的揪桌」則導回
             if (fromMyTeam)
                 return RedirectToAction("MyTeam");
-            return View(t);
+            return View(team);
         }
 
         //新開一桌(玩家用)
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult TeamCreate()
         {
-            //若尚未登入則重新導向至登入頁
-            if (Session["PlayerID"] == null)
-                return RedirectToAction("LoginForPlayer", "Login");
-
-            ViewBag.teamID = UsefulTools.GetNextID(db.Teams, 1);
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             //這裡不傳PlayerID，直接在View中通過Session取得
@@ -61,13 +69,9 @@ namespace TGIS.Controllers
             //若傳入team表示要重開之前流團的揪桌
             return View();
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult TeamCreate(Team team, int CityID, int DistrictID)
         {
-            //若登入已超時導致無法取得玩家ID則重新導向至登入頁
-            if (Session["PlayerID"] == null)
-                return RedirectToAction("LoginForPlayer", "Login");
-
             //檢查報名截止日期是否在現在時間之後
             if (team.ParticipateEndDate <= DateTime.Now)
                 ModelState["ParticipateEndDate"].Errors.Add("報名截止日期必須在現在時間之後");
@@ -84,6 +88,9 @@ namespace TGIS.Controllers
             //驗證主體
             if (ModelState.IsValid)
             {
+                //填入必要資料後存入
+                team.ID = UsefulTools.GetNextID(db.Teams, 1);
+                team.LeaderPlayerID = Session["PlayerID"].ToString();
                 db.Teams.Add(team);
                 db.SaveChanges();
                 return RedirectToAction("GetTeamList", new { usage = "TeamIndex"});
@@ -96,12 +103,9 @@ namespace TGIS.Controllers
         }
 
         //我的揪桌
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult MyTeam()
         {
-            //尚未登入則跳轉至登入頁面
-            if ((string)Session["PlayerID"] == null)
-                return RedirectToAction("LoginForPlayer", "Login");
-
             Session["nowPage"] = "myTeam";
             return View();
         }
@@ -119,9 +123,9 @@ namespace TGIS.Controllers
             switch (usage)
             {
                 case "Home":
-                    return PartialView(allTeams.Where(m => !m.IsExpired).OrderBy(m => m.ParticipateEndDate).Take(10));
+                    return PartialView(allTeams.Where(m => !m.IsParticipateEnded).OrderBy(m => m.ParticipateEndDate).Take(10));
                 case "TeamIndex":
-                    return View(allTeams.Where(m => !m.IsExpired).OrderBy(m => m.ParticipateEndDate));
+                    return View(allTeams.Where(m => !m.IsParticipateEnded).OrderBy(m => m.ParticipateEndDate));
                 case "Leader":
                     return PartialView(p.TeamsForLeader.ToList());
                 case "Other":
@@ -131,11 +135,36 @@ namespace TGIS.Controllers
         }
 
         //管理員的揪桌管理
-        public ActionResult GetTeamListForAdmin()
+        [CenterLogin(CenterLogin.UserType.Admin)]
+        public ActionResult GetTeamListForAdmin(int page = 1)
         {
-            if (Session["AdminID"] == null)
-                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
-            return View(db.Teams.ToList().OrderByDescending(t => t.ID));
+            return View(db.Teams.OrderByDescending(t => t.ID).ToPagedList(page, 20));
+        }
+
+        //店家的預約管理
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult TeamReservationIndex()
+        {
+            Shop s = db.Shops.Find(Session["ShopID"].ToString());
+            //找出已成團且未過期的Team
+            var teams = s.Teams.Where(t => t.IsRequestSent && t.PlayDate > DateTime.Today).ToList();
+            return View(teams);
+        }
+
+        //店家回覆訂位請求
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult TeamReservationReply(bool isAccepted, string teamID)
+        {
+            Shop shop = db.Shops.Find(Session["ShopID"].ToString());
+            Team team = shop.Teams.Where(t => t.ID == teamID).FirstOrDefault();
+            if (team != null)
+            {
+                team.IsConfirmedByShop = isAccepted;
+                db.SaveChanges();
+                return RedirectToAction("TeamReservationIndex");
+            }
+            //在該店家找不到對應的團則返回錯誤頁面
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }

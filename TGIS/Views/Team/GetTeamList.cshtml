@@ -5,40 +5,53 @@
     string playerID = (string)Session["PlayerID"];
     if (usage == "TeamIndex")
     {
-        ViewBag.Title = "TeamIndex";
+        ViewBag.Title = "揪桌列表";
         Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     }
 }
 
-@if (usage == "TeamIndex")
-{
-    <h2>揪桌一起玩</h2>
-    @Html.ActionLink("新開一桌", "TeamCreate")
-}
+
+    <div class="row d-flex justify-content-between">
+        @*尚未登入時，點擊開桌會叫出登入Modal*@
+        @if (usage == "TeamIndex")
+        {
+            <h2 class="ml-3">揪桌一起玩</h2>
+
+            if (Session["PlayerID"] == null)
+            {
+                <a href="javascript: document.getElementById('loginBtn').click();" class="btn btn-primary mb-1 mr-3">新開一桌</a>
+            }
+            else
+            {
+                @Html.ActionLink("新開一桌", "TeamCreate", null, new { @class = "btn btn-primary mb-1 mr-3" })
+            }
+        }
+    </div>
+<br />
 <table class="table table-bordered text-center">
-    <thead >
-        <tr class="table-success">
-            <th>
+    <thead>
+        <tr class="table-success h5">
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+            <th width="20%">
                 @Html.DisplayNameFor(model => model.PlayPeriod)
             </th>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.Shop.ShopName)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             @if (usage == "TeamIndex" || usage == "Home")
             {
-                <th>
+                <th width="15%">
                     @Html.DisplayNameFor(model => model.ParticipateEndDate)
                 </th>
             }
             @if (usage == "TeamIndex" || usage == "Other")
             {
-                <th>
+                <th width="15%">
                     開團者
                 </th>
             }
@@ -48,45 +61,46 @@
                     @Html.DisplayNameFor(model => model.CurrentPlayers) / @Html.DisplayNameFor(m => m.PlayerLimit)
                 </th>
             }
-            <th></th>
+            <th width="10%"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.Raw(item.PlayPeriod)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Shop.ShopName)
                 </td>
-                <td>
+                <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 @if (usage == "TeamIndex" || usage == "Home")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.ParticipateEndDate)
                     </td>
                 }
                 @if (usage == "TeamIndex" || usage == "Other")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
                     </td>
                 }
                 @if (usage == "Leader")
                 {
-                    <td>
+                    <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.CurrentPlayers) / @item.PlayerLimit
                     </td>
                 }
-                <td>
-                    @if (!item.IsExpired)
+                <td class="align-middle">
+                    @* 揪桌尚未截止時 *@
+                    @if (!item.IsParticipateEnded)
                     {
                         if (usage == "Leader")
                         {
@@ -96,18 +110,16 @@
                                 <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                     <input type="hidden" name="teamID" value="@item.ID" />
                                     <input type="hidden" name="action" value="close" />
-                                    <input type="hidden" name="playerID" value="@playerID" />
                                     <input type="hidden" name="fromMyTeam" value="true" />
-                                    <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')"/>
+                                    <input type="submit" class="btn btn-success mb-1" value="提早結團" onclick="return confirm('確定要提早結團嗎?')" />
                                 </form>
                             }
                             //取消出團按鈕
                             <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                 <input type="hidden" name="teamID" value="@item.ID" />
                                 <input type="hidden" name="action" value="cancel" />
-                                <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')"　/>
+                                <input type="submit" class="btn btn-danger mb-1" value="取消此團" onclick="return confirm('確定要關閉此團嗎?')" 　 />
 
                             </form>
                         }
@@ -117,15 +129,25 @@
                             <form action="@Url.Action("TeamDetailForPlayer")" method="post">
                                 <input type="hidden" name="teamID" value="@item.ID" />
                                 <input type="hidden" name="action" value="exit" />
-                                <input type="hidden" name="playerID" value="@playerID" />
                                 <input type="hidden" name="fromMyTeam" value="true" />
-                                <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')"/>
+                                <input type="submit" class="btn btn-danger mb-1" value="離開此團" onclick="return confirm('確定要退出嗎?')" />
                             </form>
                         }
                     }
-                    @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID },new {@class="btn btn-info"})
+                    @*已經成團且尚未送出*@
+                    else if (usage == "Leader" && item.Status == "已成團")
+                    {
+                        <form action="@Url.Action("TeamDetailForPlayer")" method="post">
+                            <input type="hidden" name="teamID" value="@item.ID" />
+                            <input type="hidden" name="action" value="sendRequest" />
+                            <input type="hidden" name="fromMyTeam" value="true" />
+                            <input type="submit" class="btn btn-success mb-1" value="確認訂位" onclick="return confirm('確定要進行訂位嗎?')" />
+                        </form>
+                    }
+                    @Html.ActionLink("詳細資訊", "TeamDetailForPlayer", new { teamID = item.ID }, new { @class = "btn btn-info" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

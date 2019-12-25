@@ -32,6 +32,14 @@ namespace TGIS.Models
                 return PlayerCouponDetails.Count;
             }
         }
+        [DisplayName("已使用人數")]
+        public int UsedAmount
+        {
+            get
+            {
+                return PlayerCouponDetails.Count(d => d.IsUsed);
+            }
+        }
         [DisplayName("是否可兌換")]
         public bool IsExchangable
         {
@@ -58,7 +66,7 @@ namespace TGIS.Models
         public int PointsRequired { get; set; }
         [DisplayName("可換張數"), Range(0, int.MaxValue)]
         public Nullable<int> LimitedAmount { get; set; }
-        [DisplayName("已啟用")]
+        [DisplayName("啟用確認")]
         public bool IsAvailable { get; set; }
     }
     //縣市列表
@@ -184,7 +192,17 @@ namespace TGIS.Models
     }
     //玩家主檔
     [MetadataType(typeof(MetadataPlayer))]
-    public partial class Player { }
+    public partial class Player 
+    {
+        [DisplayName("年齡")]
+        public int Age
+        {
+            get
+            {
+                return DateTime.Now.Subtract(Birthday).Days / 365;
+            }
+        }
+    }
     public class MetadataPlayer
     {
         [DisplayName("會員編號")]
@@ -256,7 +274,18 @@ namespace TGIS.Models
     }
     //店家主檔
     [MetadataType(typeof(MetadataShop))]
-    public partial class Shop { }
+    public partial class Shop
+    {
+        //以下為推算出的衍生屬性，沒有儲存在資料庫中
+        [DisplayName("詳細地址")]
+        public string FullAddress
+        {
+            get
+            {
+                return District.City.CityName + District.DistrictName + Address;
+            }
+        }
+    }
     public class MetadataShop
     {
         [DisplayName("會員編號")]
@@ -391,13 +420,26 @@ namespace TGIS.Models
     public partial class Team
     {
         //以下是資料庫中沒有儲存，僅是推算出來的屬性
+        /// <summary>
+        /// 該團的目前狀態
+        /// </summary>
         [DisplayName("狀態")]
         public string Status
         {
             get
             {
-               if (IsCanceled)
+                if (DateTime.Today > PlayDate)
+                    return "已過期";
+                else if (IsCanceled)
                     return "已取消出團";
+                else if (IsConfirmedByShop != null)
+                {
+                    if ((bool)IsConfirmedByShop)
+                        return "訂位成功";
+                    return "訂位失敗";
+                }
+                else if (IsRequestSent)
+                    return "已送出訂位請求";
                 else if (IsClosed)
                     return "已成團";
                 else if (DateTime.Now > ParticipateEndDate)
@@ -422,7 +464,7 @@ namespace TGIS.Models
                 if (MaxPlayer == MinPlayer)
                     return $"正好{MaxPlayer}人";
                 else
-                    return $"{MinPlayer} ~ {MaxPlayer}";
+                    return $"{MinPlayer} ~ {MaxPlayer} 人";
             }
         }
         [DisplayName("遊戲時間")]
@@ -442,8 +484,10 @@ namespace TGIS.Models
                 return OtherPlayers.Count + 1;
             }
         }
-        [DisplayName("是否已截止報名")]
-        public bool IsExpired
+        /// <summary>
+        /// 是否已經截止報名
+        /// </summary>
+        public bool IsParticipateEnded
         {
             get
             {
@@ -485,6 +529,10 @@ namespace TGIS.Models
         public bool IsCanceled { get; set; }
         [DisplayName("是否已提前截止")]
         public bool IsClosed { get; set; }
+        [DisplayName("是否送出訂位請求")]
+        public bool IsRequestSent { get; set; }
+        [DisplayName("是否訂位成功")]
+        public bool IsConfirmedByShop { get; set; }
 
 
     }

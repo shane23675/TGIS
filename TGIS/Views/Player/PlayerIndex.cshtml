@@ -1,73 +1,75 @@
 ﻿@model IEnumerable<TGIS.Models.Player>
 
 @{
-    ViewBag.Title = "PlayerIndex";
+    ViewBag.Title = "帳密管理";
 }
+    <div class="mr-3">
+        <h2 class="ml-3">玩家列表</h2>
+        <br />
+        <table class="table text-center table-hover ml-3 ">
+            <tr class="table-manager border-0">
+                <th>
+                    @Html.DisplayNameFor(model => model.Account)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NickName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsEmailValid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Points)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsBanned)
+                </th>
+                <th></th>
+            </tr>
 
-<h2>玩家列表</h2>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NickName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @if (item.IsEmailValid)
+                        {
+                            @: 已驗證
+                        }
+                        else
+                        {
+                            @: 尚未驗證
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Points)
+                    </td>
+                    <td>
+                        @if (item.IsBanned)
+                        {
+                            @: 已停權
+                        }
+                        else
+                        {
+                            @: 正常
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("編輯", "PlayerEdit", new { playerID = item.ID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
+                    </td>
+                </tr>
+            }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NickName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsEmailValid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Points)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsBanned)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NickName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @if (item.IsEmailValid)
-            {
-                @: 已驗證
-            }
-            else
-            {
-                @: 尚未驗證
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Points)
-        </td>
-        <td>
-            @if (item.IsBanned)
-            {
-                @: 已停權
-            }
-            else
-            {
-                @: 正常
-            }
-        </td>
-        <td >
-            @Html.ActionLink("修改", "PlayerEdit", new { playerID = item.ID }, new { @class="btn btn-secondary"}) 
-            @Html.ActionLink("刪除", "PlayerDelete", new { playerID = item.ID }, new { @class="btn btn-danger" ,onclick = "return confirm('確定要刪除嗎？')"})
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+    </div>

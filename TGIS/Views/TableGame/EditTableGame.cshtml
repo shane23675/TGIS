@@ -1,97 +1,40 @@
-@using TGIS.Models
+﻿@using TGIS.Models
 @model TableGame
 
 @{
-    ViewBag.Title = "EditTableGame";
+    ViewBag.Title = "桌遊資料編輯";
     List<Tag> categoryTagsList = (List<Tag>)(ViewBag.categoryTagsList);
 }
 
-<h2>EditTableGame</h2>
+
 
 <form method="post" action="@Url.Action("EditTableGame", "TableGame")" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>TableGame</h4>
+    <div class="form-horizontal m-2">
+        <h2>桌遊資料編輯</h2>
         <hr />
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChineseName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChineseName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ChineseName, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            <label class="control-label col-md-1 mt-1">難度分類</label>
+            <div class="col-md-2">
+                @Html.DropDownList("DifficultyTagID", (IEnumerable<SelectListItem>)(ViewBag.difficultySelectList), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DifficultyTagID, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
+            <label class="control-label col-md-1 mt-1">品牌</label>
+            <div class="col-md-2">
+                @Html.DropDownList("BrandTagID", (IEnumerable<SelectListItem>)(ViewBag.brandSelectList), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandTagID, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsExtended, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.IsExtended, htmlAttributes: new { @class = "control-label col-md-1 mt-1" })
+            <div class="col-md-1 mt-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.IsExtended)
                     @Html.ValidationMessageFor(model => model.IsExtended, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MinPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxPlayer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxPlayer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AverageGamePeroid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AverageGamePeroid, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AverageGamePeroid, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DetailGamePeroid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DetailGamePeroid, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DetailGamePeroid, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Feature, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Feature,  new { @class = "form-control",style="resize:none",rows="7" } )
-                @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rules, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Rules, new { @class = "form-control", style = "resize:none", rows = "15" })
-                @Html.ValidationMessageFor(model => model.Rules, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsShown, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.IsShown, htmlAttributes: new { @class = "control-label col-md-1 mt-1" })
+            <div class="col-md-1 mt-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.IsShown)
                     @Html.ValidationMessageFor(model => model.IsShown, "", new { @class = "text-danger" })
@@ -99,41 +42,83 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DifficultyTagID, "DifficultyTagID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("DifficultyTagID", (IEnumerable<SelectListItem>)(ViewBag.difficultySelectList), htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DifficultyTagID, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.ChineseName, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ChineseName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ChineseName, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BrandTagID, "BrandTagID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BrandTagID", (IEnumerable<SelectListItem>)(ViewBag.brandSelectList), htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BrandTagID, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.MinPlayer, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.MinPlayer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MinPlayer, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.MaxPlayer, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.MaxPlayer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxPlayer, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">遊戲分類</label>
-            <div class="col-md-10 row">
+        <div class="row form-group">
+            @Html.LabelFor(model => model.AverageGamePeroid, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AverageGamePeroid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AverageGamePeroid, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.DetailGamePeroid, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DetailGamePeroid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DetailGamePeroid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Feature, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Feature, new { @class = "form-control", style = "resize:none", rows = "7" })
+                @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Rules, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Rules, new { @class = "form-control", style = "resize:none", rows = "15" })
+                @Html.ValidationMessageFor(model => model.Rules, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="row form-group">
+            <label class="control-label col-md-1">遊戲分類</label>
+            <div class="col-md-9 row">
                 @foreach (Tag t in categoryTagsList)
                 {
                     //如果生成的標籤有被包含在該桌遊的GameCategoryTags中則讓該checkbox被勾選
                     bool isSelected = Model.GameCategoryTags.Contains(t);
                     <div class="col-md-3 col-lg-2">
                         <span class="text-nowrap">
-                            @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" checked=@isSelected />
+                            @t.TagName<input type="checkbox" name="selectedCategories" value="@t.ID" checked=@isSelected class="ml-1" />
                         </span>
                     </div>
                 }
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">圖片資料</label>
-            <div class="col-md-10 row">
+        <div class="row form-group">
+            <label class="control-label col-md-1">圖片資料</label>
+            <div class="col-md-9 row">
                 @if (ViewBag.photoIDList.Count == 0)
                 {
                     <p class="text-info">目前尚無任何圖片</p>
@@ -145,7 +130,7 @@
                         <div class="col-md-4">
                             <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
                             <div>
-                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" />
+                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" class="ml-1" />
                             </div>
                         </div>
                     }
@@ -153,32 +138,33 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">上傳新圖片(可一次選取多張)</label>
-            <div class="col-md-10 row">
+        <div class="row form-group">
+            <label class="control-label col-md-1 text-nowrap">上傳新圖片<br />(可一次選取多張)</label>
+            <div class="col-md-9 mt-3">
                 <input type="file" name="newPhoto" multiple />
             </div>
-        </div>
+        </div> 
 
-        <div class="form-group">
-            <label class="control-label col-md-2">相關教學連結</label>
-            <div class="col-md-10" id="linkInputBox">
+        <div class="row form-group">
+            <label class="control-label col-md-1">相關教學連結</label>
+            <div class="col-md-9" id="linkInputBox">
                 @foreach (RelevantLink link in Model.RelevantLinks)
                 {
-                    <label>@link.Url</label> <span class="ml-4">刪除</span><input type="checkbox" name="deletedLinkIDs" value="@link.ID" /><br />
-                }
-                <input type="text" name="links" class="form-control" placeholder="新增一項連結..."/>
+                    <label>@link.Url</label> <span class="ml-4 mr-1">刪除</span><input type="checkbox" name="deletedLinkIDs" value="@link.ID" /><br />
+                } 
+                <button id="moreLinkBtn" class="btn btn-success mt-2"><i class="fas fa-plus"></i></button>
             </div>
-            <button id="moreLinkBtn" class="btn btn-link">再加一筆</button>
+            
         </div>
 
 
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="儲存" class="btn btn-primary" />
-                @Html.ActionLink("返回", "ShowTableGameListForAdmin", null, new { @class = "btn btn-light ml-4" })
-            </div>
+            <input type="submit" value="儲存" class="btn btn-primary" />
+            @Html.ActionLink("返回", "ShowTableGameListForAdmin", null, new { @class = "btn btn-secondary ml-4" })
         </div>
     </div>
 </form>
+@section scripts{
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>    
+}

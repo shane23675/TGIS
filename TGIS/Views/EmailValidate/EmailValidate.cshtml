@@ -1,13 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "EmailValidate";
+    ViewBag.Title = "會員信箱驗證";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
-
-    <div class="row justify-content-center align-content-center vh-100">
-        <div class="col-12 mb-3 text-center" style="position:relative">
-            <img src="~/images/email_check.jpg" class="img-fluid" style="border-radius:1%" />
+    @*圖片來源:<a href='https://pngtree.com/so/信封'>信封 png from pngtree.com</a>*@
+    <div class="row">
+        <div class="col-6 ">
+            <img src="~/images/envelope letter.png" class="img-fluid p-5"/>
         </div>
-        <h1 class="col-12 text-center">請至信箱收取確認信</h1>
-        @Html.ActionLink("立即返回首頁", "Index", "Home", null, new { @class = "btn btn-outline-danger mt-2" })
+        <div class="col-6 remind">
+            <h1 class="display-4">註冊成功</h1>
+            <h4><small class="text-muted">請至信箱收取確認信</small></h4>
+            @Html.ActionLink("立即返回首頁", "Index", "Home", null, new { @class = "btn btn-outline-success mt-2" })
+        </div>
     </div>

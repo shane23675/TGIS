@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "統計資料查看";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+<link href="~/Content/Chart.min.css" rel="stylesheet" />
+
+<div class="row justify-content-between">
+    <h2>揪桌客群分析</h2>
+    <ul class="nav nav-pills">
+        <li class="nav-item mr-2">
+            @Html.ActionLink("一個月內", "TeamStatistic", new { monthsFromNow = 0 }, new { @class = "nav-link active" })
+        </li>
+        <li class="nav-item mr-2">
+            @Html.ActionLink("一個月前~兩個月內", "TeamStatistic", new { monthsFromNow = 1 }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item mr-2">
+            @Html.ActionLink("兩個月前~三個月內", "TeamStatistic", new { monthsFromNow = 2 }, new { @class = "nav-link" })
+        </li>
+    </ul>
+</div>
+<br />
+@*之後進行active跟disabled的調整*@
+
+
+
+@if (ViewBag.NoTeam != null)
+{
+    <h3 class="text-info">此期間沒有任何紀錄</h3>
+}
+else
+{<div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="genderChart"></canvas>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="ageChart"></canvas>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 col-md-offset-2">
+            <canvas id="districtChart"></canvas>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+        //年齡分布圖的漸層色
+        var ageColor = [];
+        for (var i = 0; i < 8; i++) {
+            ageColor.push(`hsl(120, 100%, ${80 - 10 * i}%)`)
+        }
+        //區域分布圖的顏色
+        var districtColor = [];
+        for (var i = 0; i < 6; i++) {
+            for (var j = 0; j < 3; j++) {
+                for (var k = 0; k < 3; k++) {
+                    districtColor.push(`hsl(${60 * i}, ${30 + 20 * k}%, ${50 + 20 * j}%)`);
+                }
+            }
+        }
+
+        //產生圖表用的函數
+        function createChart(chartID, _labels, _data, _backgroundColor, titleText) {
+                new Chart($(chartID).get(0), {
+                //類型：圓餅圖
+                type: "pie",
+                //所有的資料都是放在這裡
+                data: {
+                    //labels放項目標題
+                    labels: _labels,
+                    //其他資料集合
+                    datasets: [{
+                        //圓餅圖數據
+                        data: _data,
+                        //背景顏色
+                        backgroundColor: _backgroundColor
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    //標題設定
+                    title: {
+                        display: true,
+                        fontSize: 26,
+                        text: titleText
+                    },
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            fontColor: "black"
+                        }
+                    }
+                }
+            });
+        }
+        createChart("#genderChart", @Html.Raw(ViewBag.GenderLabels), @Html.Raw(ViewBag.GenderData), ["hsl(240, 100%, 80%)", "hsl(0, 100%, 80%)"], "性別比")
+        createChart("#ageChart", @Html.Raw(ViewBag.AgeLabels), @Html.Raw(ViewBag.AgeData), ageColor, "年齡分布")
+        createChart("#districtChart", @Html.Raw(ViewBag.DistrictLabels), @Html.Raw(ViewBag.DistrictData), districtColor, "區域分布")
+    </script>
+
+}

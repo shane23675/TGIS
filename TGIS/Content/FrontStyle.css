@@ -51,8 +51,8 @@
     border-radius: 5px;
     box-shadow: #000000 3px 3px 2px;
 }
-
-.messenger {
+.Aus {
+height:433px;
 }
 /* ---------------------------------------------------
     導覽列小選單
@@ -155,6 +155,7 @@
     color: #dc3545;
     border-color: #dc3545;
 }
+
 .badge-outline-primary:hover {
     color: #007bff;
     text-decoration: none;
@@ -163,7 +164,6 @@
     color: #dc3545;
     text-decoration: none;
 }
-
 /* ---------------------------------------------------
     view的微調
 ----------------------------------------------------- */
@@ -185,11 +185,11 @@
 
 .media a {
     color: #2D739E;
-    background-color: transparent;
+    /*background-color: transparent;*/
 }
 
     .media a:hover {
-        color: #00465E;
+        color: #60D2FF;
         text-decoration: none;
     }
 
@@ -207,4 +207,49 @@
 .border-shop {
     border: 2px solid #BFD7EA;
     box-shadow:2px 2px 3px rgba(177,237,232,0.5);
+}
+
+.remind {
+    padding-top:13%;
+    padding-left:40px;    
+}
+
+.gameName {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    background-color: rgba(0,0,0,.6);
+    color: #ffffff;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity .3s;
+}
+.card-body:hover .gameName {
+    opacity: 1;
+}
+.comm {
+height:200px;
+}
+.comm-img {
+    border-radius: calc(.25rem - 1px);
+}
+.comm-text {
+overflow:auto;
+}
+.objectbutton {
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    width: 140px;
+    height: 130px;
+    margin:15px auto;
+    border: 2px solid #B1EDE8;
+    border-radius: 20%;
+    box-shadow: 3px 3px 5px #BFD7EA;
+    color: #C6FFFA;
+}
+.check {
+margin-top:14px;
+margin-left:5px;
 }

@@ -25,7 +25,7 @@ namespace TGIS.Controllers
             if (user !=null)
             {
                 Session["AdminID"] = user.ID;
-                return RedirectToAction("ShopIndex", "Shop");
+                return RedirectToAction("ReturnList", "Feedback");
             }
             ViewBag.Error = "帳號密碼錯誤";
             return View();

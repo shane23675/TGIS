@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //玩家查看點數明細
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult MyPoints()
         {
             Player p = db.Players.Find((string)Session["PlayerID"]);

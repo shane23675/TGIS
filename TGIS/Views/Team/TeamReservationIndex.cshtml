@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TGIS.Models.Team>
+
+@{
+    ViewBag.Title = "預約管理";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+
+<h2>預約管理</h2>
+
+<table class="table table-sm table-bordered table-hover shadow ">
+    <tr class="table-primary">
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.PlayDate)
+        </th>
+        <th width="5%">
+            @Html.DisplayNameFor(model => model.PlayBeginTime)
+        </th>
+        <th width="5%">
+            @Html.DisplayNameFor(model => model.PlayEndTime)
+        </th>
+        <th width="5%">
+            預約人數
+        </th>
+        <th width="15%">
+            主揪暱稱
+        </th>
+        <th width="10%">
+            訂位確認
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayBeginTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPlayers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaderPlayer.NickName)
+        </td>
+        <td>
+            @if (item.IsConfirmedByShop == null)
+            {
+                @Html.ActionLink("接受", "TeamReservationReply", new { isAccepted = true, teamID = item.ID }, new { @class = "btn btn-success", onclick = "return confirm('確定要接受此訂位嗎？')" })
+                @Html.ActionLink("拒絕", "TeamReservationReply", new { isAccepted = false, teamID = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要拒絕此訂位嗎？')" })
+            }
+            else if ((bool)item.IsConfirmedByShop)
+            {
+                @: 已接受訂位
+            }
+            else
+            {
+                @: 已拒絕訂位
+            }
+        </td>
+    </tr>
+}
+
+</table>

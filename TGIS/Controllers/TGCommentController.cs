@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +16,7 @@ namespace TGIS.Controllers
         {
             if (Session["PlayerID"] != null)
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && comment.Trim() != "")
                 {
                     var pId = Session["PlayerID"].ToString();
                     TableGameComment tgc = new TableGameComment();
@@ -51,18 +51,16 @@ namespace TGIS.Controllers
         }
 
         //管理員查看評論列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult TGCommentIndexForAdmin()
         {
             return View(db.TableGameComments.OrderByDescending(c => c.ID).ToList());
         }
 
         //管理員隱藏評論
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult HideTGComment(int commentID)
         {
-            //未登入則跳轉至登入頁面
-            if (Session["AdminID"] == null)
-                RedirectToAction("LoginForAdmin", "LoginForAdmin");
-
             db.TableGameComments.Find(commentID).IsHidden = true;
             db.SaveChanges();
             return RedirectToAction("TGCommentIndexForAdmin");

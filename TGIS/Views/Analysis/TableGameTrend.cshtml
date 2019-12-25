@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "統計資料查看";
+    Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
+}
+<link href="~/Content/WebSearch.css" rel="stylesheet" />
+<link href="~/Content/Chart.min.css" rel="stylesheet" />
+@section CSS{
+    <style>
+        #TGResultList {
+            position: absolute;
+            width: 20%;
+            overflow: auto;
+            height: auto;
+            max-height: 50vh;
+        }
+    </style>
+}
+
+
+
+@using (Html.BeginForm())
+{
+    /*
+     *  這裡麻煩幫我做出這樣的介面：
+     *  有個輸入框可以輸入桌遊名稱，輸入後會出現下拉式選單
+     *  點擊選單的內容會添加一個<input name="tableGameIDs" type="hidden" value="該桌遊ID" />
+     *  還會出現一個框提示現在有被選取這個桌遊
+     *  有餘裕的話，讓用戶點擊那個框可以取消選取這個桌遊
+     */
+
+
+    <h2>桌遊趨勢分析</h2>
+    <br />
+    <div>
+        說明：<br />
+        此頁提供自本月起1年內桌遊點擊量的曲線圖，請選擇欲觀察的桌遊進行查看。<br />
+        您最多可以選擇五項桌遊進行分析。<br />
+    </div>
+    <hr />
+    <div class="row mx-0">
+        <div class="col-8 row">
+            <input type="text" id="GameSearch" placeholder="請輸入欲查看桌遊" class="form-control d-inline" />
+            <div id="TGResultList" class="col-6"></div>
+        </div>
+        <input type="submit" value="觀察趨勢" class="btn btn-outline-info ml-2" id="con"/>
+    </div>
+        <div id="TGSearchForShop" class="mt-2 ml-3"></div>
+
+        }
+        @*
+            取得資料的流程：
+            --用戶選取桌遊
+            --用戶點擊提交
+            --Post至後端取得下方ViewBag.Months、ViewBag.Data
+            --重新導向回到此頁面，渲染出分析圖
+        *@
+
+        <div class="row justify-content-center">
+
+            <canvas id="myChart" class="col-10"></canvas>
+
+        </div>
+
+
+@section scripts{
+    <script src="~/Scripts/WebSearch.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+        //無輸入桌遊下不可送出
+        $('#con').click(function () {
+            if ($('#TGSearchForShop').children('span').length == 0) {
+                alert('請選擇至少一個桌遊');
+                return false;
+            }
+        })
+
+        //繪製趨勢圖
+        var data = @Html.Raw(ViewBag.Data);
+        var color = ['#c9d3a8', '#e67399', '#f2a640', '#e0c240', '#59bfb3'];
+
+        if (data != 0) {
+
+            var dataInfo = [];
+            for (i = 0; i < data.length; i++) {
+                dataInfo.push({
+                    label: data[i].Name,
+                    data: data[i].Clicks,
+                    fill: false,
+                    backgroundColor: 'red',
+                    borderColor: color[i],
+                    pointerStyle: "circle",
+                    pointBackgroundColor: color[i],
+                    pointRadius: 5,
+                    pointHoverRadius: 10
+                })
+            }
+
+            var ctx = document.getElementById('myChart');
+            var myChart2 = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels:@Html.Raw(ViewBag.Months),
+                    datasets: dataInfo
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'point',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '月份',
+                                fontsize: 20,
+
+                            },
+                            ticks: {
+                                fontsize: 15
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '點擊量',
+                                fontsize: 20,
+
+                            },
+                            ticks: {
+                                fontsize: 15,
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 3000
+                    }
+                }
+            });
+        }
+    </script>
+}

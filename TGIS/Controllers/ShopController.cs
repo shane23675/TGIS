@@ -6,6 +6,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TGIS.Controllers
 {
@@ -13,19 +15,28 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //管理員查看店家列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ShopIndex()
         {
             return View(db.Shops.ToList());
         }
 
         //管理員創建店家會員
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopCreate()
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
+            ViewBag.AreaScale = new SelectList(new[]
+            {
+                new { Option = "大"},
+                new { Option = "中"},
+                new { Option = "小"}
+            }, "Option", "Option");
             return View();
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopCreate(Shop shop, HttpPostedFileBase[] photos)
         {
             //檢查帳號是否重複
@@ -34,11 +45,13 @@ namespace TGIS.Controllers
             //驗證帳號密碼是否符合規則
             UsefulTools.RegisterValidate(shop.Account, ModelState["Account"].Errors.Add, false, false);
             UsefulTools.RegisterValidate(shop.Password, ModelState["Password"].Errors.Add, true, true);
-            //填入自動生成的ID
-            shop.ID = UsefulTools.GetNextID(db.Shops, 1);
+            
             if (ModelState.IsValid)
             {
+                //填入必要資料
+                shop.ID = UsefulTools.GetNextID(db.Shops, 1);
                 shop.Password = Hash.PwdHash(shop.Password);
+                shop.AccumulatedHours = 0;
                 db.Shops.Add(shop);
                 db.SaveChanges();
 
@@ -49,10 +62,17 @@ namespace TGIS.Controllers
             }
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName");
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName", db.Districts.Find(shop.DistrictID).CityID);
+            ViewBag.AreaScale = new SelectList(new[]
+            {
+                new { Option = "大"},
+                new { Option = "中"},
+                new { Option = "小"}
+            }, "Option", "Option");
             return View(shop);
         }
 
-        //刪除店家資料
+        //管理員刪除店家資料
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult ShopDelete(string id)
         {
             Shop s = db.Shops.Find(id);
@@ -69,9 +89,9 @@ namespace TGIS.Controllers
             foreach(Team t in s.Teams)
             {
                 t.OtherPlayers.Clear();
-                t.Messages.Clear();
-                db.Teams.Remove(t);
+                db.Messages.RemoveRange(t.Messages);
             }
+            db.Teams.RemoveRange(s.Teams);
             //最後再刪除店家本身
             db.Shops.Remove(s);
             db.SaveChanges();
@@ -80,6 +100,7 @@ namespace TGIS.Controllers
         }
 
         //管理員編輯店家
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopEdit(string id)
         {
             var shop = db.Shops.Find(id);
@@ -90,6 +111,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult MgShopEdit(Shop shop)
         {
             //移除不能修改部分的ModelState錯誤
@@ -114,7 +136,7 @@ namespace TGIS.Controllers
         }
         //玩家看到的店家列表
         public ActionResult ShopIndexForPlayer(int? CityID, int? DistrictID, string searchedTableGameID, 
-            string AreaScale, string IsFoodAcceptable, string IsMinConsumeRequired)
+            string AreaScale, string IsFoodAcceptable, string IsMinConsumeRequired, int page = 1)
         {
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.DistrictID = new SelectList(db.Districts, "ID", "DistrictName", -1);
@@ -134,9 +156,10 @@ namespace TGIS.Controllers
                 new { Text = "無" },
                 new { Text = "不限" }
             }, "Text", "Text", "不限");
+            ViewBag.NoDistrict = DistrictID == null || DistrictID == -1;
             //店家查詢結果的容器
             var shops = db.Shops.ToList();
-            if (searchedTableGameID == "" || searchedTableGameID == null)
+            if (searchedTableGameID == null || searchedTableGameID.Trim() == "")
             {
                 //桌遊搜尋ID為空，啟用一般篩選功能
                 if (CityID != null)
@@ -194,7 +217,7 @@ namespace TGIS.Controllers
                 bool required = IsMinConsumeRequired == "有";
                 shops = shops.Where(s => s.IsMinConsumeRequired == required).ToList();
             }
-            return View(shops.OrderByDescending(s=>s.IsVIP).ThenByDescending(s=>s.AccumulatedHours));
+            return View(shops.OrderByDescending(s=>s.IsVIP).ThenByDescending(s=>s.AccumulatedHours).ToPagedList(page, 5));
         }
         //玩家看到店家詳細資料
         public ActionResult ShopDetailForPlayer(string id)
@@ -203,6 +226,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(id));
         }
         //店家編輯店家資料
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopEditForStore()
         {
             string shopID = Session["ShopID"].ToString();
@@ -221,6 +245,7 @@ namespace TGIS.Controllers
             return View(db.Shops.Find(shopID));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopEditForStore(Shop shop, int[] deletedPhotoID, HttpPostedFileBase[] newPhoto)
         {
             Shop s = db.Shops.Find((string)TempData["Shop_ID"]);
@@ -269,11 +294,10 @@ namespace TGIS.Controllers
             return View(shop);
         }
         //店家看到店家詳細資料
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult ShopDetailForStore()
         {
             string shopID = Session["ShopID"].ToString();
-            if (shopID == null)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             return View(db.Shops.Find(shopID));
         }
  
@@ -282,6 +306,8 @@ namespace TGIS.Controllers
         public ActionResult GetShopSelectList(int districtID, string shopID)
         {
             Shop[] shops = db.Districts.Find(districtID).Shops.ToArray();
+            //進行VIP優先排序
+            shops = shops.OrderByDescending(s => s.IsVIP).ThenByDescending(s => s.AccumulatedHours).ToArray();
             //找不到任何店家則返回錯誤選項
             if (shops.Length == 0)
                 return Content("<option value=\"ErrorMessage\">此地區無任何店家</option>");
@@ -319,5 +345,26 @@ namespace TGIS.Controllers
             return Content("false");
         }
 
+        //分析測試
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult ShopDAnalysis()
+        {
+            string shopID = Session["ShopID"].ToString();
+            return View();
+        }
+
+        //加值服務管理的暫用頁面
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult EnhancedService()
+        {
+            return View();
+        }
+
+        //需要開啟VIP功能的提示
+        [CenterLogin(CenterLogin.UserType.Shop)]
+        public ActionResult NoVIPHint()
+        {
+            return View();
+        }
     }
 }

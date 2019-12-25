@@ -1,30 +1,39 @@
 ﻿@using TGIS.Models
-@model IEnumerable<Shop>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Shop>
 
 @{
     ViewBag.Title = "店家列表";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     //搜尋某桌遊的資訊
-    TableGame game = (TableGame)ViewBag.SearchingTGInfo;
+    TableGame game = null;
+    if (ViewBag.SearchingTGInfo != null)
+    {
+        game = (TableGame)ViewBag.SearchingTGInfo;
+    }
+
 }
 
-    <link href="~/Content/WebSearch.css" rel="stylesheet" />
+<link href="~/Content/WebSearch.css" rel="stylesheet" />
 <style>
     #TGResultList, #ShopResultList {
-    width: 93%;
-}
+        width: 93%;
+    }
 </style>
 
 <div class="row">
     <aside class="border col-3">
-        <form>
+        <form id="filter">
             <h3 class="text-info">快速搜尋</h3>
             <div class="form-group">
                 <label class="col-form-label">從店家名稱搜尋：</label>
-                <input id="ShopSearch" class="form-control" type="search" placeholder="輸入店家名字" aria-label="SearchShop">
-                <div id="ShopResultList"></div>
+                <div class="row">
+                    <input id="ShopSearch" class="form-control ml-3 mr-3" type="search" placeholder="輸入店家名字" aria-label="SearchShop">
+                    <div id="ShopResultList" class="ml-2"></div>
+                </div>
             </div>
-            <div class="form-group">
+            <div class="form-group ">
                 <label>從地點搜尋：</label>
                 <div class="row ml-1 mr-1">
                     @Html.DropDownList("CityID", null, new { @class = "form-control col-6" })
@@ -33,45 +42,50 @@
             </div>
             <div class="form-group">
                 <label class="col-form-label">從想玩的桌遊搜尋：</label>
-                @if (game != null)
-                {
-                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="@game.ID" />
-                    <input class="form-control" type="search" placeholder="輸入桌遊名字" value="@game.ChineseName" aria-label="SearchGame">
-                }
-                else
-                {
-                    <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="hot"/>
-                    <input id="GameSearch" class="form-control" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
-                }
-                <div id="TGResultList"></div>
-            </div>
-            <h3 class="text-info">進階搜尋</h3>
-            <div class="form-group">
-                <label class="col-form-label">場地規模：</label>
-                @Html.DropDownList("AreaScale", null, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">是否有低消：</label>
-                @Html.DropDownList("IsMinConsumeRequired", null, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">是否可外食：</label>
-                @Html.DropDownList("IsFoodAcceptable", null, new { @class = "form-control" })
-            </div>
-            <button class="btn btn-info " type="submit">搜尋</button>
-            @Html.ActionLink("清除篩選條件", "ShopIndexForPlayer", null, new { @class="btn btn-secondary"})
-        </form>      
+                <div class="row">
+                    @if (game != null)
+                    {
+                        <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="@game.ID" />
+                        <input id="GameSearch" class="form-control ml-1 mr-1" type="search" placeholder="輸入桌遊名字" value="@game.ChineseName" aria-label="SearchGame">
+                    }
+                    else
+                    {
+                        <input type="hidden" name="searchedTableGameID" id="searchedTableGameID" value="" />
+                        <input id="GameSearch" class="form-control  ml-3 mr-3" type="search" placeholder="輸入桌遊名字" aria-label="SearchGame">
+                    }
+                    <div id="TGResultList" class="ml-2"></div>
+                </div>
+                </div>
+                <h3 class="text-info">進階搜尋</h3>
+                <div class="form-group">
+                    <label class="col-form-label">場地規模：</label>
+                    @Html.DropDownList("AreaScale", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">是否有低消：</label>
+                    @Html.DropDownList("IsMinConsumeRequired", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">是否可外食：</label>
+                    @Html.DropDownList("IsFoodAcceptable", null, new { @class = "form-control" })
+                </div>
+                <button class="btn btn-info " type="submit">搜尋</button>
+                @Html.ActionLink("清除篩選條件", "ShopIndexForPlayer", null, new { @class = "btn btn-secondary" })
+
+                @*在過濾桌遊的同時使分頁功能運作*@
+                <input type="hidden" name="page" id="page" value="" />
+
+</form>
     </aside>
     <div class="col-9 p-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="" @Url.Action("Index", "Home") ">首頁</a>
+                    <a href="@Url.Action("Index", "Home")">首頁</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">店家列表</li>
             </ol>
         </nav>
-        @*如果要顯示就要所有選項顯示，思考改版方法*@
         @foreach (Shop shop in Model)
         {
             <div class="media m-2">
@@ -89,7 +103,7 @@
                 <img src="@Url.Action("GetPhotoBySourceID","Photo",new { sourceID=shop.ID,index = 0})" class="shopphoto m-1">
             </div>
         }
-        <div>分頁</div>
+        <div class="d-flex justify-content-center">@Html.PagedListPager(Model, page => Url.Action("ShopIndexForPlayer", "Shop", new { page }))</div>
     </div>
 </div>
 
@@ -111,7 +125,18 @@
         }
         function callback(val) {
             $("#DistrictID").html("<option value='-1'>不限</option>" + val);
+            //不篩選行政區的情況下保留狀態
+            @if (((bool)ViewBag.NoDistrict))
+            {
+                //清除所有選項的selected狀態並選擇「不限」
+                @: $("#DistrictID option").prop("selected", false);
+                @: $("#DistrictID option[value='-1']").prop("selected", true);
+            }
         }
 
     </script>
+
+    @* 在過濾店家的同時使分頁功能運作 *@
+    <script src="~/Scripts/pagerFix.js"></script>
+
 }

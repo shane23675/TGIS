@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>有桌方遊 - @ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link href="~/Content/FrontStyle.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
     @RenderSection("CSS", false)
     @* 背景圖來源:
         <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
@@ -23,11 +25,11 @@
                     <stong>有桌方遊</stong>
                 </h3>
             </a>
-            <a class="navbar-brand text-danger text-left" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">
+            @*<a class="navbar-brand text-danger text-left" href="@Url.Action("ShowTableGameListForAdmin", "TableGame")">
                 <p>
                     <stong>管理員介面點此進入(暫時通道)</stong>
                 </p>
-            </a>
+            </a>*@
 
             <div class="nav-item ">
                 @if (Session["PlayerID"] != null)
@@ -42,7 +44,7 @@
                 {
                     <div>
                         <a class="btn btn-outline-info" href="@Url.Action("PlayerCreate", "Player")">註冊</a>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal">
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#loginModal" id="loginBtn">
                             登入
                         </button>
                     </div>
@@ -64,12 +66,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("MyTeam", "Team")">我的揪桌</a>
-                    </li>
+                    </li>          
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Test", "Home")">揪桌聊天室(測試中)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Login", new { sessionName = "PlayerID" })">登出</a>
+                        <a class="nav-link" href="javascript:;" id="logoutBtn">登出</a>
                     </li>
                 </ul>
             </div>
@@ -88,7 +87,7 @@
     </div>
     <footer class="rounded-bottom footnav">
         <nav class="navbar navbar-expand-md justify-content-end">
-            <a class="nav-link text-info" href="#">關於我們</a>
+            <a class="nav-link text-info" href="@Url.Action("AboutUs", "Feedback")">關於我們</a>
             <a class="nav-link text-info" href="@Url.Action("ContactUs", "Feedback")">聯絡我們</a>
         </nav>
     </footer>
@@ -123,7 +122,7 @@
                                 <input id="PlayerPwd" type="password" name="pwd" class="form-control w-75" />
                             </div>
                             <button id="PlayerLogin" type="button" class="btn btn-outline-info ml-1">登入</button>
-                            <button type="button" class="btn btn-sm btn-link float-right mt-1  mr-1">@Html.ActionLink("忘記密碼", "ForgetPwd", new { })</button>
+                            <button type="button" class="btn btn-sm btn-link float-right mt-1  mr-1">@Html.ActionLink("忘記密碼", "ForgetPwd","Login")</button>
                         </div>
                         <div class="tab-pane fade bg-white p-3 border-login" id="shoper" role="tabpanel" aria-labelledby="shoper-tab">
                             <div class="row m-3">
@@ -164,6 +163,11 @@
                         case "2":
                             alert("登入成功")
                             location.reload();
+                            break;
+                        case "3":
+                            alert("Email尚未驗證，請至信箱收取驗證信後再登入");
+                            location.assign("@Url.Action("EmailValidateRequired", "EmailValidate")");
+                            break;
                     }
                 }
             )
@@ -179,11 +183,19 @@
                             break;
                         case "2":
                             alert("登入成功")
-                            location.assign("@Url.Action("ShopDetailForStore", "Shop")")
+                            location.assign("@Url.Action("TeamReservationIndex", "Team")")
                             break;
                     }
                 }
             )
+        })
+
+        //點擊登出鈕
+        $("#logoutBtn").click(function () {
+            $.post("/Login/LogoutWithoutRedirect", null, function () {
+                //重新整理頁面
+                location.reload();
+            })
         })
     </script>
     @RenderSection("scripts", false)

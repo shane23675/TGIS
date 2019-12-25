@@ -11,6 +11,7 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //玩家查看「我的優惠券」
+        [CenterLogin(CenterLogin.UserType.Player)]
         public ActionResult MyCoupons()
         {
             Player p = db.Players.Find((string)Session["PlayerID"]);

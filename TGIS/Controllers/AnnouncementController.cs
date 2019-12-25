@@ -12,20 +12,19 @@ namespace TGIS.Controllers
     {
         TGISDBEntities db = new TGISDBEntities();
         //管理員查看公告列表
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnouncementIndexForAdmin()
         {
             return View(db.Announcements.ToList());
         }
         //管理員新增公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateAnnoun()
         {
-            if (Session["AdminID"] == null)
-            {
-                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
-            }
             return View();
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult CreateAnnoun(Announcement ann)
         {
             if (ModelState.IsValid)
@@ -37,20 +36,18 @@ namespace TGIS.Controllers
                 db.Announcements.Add(ann);
                 db.SaveChanges();
             }
-            return RedirectToAction("AnnouncementList");
+            return RedirectToAction("AnnouncementIndexForAdmin");
         }
 
         //管理員修改公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditAnnoun(string id)
         {
-            if (Session["AdminID"] == null)
-            {
-                return RedirectToAction("LoginForAdmin", "LoginForAdmin");
-            }
             TempData["AnnouncementID"] = id;
             return View(db.Announcements.Find(id));
         }
         [HttpPost]
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult EditAnnoun(Announcement ann)
         {
             if (ModelState.IsValid)
@@ -63,22 +60,24 @@ namespace TGIS.Controllers
                 announcement.Content = ann.Content;
 
                 db.SaveChanges();
-                return RedirectToAction("AnnouncementList");
+                return RedirectToAction("AnnouncementIndexForAdmin");
             }
             TempData.Keep("AnnouncementID");
             return View(ann);
         }
 
         //管理員刪除公告
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnounDel(string id)
         {
             var ann = db.Announcements.Find(id);
             db.Announcements.Remove(ann);
             db.SaveChanges();
-            return RedirectToAction("AnnouncementList");
+            return RedirectToAction("AnnouncementIndexForAdmin");
         }
 
         //管理員查看公告明細
+        [CenterLogin(CenterLogin.UserType.Admin)]
         public ActionResult AnnounDetail(string id)
         {
             return View(db.Announcements.Find(id));

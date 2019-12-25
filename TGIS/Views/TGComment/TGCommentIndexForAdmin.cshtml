@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<TGIS.Models.TableGameComment>
 
 @{
-    ViewBag.Title = "TGCommentForAdmin";
+    ViewBag.Title = "評論管理";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h2>評論管理</h2>
+<h2 class="ml-1">評論管理</h2>
 
-<table class="table">
-    <tr>
+<table class="table text-center table-hover  mr-3">
+    <tr class="table-manager border-0">
         <th>
             @Html.DisplayNameFor(model => model.CommentDate)
         </th>
@@ -16,15 +16,14 @@
             @Html.DisplayNameFor(model => model.Content)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsHidden)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Player.Account)
         </th>
         <th>
             桌遊名稱
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsHidden)
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -37,9 +36,6 @@
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsHidden)
-            </td>
-            <td>
                 <a href="@Url.Action("PlayerEdit", "Player", new { playerID = item.PlayerID})" class="text-info">@item.PlayerID</a>
             </td>
             <td>
@@ -48,7 +44,11 @@
             <td>
                 @if (!item.IsHidden)
                 {
-                    @Html.ActionLink("隱藏", "HideTGComment", new { commentID = item.ID }, new { @class = "btn btn-danger", onclick="return confirm('確定要隱藏該評論嗎？')" })
+                    @Html.ActionLink("隱藏", "HideTGComment", new { commentID = item.ID }, new { @class = "btn btn-danger", onclick="return confirm('確定要隱藏該評論嗎？\\n此操作無法復原')" })
+                }
+                else
+                {
+                    @: 已隱藏
                 }
             </td>
 </tr>

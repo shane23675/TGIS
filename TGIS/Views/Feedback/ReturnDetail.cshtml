@@ -2,29 +2,23 @@
 @model Feedback
 
 @{
-    ViewBag.Title = "ReturnDetail";
+    ViewBag.Title = "問題回報";
     TGISDBEntities db = new TGISDBEntities();
 }
 
-<h2>回報明細</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ReceivedDate)
-        </dt>
+<h2>問題回報詳細</h2>
+<hr />
+<div class="ml-3">
 
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.ReceivedDate)：</dt>
+        <dd>@Html.DisplayFor(model => model.ReceivedDate)</dd>
+    </dl>
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.Plaintiff)：</dt>
         <dd>
-            @Html.DisplayFor(model => model.ReceivedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Plaintiff)
-        </dt>
-
-        <dd>
-            @if (Model.TypeTagID == "R03")
+            @if (Model.TypeTagID == "R03" || Model.TypeTagID == "R04")
             {
                 @: 匿名檢舉
             }
@@ -33,11 +27,9 @@
                 @db.Players.Find(Model.Plaintiff).NickName
             }
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Defendent)
-        </dt>
-
+    </dl>
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.Defendent)：</dt>
         <dd>
             @if (Model.TypeTagID == "R01")
             {
@@ -52,26 +44,17 @@
                 @: 本網站
             }
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            回報類型
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tag.TagName)
-        </dd>
-
+    </dl>
+    <dl class="row">
+        <dt>@Html.DisplayNameFor(model => model.Content)：</dt>
+        <dd>@Html.DisplayFor(model => model.Content)</dd>
+    </dl>
+    <dl class="row">
+        <dt>回報類型：</dt>
+        <dd>@Html.DisplayFor(model => model.Tag.TagName)</dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("刪除", "ReturnDel", new { id = Model.ID }) |
-    @Html.ActionLink("回到列表", "ReturnList")
-</p>
+
+@Html.ActionLink("刪除", "ReturnDel", new { id = Model.ID }, new { @class = "btn btn-danger" })
+@Html.ActionLink("回到列表", "ReturnList", null, new { @class = "btn btn-secondary" })
+

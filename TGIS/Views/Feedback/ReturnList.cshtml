@@ -1,41 +1,40 @@
 ﻿@model IEnumerable<TGIS.Models.Feedback>
 
 @{
-    ViewBag.Title = "ReturnList";
+    ViewBag.Title = "回報列表";
 }
 
-<h2>回報列表</h2>
+<h2  class="ml-1">回報列表</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceivedDate)
-        </th>
-        <th>
-            回報類型
-        </th>
-        <th>
+<table class="table text-center table-hover  mr-3">
+    <tr class="table-manager border-0">
+        <th >
             @Html.DisplayNameFor(model => model.IsRead)
         </th>
+        <th >
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </th>
+        <th>回報類型</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceivedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tag.TagName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsRead)
-        </td>
-        <td>
-            @Html.ActionLink("詳細", "ReturnDetail", new { id=item.ID }, new { @class="btn btn-secondary"})
-            @Html.ActionLink("刪除", "ReturnDel", new { id=item.ID }, new { @class="btn btn-danger"})
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsRead)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReceivedDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tag.TagName)
+    </td>
+
+    <td>
+        @Html.ActionLink("詳細", "ReturnDetail", new { id = item.ID }, new { @class = "btn btn-info" })
+        @Html.ActionLink("刪除", "ReturnDel", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎？')" })
+    </td>
+</tr>
 }
 
 </table>

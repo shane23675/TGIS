@@ -20,8 +20,6 @@
     <div class="container form-horizontal">
         <h2>新開一桌</h2>
         <hr />
-        <input type="hidden" name="ID" value="@ViewBag.teamID" />
-        <input type="hidden" name="LeaderPlayerID" value="@((string)Session["PlayerID"])" />
 
         <div class="row form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-2" })
@@ -128,105 +126,101 @@
     </div>
 }
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/address.js"></script>
-<script>
-    //通過行政區找到店家：
-    //1. 取得行政區的ID值
-    //2. 用ajax傳出此ID
-    //3. controller找到對應的行政區
-    //4. 找到該行政區下的所有店家
-    //5. 將這些店家渲染成列表提供選擇 value=店家ID，顯示為店家名稱
-    $("#DistrictID").change(getShopOption);
-    $("#CityID").change(function () {
-        //因為城市的改變會先刷新行政區選項，需要稍微延時後再觸發getShopOption才有效
-        setTimeout(getShopOption, 100);
-    })
-    //剛進入頁面時就先刷新
-    getShopOption();
-    function getShopOption() {
-        var id = $("#DistrictID").val();
-        $.post("/Shop/GetShopSelectList", { districtID: id, shopID: "@GetMSData("ShopID")" }, function (data) {
-            $("#ShopID").html(data);
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/address.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
+    <script>
+        //通過行政區找到店家：
+        //1. 取得行政區的ID值
+        //2. 用ajax傳出此ID
+        //3. controller找到對應的行政區
+        //4. 找到該行政區下的所有店家
+        //5. 將這些店家渲染成列表提供選擇 value=店家ID，顯示為店家名稱
+        $("#DistrictID").change(getShopOption);
+        $("#CityID").change(function () {
+            //因為城市的改變會先刷新行政區選項，需要稍微延時後再觸發getShopOption才有效
+            setTimeout(getShopOption, 100);
         })
+        //剛進入頁面時就先刷新
+        getShopOption();
+        function getShopOption() {
+            var id = $("#DistrictID").val();
+            $.post("/Shop/GetShopSelectList", { districtID: id, shopID: "@GetMSData("ShopID")" }, function (data) {
+                $("#ShopID").html(data);
+            })
 
-        setTimeout(GetTableGameInShop, 1000);
-    }
-
-
-    //從輸入框搜尋桌遊
-    $("#searchBtn").click(function () {
-        //*******暫時停用，但在新的程式碼寫好前請勿刪除******
-        //var tgName = $("#searchInput").val(); 抓資料
-        //$.post("/TableGame/SearchTableGameByName", { name: tgName }, function (data) {
-        //    $("#Preference").html(data);
-        //})
-
-        var tgName = $("#searchInput").val();
-
-        if (tgName != null) {
-
-        $('#Preference').empty().append(ListForSel[0]);
-        for (i = 1; i < TGList.length; i++) {
-            if (TGList[i].indexOf(tgName) != -1) {
-                $('#Preference').append(ListForSel[i]);
-            }
+            setTimeout(GetTableGameInShop, 1000);
         }
-        $('#Preference option:first').attr('selected','selected');
-            }
-
-        //避免送出表單(請勿刪除)
-        return false;
-    })
 
 
-    //取得所有桌遊
+        //從輸入框搜尋桌遊
+        $("#searchBtn").click(function () {
+            var tgName = $("#searchInput").val();
 
-    var Preference = document.getElementById('Preference');
+            if (tgName != null) {
 
-    const TGList = [], ListForSel = [];
-    GetTGList();
-    function GetTGList() {
-        for (i = 0; i < Preference.length; i++) {
-            TGList[i] = Preference.options[i].text;
-            ListForSel[i] = Preference[i];
-         }
-    }
-
-
-    //取得店內桌遊
-
-    $('#ShopID').change(GetTableGameInShop);
-
-    function GetTableGameInShop() {
-        $.post("/TableGameInShopDetail/GetTableGameInShopJson", { shopID: $("#ShopID").val() }, function (data) {
-
-            var GetTGInShop = [];
-
-            //抓GetTableGameInShopJson ChineseName 字串
-            for (index = 0; index < data.length; index++) {
-                GetTGInShop[index] = data[index].ChineseName;
-            }
-            $('#Preference').empty().append(ListForSel);
-            ChangeTGList(GetTGInShop);
-        }
-    )}
-
-    //改變桌遊列表
-
-    function ChangeTGList(GetTGInShop) {
+            $('#Preference').empty().append(ListForSel[0]);
             for (i = 1; i < TGList.length; i++) {
-                var check = Preference.options[i];
-
-                if ($.inArray(TGList[i],GetTGInShop) == -1) {
-                    $(check).attr('disabled',true).text(TGList[i] + '(此店家無此桌遊)');
-                } else {
-                    $(check).attr('disabled',false).text(TGList[i]);
+                if (TGList[i].indexOf(tgName) != -1) {
+                    $('#Preference').append(ListForSel[i]);
                 }
             }
-    }
+            $('#Preference option:first').attr('selected','selected');
+                }
 
-    
-</script>
+            //避免送出表單(請勿刪除)
+            return false;
+        })
+
+
+        //取得所有桌遊
+
+        var Preference = document.getElementById('Preference');
+
+        const TGList = [], ListForSel = [];
+        GetTGList();
+        function GetTGList() {
+            for (i = 0; i < Preference.length; i++) {
+                TGList[i] = Preference.options[i].text;
+                ListForSel[i] = Preference[i];
+             }
+        }
+
+
+        //取得店內桌遊
+
+        $('#ShopID').change(GetTableGameInShop);
+
+        function GetTableGameInShop() {
+            $.post("/TableGameInShopDetail/GetTableGameInShopJson", { shopID: $("#ShopID").val() }, function (data) {
+
+                var GetTGInShop = [];
+
+                //抓GetTableGameInShopJson ChineseName 字串
+                for (index = 0; index < data.length; index++) {
+                    GetTGInShop[index] = data[index].ChineseName;
+                }
+                $('#Preference').empty().append(ListForSel);
+                ChangeTGList(GetTGInShop);
+            }
+        )}
+
+        //改變桌遊列表
+
+        function ChangeTGList(GetTGInShop) {
+                for (i = 1; i < TGList.length; i++) {
+                    var check = Preference.options[i];
+
+                    if ($.inArray(TGList[i],GetTGInShop) == -1) {
+                        $(check).attr('disabled',true).text(TGList[i] + '(此店家無此桌遊)');
+                    } else {
+                        $(check).attr('disabled',false).text(TGList[i]);
+                    }
+                }
+        }
+
+
+    </script>
+}

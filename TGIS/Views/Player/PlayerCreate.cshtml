@@ -1,7 +1,7 @@
-@model TGIS.Models.Player
+﻿@model TGIS.Models.Player
 
 @{
-    ViewBag.Title = "PlayerCreate";
+    ViewBag.Title = "會員註冊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
@@ -24,56 +24,49 @@
 
 
 
-<h2>Register</h2>
+<h2>會員註冊</h2>
 
 @using (Html.BeginForm("PlayerCreate", "Player", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="container">
 
         <div class="row form-group">
-            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-lg-1 col-md-2" })
-            <div class="col-lg-6  col-md-6">
-                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Account" } })
+            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3" })
+            <div class="col-lg-10  col-md-4">
+                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入帳號" } })
                 @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
             </div>
             <div id="AccountCheck" class="col-lg-4  col-md-4 text-danger"></div>
-
         </div>
 
-
         <div class="form-group row">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-lg-1  col-md-2" })
-            <div class="col-lg-4  col-md-4">
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password" })
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-lg-2  col-md-3" })
+            <div class="col-lg-10  col-md-4">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "請設定8-20字數以內的密碼，必須包含至少一個英文字母" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
-
         </div>
 
-
-
         <div class="form-group row">
-            <label class="control-label  col-lg-1  col-md-2">Pwd Confirm</label>
-            <div class="col-lg-4  col-md-4">
-                <input name="passwordConfirm" class="form-control" placeholder="Please enter your password again..." type="password" />
+            <label class="control-label  col-lg-2 col-md-3">重複確認密碼</label>
+            <div class="col-lg-10  col-md-4">
+                <input name="passwordConfirm" class="form-control" placeholder="請再次輸入你的密碼" type="password" />
             </div>
-
         </div>
 
-
         <div class="form-group row">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-lg-1" })
-            <div class="col-md-9">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-lg-2" })
+            <div class="col-lg-10  col-md-4">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group row">
-            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2 col-lg-1" })
-            <div class="col-lg-4  col-md-4">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2 col-lg-2" })
+            <div class="col-lg-10  col-md-6">
                 <div class="checkbox">
                     @{
                         // 狀態保留
@@ -88,36 +81,40 @@
                             }
                         }
                     }
-                    <input type="radio" name="Gender" value="true" @maleChecked /> Male
-                    <input type="radio" name="Gender" value="false" @femaleChecked /> Female
+
+                    <input type="radio" name="Gender" value="true" class="ml-3 mr-3" @maleChecked />
+                    <span>男</span>
+                    <input type="radio" name="Gender" value="false" class="ml-3 mr-3" @femaleChecked />
+                    <span>女</span>
+
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
             </div>
+        </div>
 
-            @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label  col-lg-1  col-md-2" })
-            <div class="col-lg-4  col-md-4">
+        <div class="row form-group">
+            @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label  col-lg-2  col-md-3" })
+            <div class="col-lg-10  col-md-4">
                 @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })
             </div>
-
         </div>
 
-        <div class="form-group row">
-            <label class="control-label col-md-2 col-lg-1">Address</label>
+        <div class="row form-group">
+            <label class="control-label col-md-3 col-lg-2">居住縣市區域</label>
             @*@Html.LabelFor(model => model.District.City.CityName, new { @class = "control-label col-md-2" })*@
-            <div class="col-lg-4 col-md-3">
+            <div class="col-lg-5 col-md-2">
                 @Html.DropDownList("CityID", null, new { @class = "form-control" })
             </div>
             @*@Html.LabelFor(m => m.District.DistrictName, new { @class = "control-label col-md-2" })*@
-            <div class="col-lg-4 col-md-3">
+            <div class="col-lg-5 col-md-2">
                 @Html.DropDownList("DistrictID", null, new { @class = "form-control" })
             </div>
         </div>
 
-
         <div class="form-group row">
-            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2 col-lg-1" })
-            <div class="col-lg-4  col-md-4">
+            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-3 col-lg-2" })
+            <div class="col-lg-10  col-md-4">
                 @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
             </div>
@@ -125,41 +122,29 @@
 
 
         <!--photo-->
+        <div class="form-group row">
+            <label class=" col-lg-2 col-md-3">大頭貼</label>
+            <div id="upload col-lg-4 col-md-4">
+                <label id="filedrag">
+                    <input type="file" id="photo" name="photo" accept="image/*" />
+                </label>
+            </div>
 
-        <div class="form-group">
-            <label class="control-label pl-3">Your Photo</label>
-            <button type="button" id="crop_close" class="btn mb-2 btn-outline-warning" onclick="cropCancel();">Reupload</button>
-            <div class="crop_range">
-                <div id="upload" class="col-md-4">
-                    <label id="filedrag">
-                        <input type="file" id="photo" accept="image/*" />
-                    </label>
-                </div>
-
-                <div id="crop" class="col-md-4">
+            @*<button type="button" id="crop_close" class="btn mb-2 btn-outline-warning" onclick="cropCancel();">Reupload</button>
+                <div class="crop_range">
+                    <div id="crop" class="col-md-4">
                     <button type="button" class="btn btn-info" id="prev" onclick="cropCancel();">PREV</button>
                     <button type="button" class="btn btn-info" id="next" onclick="cropResult();">Crop</button>
                     <div id="croppie"></div>
                 </div>
-
                 <div id="result" class="col-md-4">
-                    <img src="" id="crop_img" name="photo" />
-                </div>
-            </div>
+                    <img src="" id="crop_img"  />
+                </div>*@
         </div>
-
-
         <!--//////////////////////////////////////////////////-->
-
-
-
-
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Cancel", "Index", "Home", new { @class = "btn btn-secondary" })
-                <input type="submit" value="Submit" class="btn btn-primary" />
-            </div>
+            @Html.ActionLink("取消", "Index", "Home", null, new { @class = "btn btn-secondary" })
+            <input type="submit" value="送出" class="btn btn-info" />
         </div>
     </div>
 }
@@ -175,6 +160,7 @@
 
     <script src="~/Scripts/croppie.js"></script>
     <script src="~/Scripts/mineCrop.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 
     <script>
 

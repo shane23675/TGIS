@@ -3,23 +3,24 @@
 @{
     ViewBag.Title = "公告列表";
 }
-    <div class="ml-2 mr-2">
-        <div class="row">
+    <div class="mr-3">
+        <div class="row d-flex justify-content-between ml-3 ">
             <h2>公告列表</h2>
-            @Html.ActionLink("發佈新公告", "CreateAnnoun",null,new { @class = "btn btn-info" })
+            @Html.ActionLink("發佈新公告", "CreateAnnoun",null,new { @class = "btn btn-info mt-1 mb-1" })
         </div>
-        <table class="table text-center table-hover">
+        <br />
+        <table class="table text-center table-hover ml-3 ">
             <tr class="table-manager border-0">
-                <th>
+                <th width="20%">
                     @Html.DisplayNameFor(model => model.AnnouncedDate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
-                <th>
+                <th  width="20%">
                     @Html.DisplayNameFor(model => model.Administrator.Account)
                 </th>
-                <th>
+                <th width="20%">
                     管理
                 </th>
             </tr>
@@ -37,9 +38,8 @@
                         @Html.DisplayFor(modelItem => item.Administrator.Account)
                     </td>
                     <td>
-                        @Html.ActionLink("編輯", "EditAnnoun", new { id = item.ID }) |
-                        @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID }) |
-                        @Html.ActionLink("刪除", "AnnounDel", new { id = item.ID })
+                        @Html.ActionLink("查看更多", "AnnounDetail", new { id = item.ID },new { @class="btn btn-info"})
+                        @Html.ActionLink("刪除", "AnnounDel", new { id = item.ID }, new { @class = "btn btn-danger",onclick = "return confirm('確定要刪除嗎?')"})
                     </td>
                 </tr>
             }
