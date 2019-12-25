@@ -33,22 +33,6 @@
         </div>
     }
 </div>
-@* 待補上離開未儲存的確認 *@
-@*<script>
-    var isChange = false;
-    $(function () {
-        $("input,textarea,select").change(function () {
-            isChange = true;
-            $(this).addClass("editing");
-        });
-
-        $(window).bind('beforeunload', function (e) {
-            if (isChange || $(".editing").get().length > 0) {
-                return '更改尚未儲存，確定離開？';
-            }
-        })
-    });
-    $("input:submit").click(function () {
-        $(window).unbind('beforeunload');
-    });
-</script>*@
+@section scripts{
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>    
+}

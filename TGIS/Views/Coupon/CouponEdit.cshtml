@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_LayoutShoperCenter.cshtml";
 }
 
-    
 
 
-@using (Html.BeginForm("CouponEdit", "Coupon", FormMethod.Post, new { enctype="multipart/form-data"}))
+
+@using (Html.BeginForm("CouponEdit", "Coupon", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -96,4 +96,5 @@
 
 @section scripts{
     <script src="~/Scripts/date_convert.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }

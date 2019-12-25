@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TGIS.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TGIS.Controllers
 {
@@ -134,9 +136,9 @@ namespace TGIS.Controllers
 
         //管理員的揪桌管理
         [CenterLogin(CenterLogin.UserType.Admin)]
-        public ActionResult GetTeamListForAdmin()
+        public ActionResult GetTeamListForAdmin(int page = 1)
         {
-            return View(db.Teams.ToList().OrderByDescending(t => t.ID));
+            return View(db.Teams.OrderByDescending(t => t.ID).ToPagedList(page, 20));
         }
 
         //店家的預約管理
