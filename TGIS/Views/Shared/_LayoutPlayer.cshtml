@@ -163,6 +163,11 @@
                         case "2":
                             alert("登入成功")
                             location.reload();
+                            break;
+                        case "3":
+                            alert("Email尚未驗證，請至信箱收取驗證信後再登入");
+                            location.assign("@Url.Action("EmailValidateRequired", "EmailValidate")");
+                            break;
                     }
                 }
             )
