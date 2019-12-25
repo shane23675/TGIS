@@ -1,5 +1,7 @@
-﻿@using TGIS.Models;
-@model IEnumerable<TGIS.Models.Team>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using TGIS.Models;
+@model IPagedList<TGIS.Models.Team>
 
 @{
     ViewBag.Title = "揪桌管理";
@@ -11,10 +13,10 @@
 <table class="table text-center table-hover mr-3">
     <tr class="table-manager border-0">
         <th width="10%">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model[0].Title)
         </th>
         <th width="10%">
-            @Html.DisplayNameFor(model => model.ParticipateEndDate)
+            @Html.DisplayNameFor(model => model[0].ParticipateEndDate)
         </th>
         <th width="15%">
             活動時間
@@ -26,13 +28,13 @@
             遊玩店家
         </th>
         <th width="8%">
-            @Html.DisplayNameFor(model => model.Preference)
+            @Html.DisplayNameFor(model => model[0].Preference)
         </th>
         <th width="7%">
             成團人數
         </th>
         <th width="7%">
-            @Html.DisplayNameFor(model => model.EstimatedCost)
+            @Html.DisplayNameFor(model => model[0].EstimatedCost)
         </th>
         <th width="7%">
             取消
@@ -40,69 +42,78 @@
         <th width="7%">
             提早結團
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Notes)
+        </th>
         <th width="8%"></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ParticipateEndDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PlayDate)<br />
-        @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
-    </td>
-    <td>
-        @Html.ActionLink(item.LeaderPlayer.NickName, "PlayerEdit", "Player", new { playerID = item.LeaderPlayerID }, new { @class = "text-info"})
-    </td>
-    <td>
-        @Html.ActionLink(item.Shop.ShopName, "MgShopEdit", "Shop", new { id = item.ShopID }, new { @class = "text-info"})
-    </td>
-    <td>
-        @if (item.Preference != null)
-        {
-            var game = new TGISDBEntities().TableGames.Find(item.Preference);
-            @Html.ActionLink(game.ChineseName, "EditTableGame", "TableGame", new { tableGameID = game.ID}, null)
-        }
-        else
-        {
-            @: 不限
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EstimatedCost)
-    </td>
-    <td>
-        @if (item.IsCanceled)
-        {
-            @: 是
-        }
-        else
-        {
-            @: 否
-        }
-    </td>
-    <td>
-        @if (item.IsClosed)
-        {
-            @: 是
-        }
-        else
-        {
-            @: 否
-        }
-    </td>
-    <td>
-        @Html.ActionLink("公開訊息", "MessageIndex", "Message", new { teamID = item.ID, isPrivate = false }, new { @class = "btn btn-info mb-1" })
-        @Html.ActionLink("私人訊息", "MessageIndex", "Message", new { teamID = item.ID, isPrivate = true }, new { @class = "btn btn-secondary" })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParticipateEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayDate)<br />
+                @Html.DisplayFor(modelItem => item.PlayBeginTime) ~ @Html.DisplayFor(modelItem => item.PlayEndTime)
+            </td>
+            <td>
+                @Html.ActionLink(item.LeaderPlayer.NickName, "PlayerEdit", "Player", new { playerID = item.LeaderPlayerID }, new { @class = "text-info" })
+            </td>
+            <td>
+                @Html.ActionLink(item.Shop.ShopName, "MgShopEdit", "Shop", new { id = item.ShopID }, new { @class = "text-info" })
+            </td>
+            <td>
+                @if (item.Preference != null)
+                {
+                    var game = new TGISDBEntities().TableGames.Find(item.Preference);
+                    @Html.ActionLink(game.ChineseName, "EditTableGame", "TableGame", new { tableGameID = game.ID }, null)
+                }
+                else
+                {
+                    @: 不限
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinPlayer) ~ @Html.DisplayFor(modelItem => item.MaxPlayer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedCost)
+            </td>
+            <td>
+                @if (item.IsCanceled)
+                {
+                    @: 是
+                }
+                else
+                {
+                    @: 否
+                }
+            </td>
+            <td>
+                @if (item.IsClosed)
+                {
+                    @: 是
+                }
+                else
+                {
+                    @: 否
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.ActionLink("公開訊息", "MessageIndex", "Message", new { teamID = item.ID, isPrivate = false }, new { @class = "btn btn-info" })
+                @Html.ActionLink("私人訊息", "MessageIndex", "Message", new { teamID = item.ID, isPrivate = true }, new { @class = "btn btn-secondary" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("GetTeamListForAdmin", "Team", new { page }))
