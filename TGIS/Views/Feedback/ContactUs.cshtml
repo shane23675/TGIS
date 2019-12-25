@@ -4,28 +4,28 @@
     ViewBag.Title = "聯絡我們";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
-    <div class="ml-3 mr-3">
-        <h1>聯絡我們</h1>
+<div class="ml-3 mr-3">
+    <h1>聯絡我們</h1>
+    <br />
+    <p class="h4">
+        操作網站上遇到了什麼問題嗎？<br />
         <br />
-        <p class="h4">
-            操作網站上遇到了什麼問題嗎？<br />
-            <br />
-            請在下方描述您遇到的問題或是任何我們需要改善的地方。(`・ω・´)<br />
-            我們會積極受理<s>但消極處理</s>。_(¦3」∠)_<br />
-            <br />
-            總之，非常感謝您的意見～ &nbsp; (ゝ∀･)
-        </p>
-        <hr />
-    </div>
+        請在下方描述您遇到的問題或是任何我們需要改善的地方。(`・ω・´)<br />
+        我們會積極受理<s>但消極處理</s>。_(¦3」∠)_<br />
+        <br />
+        總之，非常感謝您的意見～ &nbsp; (ゝ∀･)
+    </p>
+    <hr />
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">      
+    <div class="form-horizontal">
         <div class="form-group">
             <p class="ml-3">問題類型：</p>
             <div class="col-12">
-                <input type="radio" name="TypeTagID" value="R03" checked/>網站系統問題<br />
+                <input type="radio" name="TypeTagID" value="R03" checked />網站系統問題<br />
                 <input type="radio" name="TypeTagID" value="R04" />其他
             </div>
         </div>
@@ -50,4 +50,5 @@
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }

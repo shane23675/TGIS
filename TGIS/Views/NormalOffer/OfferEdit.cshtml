@@ -7,82 +7,83 @@
 
 
 
-@using (Html.BeginForm("OfferEdit", "NormalOffer", FormMethod.Post, new { enctype="multipart/form-data"}))
+@using (Html.BeginForm("OfferEdit", "NormalOffer", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal container">
-    <h2>編輯活動</h2>
-    <hr />
+    <div class="form-horizontal container">
+        <h2>編輯活動</h2>
+        <hr />
 
-    <div class="row form-group">
-        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="row form-group">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="row form-group">
-        @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
-            @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="row form-group">
-        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
-            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        <div class="row form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="row form-group">
-        <label class="control-label col-md-2">圖片資料</label>
-        <div class="col-md-10">
-            @if (ViewBag.photoIDList.Count == 0)
-            {
-                <p class="text-info">目前尚無任何圖片</p>
-            }
-            else
-            {
-                foreach (int id in ViewBag.photoIDList)
+        <div class="row form-group">
+            <label class="control-label col-md-2">圖片資料</label>
+            <div class="col-md-10">
+                @if (ViewBag.photoIDList.Count == 0)
                 {
-                    <div>
-                        <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
-                        <div>
-                            刪除<input type="checkbox" name="deletedPhotoID" value="@id" class="ml-1"/>
-                        </div>
-                    </div>
+                    <p class="text-info">目前尚無任何圖片</p>
                 }
-            }
+                else
+                {
+                    foreach (int id in ViewBag.photoIDList)
+                    {
+                        <div>
+                            <img class="img-fluid" src="@Url.Action("GetPhotoByID", "Photo", new { photoID = id})" />
+                            <div>
+                                刪除<input type="checkbox" name="deletedPhotoID" value="@id" class="ml-1" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="control-label col-md-2">上傳新圖片<br />(可一次選取多張)</label>
+            <div class="col-md-8">
+                <input type="file" name="photos" multiple />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="儲存更改" class="btn btn-info" />
         </div>
     </div>
-
-    <div class="row form-group">
-        <label class="control-label col-md-2">上傳新圖片<br />(可一次選取多張)</label>
-        <div class="col-md-8">
-            <input type="file" name="photos" multiple />
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <input type="submit" value="儲存更改" class="btn btn-info" />
-    </div>
-</div>
 }
 
 @section scripts{
     <script src="~/Scripts/date_convert.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }

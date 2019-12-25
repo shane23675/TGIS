@@ -1,5 +1,7 @@
-﻿@using TGIS.Models;
-@model IEnumerable<TGIS.Models.Team>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using TGIS.Models;
+@model IPagedList<TGIS.Models.Team>
 
 @{
     ViewBag.Title = "揪桌管理";
@@ -11,10 +13,10 @@
 <table class="table text-center table-hover mr-3">
     <tr class="table-manager border-0">
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model[0].Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParticipateEndDate)
+            @Html.DisplayNameFor(model => model[0].ParticipateEndDate)
         </th>
         <th>
             活動時間
@@ -26,13 +28,13 @@
             遊玩店家
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Preference)
+            @Html.DisplayNameFor(model => model[0].Preference)
         </th>
         <th>
             成團人數
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstimatedCost)
+            @Html.DisplayNameFor(model => model[0].EstimatedCost)
         </th>
         <th>
             取消
@@ -41,7 +43,7 @@
             提早結團
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model[0].Notes)
         </th>
         <th></th>
     </tr>
@@ -112,3 +114,5 @@
 }
 
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("GetTeamListForAdmin", "Team", new { page}))

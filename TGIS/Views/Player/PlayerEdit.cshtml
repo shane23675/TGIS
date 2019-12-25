@@ -42,7 +42,7 @@
             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
                 <div class="checkbox">
-                    @Html.DropDownList("Gender", null, new { @class = "form-control"})
+                    @Html.DropDownList("Gender", null, new { @class = "form-control" })
                 </div>
             </div>
             <label class="control-label col-md-1">地址</label>
@@ -81,7 +81,7 @@
         </div>
 
         <input type="submit" value="儲存" class="btn btn-primary" />
-        @Html.ActionLink("回到列表", "PlayerIndex",null,new {@class="btn  btn-secondary" })
+        @Html.ActionLink("回到列表", "PlayerIndex", null, new { @class = "btn  btn-secondary" })
     </div>
 }
 
@@ -92,4 +92,5 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/date_convert.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }

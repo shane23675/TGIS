@@ -28,12 +28,12 @@
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
-                <input type="submit" value="新增" class="btn btn-info" />
+        <input type="submit" value="新增" class="btn btn-info" />
     </div>
 }
 
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }
