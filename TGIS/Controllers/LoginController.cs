@@ -24,6 +24,9 @@ namespace TGIS.Controllers
             Player user = db.Players.Where(m => m.Account == account).Where(m => m.Password == password).SingleOrDefault();
             if (user != null)
             {
+                //如果Email尚未驗證則重新導向至指定頁面
+                if (!user.IsEmailValid)
+                    return Content("3");
                 Session["PlayerID"] = user.ID.ToString(); 
                 return Content("2");
             }

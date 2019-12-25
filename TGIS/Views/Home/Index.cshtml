@@ -13,9 +13,11 @@
     <script src="https://kit.fontawesome.com/5d5bcaa2bc.js" crossorigin="anonymous"></script>
     <link href="~/Content/WebSearch.css" rel="stylesheet" />
     <style>
+        @@media (min-width:576px){ 
         .listbutton {
             font-size: 80px;
         }
+                    }
     </style>
 </head>
 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
@@ -70,7 +72,7 @@
             
                 <div class="row">
                     <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
-                    <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control col-10" aria-label="search" />
+                    <input id="GameSearch" type="search" placeholder="搜尋想找的桌遊" class="form-control col-sm-10 col-md-8 col-lg-9 col-xl-10" aria-label="search" />
                     <div id="TGResultList" class="col-12 ml-3 list-group"></div>
                 </div>
                 
@@ -85,7 +87,7 @@
             </a>
             <div class="row">
                 <span class="text-secondary m-2"><i class="fas fa-search"></i></span>
-                <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control col-10" aria-label="search" />
+                <input id="ShopSearch" type="search" placeholder="搜尋想找的店家" class="form-control  col-sm-10 col-md-8 col-lg-9 col-xl-10" aria-label="search" />
                 <div id="ShopResultList"  class="col-12 ml-3 list-group"></div>
             </div>
            

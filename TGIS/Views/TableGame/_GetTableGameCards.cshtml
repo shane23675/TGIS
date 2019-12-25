@@ -4,7 +4,7 @@
     <div class="col-3">
         <div class="card mt-4 ">
             <a href="@Url.Action("ShowTableGameDetail", "TableGame", new { tableGameID=item.ID})">
-                <div class="card-body">
+                <div class="card-body  img-fix row justify-content-center align-content-center ml-0">
                     <img src="@Url.Action("GetPhotoBySourceID", "Photo", new { sourceID=item.ID, index=0})" class="w-100 h-100" />
                     <div class="gameName">
                         @item.ChineseName
