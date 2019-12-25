@@ -5,29 +5,26 @@
 }
 
 
-        <h2 class="mb-0">@Html.DisplayFor(model => model.Title)</h2>
 
-    <div>
-        <div class="row justify-content-end">
-            @Html.ActionLink("編輯", "EditAnnoun", new { id = Model.ID },new { @class="btn btn-outline-info mr-3"})
-        </div>
-        <hr />
-        
-            <h6>
-                <strong>公告日期：</strong>@Html.DisplayFor(model => model.AnnouncedDate)
-            </h6>
 
-            <h6>
-                <strong>發佈帳號：</strong>@Html.DisplayFor(model => model.Administrator.Account)
-            </h6>
+<div class="ml-3">
+    <div class="row d-flex justify-content-between ml-1 mr-1">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        @Html.ActionLink("編輯", "EditAnnoun", new { id = Model.ID }, new { @class = "btn btn-info mt-1 mb-1" })
+    </div>
+    <hr />
 
-            <h6>
-                <strong>公告內文：</strong>
-                <br/>
-                <span style="line-height:2rem">@Html.DisplayFor(model => model.Content)</span>
-            </h6>
-        
-        <p>
-          
-            @Html.ActionLink("返回列表", "AnnouncementIndexForAdmin")
-        </p>
+    <h6>
+        <strong>公告日期：</strong>@Html.DisplayFor(model => model.AnnouncedDate)
+    </h6>
+
+    <h6>
+        <strong>發佈帳號：</strong>@Html.DisplayFor(model => model.Administrator.Account)
+    </h6>
+
+    <h6>
+        <strong>公告內文：</strong>
+        <br />
+        <span style="line-height:2rem">@Html.DisplayFor(model => model.Content)</span>
+    </h6>
+</div>
