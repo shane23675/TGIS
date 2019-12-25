@@ -24,5 +24,13 @@ namespace TGIS.Controllers
             db.SaveChanges();
             return View();
         }
+
+        //信箱尚未驗證頁面
+        public ActionResult EmailValidateRequired()
+        {
+            return View("EmailValidate");
+        }
     }
+
+
 }
