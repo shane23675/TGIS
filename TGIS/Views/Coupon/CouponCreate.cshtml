@@ -7,8 +7,7 @@
 }
 
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("CouponCreate", "Coupon", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 

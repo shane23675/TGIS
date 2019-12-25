@@ -29,11 +29,12 @@ namespace TGIS.Controllers
         }
 
         //店家新增優惠券
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult OfferCreate()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult OfferCreate(NormalOffer normalOffer, HttpPostedFileBase[] photos)
         {
             OfferTimeCheck(normalOffer);
@@ -48,12 +49,13 @@ namespace TGIS.Controllers
                 db.SaveChanges();
                 //存入圖片
                 PhotoManager.Create(normalOffer.ID, photos);
-                return RedirectToAction("OfferList");
+                return RedirectToAction("OfferListForShop");
             }
             return View();
         }
 
         //店家編輯活動
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult OfferEdit(string normalOfferID)
         {
             var offer = db.NormalOffers.Find(normalOfferID);
@@ -67,7 +69,7 @@ namespace TGIS.Controllers
             TempData["Offer"] = offer;
             return View(offer);
         }
-        [HttpPost]
+        [HttpPost, CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult OfferEdit(NormalOffer normalOffer, HttpPostedFileBase[] photos, int[] deletedPhotoID)
         {
             OfferTimeCheck(normalOffer);
@@ -93,6 +95,7 @@ namespace TGIS.Controllers
         }
 
         //店家刪除活動
+        [CenterLogin(CenterLogin.UserType.Shop)]
         public ActionResult OfferDel(string normalOfferID)
         {
             var offer = db.NormalOffers.Find(normalOfferID);
