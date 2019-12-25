@@ -230,6 +230,7 @@
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\chart\Chart.js" />
     <Content Include="Scripts\chart\Chart.min.js" />
+    <Content Include="Scripts\confirmBeforeExitEditor.js" />
     <Content Include="Scripts\date_convert.js" />
     <Content Include="Scripts\address.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />

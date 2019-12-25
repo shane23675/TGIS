@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
 }
 
-    <div class="ml-3 mr-3">
-        <h1>
-            不當檢舉
-            <small class="text-muted h5">檢舉對象：@ViewBag.PlaintiffName</small>
-        </h1>       
-        <br />
-        <p class="h4">
-            請詳細描述你遇到的事件以及對方的不當行為。<br />
-            我們進行調查與處理<s>如果我們有閒</s>。_(¦3」∠)_<br />
-        </p>
-        <hr />
-    </div>
+<div class="ml-3 mr-3">
+    <h1>
+        不當檢舉
+        <small class="text-muted h5">檢舉對象：@ViewBag.PlaintiffName</small>
+    </h1>
+    <br />
+    <p class="h4">
+        請詳細描述你遇到的事件以及對方的不當行為。<br />
+        我們進行調查與處理<s>如果我們有閒</s>。_(¦3」∠)_<br />
+    </p>
+    <hr />
+</div>
 
 @using (Html.BeginForm())
 {
@@ -43,4 +43,5 @@
 @section scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/confirmBeforeExitEditor.js"></script>
 }

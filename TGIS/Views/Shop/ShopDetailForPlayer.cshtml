@@ -5,6 +5,7 @@
     ViewBag.Title = "店家資訊";
     Layout = "~/Views/Shared/_LayoutPlayer.cshtml";
     int count = 0;
+    string playerID = (string)Session["PlayerID"];
 }
 
 <nav aria-label="breadcrumb">
@@ -63,7 +64,14 @@
                         <span class="btn badge-outline-primary mr-2">無低消</span>
                     }
                 }
-                @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })
+                @if (playerID != null)
+                {
+                    @Html.ActionLink("檢舉", "Report", "Feedback", new { defendent = Model.ID }, new { @class = "btn btn-outline-secondary" })
+                }
+                else
+                {
+                    <a href="javascript: document.getElementById('loginBtn').click()" class="btn btn-outline-secondary" >檢舉</a>
+                }
             </div>
         </div>
         <br />
@@ -86,8 +94,8 @@
     <p>@Html.Raw(Model.Description.Replace("\n", "<br/>").Replace(" ", "&nbsp;"))</p>
 
 </div>
-
-    <ul class="nav nav-SD nav-fill">
+    @*  id="pageSelector" 才能保留目前顯示的頁面 *@
+    <ul class="nav nav-SD nav-fill" id="pageSelector">
         <li class="nav-item">
             <a class="nav-link active" href="#TableGameList" data-toggle="tab">店內桌遊清單</a>
         </li>
@@ -115,5 +123,22 @@
 
         </div>
     </div>
+@section scripts{
+    <script>
+        //選取被保留的分頁(桌遊清單、活動、優惠券)
+        var nowPage = localStorage.getItem("nowPage");
+        //若nowPage有值則觸發對應位置的<a>
+        if (nowPage) {
+            $(`#pageSelector>li:nth-child(${nowPage})>a`).trigger("click");
+        }
 
+        //點擊選取分頁(桌遊清單、活動、優惠券)時會將目前分頁存入localStorage
+        //點擊第一個<a>會存入"1"，點擊第二個<a>會存入"2"...
+        for (let i = 1; i <= $("#pageSelector>li").length; i++) {
+            $(`#pageSelector>li:nth-child(${i})>a`).click(function () {
+                localStorage.setItem("nowPage", i.toString());
+            })
+        }
+    </script>    
+}
 
