@@ -508,7 +508,7 @@ namespace TGIS.Models
         [DisplayName("報名結束時間"),DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true), DataType(DataType.DateTime)]
         [Required(ErrorMessage = "報名結束時間為必填")]
         public System.DateTime ParticipateEndDate { get; set; }
-        [DisplayName("其他資訊備註"),StringLength(20)]
+        [DisplayName("其他資訊備註"),StringLength(100)]
         public string Notes { get; set; }
         [DisplayName("遊戲日期"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         [Required(ErrorMessage = "遊戲日期為必填")]

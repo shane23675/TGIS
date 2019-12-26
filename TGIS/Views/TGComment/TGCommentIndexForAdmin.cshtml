@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TGIS.Models.TableGameComment>
+﻿@using TGIS.Models;
+@model IEnumerable<TGIS.Models.TableGameComment>
 
 @{
     ViewBag.Title = "評論管理";
@@ -16,7 +17,7 @@
             @Html.DisplayNameFor(model => model.Content)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Player.Account)
+            @Html.DisplayNameFor(model => model.Player.NickName)
         </th>
         <th>
             桌遊名稱
@@ -36,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                <a href="@Url.Action("PlayerEdit", "Player", new { playerID = item.PlayerID})" class="text-info">@item.PlayerID</a>
+                <a href="@Url.Action("PlayerEdit", "Player", new { playerID = item.PlayerID})" class="text-info">@UsefulTools.GetUserNameByID(item.PlayerID)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TableGame.ChineseName)
